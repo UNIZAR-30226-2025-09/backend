@@ -101,6 +101,7 @@ async function seed() {
     `);
 
         // Insertar datos de ejemplo en ARTIST
+        //
         const artistResult = await client.query(`
       INSERT INTO artist (name, bio) VALUES
       ('Artist One', 'Biografía de Artist One.'),

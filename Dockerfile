@@ -19,3 +19,4 @@ COPY . .
 # Comando que se ejecuta al iniciar el contenedor:
 # Aquí se ejecuta el script seed.js para poblar la base de datos.
 CMD ["node", "seed.js"]
+#
