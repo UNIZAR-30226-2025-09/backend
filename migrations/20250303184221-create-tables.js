@@ -4,7 +4,7 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     // Tabla USER
-    await queryInterface.createTable("Users", {
+    await queryInterface.createTable("User", {
       id: { type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false },
       nickname: { type: Sequelize.STRING, allowNull: false, unique: true },
       contrasena: { type: Sequelize.STRING, allowNull: false },
@@ -15,7 +15,7 @@ module.exports = {
     });
 
     // Tabla ARTIST
-    await queryInterface.createTable("Artists", {
+    await queryInterface.createTable("Artist", {
       id: { type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false },
       nombre: { type: Sequelize.STRING, allowNull: false },
       bio: { type: Sequelize.TEXT },
@@ -23,7 +23,7 @@ module.exports = {
     });
 
     // Tabla SONG
-    await queryInterface.createTable("Songs", {
+    await queryInterface.createTable("Song", {
       id: { type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false },
       nombre: { type: Sequelize.STRING, allowNull: false },
       duracion: { type: Sequelize.INTEGER },
@@ -33,7 +33,7 @@ module.exports = {
     });
 
     // Tabla PLAYLIST
-    await queryInterface.createTable("Playlists", {
+    await queryInterface.createTable("Playlist", {
       id: { type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false },
       name: { type: Sequelize.STRING, allowNull: false },
       user_id: { type: Sequelize.INTEGER, references: { model: "Users", key: "id" }, onDelete: "CASCADE"},
@@ -44,25 +44,25 @@ module.exports = {
     });
 
     // Tabla intermedia SONG-ARTIST (M:N)
-    await queryInterface.createTable("SongArtists", {
+    await queryInterface.createTable("SongArtist", {
       song_id: { type: Sequelize.INTEGER, references: { model: "Songs", key: "id" }, onDelete: "CASCADE", primaryKey: true },
       artist_id: { type: Sequelize.INTEGER, references: { model: "Artists", key: "id" }, onDelete: "CASCADE", primaryKey: true }
     });
 
     // Tabla intermedia SONG-PLAYLIST (M:N)
-    await queryInterface.createTable("SongPlaylists", {
+    await queryInterface.createTable("SongPlaylist", {
       song_id: { type: Sequelize.INTEGER, references: { model: "Songs", key: "id" }, onDelete: "CASCADE", primaryKey: true },
       playlist_id: { type: Sequelize.INTEGER, references: { model: "Playlists", key: "id" }, onDelete: "CASCADE", primaryKey: true }
     });
 
     // Tabla intermedia SONG-LIKE (M:N con USER)
-    await queryInterface.createTable("SongLikes", {
+    await queryInterface.createTable("SongLike", {
       user_id: { type: Sequelize.INTEGER, references: { model: "Users", key: "id" }, onDelete: "CASCADE", primaryKey: true },
       song_id: { type: Sequelize.INTEGER, references: { model: "Songs", key: "id" }, onDelete: "CASCADE", primaryKey: true }
     });
 
     // Tabla intermedia PLAYLIST-LIKE (M:N con USER)
-    await queryInterface.createTable("PlaylistLikes", {
+    await queryInterface.createTable("PlaylistLike", {
       user_id: { type: Sequelize.INTEGER, references: { model: "Users", key: "id" }, onDelete: "CASCADE", primaryKey: true },
       playlist_id: { type: Sequelize.INTEGER, references: { model: "Playlists", key: "id" }, onDelete: "CASCADE", primaryKey: true }
     });
@@ -75,7 +75,7 @@ module.exports = {
     });
 
     // Tabla FRIENDSHIP (M:N entre USER y USER)
-    await queryInterface.createTable("Friendships", {
+    await queryInterface.createTable("Friendship", {
       user1_id: { type: Sequelize.INTEGER, references: { model: "Users", key: "id" }, onDelete: "CASCADE", primaryKey: true },
       user2_id: { type: Sequelize.INTEGER, references: { model: "Users", key: "id" }, onDelete: "CASCADE", primaryKey: true },
       state_friend_request: { type: Sequelize.STRING }
@@ -89,7 +89,7 @@ module.exports = {
     });
 
     // Tabla CHAT (M:N entre USER y USER)
-    await queryInterface.createTable("Friendships", {
+    await queryInterface.createTable("Chat", {
       user1_id: { type: Sequelize.INTEGER, references: { model: "Users", key: "id" }, onDelete: "CASCADE", primaryKey: true },
       user2_id: { type: Sequelize.INTEGER, references: { model: "Users", key: "id" }, onDelete: "CASCADE", primaryKey: true },
       txt_message: { type: Sequelize.STRING }
