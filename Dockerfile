@@ -8,7 +8,7 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 
 # Instala las dependencias definidas en package.json
-RUN npm install
+RUN npm install --production
 
 # Copia el resto del código del proyecto al contenedor
 COPY . .
@@ -18,5 +18,5 @@ COPY . .
 
 # Comando que se ejecuta al iniciar el contenedor:
 # Aquí se ejecuta el script seed.js para poblar la base de datos.
-CMD ["node", "seed.js"]
+CMD ["sh", "-c", "npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all && npm start"]
 #
