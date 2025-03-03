@@ -85,7 +85,7 @@ module.exports = {
     await queryInterface.createTable("PermissionHave", {
       user_id: { type: Sequelize.INTEGER, references: { model: "Users", key: "id" }, onDelete: "CASCADE", primaryKey: true },
       playlist_id: { type: Sequelize.INTEGER, references: { model: "Playlists", key: "id" }, onDelete: "CASCADE", primaryKey: true },
-      //valoracion: { type: Sequelize.FLOAT }
+      type_permission: { type: Sequelize.STRING }
     });
 
     // Tabla CHAT (M:N entre USER y USER)
