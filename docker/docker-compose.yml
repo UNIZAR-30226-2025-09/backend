@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  server:
+    build:
+      context: ..  # Se asegura de que el contexto sea la raíz de backend
+      dockerfile: docker/Dockerfile  # Ruta relativa al Dockerfile dentro de la carpeta docker
+    container_name: backend_server
+    restart: always
+    ports:
+      - "5000:5000"
+    volumes:
+      - ..:/usr/src/app  # Monteamos toda la raíz del proyecto
+    environment:
+      - NODE_ENV=development
