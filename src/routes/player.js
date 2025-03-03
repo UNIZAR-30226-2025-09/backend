@@ -6,7 +6,7 @@ let playerState = {
     isPlaying: false,
     currentTime: 0, // Tiempo en segundos
     trackId: null
-};
+};//
 
 // Reproducir o reanudar canción
 router.post('/play', (req, res) => {
