@@ -1,6 +1,5 @@
 # Usa la imagen oficial de Node.js (versión 18)
-FROM node:18
-
+FROM node:22.14.0-alpine
 # Establece el directorio de trabajo en el contenedor
 WORKDIR /usr/src/app
 
@@ -17,4 +16,4 @@ COPY . .
 EXPOSE 5000
 
 # Comando que ejecutará el servidor
-CMD ["node", "src/server.js"]
+CMD ["sh", "-c", "npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all && npm start"]
