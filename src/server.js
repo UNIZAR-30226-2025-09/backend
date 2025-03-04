@@ -1,17 +1,16 @@
 const cors = require("cors");
 const express = require("express");
+const apiRoutes = require("./routes/api");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Middleware
-app.use(cors({ origin: "http://localhost:5173" })); // Asegúrate de que coincida con el puerto de Vite
+app.use(cors()); // No hace falta especificar el origen, Nginx manejará esto
 app.use(express.json());
 
-// Ruta de prueba
-app.get("/api/hello", (req, res) => {
-    res.json({ message: "¡Hola desde el backend con Node.js!" });
-});
+// Todas las rutas estarán bajo `/api`
+app.use("/api", apiRoutes);
 
 // Iniciar el servidor
 app.listen(PORT, () => {
