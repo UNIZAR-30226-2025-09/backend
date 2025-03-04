@@ -5,7 +5,8 @@ module.exports = (sequelize, DataTypes) => {
         nombre: { type: DataTypes.STRING, allowNull: false },
         duracion: DataTypes.INTEGER,
         lyrics: DataTypes.TEXT,
-        foto_video: DataTypes.STRING
+        foto_video: DataTypes.STRING,
+        url_mp3: { type: DataTypes.STRING, allowNull: false } // Nueva columna en el modelo
     }, { tableName: "Song", timestamps: false });
 
     Song.associate = function(models) {
