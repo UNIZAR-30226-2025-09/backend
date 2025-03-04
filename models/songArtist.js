@@ -1,9 +1,9 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-    const SongArtist = sequelize.define('SongArtist', {
+    const song_artist = sequelize.define('song_artist', {
         song_id: { type: DataTypes.INTEGER, primaryKey: true },
         artist_id: { type: DataTypes.INTEGER, primaryKey: true }
-    }, { tableName: "SongArtist", timestamps: false });
+    }, { tableName: "song_artist", timestamps: false });
 
-    return SongArtist;
+    return song_artist;
 };
