@@ -29,8 +29,9 @@ module.exports = {
       duracion: { type: Sequelize.INTEGER },
       lyrics: { type: Sequelize.TEXT },
       foto_video: { type: Sequelize.STRING },
-      created_at: { type: Sequelize.DATE, defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"), allowNull: false }
+      url_mp3: { type: Sequelize.STRING, allowNull: false } // Nueva columna para la URL del MP3
     });
+
 
     // Tabla PLAYLIST
     await queryInterface.createTable("Playlist", {
