@@ -1,17 +1,24 @@
 {
-  "name": "backend",
+  "name": "mi-aplicacion-backend",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Backend de la aplicación de música con Express y Sequelize",
+  "main": "src/server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node src/server.js",
+    "db:migrate": "npx sequelize-cli db:migrate",
+    "db:seed": "npx sequelize-cli db:seed:all"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
+    "express": "^4.18.2",
     "cors": "^2.8.5",
-    "dotenv": "^16.4.7",
-    "express": "^4.21.2"
-  }
+    "pg": "^8.10.0",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.28.0",
+    "dotenv": "^16.0.0",
+    "sequelize-cli": "^6.6.0"
+
+  },
+
+  "author": "Tu Nombre",
+  "license": "MIT"
 }
