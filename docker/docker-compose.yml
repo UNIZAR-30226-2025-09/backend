@@ -1,15 +1,49 @@
 version: '3.8'
 
 services:
-  server:
+  frontend:
     build:
-      context: ..  # Se asegura de que el contexto sea la raíz de backend
-      dockerfile: docker/Dockerfile  # Ruta relativa al Dockerfile dentro de la carpeta docker
+      context: ../../frontend_web  # Se asegura de que el contexto sea la raíz de frontend_web
+      dockerfile: docker/Dockerfile  # Ubicación específica del Dockerfile del frontend
+    container_name: react_vite_app
+    ports:
+      - "5173:5173"  # Expone el puerto de Vite
+    volumes:
+      - ../../frontend_web:/app  # Monteamos solo la carpeta correcta
+      - /app/node_modules  # Evita sobrescribir node_modules con el volumen
+    environment:
+      - NODE_ENV=development
+    command: ["npm", "run", "dev", "--", "--host"]
+    networks:
+      - app_network
+
+  backend:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile # Ubicación específica del Dockerfile del backend
     container_name: backend_server
     restart: always
     ports:
       - "5000:5000"
-    volumes:
-      - ..:/usr/src/app  # Monteamos toda la raíz del proyecto
     environment:
-      - NODE_ENV=development
+      - NODE_ENV=production
+    networks:
+      - app_network
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx_proxy
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - backend
+      - frontend
+    networks:
+      - app_network
+
+networks:
+  app_network:
+    driver: bridge
