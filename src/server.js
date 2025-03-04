@@ -11,6 +11,9 @@ app.use(express.json());
 
 // Todas las rutas estarán bajo `/api`
 app.use("/api", apiRoutes);
+app.get("/", (req, res) => {
+    res.send("Bienvenido a la API del servidor");
+});
 
 // Iniciar el servidor
 app.listen(PORT, () => {
