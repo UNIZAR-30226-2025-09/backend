@@ -1,25 +1,20 @@
 {
   "development": {
-    "username": "user",
-    "password": "password",
-    "database": "music_db",
+    "username": "my_user",
+    "password": "my_password",
+    "database": "my_database",
     "host": "localhost",
     "dialect": "postgres",
     "port": 5432,
     "ssl": false
   },
   "production": {
-    "username": "user",
-    "password": "password",
-    "database": "music_db",
-    "host": "127.0.0.1",
+    "username": "my_user",
+    "password": "my_password",
+    "database": "my_database",
+    "host": "localhost",
     "dialect": "postgres",
-    "port": 25060,
-    "dialectOptions": {
-      "ssl": {
-        "require": true,
-        "rejectUnauthorized": false
-      }
-    }
+    "port": 5432,
+    "ssl": false
   }
 }
