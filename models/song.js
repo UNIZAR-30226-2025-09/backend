@@ -1,19 +1,19 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-    const Song = sequelize.define('Song', {
+    const song = sequelize.define('song', {
         id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false },
         nombre: { type: DataTypes.STRING, allowNull: false },
         duracion: DataTypes.INTEGER,
         lyrics: DataTypes.TEXT,
         foto_video: DataTypes.STRING,
         url_mp3: { type: DataTypes.STRING, allowNull: false } // Nueva columna en el modelo
-    }, { tableName: "Song", timestamps: false });
+    }, { tableName: "song", timestamps: false });
 
-    Song.associate = function(models) {
-        Song.belongsToMany(models.Artist, { through: "SongArtist", foreignKey: "song_id" });
-        Song.belongsToMany(models.Playlist, { through: "SongPlaylist", foreignKey: "song_id" });
-        Song.belongsToMany(models.User, { through: "SongLike", foreignKey: "song_id" });
+    song.associate = function(models) {
+        song.belongsToMany(models.Artist, { through: "song_artist", foreignKey: "song_id" });
+        song.belongsToMany(models.Playlist, { through: "song_playlist", foreignKey: "song_id" });
+        song.belongsToMany(models.User, { through: "song_like", foreignKey: "song_id" });
     };
 
-    return Song;
+    return song;
 };

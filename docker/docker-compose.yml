@@ -20,22 +20,23 @@ services:
   backend:
     build:
       context: ..
-      dockerfile: docker/Dockerfile # Ubicación específica del Dockerfile del backend
+      dockerfile: docker/Dockerfile
     container_name: backend_server
     restart: always
     ports:
       - "5000:5000"
     environment:
       - NODE_ENV=production
-      - DB_HOST=postgres  # Variable para conectarse a PostgreSQL
+      - DB_HOST=postgres
       - DB_USER=my_user
       - DB_PASSWORD=my_password
       - DB_NAME=my_database
       - DB_PORT=5432
     depends_on:
-        - postgres
+      postgres:
+        condition: service_healthy
     networks:
-        - app_network
+      - app_network
 
   postgres:
     image: postgres:14
@@ -48,10 +49,14 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - postgres_data:/var
+      - postgres_data:/var/lib/postgresql/data
     networks:
       - app_network
-
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-U", "my_user", "-d", "my_database" ]
+      interval: 10s
+      retries: 5
+      timeout: 5s
 
   nginx:
     image: nginx:latest
