@@ -2,10 +2,10 @@
 module.exports = (sequelize, DataTypes) => {
     const song = sequelize.define('song', {
         id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false },
-        nombre: { type: DataTypes.STRING, allowNull: false },
-        duracion: DataTypes.INTEGER,
+        name: { type: DataTypes.STRING, allowNull: false },
+        duration: DataTypes.INTEGER,
         lyrics: DataTypes.TEXT,
-        foto_video: DataTypes.STRING,
+        photo_video: DataTypes.STRING,
         url_mp3: { type: DataTypes.STRING, allowNull: false } // Nueva columna en el modelo
     }, { tableName: "song", timestamps: false });
 

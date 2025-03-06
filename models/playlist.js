@@ -3,10 +3,11 @@ module.exports = (sequelize, DataTypes) => {
     const playlist = sequelize.define('playlist', {
         id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false },
         name: { type: DataTypes.STRING, allowNull: false },
-        user_id: { type: DataTypes.INTEGER, allowNull: false },
+        user_id: { type: DataTypes.INTEGER, allowNull: true },
+        artist_id: { type: DataTypes.INTEGER, allowNull: true },
         description: DataTypes.TEXT,
         type: DataTypes.STRING,
-        portada: DataTypes.STRING
+        front_page: DataTypes.STRING
     }, { tableName: "playlist", timestamps: false });
 
     playlist.associate = function(models) {
