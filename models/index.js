@@ -27,6 +27,7 @@ fs
     );
   })
   .forEach(file => {
+    console.log("Cargando modelo:", file);  // 🔥 Verifica qué archivos está cargando
     const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes);
     db[model.name] = model;
   });
