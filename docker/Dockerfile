@@ -16,4 +16,4 @@ COPY . .
 EXPOSE 5000
 
 # Comando que ejecutará el servidor
-CMD ["sh", "-c", "npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all && npm start"]
+CMD ["sh", "-c", "npx sequelize-cli db:migrate:undo:all && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all && npm start"]
