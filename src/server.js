@@ -1,21 +1,28 @@
 const cors = require("cors");
 const express = require("express");
-const apiRoutes = require("./routes/api");
+const apiRoute = require("./routes/api");
+const authRoute = require("./routes/auth");
+const { sequelize } = require("../models"); // Importamos la instancia de Sequelize
 
 const app = express();
-const PORT = process.env.PORT || 5000;
 
-// Middleware
-app.use(cors()); // No hace falta especificar el origen, Nginx manejará esto
-app.use(express.json());
+app.use(cors());
+app.use(express.json()); // Middleware para JSON
 
-// Todas las rutas estarán bajo `/api`
-app.use("/api", apiRoutes);
-app.get("/", (req, res) => {
-    res.send("Bienvenido a la API del servidor");
-});
+// Definir rutas
+app.use("/auth", authRoute); // Aquí deben estar las rutas de autenticación
+app.use("/api", apiRoute); // Aquí las rutas de prueba hello y bye
 
-// Iniciar el servidor
-app.listen(PORT, () => {
-    console.log(`Servidor API corriendo en http://localhost:${PORT}`);
-});
+const PORT = 5000;
+
+// 🔥 Primero nos aseguramos de que la BD esté conectada antes de iniciar el servidor
+sequelize.authenticate()
+    .then(() => {
+        console.log("Conectado a la base de datos");
+
+        app.listen(PORT, () => console.log(`Servidor corriendo en ${PORT}`));
+    })
+    .catch(err => {
+        console.error("Error de conexión a la base de datos:", err);
+        process.exit(1); // Cerrar el proceso si no se conecta a la BD
+    });
