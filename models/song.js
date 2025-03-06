@@ -10,9 +10,9 @@ module.exports = (sequelize, DataTypes) => {
     }, { tableName: "song", timestamps: false });
 
     song.associate = function(models) {
-        song.belongsToMany(models.Artist, { through: "song_artist", foreignKey: "song_id" });
-        song.belongsToMany(models.Playlist, { through: "song_playlist", foreignKey: "song_id" });
-        song.belongsToMany(models.User, { through: "song_like", foreignKey: "song_id" });
+        song.belongsToMany(models.artist, { through: "song_artist", foreignKey: "song_id" });
+        song.belongsToMany(models.playlist, { through: "song_playlist", foreignKey: "song_id" });
+        song.belongsToMany(models.user, { through: "song_like", foreignKey: "song_id" });
     };
 
     return song;

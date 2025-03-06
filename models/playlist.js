@@ -10,11 +10,11 @@ module.exports = (sequelize, DataTypes) => {
     }, { tableName: "playlist", timestamps: false });
 
     playlist.associate = function(models) {
-        playlist.belongsTo(models.User, { foreignKey: "user_id" });
-        playlist.belongsToMany(models.Song, { through: "song_playlist", foreignKey: "playlist_id" });
-        playlist.belongsToMany(models.User, { through: "playlist_like", foreignKey: "playlist_id" });
-        playlist.belongsToMany(models.User, { through: "playlist_feedback", foreignKey: "playlist_id" });
-        playlist.belongsToMany(models.User, { through: "permission_have", foreignKey: "playlist_id" });
+        playlist.belongsTo(models.user, { foreignKey: "user_id" });
+        playlist.belongsToMany(models.song, { through: "song_playlist", foreignKey: "playlist_id" });
+        playlist.belongsToMany(models.user, { through: "playlist_like", foreignKey: "playlist_id" });
+        playlist.belongsToMany(models.user, { through: "playlist_feedback", foreignKey: "playlist_id" });
+        playlist.belongsToMany(models.user, { through: "permission_have", foreignKey: "playlist_id" });
     };
 
     return playlist;
