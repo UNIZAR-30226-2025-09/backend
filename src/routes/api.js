@@ -14,4 +14,10 @@ router.get("/bye", (req, res) => {
 // Integrar rutas de playlist bajo `/api/playlists`
 router.use("/playlists", playlistRoutes);
 
+const playerRoutes = require('./playerRoutes');
+
+// Montamos las rutas de "player" en /player
+router.use('/player', playerRoutes);
+
+
 module.exports = router;
