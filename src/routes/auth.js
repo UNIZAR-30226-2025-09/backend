@@ -1,16 +1,16 @@
 const express = require("express");
-const { user: user } = require("../../models"); // Importamos el modelo correctamente desde models/index.js
+const { user } = require("../../models"); // Importamos el modelo correctamente desde models/index.js
 
 const router = express.Router();
 
 // **Registro de usuario**
 router.post("/register", async (req, res) => {
-    const { nickname, contrasena, correo, estilo_fav } = req.body;
+    const { nickname, password, mail, style_fav } = req.body; // Corrección en los nombres
 
     try {
         // Verificar si el usuario ya existe
-        const userExists = await user.findOne({ where: { correo } });
-        
+        const userExists = await user.findOne({ where: { mail } });
+
         console.log("Usuario encontrado:", userExists);
 
         if (userExists) {
@@ -20,32 +20,32 @@ router.post("/register", async (req, res) => {
         // Crear nuevo usuario
         const newUser = await user.create({
             nickname,
-            contrasena,
-            correo,
-            estilo_fav
+            password,
+            mail,
+            style_fav
         });
 
-
-        res.status(201).json({message: "Usuario registrado con éxito", user: newUser});
+        res.status(201).json({ message: "Usuario registrado con éxito", user: newUser });
     } catch (error) {
         console.error("Error al registrar usuario:", error);
-        res.status(500).json({error: "Error al registrar usuario"});
+        res.status(500).json({ error: "Error al registrar usuario" });
     }
 });
 
 // **Login de usuario**
 router.post("/login", async (req, res) => {
-    const { correo, contrasena } = req.body;
+    const { mail, password } = req.body; // Corrección en los nombres
 
     try {
         // Buscar usuario por correo
-        const foundUser = await user.findOne({ where: { correo } });
+        const foundUser = await user.findOne({ where: { mail } });
+
         if (!foundUser) {
             return res.status(404).json({ error: "Usuario no encontrado" });
         }
 
-        // Comparar contraseñas
-        const validPassword = contrasena === foundUser.contrasena;
+        // Comparar contraseñas (esto debe mejorarse con hashing en el futuro)
+        const validPassword = password === foundUser.password;
         if (!validPassword) {
             return res.status(401).json({ error: "Contraseña incorrecta" });
         }
