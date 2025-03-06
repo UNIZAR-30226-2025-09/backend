@@ -1,9 +1,12 @@
+require('module-alias/register');
+
 const cors = require("cors");
 const express = require("express");
-const apiRoutes = require("./routes/api");
+const apiRoutes = require("@routes/api");
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5001;
+
 
 // Middleware
 app.use(cors()); // No hace falta especificar el origen, Nginx manejará esto
@@ -11,6 +14,7 @@ app.use(express.json());
 
 // Todas las rutas estarán bajo `/api`
 app.use("/api", apiRoutes);
+
 app.get("/", (req, res) => {
     res.send("Bienvenido a la API del servidor");
 });
