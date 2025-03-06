@@ -18,8 +18,11 @@
     "pg": "^8.10.0",
     "pg-hstore": "^2.3.4",
     "sequelize": "^6.28.0",
+    "dotenv": "^16.0.0",
     "sequelize-cli": "^6.6.0"
+
   },
+
   "author": "Tu Nombre",
   "license": "MIT",
   "_moduleAliases": {
@@ -27,5 +30,9 @@
     "@models": "./src/models",
     "@routes": "./src/routes",
     "@config": "./src/config"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": "22.14.0"
   }
 }

@@ -13,7 +13,6 @@ services:
       - /app/node_modules  # Evita sobrescribir node_modules con el volumen
     environment:
       - NODE_ENV=development
-    command: ["npm", "run", "dev", "--", "--host"]
     networks:
       - app_network
 
