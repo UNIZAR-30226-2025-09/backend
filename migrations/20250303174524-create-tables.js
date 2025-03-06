@@ -7,9 +7,9 @@ module.exports = {
     await queryInterface.createTable("user", {
       id: { type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false },
       nickname: { type: Sequelize.STRING, allowNull: false, unique: true },
-      contrasena: { type: Sequelize.STRING, allowNull: false },
-      correo: { type: Sequelize.STRING, allowNull: false, unique: true },
-      estilo_fav: { type: Sequelize.STRING },
+      password: { type: Sequelize.STRING, allowNull: false },
+      mail: { type: Sequelize.STRING, allowNull: false, unique: true },
+      style_fav: { type: Sequelize.STRING },
       is_premium: { type: Sequelize.BOOLEAN, defaultValue: false },
       created_at: { type: Sequelize.DATE, defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"), allowNull: false }
     });
@@ -17,7 +17,7 @@ module.exports = {
     // Tabla ARTIST
     await queryInterface.createTable("artist", {
       id: { type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false },
-      nombre: { type: Sequelize.STRING, allowNull: false },
+      name: { type: Sequelize.STRING, allowNull: false },
       bio: { type: Sequelize.TEXT },
       created_at: { type: Sequelize.DATE, defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"), allowNull: false }
     });
@@ -25,10 +25,10 @@ module.exports = {
     // Tabla SONG
     await queryInterface.createTable("song", {
       id: { type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false },
-      nombre: { type: Sequelize.STRING, allowNull: false },
-      duracion: { type: Sequelize.INTEGER },
+      name: { type: Sequelize.STRING, allowNull: false },
+      duration: { type: Sequelize.INTEGER },
       lyrics: { type: Sequelize.TEXT },
-      foto_video: { type: Sequelize.STRING },
+      photo_video: { type: Sequelize.STRING },
       url_mp3: { type: Sequelize.STRING, allowNull: false } // Nueva columna para la URL del MP3
     });
 
@@ -37,11 +37,12 @@ module.exports = {
     await queryInterface.createTable("playlist", {
       id: { type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false },
       name: { type: Sequelize.STRING, allowNull: false },
-      user_id: { type: Sequelize.INTEGER, references: { model: "user", key: "id" }, onDelete: "CASCADE"},
+      user_id: { type: Sequelize.INTEGER, references: { model: "user", key: "id" }, onDelete: "CASCADE", allowNull: true},
+      artist_id: { type: Sequelize.INTEGER, references: { model: "artist", key: "id" }, onDelete: "CASCADE", allowNull: true},
       description: { type: Sequelize.TEXT },
       creation_date: { type: Sequelize.DATE, defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"), allowNull: false },
       type: { type: Sequelize.STRING },
-      portada: { type: Sequelize.STRING }
+      front_page: { type: Sequelize.STRING }
     });
 
     // Tabla intermedia SONG-ARTIST (M:N)
@@ -72,7 +73,7 @@ module.exports = {
     await queryInterface.createTable("playlist_feedback", {
       user_id: { type: Sequelize.INTEGER, references: { model: "user", key: "id" }, onDelete: "CASCADE", primaryKey: true },
       playlist_id: { type: Sequelize.INTEGER, references: { model: "playlist", key: "id" }, onDelete: "CASCADE", primaryKey: true },
-      valoracion: { type: Sequelize.FLOAT }
+      rating: { type: Sequelize.FLOAT }
     });
 
     // Tabla FRIENDSHIP (M:N entre USER y USER)
