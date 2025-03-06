@@ -1,10 +1,10 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-    const PermissionHave = sequelize.define('PermissionHave', {
+    const permission_have = sequelize.define('permission_have', {
         user_id: { type: DataTypes.INTEGER, primaryKey: true },
         playlist_id: { type: DataTypes.INTEGER, primaryKey: true },
         type_permission: DataTypes.STRING
-    }, { tableName: "PermissionHave", timestamps: false });
+    }, { tableName: "permission_have", timestamps: false });
 
-    return PermissionHave;
+    return permission_have;
 };

@@ -1,14 +1,14 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-    const Artist = sequelize.define('Artist', {
+    const artist = sequelize.define('artist', {
         id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false },
         nombre: { type: DataTypes.STRING, allowNull: false },
         bio: DataTypes.TEXT
-    }, { tableName: "Artist", timestamps: false });
+    }, { tableName: "artist", timestamps: false });
 
-    Artist.associate = function(models) {
-        Artist.belongsToMany(models.Song, { through: "SongArtist", foreignKey: "artist_id" });
+    artist.associate = function(models) {
+        artist.belongsToMany(models.Song, { through: "song_artist", foreignKey: "artist_id" });
     };
 
-    return Artist;
+    return artist;
 };

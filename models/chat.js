@@ -1,10 +1,10 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-    const Chat = sequelize.define('Chat', {
+    const chat = sequelize.define('chat', {
         user1_id: { type: DataTypes.INTEGER, primaryKey: true },
         user2_id: { type: DataTypes.INTEGER, primaryKey: true },
         txt_message: DataTypes.STRING
-    }, { tableName: "Chat", timestamps: false });
+    }, { tableName: "chat", timestamps: false });
 
-    return Chat;
+    return chat;
 };
