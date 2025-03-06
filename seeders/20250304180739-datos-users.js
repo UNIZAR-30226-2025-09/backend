@@ -45,6 +45,14 @@ module.exports = {
         mail: "fitbeats@example.com",
         style_fav: "Electrónica",
         is_premium: true
+      },
+      {
+        id: 6,
+        nickname: "test",
+        password: "123456",
+        mail: "test@email.com",
+        style_fav: "test",
+        is_premium: true
       }
     ], {});
   },

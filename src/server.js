@@ -4,7 +4,7 @@ const cors = require("cors");
 const express = require("express");
 const apiRoute = require("@routes/api");
 const authRoute = require("./routes/auth");
-const { sequelize } = require("../models"); // Importamos la instancia de Sequelize
+const { sequelize } = require("./models"); // Importamos la instancia de Sequelize
 
 const app = express();
 
