@@ -32,6 +32,7 @@ module.exports = {
       url_mp3: { type: Sequelize.STRING, allowNull: false } // Nueva columna para la URL del MP3
     });
 
+
     // Tabla PLAYLIST
     await queryInterface.createTable("playlist", {
       id: { type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false },
