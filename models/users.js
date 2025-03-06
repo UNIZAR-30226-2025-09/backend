@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
         mail: { type: DataTypes.STRING, allowNull: false, unique: true },
         style_fav: DataTypes.STRING,
         is_premium: { type: DataTypes.BOOLEAN, defaultValue: false }
-    }, { tableName: "user", timestamps: false });
+    }, { tableName: "users", timestamps: false });
 
     user.associate = function(models) {
         user.hasMany(models.playlist, { foreignKey: "user_id" });
