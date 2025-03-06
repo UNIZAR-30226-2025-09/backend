@@ -1,5 +1,5 @@
 const express = require("express");
-const { user } = require("../../models"); // Importamos el modelo correctamente desde models/index.js
+const { user } = require("../models"); // Importamos el modelo correctamente desde models/index.js
 
 const router = express.Router();
 
