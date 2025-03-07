@@ -1,7 +1,7 @@
 // routes/songs.js
 const express = require('express');
 const router = express.Router();
-const { Song: Songs } = require('../models'); // Asegúrate de que la ruta sea correcta
+const { song: Songs } = require('../models'); // Asegúrate de que la ruta sea correcta
 
 // Endpoint para obtener todas las canciones
 router.get('/', async (req, res) => {
