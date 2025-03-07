@@ -1,4 +1,4 @@
-const { Song, Artist } = require('../models'); // Asegúrate de que 'Song' y 'Artist' están exportados correctamente
+const { song: Song, artist: Artist } = require('../models'); // Asegúrate de que 'Song' y 'Artist' están exportados correctamente
 const Playlist = require('../models/playlist'); // Modelo opcional para guardar la cola persistente
 const path = require('path');
 
