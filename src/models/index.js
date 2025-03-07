@@ -1,4 +1,7 @@
 'use strict';
+const Song = require('./song');
+const Artist = require('./artist');
+
 
 const fs = require('fs');
 const path = require('path');

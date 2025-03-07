@@ -1,21 +1,15 @@
-// src/routes/playerRoutes.js
 const express = require('express');
 const router = express.Router();
 const playerController = require('../controllers/playerController');
 
-// GET /player/:id -> obtener datos de una canción
-router.get('/:id', playerController.getSong);
+// Rutas para obtener detalles y recursos de la canción
+router.get('/details/:songId', playerController.getSongDetails);
+router.get('/lyrics/:songId', playerController.getLyrics);
 
-// POST /player/:id/play -> reproducir la canción
-router.post('/:id/play', playerController.playSong);
-
-// POST /player/:id/pause -> pausar la canción
-router.post('/:id/pause', playerController.pauseSong);
-
-// POST /player/skip-next -> siguiente canción
-router.post('/skip-next', playerController.skipNextSong);
-
-// POST /player/skip-prev -> canción anterior
-router.post('/skip-prev', playerController.skipPreviousSong);
+// Rutas para acciones de reproducción
+router.post('/play/:songId', playerController.playSong);
+router.post('/pause/:songId', playerController.pauseSong);
+router.post('/next', playerController.playNextSong);
+router.post('/previous', playerController.playPreviousSong);
 
 module.exports = router;
