@@ -4,20 +4,23 @@ const cors = require("cors");
 const express = require("express");
 const apiRoute = require("@routes/api");
 const authRoute = require("./routes/auth");
-const { sequelize } = require("./models"); // Importamos la instancia de Sequelize
-
+const { sequelize } = require("./models");
+const path = require("path");
 const app = express();
 
 app.use(cors());
 app.use(express.json()); // Middleware para JSON
 
 // Definir rutas
+
 app.use("/auth", authRoute); // Aquí deben estar las rutas de autenticación
 app.use("/api", apiRoute); // Aquí las rutas de prueba hello y bye
+app.use("/images", express.static(path.resolve("public/playlist")));
 
-const PORT = 5000;
 
-// 🔥 Primero nos aseguramos de que la BD esté conectada antes de iniciar el servidor
+
+const PORT = 5001;
+
 sequelize.authenticate()
     .then(() => {
         console.log("Conectado a la base de datos");
