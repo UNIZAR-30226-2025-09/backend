@@ -1,6 +1,8 @@
-const { song: Song, artist: Artist } = require('../models'); // Asegúrate de que 'Song' y 'Artist' están exportados correctamente
-const Playlist = require('../models/playlist'); // Modelo opcional para guardar la cola persistente
+const { song: Song, artist: Artist } = require('../models');
+const Playlist = require('../models/playlist');
 const path = require('path');
+
+const BASE_URL = "http://localhost:5000";
 
 // Gestión de la cola de reproducción en memoria (para pruebas o desarrollo)
 let currentPlaylist = [];
@@ -28,21 +30,22 @@ const playerController = {
                 return res.status(404).json({ message: 'Canción no encontrada' });
             }
 
-            // Formatear la respuesta para incluir la información de los artistas
-            const songWithArtists = {
+            const fullUrlMp3 = `${BASE_URL}/songs/${path.basename(song.url_mp3)}`;
+
+            console.log("Enviando canción con URL:", fullUrlMp3);
+
+            return res.status(200).json({
                 id: song.id,
                 name: song.name,
                 duration: song.duration,
                 lyrics: song.lyrics,
                 photo_video: song.photo_video,
-                url_mp3: song.url_mp3,
+                url_mp3: fullUrlMp3,
                 artists: song.artists.map(artist => ({
                     id: artist.id,
                     name: artist.name
                 }))
-            };
-
-            return res.status(200).json(songWithArtists);
+            });
         } catch (error) {
             console.error('Error al obtener la canción:', error);
             return res.status(500).json({
@@ -66,28 +69,27 @@ const playerController = {
                 return res.status(404).json({ message: 'Canción no encontrada' });
             }
 
-            // Se asume que el middleware de autenticación llena req.user; si no, usa un usuario por defecto.
-            const userId = req.user ? req.user.id : null;
+            const fullUrlMp3 = `${BASE_URL}/songs/${path.basename(song.url_mp3)}`;
 
-            // Agregar la canción a la cola si aún no está incluida
             if (!currentPlaylist.find(s => s.id === song.id)) {
-                currentPlaylist.push({ id: song.id, url_mp3: song.url_mp3 });
+                currentPlaylist.push({ id: song.id, url_mp3: fullUrlMp3 });
             }
             currentSongIndex = currentPlaylist.findIndex(s => s.id === song.id);
             isPlaying = true;
 
-            // Persistir la cola en la base de datos (opcional)
-            if (userId) {
+            if (req.user) {
                 await Playlist.upsert({
-                    userId: userId,
+                    userId: req.user.id,
                     songs: JSON.stringify(currentPlaylist)
                 });
             }
 
+            console.log(`Reproduciendo canción: ${fullUrlMp3}`);
+
             return res.status(200).json({
-                message: `Reproduciendo la canción con ID: ${song.id}`,
-                url: song.url_mp3,
-                isPlaying: isPlaying
+                message: `Reproduciendo canción con ID: ${song.id}`,
+                url: fullUrlMp3,
+                isPlaying
             });
         } catch (error) {
             console.error('Error al reproducir la canción:', error);
@@ -104,7 +106,8 @@ const playerController = {
      */
     pauseSong: (req, res) => {
         isPlaying = false;
-        return res.status(200).json({ message: 'Reproducción pausada', isPlaying: isPlaying });
+        console.log("Canción pausada");
+        return res.status(200).json({ message: 'Reproducción pausada', isPlaying });
     },
 
     /**
@@ -115,7 +118,6 @@ const playerController = {
         if (currentPlaylist.length === 0) {
             return res.status(400).json({ message: 'La cola de reproducción está vacía' });
         }
-        // Navegación circular
         currentSongIndex = (currentSongIndex + 1) % currentPlaylist.length;
         const nextSong = currentPlaylist[currentSongIndex];
         try {
@@ -125,8 +127,12 @@ const playerController = {
             if (!song) {
                 return res.status(404).json({ message: 'Canción no encontrada' });
             }
+
+            const fullUrlMp3 = `${BASE_URL}/songs/${path.basename(song.url_mp3)}`;
+            console.log(`Siguiente canción: ${fullUrlMp3}`);
+
             isPlaying = true;
-            return res.status(200).json({ url: song.url_mp3, isPlaying: isPlaying });
+            return res.status(200).json({ url: fullUrlMp3, isPlaying });
         } catch (error) {
             console.error('Error al reproducir la siguiente canción:', error);
             return res.status(500).json({
@@ -144,7 +150,6 @@ const playerController = {
         if (currentPlaylist.length === 0) {
             return res.status(400).json({ message: 'La cola de reproducción está vacía' });
         }
-        // Navegación circular
         currentSongIndex = (currentSongIndex - 1 + currentPlaylist.length) % currentPlaylist.length;
         const previousSong = currentPlaylist[currentSongIndex];
         try {
@@ -154,8 +159,12 @@ const playerController = {
             if (!song) {
                 return res.status(404).json({ message: 'Canción no encontrada' });
             }
+
+            const fullUrlMp3 = `${BASE_URL}/songs/${path.basename(song.url_mp3)}`;
+            console.log(`Canción anterior: ${fullUrlMp3}`);
+
             isPlaying = true;
-            return res.status(200).json({ url: song.url_mp3, isPlaying: isPlaying });
+            return res.status(200).json({ url: fullUrlMp3, isPlaying });
         } catch (error) {
             console.error('Error al reproducir la canción anterior:', error);
             return res.status(500).json({
