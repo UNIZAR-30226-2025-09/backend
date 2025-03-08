@@ -237,6 +237,120 @@ module.exports = {
         photo_video: 'hotel.jpg',
         url_mp3: 'songs/Los Del Rio - Macarena (Bayside Boys Remix).mp3'
       },
+      {
+        name: 'La vereda de la puerta de atras',
+        duration: 222,
+        lyrics: 'Dale a tu cuerpo alegría, Macarena\n' +
+            'Que tu cuerpo es pa\' darle alegría y cosa buena\n' +
+            'Dale a tu cuerpo alegría, Macarena\n' +
+            'Eh, Macarena (¡ay!)\n' +
+            '\n' +
+            'Dale a tu cuerpo alegría, Macarena\n' +
+            'Que tu cuerpo es pa\' darle alegría y cosa buena\n' +
+            'Dale a tu cuerpo alegría, Macarena\n' +
+            'Eh, Macarena (¡ay!)\n' +
+            '\n' +
+            'Macarena tiene un novio que se llama\n' +
+            'Que se llama de apellido Vitorino\n' +
+            'Que en la jura de bandera del muchacho\n' +
+            'Se la dio con dos amigos (¡ay!)\n' +
+            '\n' +
+            'Macarena tiene un novio que se llama\n' +
+            'Que se llama de apellido Vitorino\n' +
+            'Y en la jura de bandera del muchacho\n' +
+            'Se la dio con dos amigos (¡ay!)\n' +
+            '\n' +
+            'Dale a tu cuerpo alegría, Macarena\n' +
+            'Que tu cuerpo es pa\' darle alegría y cosa buena\n' +
+            'Dale a tu cuerpo alegría, Macarena\n' +
+            'Eh, Macarena (¡ay!)\n' +
+            '\n' +
+            'Dale a tu cuerpo alegría, Macarena\n' +
+            'Que tu cuerpo es pa\' darle alegría y cosa buena\n' +
+            'Dale a tu cuerpo alegría, Macarena\n' +
+            'Eh, Macarena (¡ay!)\n' +
+            '\n' +
+            'Macarena, Macarena, Macarena\n' +
+            'Que te gustan los veranos de Marbella\n' +
+            'Macarena, Macarena, Macarena\n' +
+            'Que te gusta la movida guerrillera (¡ay!)\n' +
+            '\n' +
+            '(¡Ay!)\n' +
+            '\n' +
+            'Dale a tu cuerpo alegría, Macarena\n' +
+            'Que tu cuerpo es pa\' darle alegría y cosa buena\n' +
+            'Dale a tu cuerpo alegría, Macarena\n' +
+            'Eh, Macarena (¡ay!)\n' +
+            '\n' +
+            'Dale a tu cuerpo alegría, Macarena\n' +
+            'Que tu cuerpo es pa\' darle alegría y cosa buena\n' +
+            'Dale a tu cuerpo alegría, Macarena\n' +
+            'Eh, Macarena (¡ay!)\n' +
+            '\n' +
+            'Macarena sueña con el corte inglés\n' +
+            'Y se compra los modelos más modernos\n' +
+            'Le gustaría vivir en Nueva York\n' +
+            'Y ligar un novio nuevo (¡ay!)\n' +
+            '\n' +
+            'Macarena sueña con el corte inglés\n' +
+            'Y se compra los modelos más modernos\n' +
+            'Le gustaría vivir en Nueva York\n' +
+            'Y ligar un novio nuevo (¡ay!)\n' +
+            '\n' +
+            'Dale a tu cuerpo alegría, Macarena\n' +
+            'Que tu cuerpo es pa\' darle alegría y cosa buena\n' +
+            'Dale a tu cuerpo alegría, Macarena\n' +
+            'Eh, Macarena (¡ay!)\n' +
+            '\n' +
+            'Dale a tu cuerpo alegría, Macarena\n' +
+            'Que tu cuerpo es pa\' darle alegría y cosa buena\n' +
+            'Dale a tu cuerpo alegría, Macarena\n' +
+            'Eh, Macarena (¡ay!)\n' +
+            '\n' +
+            'Dale a tu cuerpo alegría, Macarena\n' +
+            'Que tu cuerpo es pa\' darle alegría y cosa buena\n' +
+            'Dale a tu cuerpo alegría, Macarena\n' +
+            'Eh, Macarena (¡ay!)\n' +
+            '\n' +
+            'Macarena tiene un novio que se llama\n' +
+            'Que se llama de apellido Vitorino\n' +
+            'Y en la jura de bandera del muchacho\n' +
+            'Se la dio con dos amigos (¡ay!)\n' +
+            '\n' +
+            'Dale a tu cuerpo alegría, Macarena\n' +
+            'Que tu cuerpo es pa\' darle alegría y cosa buena\n' +
+            'Dale a tu cuerpo alegría, Macarena\n' +
+            'Eh, Macarena (¡ay!)\n' +
+            '\n' +
+            'Dale a tu cuerpo alegría, Macarena\n' +
+            'Que tu cuerpo es pa\' darle alegría y cosa buena\n' +
+            'Dale a tu cuerpo alegría, Macarena\n' +
+            'Eh, Macarena (¡ay!)\n' +
+            '\n' +
+            '(¡Ay!)\n' +
+            '\n' +
+            'Dale a tu cuerpo alegría, Macarena\n' +
+            'Que tu cuerpo es pa\' darle alegría y cosa buena\n' +
+            'Dale a tu cuerpo alegría, Macarena\n' +
+            'Eh, Macarena (¡ay!)\n' +
+            '\n' +
+            'Dale a tu cuerpo alegría, Macarena\n' +
+            'Que tu cuerpo es pa\' darle alegría y cosa buena\n' +
+            'Dale a tu cuerpo alegría, Macarena\n' +
+            'Eh, Macarena (¡ay!)\n' +
+            '\n' +
+            'Dale a tu cuerpo alegría, Macarena\n' +
+            'Que tu cuerpo es pa\' darle alegría y cosa buena\n' +
+            'Dale a tu cuerpo alegría, Macarena\n' +
+            'Eh, Macarena (¡ay!)\n' +
+            '\n' +
+            'Dale a tu cuerpo alegría, Macarena\n' +
+            'Que tu cuerpo es pa\' darle alegría y cosa buena\n' +
+            'Dale a tu cuerpo alegría, Macarena\n' +
+            'Eh, Macarena (¡ay!)',
+        photo_video: 'hotel.jpg',
+        url_mp3: 'songs/La vereda de la puerta de atras extremoduro.mp3'
+      },
     ], {});
   },
 
