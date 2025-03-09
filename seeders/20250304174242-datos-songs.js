@@ -5,6 +5,7 @@ module.exports = {
   async up (queryInterface, Sequelize) {
     await queryInterface.bulkInsert('song', [
       {
+        id: 1,
         name: 'Bohemian Rhapsody',
         duration: 354,
         lyrics: 'Is this the real life? Is this just fantasy?',
@@ -12,6 +13,7 @@ module.exports = {
         url_mp3: 'https://example.com/bohemian.mp3'
       },
       {
+        id: 2,
         name: 'Hotel California',
         duration: 390,
         lyrics: 'On a dark desert highway, cool wind in my hair...',
@@ -19,6 +21,7 @@ module.exports = {
         url_mp3: 'https://example.com/hotel.mp3'
       },
       {
+        id: 3,
         name: 'Shape of You',
         duration: 263,
         lyrics: 'The club isn’t the best place to find a lover...',
@@ -26,6 +29,7 @@ module.exports = {
         url_mp3: 'https://example.com/shape.mp3'
       },
       {
+        id: 4,
         name: 'Smells Like Teen Spirit',
         duration: 301,
         lyrics: 'Load up on guns, bring your friends...',
@@ -33,6 +37,7 @@ module.exports = {
         url_mp3: 'https://example.com/teen_spirit.mp3'
       },
       {
+        id: 5,
         name: 'Imagine',
         duration: 187,
         lyrics: 'Imagine there’s no heaven, it’s easy if you try...',

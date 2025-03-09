@@ -10,7 +10,7 @@ module.exports = {
         artist_id: 1,
         description: "Las mejores canciones de rock de los 80s y 90s.",
         type: "public",
-        front_page: "public/playlist/p1.png"
+        front_page: "http://localhost:5001/images/p1.png"
       },
       {
         id: 2,
@@ -19,7 +19,7 @@ module.exports = {
         artist_id: 2,
         description: "Reggaetón, salsa y merengue para una fiesta increíble.",
         type: "public",
-        front_page: "public/playlist/p1.png"
+        front_page: "http://localhost:5001/images/p1.png"
       },
       {
         id: 3,
@@ -28,7 +28,7 @@ module.exports = {
         artist_id: null,
         description: "Música tranquila para estudiar o relajarse.",
         type: "private",
-        front_page: "public/playlist/p2.png"
+        front_page: "http://localhost:5001/images/p2.png"
       },
       {
         id: 4,
@@ -37,7 +37,7 @@ module.exports = {
         artist_id: null,
         description: "Descubre lo mejor del indie alternativo.",
         type: "public",
-        front_page: "public/playlist/p2.png"
+        front_page: "http://localhost:5001/images/p2.png"
       },
       {
         id: 5,
@@ -46,7 +46,7 @@ module.exports = {
         artist_id: null,
         description: "Las canciones más motivadoras para entrenar.",
         type: "public",
-        front_page: "public/playlist/Bad-Bunny.png"
+        front_page: "http://localhost:5001/images/Bad-Bunny.png"
       }
     ], {});
   },

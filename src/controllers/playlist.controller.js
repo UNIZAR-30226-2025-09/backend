@@ -1,6 +1,4 @@
-//const playlist = require('@controllers/playlist.controller');
-const { playlist } = require('../models');
-//const bcrypt = require('bcryptjs');
+const { playlist, song } = require('../models');
 
 // Obtener todos los usuarios
 exports.getAllPlaylist = async (req, res) => {
@@ -12,19 +10,32 @@ exports.getAllPlaylist = async (req, res) => {
     }
 };
 
-// Obtener un usuario por ID
 exports.getPlaylistById = async (req, res) => {
     try {
+        const playlistId = parseInt(req.params.id, 10);
 
-        const pl = await playlist.findOne({where: {id: parseInt(req.params.id, 10)}});
-        if (!pl) return res.status(404).json({ message: "Playlist no encontrada" });
+        if (isNaN(playlistId)) {
+            return res.status(400).json({ error: "ID inválido. Debe ser un número." });
+        }
+
+        const pl = await playlist.findByPk(playlistId, {
+            include: {
+                model: song,
+                through: { attributes: [] }
+            }
+        });
+
+        if (!pl) {
+            return res.status(404).json({ message: "Playlist no encontrada" });
+        }
         res.json(pl);
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        console.error("Error obteniendo la playlist:", error);
+        res.status(500).json({ error: "Error interno del servidor" });
     }
 };
 
-// Crear un nuevo usuario
+
 exports.createPlaylist = async (req, res) => {
     try {
         const { name, type, description, front_page } = req.body;
@@ -48,7 +59,7 @@ exports.updatePlaylist = async (req, res) => {
         const { name, description, type, front_page } = req.body;
 
         // Buscar el playlist
-        const pl = await playlist.findByPk(req.params.id);
+        const pl = await playlist.findOne({where: {id: parseInt(req.params.id, 10)}});
         if (!pl) return res.status(404).json({ message: "Playlist no encontrada" });
 
         // Actualizar playlist
@@ -68,7 +79,7 @@ exports.updatePlaylist = async (req, res) => {
 // Eliminar un usuario
 exports.deletePlaylist = async (req, res) => {
     try {
-        const pl = await playlist.findByPk(req.params.id);
+        const pl = await playlist.findOne({where: {id: parseInt(req.params.id, 10)}});
         if (!pl) return res.status(404).json({ message: "Playlist no encontrada" });
 
         await pl.destroy();
