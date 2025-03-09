@@ -351,6 +351,31 @@ module.exports = {
         photo_video: 'hotel.jpg',
         url_mp3: 'songs/La vereda de la puerta de atras extremoduro.mp3'
       },
+      {
+        id: 3,
+        name: 'Shape of You',
+        duration: 263,
+        lyrics: 'The club isn’t the best place to find a lover...',
+        photo_video: 'shape.jpg',
+        url_mp3: 'https://example.com/shape.mp3'
+      },
+      {
+        id: 4,
+        name: 'Smells Like Teen Spirit',
+        duration: 301,
+        lyrics: 'Load up on guns, bring your friends...',
+        photo_video: 'teen_spirit.jpg',
+        url_mp3: 'https://example.com/teen_spirit.mp3'
+      },
+      {
+        id: 5,
+        name: 'Imagine',
+        duration: 187,
+        lyrics: 'Imagine there’s no heaven, it’s easy if you try...',
+        photo_video: 'imagine.jpg',
+        url_mp3: 'https://example.com/imagine.mp3'
+      }
+
     ], {});
   },
 
