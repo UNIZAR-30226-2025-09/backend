@@ -1,5 +1,5 @@
-const { song: Song, artist: Artist } = require('../models');
-const Playlist = require('../models/playlist');
+const { song: Song, artist: Artist } = require('../../database/models');
+const Playlist = require('../../database/models/playlist');
 const path = require('path');
 
 const BASE_URL = "http://localhost:5000";
@@ -9,7 +9,7 @@ let currentPlaylist = [];
 let currentSongIndex = 0;
 let isPlaying = false;
 
-const playerController = {
+const player_controller = {
     /**
      * Obtiene la información detallada de una canción por su ID, incluyendo sus artistas.
      * GET /api/player/details/:songId
@@ -199,4 +199,4 @@ const playerController = {
     }
 };
 
-module.exports = playerController;
+module.exports = player_controller;

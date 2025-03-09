@@ -19,7 +19,7 @@ services:
   backend:
     build:
       context: ..
-      dockerfile: docker/Dockerfile
+      dockerfile: /Dockerfile
     container_name: backend_server
     restart: always
     ports:

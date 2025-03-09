@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const playerController = require('../controllers/playerController');
+const playerController = require('../controllers/player_controller');
 
 // Rutas para obtener detalles y recursos de la canción
 router.get('/details/:songId', playerController.getSongDetails);

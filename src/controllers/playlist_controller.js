@@ -1,4 +1,4 @@
-const { playlist, song } = require('../models');
+const { playlist, song } = require('../../database/models');
 
 // Obtener todos los usuarios
 exports.getAllPlaylist = async (req, res) => {

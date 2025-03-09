@@ -4,7 +4,7 @@ const apiRoute = require("./routes/api");
 const authRoute = require("./routes/auth");
 
 const playerRoute = require('./routes/player'); // Asegúrate de que el archivo se llame 'player.js' o 'playerRoutes.js' según corresponda
-const { sequelize } = require("./models"); // Importa la instancia de Sequelize
+const { sequelize } = require("../database/models"); // Importa la instancia de Sequelize
 
 const  path = require('path');
 
