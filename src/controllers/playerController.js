@@ -2,7 +2,7 @@ const { song: Song, artist: Artist } = require('../models');
 const Playlist = require('../models/playlist');
 const path = require('path');
 
-const BASE_URL = "http://localhost:5000";
+const BASE_URL = "http://localhost:5001";
 
 // Gestión de la cola de reproducción en memoria (para pruebas o desarrollo)
 let currentPlaylist = [];
