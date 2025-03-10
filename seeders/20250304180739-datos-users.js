@@ -7,7 +7,6 @@ module.exports = {
 
     return queryInterface.bulkInsert('users', [
       {
-        id: 1,
         nickname: "rocklover",
         password: await bcrypt.hash("password123", saltRounds), // Contraseña hasheada
         mail: "rocklover@example.com",
@@ -15,7 +14,6 @@ module.exports = {
         is_premium: true
       },
       {
-        id: 2,
         nickname: "latinoheat",
         password: await bcrypt.hash("securepass", saltRounds),
         mail: "latinoheat@example.com",
@@ -23,7 +21,6 @@ module.exports = {
         is_premium: false
       },
       {
-        id: 3,
         nickname: "chillvibes",
         password: await bcrypt.hash("chill123", saltRounds),
         mail: "chillvibes@example.com",
@@ -31,7 +28,6 @@ module.exports = {
         is_premium: true
       },
       {
-        id: 4,
         nickname: "indieworld",
         password: await bcrypt.hash("indiepass", saltRounds),
         mail: "indieworld@example.com",
@@ -39,7 +35,6 @@ module.exports = {
         is_premium: false
       },
       {
-        id: 5,
         nickname: "fitbeats",
         password: await bcrypt.hash("fitmusic", saltRounds),
         mail: "fitbeats@example.com",
@@ -47,7 +42,6 @@ module.exports = {
         is_premium: true
       },
       {
-        id: 6,
         nickname: "test",
         password: "123456",
         mail: "test@email.com",
