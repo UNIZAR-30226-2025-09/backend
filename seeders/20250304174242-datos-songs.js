@@ -301,7 +301,7 @@ module.exports = {
         url_mp3: 'songs/La vereda de la puerta de atras extremoduro.mp3'
       },
       {
-        name: 'BAILE INolVIDABLE',
+        name: 'BAILE INoLVIDABLE',
         duration: 367,
         lyrics: 'Pensaba que contigo iba a envejecer\n' +
             'En otra vida, en otro mundo, podrá ser\n' +
@@ -394,14 +394,14 @@ module.exports = {
             'Eh-eh, mi diabla, mi ángel, mi loquita\n' +
             'Mi diabla, mi ángel, mi loquita, eh-eh',
         photo_video: 'shape.jpg',
-        url_mp3: 'BAILE INoLVIDABLE (Letra).mp3'
+        url_mp3: 'songs/Bad Bunny - BAILE INoLVIDABLE (Letra).mp3'
       },
       {
-        name: 'Smells Like Teen Spirit',
-        duration: 301,
+        name: 'La Flaca',
+        duration: 261,
         lyrics: 'Load up on guns, bring your friends...',
         photo_video: "http://localhost:5001/images/p2.png",
-        url_mp3: 'https://example.com/teen_spirit.mp3'
+        url_mp3: 'songs/Jarabe De Palo - La Flaca (Videoclip Oficial).mp3'
       },
       {
         name: 'Imagine',
