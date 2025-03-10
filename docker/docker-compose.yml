@@ -23,7 +23,7 @@ services:
     container_name: backend_server
     restart: always
     ports:
-      - "5001:5001"
+      - "5000:5000"
     environment:
       - NODE_ENV=production
       - DB_HOST=postgres

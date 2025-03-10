@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const userController = require('@controllers/playlist.controller');
+const userController = require('../controllers/playlist.controller');
 
 // Definir rutas y asociarlas con controladores
 router.get('/', userController.getAllPlaylist);

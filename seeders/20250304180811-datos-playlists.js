@@ -4,7 +4,6 @@ module.exports = {
   up: async (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert('playlist', [
       {
-        id: 1,
         name: "Rock Clásico",
         user_id: 1,
         artist_id: 1,
@@ -14,7 +13,6 @@ module.exports = {
         front_page: "http://localhost:5001/images/p1.png"
       },
       {
-        id: 2,
         name: "Fiesta Latina",
         user_id: 2,
         artist_id: 2,
@@ -24,7 +22,6 @@ module.exports = {
         front_page: "http://localhost:5001/images/p1.png"
       },
       {
-        id: 3,
         name: "Relax & Chill",
         user_id: 3,
         artist_id: null,
@@ -34,7 +31,6 @@ module.exports = {
         front_page: "http://localhost:5001/images/p2.png"
       },
       {
-        id: 4,
         name: "Indie Vibes",
         user_id: 4,
         artist_id: null,
@@ -44,7 +40,6 @@ module.exports = {
         front_page: "http://localhost:5001/images/p2.png"
       },
       {
-        id: 5,
         name: "Workout Mix",
         user_id: 5,
         artist_id: null,
