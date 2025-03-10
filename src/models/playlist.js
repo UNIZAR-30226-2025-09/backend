@@ -7,6 +7,7 @@ module.exports = (sequelize, DataTypes) => {
         artist_id: { type: DataTypes.INTEGER, allowNull: true },
         description: DataTypes.TEXT,
         type: DataTypes.STRING,
+        typeP: DataTypes.STRING,
         front_page: DataTypes.STRING
     }, { tableName: "playlist", timestamps: false });
 

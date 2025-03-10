@@ -42,6 +42,7 @@ module.exports = {
       description: { type: Sequelize.TEXT },
       creation_date: { type: Sequelize.DATE, defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"), allowNull: false },
       type: { type: Sequelize.STRING },
+      typeP: { type: Sequelize.STRING },
       front_page: { type: Sequelize.STRING }
     });
 
@@ -54,7 +55,8 @@ module.exports = {
     // Tabla intermedia SONG-PLAYLIST (M:N)
     await queryInterface.createTable("song_playlist", {
       song_id: { type: Sequelize.INTEGER, references: { model: "song", key: "id" }, onDelete: "CASCADE", primaryKey: true },
-      playlist_id: { type: Sequelize.INTEGER, references: { model: "playlist", key: "id" }, onDelete: "CASCADE", primaryKey: true }
+      playlist_id: { type: Sequelize.INTEGER, references: { model: "playlist", key: "id" }, onDelete: "CASCADE", primaryKey: true },
+      date: { type: Sequelize.DATE }
     });
 
     // Tabla intermedia SONG-LIKE (M:N con USER)

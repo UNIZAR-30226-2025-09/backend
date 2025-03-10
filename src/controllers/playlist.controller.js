@@ -21,7 +21,14 @@ exports.getPlaylistById = async (req, res) => {
         const pl = await playlist.findByPk(playlistId, {
             include: {
                 model: song,
-                through: { attributes: [] }
+                through: { attributes: ["date"] }, // Evitar datos de la tabla intermedia
+                include: [{
+                    model: playlist,
+                    through: { attributes: [] },
+                    where: { typeP: "album" },
+                    required: false,
+                    as: "album"
+                }]
             }
         });
 
