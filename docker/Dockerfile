@@ -12,8 +12,8 @@ RUN npm install
 # Copia el resto del código del proyecto al contenedor
 COPY . .
 
-# Expone el puerto del servidor (5000)
-EXPOSE 5000
+# Expone el puerto del servidor (5001)
+EXPOSE 5001
 
 # Comando que ejecutará el servidor
 CMD ["sh", "-c", "npx sequelize-cli db:migrate:undo:all && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all && npm start"]
