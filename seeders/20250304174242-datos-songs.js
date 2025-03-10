@@ -5,7 +5,6 @@ module.exports = {
   async up (queryInterface, Sequelize) {
     await queryInterface.bulkInsert('song', [
       {
-        id: 1,
         name: 'Sensualidad',
         duration: 319,
         lyrics: 'Trap Kincz, bebé\n' +
@@ -125,7 +124,6 @@ module.exports = {
         url_mp3: '/songs/Sensualidad - Bad Bunny X Prince Royce X J Balvin X Dj Luian X Mambo Kingz.mp3'
       },
       {
-        id: 2,
         name: 'Macarena',
         duration: 222,
         lyrics: 'Dale a tu cuerpo alegría, Macarena\n' +
@@ -240,7 +238,6 @@ module.exports = {
         url_mp3: 'songs/Los Del Rio - Macarena (Bayside Boys Remix).mp3'
       },
       {
-        id: 3,
         name: 'La vereda de la puerta de atras',
         duration: 243,
         lyrics: 'Si no fuera porque hice colocado\n' +
@@ -303,7 +300,6 @@ module.exports = {
         url_mp3: 'songs/La vereda de la puerta de atras extremoduro.mp3'
       },
       {
-        id: 4,
         name: 'BAILE INolVIDABLE',
         duration: 367,
         lyrics: 'Pensaba que contigo iba a envejecer\n' +
@@ -400,7 +396,6 @@ module.exports = {
         url_mp3: 'BAILE INoLVIDABLE (Letra).mp3'
       },
       {
-        id: 5,
         name: 'Smells Like Teen Spirit',
         duration: 301,
         lyrics: 'Load up on guns, bring your friends...',
@@ -408,7 +403,6 @@ module.exports = {
         url_mp3: 'https://example.com/teen_spirit.mp3'
       },
       {
-        id: 6,
         name: 'Imagine',
         duration: 187,
         lyrics: 'Imagine there’s no heaven, it’s easy if you try...',
@@ -416,7 +410,6 @@ module.exports = {
         url_mp3: 'https://example.com/imagine.mp3'
       },
       {
-        id: 7,
         name: 'Billie Jean',
         duration: 294,
         lyrics: 'She was more like a beauty queen from a movie scene...',
@@ -424,7 +417,6 @@ module.exports = {
         url_mp3: 'https://example.com/billie_jean.mp3'
       },
       {
-        id: 8,
         name: 'Wonderwall',
         duration: 259,
         lyrics: 'Today is gonna be the day that they’re gonna throw it back to you...',
@@ -432,7 +424,6 @@ module.exports = {
         url_mp3: 'https://example.com/wonderwall.mp3'
       },
       {
-        id: 9,
         name: 'Yesterday',
         duration: 125,
         lyrics: 'Yesterday, all my troubles seemed so far away...',
@@ -440,7 +431,6 @@ module.exports = {
         url_mp3: 'https://example.com/yesterday.mp3'
       },
       {
-        id: 10,
         name: 'Sweet Child O’ Mine',
         duration: 356,
         lyrics: 'She’s got a smile that it seems to me...',
@@ -448,7 +438,6 @@ module.exports = {
         url_mp3: 'https://example.com/sweet_child.mp3'
       },
       {
-        id: 11,
         name: 'Back In Black',
         duration: 255,
         lyrics: 'Back in black, I hit the sack...',
@@ -456,7 +445,6 @@ module.exports = {
         url_mp3: 'https://example.com/back_in_black.mp3'
       },
       {
-        id: 12,
         name: 'Hey Jude',
         duration: 431,
         lyrics: 'Hey Jude, don’t make it bad...',
@@ -464,7 +452,6 @@ module.exports = {
         url_mp3: 'https://example.com/hey_jude.mp3'
       },
       {
-        id: 13,
         name: 'Let It Be',
         duration: 243,
         lyrics: 'When I find myself in times of trouble...',
@@ -472,7 +459,6 @@ module.exports = {
         url_mp3: 'https://example.com/let_it_be.mp3'
       },
       {
-        id: 14,
         name: 'Uptown Funk',
         duration: 270,
         lyrics: 'This hit, that ice cold, Michelle Pfeiffer, that white gold...',
@@ -480,7 +466,6 @@ module.exports = {
         url_mp3: 'https://example.com/uptown_funk.mp3'
       },
       {
-        id: 15,
         name: 'Rolling in the Deep',
         duration: 228,
         lyrics: 'There’s a fire starting in my heart...',
@@ -488,7 +473,6 @@ module.exports = {
         url_mp3: 'https://example.com/rolling_in_the_deep.mp3'
       },
       {
-        id: 16,
         name: 'Thunderstruck',
         duration: 292,
         lyrics: 'Thunder! Thunder! Thunder! I was caught in the middle of a railroad track...',
@@ -496,7 +480,6 @@ module.exports = {
         url_mp3: 'https://example.com/thunderstruck.mp3'
       },
       {
-        id: 17,
         name: 'Hallelujah',
         duration: 291,
         lyrics: 'Well, I heard there was a secret chord...',
@@ -504,7 +487,6 @@ module.exports = {
         url_mp3: 'https://example.com/hallelujah.mp3'
       },
       {
-        id: 18,
         name: 'Take Me Home, Country Roads',
         duration: 193,
         lyrics: 'Almost heaven, West Virginia...',
@@ -512,7 +494,6 @@ module.exports = {
         url_mp3: 'https://example.com/country_roads.mp3'
       },
       {
-        id: 19,
         name: 'Livin’ on a Prayer',
         duration: 252,
         lyrics: 'Woah, we’re halfway there...',
@@ -520,7 +501,6 @@ module.exports = {
         url_mp3: 'https://example.com/livin_on_a_prayer.mp3'
       },
       {
-        id: 20,
         name: 'Nothing Else Matters',
         duration: 388,
         lyrics: 'So close, no matter how far...',
@@ -528,7 +508,6 @@ module.exports = {
         url_mp3: 'https://example.com/nothing_else_matters.mp3'
       },
       {
-        id: 21,
         name: 'Seven Nation Army',
         duration: 231,
         lyrics: 'I’m gonna fight ‘em all...',
