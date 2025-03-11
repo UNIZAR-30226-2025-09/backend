@@ -1,5 +1,5 @@
-const express = require("express");
-const { user } = require("../models"); // Importamos el modelo correctamente desde models/index.js
+/*const express = require("express");
+const { user } = require("../../database/models"); // Importamos el modelo correctamente desde models/index.js
 
 const router = express.Router();
 
@@ -57,4 +57,4 @@ router.post("/login", async (req, res) => {
     }
 });
 
-module.exports = router;
+module.exports = router;*/

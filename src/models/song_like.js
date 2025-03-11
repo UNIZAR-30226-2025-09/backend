@@ -1,5 +1,4 @@
-'use strict';
-module.exports = (sequelize, DataTypes) => {
+export default (sequelize, DataTypes) => {
     const song_like = sequelize.define('song_like', {
         user_id: { type: DataTypes.INTEGER, primaryKey: true },
         song_id: { type: DataTypes.INTEGER, primaryKey: true }

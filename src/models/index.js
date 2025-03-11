@@ -1,54 +1,42 @@
-'use strict';
-//const Song = require('./song');
-//const Artist = require('./artist');
+import { readdirSync } from "fs";
+import { basename as _basename, join, resolve } from "path";
+import { Sequelize } from "sequelize";
+import process from "process";
+import configData from "../../config/config.js"; // Importa la configuración usando alias
 
-const fs = require('fs');
-const path = require('path');
-const Sequelize = require('sequelize');
-const process = require('process');
-const basename = path.basename(__filename);
-const env = process.env.NODE_ENV || 'development';
-//const config = require(__dirname + '/../config/config.js')[env];
-const config = require(path.resolve(__dirname, '../../config/config.js'))[env];
+const basename = _basename(import.meta.url);
+const env = process.env.NODE_ENV || "development";
+const config = configData[env];
 
 const db = {};
 
-let sequelize;
-if (config.use_env_variable) {
-    sequelize = new Sequelize(process.env[config.use_env_variable], config);
-} else {
-    sequelize = new Sequelize(config.database, config.username, config.password, config);
-}
+// Configurar la conexión de Sequelize
+const sequelize = config.use_env_variable
+    ? new Sequelize(process.env[config.use_env_variable], config)
+    : new Sequelize(config.database, config.username, config.password, config);
 
-// Leer todos los archivos en la carpeta `models/` excepto index.js y los archivos de test
-fs
-    .readdirSync(__dirname)
-    .filter(file => {
-        return (
-            file.indexOf('.') !== 0 &&
-            file !== basename &&
-            file.slice(-3) === '.js' &&
-            file.indexOf('.test.js') === -1
-        );
-    })
-    .forEach(file => {
-        const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes);
+// Leer todos los archivos en la carpeta `models/`, excepto `index.js` y archivos de prueba
+readdirSync(new URL(".", import.meta.url))
+    .filter(file => file.indexOf(".") !== 0 && file !== basename && file.slice(-3) === ".js" && file.indexOf(".test.js") === -1)
+    .forEach(async (file) => {
+        const { default: modelDefiner } = await import(join(new URL(".", import.meta.url).pathname, file));
+        const model = modelDefiner(sequelize, Sequelize.DataTypes);
         db[model.name] = model;
     });
 
 // Configurar asociaciones si existen en los modelos
-Object.keys(db).forEach(modelName => {
-    if (db[modelName].associate) {
-        console.log(`Ejecutando asociación de: ${modelName}`);  // Debug
-        db[modelName].associate(db);
-    }
-});
+setTimeout(() => {
+    Object.keys(db).forEach(modelName => {
+        if (db[modelName]?.associate) {
+            console.log(`Configurando asociación para: ${modelName}`);
+            db[modelName].associate(db);
+        }
+    });
 
-// Verificar si los modelos están bien cargados
-console.log("Modelos cargados:", Object.keys(db));
+    // Verificar si los modelos están bien cargados
+    console.log("Modelos cargados:", Object.keys(db));
+}, 500);
 
-// Agregar la instancia de Sequelize a `db`
-db.sequelize = sequelize;
-db.Sequelize = Sequelize;
-
-module.exports = db;
+// Exportar la instancia de Sequelize y los modelos
+export { sequelize, Sequelize };
+export default db;

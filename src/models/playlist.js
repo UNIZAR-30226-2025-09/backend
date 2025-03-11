@@ -1,5 +1,4 @@
-'use strict';
-module.exports = (sequelize, DataTypes) => {
+export default (sequelize, DataTypes) => {
     const playlist = sequelize.define('playlist', {
         id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false },
         name: { type: DataTypes.STRING, allowNull: false },
@@ -18,6 +17,5 @@ module.exports = (sequelize, DataTypes) => {
         playlist.belongsToMany(models.user, { through: "playlist_feedback", foreignKey: "playlist_id" });
         playlist.belongsToMany(models.user, { through: "permission_have", foreignKey: "playlist_id" });
     };
-
     return playlist;
 };

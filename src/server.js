@@ -1,48 +1,53 @@
-const cors = require("cors");
-const express = require("express");
-const apiRoute = require("./routes/api");
-const authRoute = require("./routes/auth");
+import cors from "cors";
+import express from "express";
 
-const playerRoute = require('./routes/player'); // Asegúrate de que el archivo se llame 'player.js' o 'playerRoutes.js' según corresponda
-const { sequelize } = require("./models"); // Importa la instancia de Sequelize
+import apiRoute from "#routes/api";
+//import authRoute from "#routes/auth_routes";
+import playerRoute from "#routes/player_routes";
+import { sequelize } from "#src/models/index"; // Importa la instancia de Sequelize
 
-const  path = require('path');
+import path from "path";
+import fs from "fs";
 
 const app = express();
-
-app.use(cors());
-app.use(express.json()); // Middleware para parsear JSON
-
-// Definir rutas
-
-app.use("/auth", authRoute);        // Rutas de autenticación
-app.use("/api", apiRoute);          // Rutas generales de prueba (por ejemplo, hello, bye)
-app.use("/api/player", playerRoute); // Rutas del reproductor
-app.use("/images", express.static(path.resolve("public/playlist")));
-
-const fs = require('fs');
-const songsPath = path.join(__dirname, '..', 'public', 'songs');
-console.log(`📂 Intentando servir canciones desde: ${songsPath}`);
-
-if (!fs.existsSync(songsPath)) {
-    console.error("🚨 La carpeta 'public/songs/' NO existe. Verifica su ubicación.");
-} else {
-    console.log(`✅ La carpeta de canciones EXISTE en: ${songsPath}`);
-}
-
-app.use('/songs', express.static(songsPath));
-
-
-
 const PORT = 5001;
 
+// Middleware
+app.use(cors());
+app.use(express.json()); // Habilita JSON en las peticiones
+
+// Configuración de archivos estáticos
+const songsPath = path.resolve("public/songs");
+const imagesPath = path.resolve("public/playlist");
+
+// Verifica que la carpeta de canciones existe
+if (!fs.existsSync(songsPath)) {
+    console.error("ERROR: La carpeta 'public/songs' NO existe. Verifica su ubicación.");
+} else {
+    console.log(`La carpeta de canciones EXISTE en: ${songsPath}`);
+}
+console.log(`Verificando ruta: ${songsPath}`);
+console.log(`Verificando ruta: ${imagesPath}`);
+
+// Servir archivos estáticos
+app.use("/songs", express.static(songsPath));
+app.use("/images", express.static(imagesPath));
+
+// **Definir rutas**
+//app.use("/auth", authRoute);         // Rutas de autenticación
+app.use("/api", apiRoute);           // Rutas generales de API
+app.use("/api/player", playerRoute); // Rutas del reproductor
+
+// Iniciar servidor y conectar a la BD
 sequelize.authenticate()
     .then(() => {
-        console.log("Conectado a la base de datos");
+        console.log("Conexión exitosa a la base de datos.");
 
-        app.listen(PORT, () => console.log(`Servidor corriendo en ${PORT}`));
+        app.listen(PORT, () => console.log(`Servidor corriendo en http://localhost:${PORT}`));
     })
     .catch(err => {
-        console.error("Error de conexión a la base de datos:", err);
-        process.exit(1); // Cerrar el proceso si no se conecta a la BD
+        console.error("Error de conexión a la base de datos:", err.message);
+        process.exit(1); // Detiene la ejecución si falla la conexión a la BD
     });
+
+export default app;
