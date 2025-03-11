@@ -1,7 +1,6 @@
 import db from "#src/models/index";
 import path from "path";
-
-const BASE_URL = "http://localhost:5001";
+import BASE_URL from "#src/server";
 
 // Gestión de la cola de reproducción en memoria (para pruebas o desarrollo)
 let currentPlaylist = [];

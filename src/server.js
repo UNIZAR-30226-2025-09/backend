@@ -1,5 +1,6 @@
 import cors from "cors";
 import express from "express";
+import { getIp } from "./get_ip.js"; // Importa la función
 
 import apiRoute from "#routes/api";
 import { sequelize } from "#models/index"; // Importa la instancia de Sequelize
@@ -8,7 +9,6 @@ import path from "path";
 import fs from "fs";
 
 const app = express();
-const PORT = 5001;
 
 // Middleware
 app.use(cors());
@@ -34,16 +34,23 @@ app.use("/images", express.static(imagesPath));
 // Definir rutas generales de API
 app.use("/api", apiRoute);
 
+const PORT = 5001;
+const IP = await getIp("local"); // "public o local dependiendo de lo que se necesite"
+
+let BASE_URL;
+
 // Iniciar servidor y conectar a la BD
 sequelize.authenticate()
     .then(() => {
         console.log("Conexión exitosa a la base de datos.");
-
-        app.listen(PORT, () => console.log(`Servidor corriendo en http://localhost:${PORT}`));
+        BASE_URL = `http://${IP}:${PORT}`;
+        app.listen(PORT, () => console.log(`Servidor corriendo en ${BASE_URL}`));
     })
     .catch(err => {
         console.error("Error de conexión a la base de datos:", err.message);
         process.exit(1); // Detiene la ejecución si falla la conexión a la BD
     });
 
+// Exportamos BASE_URL para que pueda ser utilizada en el resto del proyecto
+export { BASE_URL };
 export default app;
