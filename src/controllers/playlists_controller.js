@@ -26,18 +26,23 @@ export const getPlaylistById = async (req, res) => {
         }
 
         const pl = await db.playlist.findByPk(playlistId, {
-            include: {
-                model: db.song,
-                through: { attributes: ["date"] },
-                include: [{
-                    model: db.playlist,
-                    through: { attributes: [] },
-                    where: { typeP: "album" },
-                    required: false,
-                    as: "album"
+            include: [
+                {
+                    model: db.song,
+                    through: { attributes: ["date"] }, // Evitar datos de la tabla intermedia
+                    include: [{
+                        model: db.playlist,
+                        through: { attributes: [] },
+                        where: { typeP: "album" },
+                        required: false,
+                        as: "album"
+                    }]
+                },
+                {
+                    model: db.user,
+                    attributes: ["nickname"],
                 }]
-            }
-        });
+    });
 
         if (!pl) return res.status(404).json({ message: "Playlist no encontrada" });
 
