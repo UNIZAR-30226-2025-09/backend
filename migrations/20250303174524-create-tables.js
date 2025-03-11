@@ -1,9 +1,12 @@
-'use strict';
+import { Sequelize } from "sequelize";
 
-/** @type {import('sequelize-cli').Migration} */
-module.exports = {
+/**
+ * Migración para la creación de tablas en la base de datos.
+ * Se ejecuta con `npx sequelize-cli db:migrate`.
+ */
+export default {
   up: async (queryInterface, Sequelize) => {
-    // Tabla USER
+    // Tabla USERS
     await queryInterface.createTable("users", {
       id: { type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false },
       nickname: { type: Sequelize.STRING, allowNull: false, unique: true },
@@ -29,16 +32,15 @@ module.exports = {
       duration: { type: Sequelize.INTEGER },
       lyrics: { type: Sequelize.TEXT },
       photo_video: { type: Sequelize.STRING },
-      url_mp3: { type: Sequelize.STRING, allowNull: false } // Nueva columna para la URL del MP3
+      url_mp3: { type: Sequelize.STRING, allowNull: false }
     });
-
 
     // Tabla PLAYLIST
     await queryInterface.createTable("playlist", {
       id: { type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false },
       name: { type: Sequelize.STRING, allowNull: false },
-      user_id: { type: Sequelize.INTEGER, references: { model: "users", key: "id" }, onDelete: "CASCADE", allowNull: true},
-      artist_id: { type: Sequelize.INTEGER, references: { model: "artist", key: "id" }, onDelete: "CASCADE", allowNull: true},
+      user_id: { type: Sequelize.INTEGER, references: { model: "users", key: "id" }, onDelete: "CASCADE", allowNull: true },
+      artist_id: { type: Sequelize.INTEGER, references: { model: "artist", key: "id" }, onDelete: "CASCADE", allowNull: true },
       description: { type: Sequelize.TEXT },
       creation_date: { type: Sequelize.DATE, defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"), allowNull: false },
       type: { type: Sequelize.STRING },
@@ -98,7 +100,6 @@ module.exports = {
       user2_id: { type: Sequelize.INTEGER, references: { model: "users", key: "id" }, onDelete: "CASCADE", primaryKey: true },
       txt_message: { type: Sequelize.STRING }
     });
-
   },
 
   down: async (queryInterface, Sequelize) => {

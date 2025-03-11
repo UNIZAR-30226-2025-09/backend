@@ -1,25 +1,23 @@
-'use strict';
+/**
+ * Agrega datos de prueba a la base de datos.
+ * @param {import('sequelize').QueryInterface} queryInterface
+ * @param {import('sequelize').Sequelize} Sequelize
+ */
+export async function up(queryInterface, Sequelize) {
+  // Agregar datos iniciales aquí
+  // Ejemplo:
+  // await queryInterface.bulkInsert('People', [
+  //   { name: 'John Doe', isBetaMember: false }
+  // ], {});
+}
 
-/** @type {import('sequelize-cli').Migration} */
-module.exports = {
-  async up (queryInterface, Sequelize) {
-    /**
-     * Add seed commands here.
-     *
-     * Example:
-     * await queryInterface.bulkInsert('People', [{
-     *   name: 'John Doe',
-     *   isBetaMember: false
-     * }], {});
-    */
-  },
-
-  async down (queryInterface, Sequelize) {
-    /**
-     * Add commands to revert seed here.
-     *
-     * Example:
-     * await queryInterface.bulkDelete('People', null, {});
-     */
-  }
-};
+/**
+ * Elimina los datos de prueba insertados en la migración `up`.
+ * @param {import('sequelize').QueryInterface} queryInterface
+ * @param {import('sequelize').Sequelize} Sequelize
+ */
+export async function down(queryInterface, Sequelize) {
+  // Eliminar datos iniciales aquí
+  // Ejemplo:
+  // await queryInterface.bulkDelete('People', null, {});
+}

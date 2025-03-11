@@ -1,5 +1,4 @@
-'use strict';
-module.exports = (sequelize, DataTypes) => {
+export default (sequelize, DataTypes) => {
     const user = sequelize.define('user', {  // Nombre de la entidad en singular
         id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false },
         nickname: { type: DataTypes.STRING, allowNull: false, unique: true },

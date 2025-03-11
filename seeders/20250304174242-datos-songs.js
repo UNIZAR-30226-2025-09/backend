@@ -1,8 +1,7 @@
 'use strict';
 
 /** @type {import('sequelize-cli').Migration} */
-module.exports = {
-  async up (queryInterface, Sequelize) {
+export async function up(queryInterface, Sequelize) {
     await queryInterface.bulkInsert('song', [
       {
         name: 'Sensualidad',
@@ -514,11 +513,13 @@ module.exports = {
         photo_video: "http://localhost:5001/images/p2.png",
         url_mp3: 'https://example.com/seven_nation_army.mp3'
       }
-
     ], {});
-  },
+}
 
-  async down (queryInterface, Sequelize) {
-    await queryInterface.bulkDelete('song', null, {});
-  }
-};
+/**
+ * @param {import('sequelize').QueryInterface} queryInterface
+ * @param {Sequelize} Sequelize
+ */
+export async function down(queryInterface, Sequelize) {
+  await queryInterface.bulkDelete("song", null, {});
+}

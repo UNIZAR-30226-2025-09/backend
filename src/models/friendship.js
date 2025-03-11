@@ -1,5 +1,4 @@
-'use strict';
-module.exports = (sequelize, DataTypes) => {
+export default (sequelize, DataTypes) => {
     const friendship = sequelize.define('friendship', {
         user1_id: { type: DataTypes.INTEGER, primaryKey: true },
         user2_id: { type: DataTypes.INTEGER, primaryKey: true },
