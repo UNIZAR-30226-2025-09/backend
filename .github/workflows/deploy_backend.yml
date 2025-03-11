@@ -1,0 +1,29 @@
+name: Deploy Backend
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout el código
+        uses: actions/checkout@v3
+
+      - name: Desplegar en el servidor remoto
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SERVER_HOST }}  # IP o dominio del servidor
+          username: ${{ secrets.SERVER_USER }}  # Usuario SSH
+          key: ${{ secrets.SERVER_SSH_KEY }}  # Clave privada SSH
+          script: |
+            cd /ruta/del/backend  # Asegúrate de que esta ruta es la correcta
+            git pull origin main
+            docker-compose down -v
+            docker system prune -af
+            docker volume prune -f
+            docker-compose build --no-cache
+            docker-compose up --build -d
