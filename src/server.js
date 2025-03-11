@@ -2,8 +2,6 @@ import cors from "cors";
 import express from "express";
 
 import apiRoute from "#routes/api";
-//import authRoute from "#routes/auth_routes";
-import playerRoute from "#routes/player_routes";
 import { sequelize } from "#models/index"; // Importa la instancia de Sequelize
 
 import path from "path";
@@ -33,8 +31,8 @@ console.log(`Verificando ruta: ${imagesPath}`);
 app.use("/songs", express.static(songsPath));
 app.use("/images", express.static(imagesPath));
 
-// Definir rutas
-app.use("/api", apiRoute);           // Rutas generales de API
+// Definir rutas generales de API
+app.use("/api", apiRoute);
 
 // Iniciar servidor y conectar a la BD
 sequelize.authenticate()
