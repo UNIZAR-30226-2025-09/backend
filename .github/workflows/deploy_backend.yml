@@ -20,7 +20,7 @@ jobs:
           username: ${{ secrets.SERVER_USER }}  # Usuario SSH
           key: ${{ secrets.SERVER_SSH_KEY }}  # Clave privada SSH
           script: |
-            cd /home/unizar/backend
+            cd /home/unizar/backend/docker
             git pull origin main
             docker compose down -v
             docker system prune -af
