@@ -10,7 +10,9 @@ import bcrypt from "bcryptjs"; // Importamos bcrypt para el hashing de contrase�
  * - Devuelve un mensaje de éxito con los datos del usuario registrado.
  */
 export const registerUser = async (req, res) => {
-    const { nickname, password, mail, style_fav } = req.body;
+    const { nickname, password, mail} = req.body;
+    const style_fav = "ninguno"
+    const is_premium = false;
 
     try {
         // Verificar si el usuario ya existe en la base de datos
@@ -31,7 +33,8 @@ export const registerUser = async (req, res) => {
             nickname,
             password: hashedPassword, // Guardamos la contraseña hasheada
             mail,
-            style_fav
+            style_fav,
+            is_premium
         });
 
         res.status(201).json({ message: "Usuario registrado con éxito", user: newUser });
