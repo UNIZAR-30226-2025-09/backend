@@ -22,8 +22,8 @@ jobs:
           script: |
             cd /home/unizar/backend
             git pull origin main
-            docker-compose down -v
+            docker compose down -v
             docker system prune -af
             docker volume prune -f
-            docker-compose build --no-cache
-            docker-compose up --build -d
+            docker compose build --no-cache
+            docker compose up --build -d
