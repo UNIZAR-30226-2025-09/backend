@@ -4,7 +4,7 @@ import express from "express";
 import apiRoute from "#routes/api";
 //import authRoute from "#routes/auth_routes";
 import playerRoute from "#routes/player_routes";
-import { sequelize } from "#src/models/index"; // Importa la instancia de Sequelize
+import { sequelize } from "#models/index"; // Importa la instancia de Sequelize
 
 import path from "path";
 import fs from "fs";
@@ -33,10 +33,8 @@ console.log(`Verificando ruta: ${imagesPath}`);
 app.use("/songs", express.static(songsPath));
 app.use("/images", express.static(imagesPath));
 
-// **Definir rutas**
-//app.use("/auth", authRoute);         // Rutas de autenticación
+// Definir rutas
 app.use("/api", apiRoute);           // Rutas generales de API
-app.use("/api/player", playerRoute); // Rutas del reproductor
 
 // Iniciar servidor y conectar a la BD
 sequelize.authenticate()

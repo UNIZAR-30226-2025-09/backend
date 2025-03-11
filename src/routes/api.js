@@ -2,6 +2,7 @@ import express from "express";
 import playlistRoutes from "#routes/playlist_routes"; // Importa las rutas de playlists
 import playerRoutes from "#routes/player_routes"; // Importa las rutas del reproductor
 import songsRoute from "#routes/songs_routes"; // Importa las rutas de canciones
+import userRoute from "#routes/user_routes"; // Importa las rutas de gestión de usuarios
 
 const router = express.Router();
 
@@ -22,5 +23,11 @@ router.use("/player", playerRoutes);
  * Se montan bajo el prefijo `/api/songs`
  */
 router.use("/songs", songsRoute);
+
+/**
+ * Rutas relacionadas con los usuarios
+ * Se montan bajo el prefijo `/api/user`
+ */
+router.use("/user", userRoute);
 
 export default router;
