@@ -1,5 +1,4 @@
-'use strict';
-module.exports = (sequelize, DataTypes) => {
+export default (sequelize, DataTypes) => {
     const permission_have = sequelize.define('permission_have', {
         user_id: { type: DataTypes.INTEGER, primaryKey: true },
         playlist_id: { type: DataTypes.INTEGER, primaryKey: true },

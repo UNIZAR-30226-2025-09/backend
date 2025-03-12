@@ -1,6 +1,8 @@
-require('dotenv').config(); // Si deseas cargar variables de un archivo .env
+import dotenv from "dotenv";
 
-module.exports = {
+dotenv.config(); // Cargar variables de entorno desde .env
+
+const config = {
     development: {
         username: process.env.DB_USER || "my_user",
         password: process.env.DB_PASSWORD || "my_password",
@@ -20,3 +22,5 @@ module.exports = {
         ssl: false
     }
 };
+
+export default config;
