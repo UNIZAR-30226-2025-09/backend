@@ -60,52 +60,39 @@ export const loginUser = async (req, res) => {
     const { mail, password } = req.body;
 
     try {
-        console.log("📩 Solicitud de login recibida para:", mail);
-
-        // Buscar usuario en la base de datos
         const foundUser = await db.user.findOne({ where: { mail } });
 
         if (!foundUser) {
-            console.error("❌ Usuario no encontrado:", mail);
             return res.status(404).json({ error: "Usuario no encontrado" });
         }
 
-        console.log("✅ Usuario encontrado:", foundUser.mail);
-
-        // Comparar la contraseña ingresada con la almacenada
         const validPassword = await bcrypt.compare(password, foundUser.password);
         if (!validPassword) {
-            console.error("❌ Contraseña incorrecta para:", mail);
             return res.status(401).json({ error: "Contraseña incorrecta" });
         }
 
-        console.log("🔑 Generando token para:", foundUser.mail);
-
-        // Generar token JWT
+        // Generar el token
         const token = jwt.sign(
             { id: foundUser.id, mail: foundUser.mail },
             SECRET_KEY,
             { expiresIn: "7d" }
         );
 
-        console.log("🟢 Token generado con éxito:", token);
+        // Log para depuración en servidor
+        console.log("Token generado:", token);
 
-        // ✅ Guardar el token en una cookie HTTP-Only
-        res.cookie("authToken", token, {
-            httpOnly: true, // 🔒 El frontend NO podrá acceder directamente
-            secure: false, // ⚠️ Cambiar a `true` en producción con HTTPS
-            sameSite: "Strict", // Protección contra CSRF
-            maxAge: 7 * 24 * 60 * 60 * 1000 // 7 días
-        });
+        // Enviar token en la cabecera
+        res.setHeader("Authorization", `Bearer ${token}`);
+        res.setHeader("Access-Control-Expose-Headers", "Authorization");
 
-        console.log("🍪 Cookie de autenticación establecida");
-
-        // ✅ Enviar solo los datos del usuario en la respuesta (SIN token)
+        // Prueba si el backend realmente está ejecutando este código
         return res.status(200).json({
-            message: "Login exitoso",
+            message: `Login Exitoso`,  // Aquí debe verse el token
+            token,  // También lo enviamos con clave "token"
             user: {
                 id: foundUser.id,
                 nickname: foundUser.nickname,
+                password: foundUser.password,
                 mail: foundUser.mail,
                 style_fav: foundUser.style_fav,
                 is_premium: foundUser.is_premium
@@ -113,20 +100,8 @@ export const loginUser = async (req, res) => {
         });
 
     } catch (error) {
-        console.error("🚨 Error en el login:", error);
+        console.error("❌ Error en el login:", error);
         return res.status(500).json({ error: "Error en el login" });
     }
 };
 
-/**
- * Cierre de sesión de usuario
- *
- * - Borra la cookie de autenticación.
- * - Devuelve un mensaje de éxito.
- * - Se debe enviar el token en la cabecera de la solicitud.
- * 
- */
-export const logoutUser = (req, res) => {
-    res.clearCookie("authToken", { httpOnly: true, sameSite: "Strict" });
-    return res.status(200).json({ message: "Sesión cerrada correctamente" });
-};

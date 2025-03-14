@@ -4,7 +4,6 @@ import { getIp } from "./get_ip.js"; // Importa la función
 
 import apiRoute from "#routes/api";
 import { sequelize } from "#models/index"; // Importa la instancia de Sequelize
-import cookieParser from "cookie-parser";
 
 import path from "path";
 import fs from "fs";
@@ -13,7 +12,6 @@ const app = express();
 
 // Middleware
 app.use(cors());
-app.use(cookieParser()); // Habilitar middleware de cookies
 app.use(express.json()); // Habilita JSON en las peticiones
 
 // Configuración de archivos estáticos
