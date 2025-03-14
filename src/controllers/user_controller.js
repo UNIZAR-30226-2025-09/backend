@@ -116,3 +116,68 @@ export const logoutUser = (req, res) => {
     return res.status(200).json({ message: "Sesión cerrada correctamente" });
 };
 
+/**
+ * Obtiene la información del usuario autenticado (sin devolver la contraseña).
+ */
+export const getUserProfile = async (req, res) => {
+    try {
+        const token = req.headers.authorization?.split(" ")[1];
+
+        if (!token) {
+            return res.status(401).json({ error: "Token no proporcionado" });
+        }
+
+        const decoded = jwt.verify(token, SECRET_KEY);
+        const user = await db.user.findByPk(decoded.id, {
+            attributes: ["id", "nickname", "mail", "style_fav", "is_premium"] // No devolver la contraseña
+        });
+
+        if (!user) {
+            return res.status(404).json({ error: "Usuario no encontrado" });
+        }
+
+        return res.status(200).json(user);
+    } catch (error) {
+        console.error("Error al obtener el perfil:", error);
+        return res.status(500).json({ error: "Error al obtener el perfil" });
+    }
+};
+
+/**
+ * Actualiza la información del usuario autenticado.
+ */
+export const updateUserProfile = async (req, res) => {
+    try {
+        const token = req.headers.authorization?.split(" ")[1];
+
+        if (!token) {
+            return res.status(401).json({ error: "Token no proporcionado" });
+        }
+
+        const decoded = jwt.verify(token, SECRET_KEY);
+        const user = await db.user.findByPk(decoded.id);
+
+        if (!user) {
+            return res.status(404).json({ error: "Usuario no encontrado" });
+        }
+
+        const { nickname, mail, password } = req.body;
+
+        if (nickname) user.nickname = nickname;
+        if (mail) user.mail = mail;
+
+        // Solo actualizar la contraseña si el usuario la cambió
+        if (password && password.trim() !== "") {
+            const salt = await bcrypt.genSalt(10);
+            user.password = await bcrypt.hash(password, salt);
+        }
+
+        await user.save();
+
+        return res.status(200).json({ message: "Perfil actualizado correctamente", user });
+    } catch (error) {
+        console.error("Error al actualizar perfil:", error);
+        return res.status(500).json({ error: "Error al actualizar perfil" });
+    }
+};
+

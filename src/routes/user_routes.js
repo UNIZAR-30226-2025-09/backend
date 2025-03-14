@@ -1,5 +1,5 @@
 import express from "express";
-import { registerUser, loginUser, logoutUser} from "#src/controllers/user_controller";
+import { registerUser, loginUser, logoutUser, getUserProfile, updateUserProfile} from "#src/controllers/user_controller";
 
 const router = express.Router();
 
@@ -13,4 +13,6 @@ const router = express.Router();
 router.post("/register", registerUser); // Ruta para registrar un usuario
 router.post("/login", loginUser); // Ruta para iniciar sesión de usuario
 router.post("/logout", logoutUser); // Ruta para iniciar sesión de usuario
+router.get("/profile", getUserProfile); // Ruta para obtener el perfil de usuario
+router.post("/update", updateUserProfile); // Ruta para actualizar el perfil de usuario
 export default router;
