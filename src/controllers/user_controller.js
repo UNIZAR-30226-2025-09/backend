@@ -105,3 +105,14 @@ export const loginUser = async (req, res) => {
     }
 };
 
+/**
+ * Cierre de sesión de usuario
+ *
+ * - No hace nada en el backend porque los JWT no se pueden invalidar.
+ * - Simplemente devuelve una respuesta de éxito.
+ * - El frontend debe eliminar el token localmente para "cerrar sesión".
+ */
+export const logoutUser = (req, res) => {
+    return res.status(200).json({ message: "Sesión cerrada correctamente" });
+};
+
