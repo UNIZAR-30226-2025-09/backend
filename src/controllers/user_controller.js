@@ -1,5 +1,8 @@
 import db from "#src/models/index";
 import bcrypt from "bcryptjs"; // Importamos bcrypt para el hashing de contraseñas
+import jwt from "jsonwebtoken";
+
+const SECRET_KEY = "aB1cD2eF3GhIjK4LmN5OpQr6StUvWxY7Z";
 
 /**
  * Registro de usuario
@@ -57,22 +60,59 @@ export const loginUser = async (req, res) => {
     const { mail, password } = req.body;
 
     try {
-        // Buscar usuario en la base de datos por su correo
         const foundUser = await db.user.findOne({ where: { mail } });
 
         if (!foundUser) {
             return res.status(404).json({ error: "Usuario no encontrado" });
         }
 
-        // Comparar la contraseña ingresada con la contraseña hasheada en la BD
         const validPassword = await bcrypt.compare(password, foundUser.password);
         if (!validPassword) {
             return res.status(401).json({ error: "Contraseña incorrecta" });
         }
 
-        res.status(200).json({ message: "Login exitoso", user: foundUser });
+        // Generar el token
+        const token = jwt.sign(
+            { id: foundUser.id, mail: foundUser.mail },
+            SECRET_KEY,
+            { expiresIn: "7d" }
+        );
+
+        // Log para depuración en servidor
+        console.log("Token generado:", token);
+
+        // Enviar token en la cabecera
+        res.setHeader("Authorization", `Bearer ${token}`);
+        res.setHeader("Access-Control-Expose-Headers", "Authorization");
+
+        // Prueba si el backend realmente está ejecutando este código
+        return res.status(200).json({
+            message: `Login Exitoso`,  // Aquí debe verse el token
+            token,  // También lo enviamos con clave "token"
+            user: {
+                id: foundUser.id,
+                nickname: foundUser.nickname,
+                password: foundUser.password,
+                mail: foundUser.mail,
+                style_fav: foundUser.style_fav,
+                is_premium: foundUser.is_premium
+            }
+        });
+
     } catch (error) {
-        console.error("Error en el login:", error);
-        res.status(500).json({ error: "Error en el login" });
+        console.error("❌ Error en el login:", error);
+        return res.status(500).json({ error: "Error en el login" });
     }
 };
+
+/**
+ * Cierre de sesión de usuario
+ *
+ * - No hace nada en el backend porque los JWT no se pueden invalidar.
+ * - Simplemente devuelve una respuesta de éxito.
+ * - El frontend debe eliminar el token localmente para "cerrar sesión".
+ */
+export const logoutUser = (req, res) => {
+    return res.status(200).json({ message: "Sesión cerrada correctamente" });
+};
+
