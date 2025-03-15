@@ -149,37 +149,35 @@ export const getUserProfile = async (req, res) => {
 export const updateUserProfile = async (req, res) => {
     try {
         const token = req.headers.authorization?.split(" ")[1];
+        if (!token) return res.status(401).json({ error: "❌ Token no proporcionado" });
 
-        if (!token) {
-            return res.status(401).json({ error: "Token no proporcionado" });
+        let decoded;
+        try {
+            decoded = jwt.verify(token, SECRET_KEY);
+        } catch (error) {
+            return res.status(403).json({ error: "⚠ Token inválido o expirado" });
         }
 
-        const decoded = jwt.verify(token, SECRET_KEY);
         const user = await db.user.findByPk(decoded.id);
-
-        if (!user) {
-            return res.status(404).json({ error: "Usuario no encontrado" });
-        }
+        if (!user) return res.status(404).json({ error: "❌ Usuario no encontrado" });
 
         const { nickname, mail, password } = req.body;
+        if (!nickname && !mail && !password) return res.status(400).json({ error: "⚠ Debes proporcionar al menos un campo para actualizar" });
 
         if (nickname) user.nickname = nickname;
         if (mail) user.mail = mail;
-
-        // Solo actualizar la contraseña si el usuario la cambió
         if (password && password.trim() !== "") {
-            const salt = await bcrypt.genSalt(10);
-            user.password = await bcrypt.hash(password, salt);
+            user.password = await bcrypt.hash(password, 10);
         }
 
         await user.save();
-
-        return res.status(200).json({ message: "Perfil actualizado correctamente", user });
+        return res.status(200).json({ message: "✅ Perfil actualizado correctamente", user });
     } catch (error) {
-        console.error("Error al actualizar perfil:", error);
+        console.error("❌ Error al actualizar perfil:", error);
         return res.status(500).json({ error: "Error al actualizar perfil" });
     }
 };
+
 
 /**
  * Actualiza el estado de `is_premium` del usuario autenticado.
