@@ -31,7 +31,6 @@ console.log(`Verificando ruta: ${imagesPath}`);
 app.use("/songs", express.static(songsPath));
 app.use("/images", express.static(imagesPath));
 // Monta la ruta en /api/library
-app.use("/api/library", libraryRoutes);
 
 
 // Definir rutas generales de API
