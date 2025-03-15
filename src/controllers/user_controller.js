@@ -116,3 +116,137 @@ export const logoutUser = (req, res) => {
     return res.status(200).json({ message: "Sesión cerrada correctamente" });
 };
 
+/**
+ * Obtiene la información del usuario autenticado (sin devolver la contraseña).
+ */
+export const getUserProfile = async (req, res) => {
+    try {
+        const token = req.headers.authorization?.split(" ")[1];
+
+        if (!token) {
+            return res.status(401).json({ error: "Token no proporcionado" });
+        }
+
+        const decoded = jwt.verify(token, SECRET_KEY);
+        const user = await db.user.findByPk(decoded.id, {
+            attributes: ["id", "nickname", "mail", "style_fav", "is_premium"] // No devolver la contraseña
+        });
+
+        if (!user) {
+            return res.status(404).json({ error: "Usuario no encontrado" });
+        }
+
+        return res.status(200).json(user);
+    } catch (error) {
+        console.error("Error al obtener el perfil:", error);
+        return res.status(500).json({ error: "Error al obtener el perfil" });
+    }
+};
+
+/**
+ * Actualiza la información del usuario autenticado.
+ */
+export const updateUserProfile = async (req, res) => {
+    try {
+        const token = req.headers.authorization?.split(" ")[1];
+
+        if (!token) {
+            return res.status(401).json({ error: "Token no proporcionado" });
+        }
+
+        const decoded = jwt.verify(token, SECRET_KEY);
+        const user = await db.user.findByPk(decoded.id);
+
+        if (!user) {
+            return res.status(404).json({ error: "Usuario no encontrado" });
+        }
+
+        const { nickname, mail, password } = req.body;
+
+        if (nickname) user.nickname = nickname;
+        if (mail) user.mail = mail;
+
+        // Solo actualizar la contraseña si el usuario la cambió
+        if (password && password.trim() !== "") {
+            const salt = await bcrypt.genSalt(10);
+            user.password = await bcrypt.hash(password, salt);
+        }
+
+        await user.save();
+
+        return res.status(200).json({ message: "Perfil actualizado correctamente", user });
+    } catch (error) {
+        console.error("Error al actualizar perfil:", error);
+        return res.status(500).json({ error: "Error al actualizar perfil" });
+    }
+};
+
+/**
+ * Actualiza el estado de `is_premium` del usuario autenticado.
+ * 
+ * - Requiere autenticación con token JWT.
+ * - Recibe `is_premium` en el body para actualizar el estado.
+ * - Devuelve el nuevo estado del usuario.
+ */
+export const updatePremiumStatus = async (req, res) => {
+    try {
+        // Obtener el token de la cabecera
+        const authHeader = req.headers.authorization;
+        if (!authHeader) {
+            return res.status(401).json({ error: "Token no proporcionado" });
+        }
+
+        const token = authHeader.split(" ")[1];
+        if (!token) {
+            return res.status(401).json({ error: "Token inválido" });
+        }
+
+        // Verificar el token y obtener el ID del usuario
+        let decoded;
+        try {
+            decoded = jwt.verify(token, SECRET_KEY);
+        } catch (err) {
+            console.error("Error al verificar el token:", err);
+            return res.status(401).json({ error: "Token inválido o expirado" });
+        }
+
+        // Buscar usuario en la BD
+        const user = await db.user.findByPk(decoded.id);
+        if (!user) {
+            return res.status(404).json({ error: "Usuario no encontrado" });
+        }
+
+        // Extraer el nuevo valor de `is_premium`
+        const { is_premium } = req.body;
+        if (typeof is_premium !== "boolean") {
+            return res.status(400).json({ error: "El valor de 'is_premium' debe ser booleano (true/false)" });
+        }
+
+        // Verificar si realmente se necesita actualizar
+        if (user.is_premium === is_premium) {
+            return res.status(200).json({ 
+                message: `El usuario ya está en el estado ${is_premium ? "Premium" : "Gratuito"}`, 
+                user: { id: user.id, nickname: user.nickname, mail: user.mail, is_premium: user.is_premium }
+            });
+        }
+
+        // Actualizar el estado en la BD
+        console.log(`Cambiando is_premium de ${user.is_premium} a ${is_premium}`);
+        user.is_premium = is_premium;
+        await user.save();
+
+        return res.status(200).json({
+            message: `Estado actualizado a: ${is_premium ? "Premium" : "Gratuito"}`,
+            user: {
+                id: user.id,
+                nickname: user.nickname,
+                mail: user.mail,
+                is_premium: user.is_premium
+            }
+        });
+
+    } catch (error) {
+        console.error("❌ Error al actualizar estado de premium:", error);
+        return res.status(500).json({ error: "Error interno al actualizar el estado de premium" });
+    }
+};
