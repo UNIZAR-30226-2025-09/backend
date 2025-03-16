@@ -15,21 +15,22 @@ app.use(cors());
 app.use(express.json()); // Habilita JSON en las peticiones
 
 // Configuración de archivos estáticos
-const songsPath = path.resolve("public/songs");
-const imagesPath = path.resolve("public/playlist");
+// Directorio base
+const publicPath = path.resolve("public");
 
-// Verifica que la carpeta de canciones existe
-if (!fs.existsSync(songsPath)) {
-    console.error("ERROR: La carpeta 'public/songs' NO existe. Verifica su ubicación.");
-} else {
-    console.log(`La carpeta de canciones EXISTE en: ${songsPath}`);
-}
-console.log(`Verificando ruta: ${songsPath}`);
-console.log(`Verificando ruta: ${imagesPath}`);
+// Subcarpetas dentro de public
+const subdirectories = [
+    "songs",
+    "playlist_images",
+    "songs_images",
+    "artists_images",
+    "albums_images"
+];
 
-// Servir archivos estáticos
-app.use("/songs", express.static(songsPath));
-app.use("/images", express.static(imagesPath));
+// Configurar rutas estáticas dinámicamente
+subdirectories.forEach((dir) => {
+    app.use(`/${dir}`, express.static(path.join(publicPath, dir)));
+});
 
 // Definir rutas generales de API
 app.use("/api", apiRoute);
