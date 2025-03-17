@@ -35,10 +35,10 @@ export async function getSongDetails(req, res) {
             lyrics: song.lyrics,
             photo_video: song.photo_video,
             url_mp3: fullUrlMp3,
-            artists: song.artists.map(artist => ({
+            artists: song.artists ? song.artists.map(artist => ({
                 id: artist.id,
                 name: artist.name
-            }))
+            })) : []
         });
     } catch (error) {
         console.error("Error al obtener la canción:", error);

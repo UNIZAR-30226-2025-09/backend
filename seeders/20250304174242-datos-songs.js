@@ -1,8 +1,11 @@
 'use strict';
 
+import fs from "fs";
+import path from "path";
+
 /** @type {import('sequelize-cli').Migration} */
 export async function up(queryInterface, Sequelize) {
-    await queryInterface.bulkInsert('song', [
+  await queryInterface.bulkInsert('song', [
       {
         name: 'Sensualidad',
         duration: 319,
@@ -119,8 +122,10 @@ export async function up(queryInterface, Sequelize) {
             'Hear this music\n' +
             'Tiempo de Balvin (leggo\', leggo\')\n' +
             '¡Dímelo, Braza!',
-        photo_video: '/songs_images/Sensualidad.png',
-        url_mp3: '/songs/Sensualidad - Bad Bunny X Prince Royce X J Balvin X Dj Luian X Mambo Kingz.mp3'
+
+          photo_video: "http://localhost:5001/images/Bad-Bunny.png",
+          url_mp3: 'songs/Sensualidad - Bad Bunny X Prince Royce X J Balvin X Dj Luian X Mambo Kingz.mp3'
+
       },
       {
         name: 'Macarena',
@@ -233,7 +238,7 @@ export async function up(queryInterface, Sequelize) {
             'Que tu cuerpo es pa\' darle alegría y cosa buena\n' +
             'Dale a tu cuerpo alegría, Macarena\n' +
             'Eh, Macarena (¡ay!)',
-        photo_video: 'hotel.jpg',
+          photo_video: "http://localhost:5001/images/Bad-Bunny.png",
         url_mp3: 'songs/Los Del Rio - Macarena (Bayside Boys Remix).mp3'
       },
       {
@@ -295,7 +300,7 @@ export async function up(queryInterface, Sequelize) {
             'Si entre los dedos se me escapa volando una flor\n' +
             'Y yo la dejo que me marque el camino'
             ,
-        photo_video: 'hotel.jpg',
+          photo_video: "http://localhost:5001/images/Bad-Bunny.png",
         url_mp3: 'songs/La vereda de la puerta de atras extremoduro.mp3'
       },
       {
@@ -391,7 +396,7 @@ export async function up(queryInterface, Sequelize) {
             '\n' +
             'Eh-eh, mi diabla, mi ángel, mi loquita\n' +
             'Mi diabla, mi ángel, mi loquita, eh-eh',
-        photo_video: 'shape.jpg',
+          photo_video: "http://localhost:5001/images/Bad-Bunny.png",
         url_mp3: 'songs/Bad Bunny - BAILE INoLVIDABLE (Letra).mp3'
       },
       {

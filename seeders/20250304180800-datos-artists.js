@@ -24,6 +24,14 @@ export async function up(queryInterface, Sequelize) {
     {
       name: "Shakira",
       bio: "Cantante colombiana de pop y música latina, famosa por su energía en el escenario y éxitos como 'Hips Don't Lie'."
+    },
+    {
+      name: "Extremoduro",
+      bio: "Grupo de rock transgresivo español."
+    },
+    {
+      name: "Bad-Bunny ",
+      bio: "Cantante colombiano de música latina, famoso por su energía en el escenario."
     }
   ], {});
 }
