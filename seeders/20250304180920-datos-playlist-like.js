@@ -3,12 +3,14 @@
  * @param {import('sequelize').Sequelize} Sequelize
  */
 export async function up(queryInterface, Sequelize) {
-  // Agrega aquí los comandos para insertar datos de prueba
-  // Ejemplo:
-  // await queryInterface.bulkInsert('People', [{
-  //   name: 'John Doe',
-  //   isBetaMember: false
-  // }], {});
+    await queryInterface.bulkInsert('playlist_like', [
+        { user_id: 1, playlist_id: 1 },
+        { user_id: 2, playlist_id: 1 },
+        { user_id: 3, playlist_id: 2 },
+        { user_id: 4, playlist_id: 3 },
+        { user_id: 2, playlist_id: 3 },
+        { user_id: 5, playlist_id: 2 },
+    ], {});
 }
 
 /**
@@ -16,7 +18,5 @@ export async function up(queryInterface, Sequelize) {
  * @param {import('sequelize').Sequelize} Sequelize
  */
 export async function down(queryInterface, Sequelize) {
-  // Agrega aquí los comandos para eliminar datos de prueba
-  // Ejemplo:
-  // await queryInterface.bulkDelete('People', null, {});
+    await queryInterface.bulkDelete('playlist_like', null, {});
 }

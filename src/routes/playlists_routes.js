@@ -17,6 +17,9 @@ router.get("/:id", playlistController.getPlaylistById);
 router.post("/", playlistController.createPlaylist);
 router.put("/:id", playlistController.updatePlaylist);
 router.delete("/:id", playlistController.deletePlaylist);
+router.post("/:id/like", playlistController.likePlaylist);
+router.delete("/:id/like", playlistController.unlikePlaylist);
+
 
 
 export default router;
