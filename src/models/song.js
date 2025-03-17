@@ -5,7 +5,7 @@ export default (sequelize, DataTypes) => {
         duration: DataTypes.INTEGER,
         lyrics: DataTypes.TEXT,
         photo_video: DataTypes.STRING,
-        url_mp3: { type: DataTypes.STRING, allowNull: false } // Nueva columna en el modelo
+        url_mp3: { type: DataTypes.STRING }
     }, { tableName: "song", timestamps: false });
 
     song.associate = function(models) {

@@ -101,9 +101,37 @@ export default {
       user2_id: { type: Sequelize.INTEGER, references: { model: "users", key: "id" }, onDelete: "CASCADE", primaryKey: true },
       txt_message: { type: Sequelize.STRING }
     });
+
+    // Crear la tabla para almacenar la lista de reproduccion de cada usuario (M:N entre USER y SONG)
+    await queryInterface.createTable("user_replist", {
+      user_id: {
+        type: Sequelize.INTEGER,
+        references: { model: "users", key: "id" },
+        onDelete: "CASCADE",
+        primaryKey: true
+      },
+      song_id: {
+        type: Sequelize.INTEGER,
+        references: { model: "song", key: "id" },
+        onDelete: "CASCADE",
+        primaryKey: true
+      },
+      position: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        defaultValue: 0
+      },
+      added_at: {
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
+        allowNull: false
+      }
+    });
   },
 
   down: async (queryInterface, Sequelize) => {
+    await queryInterface.dropTable("user_replist");
+
     await queryInterface.dropTable("chat");
     await queryInterface.dropTable("permission_have");
     await queryInterface.dropTable("friendship");
@@ -116,5 +144,6 @@ export default {
     await queryInterface.dropTable("song");
     await queryInterface.dropTable("artist");
     await queryInterface.dropTable("users");
+
   }
 };
