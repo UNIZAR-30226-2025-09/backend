@@ -1,4 +1,5 @@
 import db from "#src/models/index";
+import playlist_like from "#models/playlist_like";
 
 /**
  * Obtiene todas las playlists.
@@ -11,6 +12,77 @@ export const getAllPlaylist = async (req, res) => {
     } catch (error) {
         console.error("Error al obtener las playlists:", error);
         res.status(500).json({ error: error.message });
+    }
+};
+
+export const likePlaylist = async (req, res) => {
+    try {
+        const { user_id } = req.body; // Asegurar que el user_id viene en el body
+        const playlist_id = Number(req.params.id); // Convertir ID de playlist a número
+
+        console.log("Datos recibidos en la API:");
+        console.log("user_id:", user_id);
+        console.log("playlist_id:", playlist_id);
+
+        if (!user_id || isNaN(playlist_id)) {
+            return res.status(400).json({ error: "Datos inválidos" });
+        }
+
+        console.log(`Intentando dar like/unlike: user_id=${user_id}, playlist_id=${playlist_id}`);
+
+        // Buscar si ya existe la relación en `playlist_like`
+        const existingLike = await db.playlist_like.findOne({
+            where: { user_id: user_id, playlist_id: playlist_id }
+        });
+
+        if (existingLike) {
+            console.log("Like ya existe, eliminándolo...");
+            await db.playlist_like.destroy({
+                where: { user_id, playlist_id }
+            });
+
+            return res.json({ message: "Like eliminado correctamente", liked: false });
+        } else {
+            console.log("Antes de insertar: user_id =", user_id, "playlist_id =", playlist_id);
+            await db.playlist_like.create({ user_id, playlist_id });
+
+            return res.json({ message: "Like agregado correctamente", liked: true });
+        }
+    } catch (error) {
+        console.error("Error en likePlaylist:", error);
+        return res.status(500).json({ error: "Error interno del servidor", details: error.message });
+    }
+};
+
+
+
+
+
+/**
+ * Quitar like a una playlist.
+ * DELETE /api/playlists/:id/like
+ */
+export const unlikePlaylist = async (req, res) => {
+    try {
+        const { user_id } = req.body;
+        const playlist_id = Number(req.params.id);
+
+        if (!user_id || isNaN(playlist_id)) {
+            return res.status(400).json({ error: "Datos inválidos" });
+        }
+
+        const deleted = await db.playlist_like.destroy({
+            where: { user_id: user_id, playlist_id: playlist_id }
+        });
+
+        if (!deleted) {
+            return res.status(400).json({ error: "No has dado like a esta playlist" });
+        }
+
+        res.json({ message: "Like eliminado correctamente" });
+    } catch (error) {
+        console.error("Error al quitar like de la playlist:", error);
+        res.status(500).json({ error: "Error interno del servidor" });
     }
 };
 
@@ -29,29 +101,41 @@ export const getPlaylistById = async (req, res) => {
             include: [
                 {
                     model: db.song,
-                    through: { attributes: ["date"] }, // Evitar datos de la tabla intermedia
-                    include: [{
-                        model: db.playlist,
-                        through: { attributes: [] },
-                        where: { typeP: "album" },
-                        required: false,
-                        as: "album"
-                    }]
+                    through: { attributes: ["date"] }, // Mantiene la fecha de la tabla intermedia
+                    include: [
+                        {
+                            model: db.artist,
+                            as: "artists",
+                            through: { attributes: [] }, // Evita traer la tabla intermedia `song_artist`
+                            attributes: ["id", "name"]
+                        },
+                        {
+                            model: db.playlist,
+                            through: { attributes: [] },
+                            where: { typeP: "album" },
+                            required: false,
+                            as: "album"
+                        }
+                    ]
                 },
                 {
                     model: db.user,
                     attributes: ["nickname"],
-                }]
-    });
+                }
+            ]
+        });
 
-        if (!pl) return res.status(404).json({ message: "Playlist no encontrada" });
+        if (!pl) return res.status(404).json({ error: "Playlist no encontrada" });
 
-        res.json(pl);
+        console.log("Playlist obtenida:", JSON.stringify(pl, null, 2));
+
+        return res.status(200).json(pl);
     } catch (error) {
-        console.error("Error obteniendo la playlist:", error);
-        res.status(500).json({ error: "Error interno del servidor" });
+        console.error("Error al obtener la playlist:", error);
+        return res.status(500).json({ error: "Error al obtener la playlist", message: error.message });
     }
 };
+
 
 /**
  * Crea una nueva playlist.
