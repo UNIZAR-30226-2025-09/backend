@@ -4,7 +4,8 @@ export default (sequelize, DataTypes) => {
         {
             id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false },
             name: { type: DataTypes.STRING, allowNull: false },
-            bio: DataTypes.TEXT
+            bio: DataTypes.TEXT,
+            photo: DataTypes.STRING
         },
         { tableName: "artist", timestamps: false }
     );

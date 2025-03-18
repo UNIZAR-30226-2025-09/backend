@@ -22,6 +22,7 @@ export default {
       id: { type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false },
       name: { type: Sequelize.STRING, allowNull: false },
       bio: { type: Sequelize.TEXT },
+      photo: { type: Sequelize.STRING },
       created_at: { type: Sequelize.DATE, defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"), allowNull: false }
     });
 

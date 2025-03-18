@@ -4,7 +4,8 @@ import playerRoutes from "#routes/player_routes"; // Importa las rutas del repro
 import songsRoute from "#routes/songs_routes"; // Importa las rutas de canciones
 import userRoute from "#routes/user_routes"; // Importa las rutas de gestión de usuarios
 import stripeRoute from "#routes/stripe_routes"; // Importa las rutas de stripe (Api de pagos)
-import libraryRoute from "#routes/library_routes"
+import libraryRoute from "#routes/library_routes";
+import artistRoute from "#routes/artist_routes";
 const router = express.Router();
 
 /**
@@ -37,8 +38,17 @@ router.use("/user", userRoute);
  */
 router.use("/stripe", stripeRoute);
 
-
+/**
+ * Rutas relacionadas con la libreria
+ * Se montan bajo el prefijo `/api/library`
+ */
 router.use("/library", libraryRoute);
+
+/**
+ * Rutas relacionadas con los artistas
+ * Se montan bajo el prefijo `/api/artist`
+ */
+router.use("/artist", artistRoute);
 
 
 export default router;
