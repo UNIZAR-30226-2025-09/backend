@@ -11,6 +11,8 @@ const router = express.Router();
  * - PUT `/api/playlists/:id` -> Actualiza una playlist por su ID
  * - DELETE `/api/playlists/:id` -> Elimina una playlist por su ID
  */
+
+
 router.get("/", playlistController.getAllPlaylist);
 router.get("/vibra", playlistController.getVibraPlaylists);
 router.get("/:id", playlistController.getPlaylistById);
