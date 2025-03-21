@@ -52,7 +52,10 @@ router.use("/library", libraryRoute);
  */
 router.use("/artist", artistRoute);
 
-// Usar las rutas de 'song_like'
-router.use("/song_like", songLikeRoutes);  // Aquí registramos las rutas
+/**
+ * Rutas relacionadas con los me gustas a canciones
+ * Se montan bajo el prefijo `/api/song_like`
+ */
+router.use("/song_like", songLikeRoutes);
 
 export default router;

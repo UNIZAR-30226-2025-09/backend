@@ -248,3 +248,29 @@ export const updatePremiumStatus = async (req, res) => {
         return res.status(500).json({ error: "Error interno al actualizar el estado de premium" });
     }
 };
+
+/**
+ * Verifica si un correo electrónico ya está registrado.
+ *
+ * @param {Object} req - La solicitud que contiene el correo electrónico.
+ * @param {Object} res - La respuesta para devolver si el correo ya está registrado o no.
+ */
+export const checkEmailExistence = async (req, res) => {
+    const { mail } = req.body; // Extraer el correo electrónico del cuerpo de la solicitud
+
+    try {
+        // Buscar un usuario con ese correo en la base de datos
+        const user = await db.user.findOne({ where: { mail } });
+
+        if (user) {
+            // Si el correo existe, devolver una respuesta con 'exists: true'
+            return res.json({ exists: true });
+        }
+
+        // Si el correo no existe, devolver 'exists: false'
+        return res.json({ exists: false });
+    } catch (error) {
+        console.error("Error al verificar el correo:", error);
+        return res.status(500).json({ error: "Error en la base de datos" });
+    }
+};
