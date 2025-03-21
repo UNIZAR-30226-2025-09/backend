@@ -19,6 +19,8 @@ router.put("/:id", playlistController.updatePlaylist);
 router.delete("/:id", playlistController.deletePlaylist);
 router.post("/:id/like", playlistController.likePlaylist);
 router.delete("/:id/like", playlistController.unlikePlaylist);
+router.get("/:id/like", playlistController.checkIfLiked);
+
 
 
 

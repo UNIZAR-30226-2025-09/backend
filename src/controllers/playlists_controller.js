@@ -1,5 +1,6 @@
 import db from "#src/models/index";
 import playlist_like from "#models/playlist_like";
+import Playlist_like from "#models/playlist_like";
 
 /**
  * Obtiene todas las playlists.
@@ -18,7 +19,10 @@ export const getAllPlaylist = async (req, res) => {
 export const likePlaylist = async (req, res) => {
     try {
         const { user_id } = req.body; // Asegurar que el user_id viene en el body
-        const playlist_id = Number(req.params.id); // Convertir ID de playlist a número
+        const playlist_id = req.params.id ? parseInt(req.params.id, 10) : null;
+        if (!playlist_id) {
+            return res.status(400).json({ error: "ID de la playlist es inválido" });
+        }
 
         console.log("Datos recibidos en la API:");
         console.log("user_id:", user_id);
@@ -43,10 +47,26 @@ export const likePlaylist = async (req, res) => {
 
             return res.json({ message: "Like eliminado correctamente", liked: false });
         } else {
-            console.log("Antes de insertar: user_id =", user_id, "playlist_id =", playlist_id);
-            await db.playlist_like.create({ user_id, playlist_id });
+            console.log("📝 Intentando insertar:", { user_id, playlist_id });
 
-            return res.json({ message: "Like agregado correctamente", liked: true });
+            const userIdNumber = Number(user_id);
+            const playlistIdNumber = Number(playlist_id);
+
+            console.log("📝 Verificando tipos:", { userIdNumber, playlistIdNumber });
+
+            const newLike = db.playlist_like.build({
+                user_id: user_id,
+                playlist_id: playlist_id,
+                playlistId: playlist_id,
+            });
+
+            console.log(newLike);
+
+            await newLike.save();
+
+            console.log("Registro creado:", newLike);
+
+            return res.json({ message: "Like agregado correctamente", liked: true, newLike });
         }
     } catch (error) {
         console.error("Error en likePlaylist:", error);
@@ -151,6 +171,23 @@ export const getPlaylistById = async (req, res) => {
     } catch (error) {
         console.error("Error al obtener la playlist:", error);
         return res.status(500).json({ error: "Error al obtener la playlist", message: error.message });
+    }
+};
+
+export const checkIfLiked = async (req, res) => {
+    const { id } = req.params;  // ID de la playlist
+    const { user_id } = req.query;  // ID del usuario desde la query
+
+    try {
+        // Consulta en la base de datos si este usuario ha dado like a esta playlist
+        const liked = await db.playlist_like.findOne({
+            where: { user_id: user_id, playlist_id: id }
+        });
+
+        // Devolvemos si está liked o no
+        res.json({ isLiked: liked ? true : false });
+    } catch (error) {
+        res.status(500).json({ error: 'Error al verificar like' });
     }
 };
 
