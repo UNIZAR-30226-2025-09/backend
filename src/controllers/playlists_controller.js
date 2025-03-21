@@ -8,6 +8,8 @@ import Playlist_like from "#models/playlist_like";
  */
 export const getAllPlaylist = async (req, res) => {
     try {
+        await createDefaultPlaylist();
+
         const playlists = await db.playlist.findAll();
         res.json(playlists);
     } catch (error) {
@@ -15,6 +17,33 @@ export const getAllPlaylist = async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 };
+export const createDefaultPlaylist = async () => {
+    try {
+        // Verificar si la playlist con ID 0 existe
+        let playlistZero = await db.playlist.findByPk(0);
+
+        if (!playlistZero) {
+            // Crear la playlist con ID 0 si no existe
+            playlistZero = await db.playlist.create({
+                id: 0,  // ID 0
+                name: "Playlist de Me Gusta",  // Nombre predeterminado
+                type: "private",  // Tipo de playlist
+                typeP: "playlist",  // Tipo de propiedad
+                front_page: ""  // Puedes asignar un valor vacío o predeterminado para la portada
+            });
+
+            console.log("Playlist con ID 0 creada:", playlistZero);  // Verificación en consola
+        } else {
+            console.log("La playlist con ID 0 ya existe:", playlistZero);  // Verificación si ya existe
+        }
+
+        return playlistZero;  // Devuelve la playlist creada o ya existente
+    } catch (error) {
+        console.error("Error al crear la playlist con ID 0:", error);
+        throw new Error("Error al crear la playlist con ID 0.");
+    }
+};
+
 
 export const likePlaylist = async (req, res) => {
     try {

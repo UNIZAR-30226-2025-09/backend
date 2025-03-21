@@ -1,4 +1,5 @@
 import express from "express";
+
 import playlistRoutes from "#routes/playlists_routes"; // Importa las rutas de playlists
 import playerRoutes from "#routes/player_routes"; // Importa las rutas del reproductor
 import songsRoute from "#routes/songs_routes"; // Importa las rutas de canciones
@@ -6,6 +7,7 @@ import userRoute from "#routes/user_routes"; // Importa las rutas de gestión de
 import stripeRoute from "#routes/stripe_routes"; // Importa las rutas de stripe (Api de pagos)
 import libraryRoute from "#routes/library_routes";
 import artistRoute from "#routes/artist_routes";
+import songLikeRoutes from "#routes/song_like_routes";
 const router = express.Router();
 
 /**
@@ -50,5 +52,7 @@ router.use("/library", libraryRoute);
  */
 router.use("/artist", artistRoute);
 
+// Usar las rutas de 'song_like'
+router.use("/song_like", songLikeRoutes);  // Aquí registramos las rutas
 
 export default router;
