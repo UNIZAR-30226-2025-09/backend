@@ -49,6 +49,72 @@ export async function up(queryInterface, Sequelize) {
       type: "public",
       typeP: "user",
       front_page: "http://localhost:5001/images/Bad-Bunny.png"
+    },
+
+    //playlists oficiales Vibra
+    {
+      name: "Los 2000 España",
+      user_id: null,
+      artist_id: null,
+      description: "Lo mejor de la primera década del milenio.",
+      type: "public",
+      typeP: "Vibra",
+      front_page: "playlist_images/Los2000Espana.png"
+
+    },
+    {
+      name: "Éxitos España",
+      user_id: null,
+      artist_id: null,
+      description: "Los hits de ahora en la playlist más grande de España.",
+      type: "public",
+      typeP: "Vibra",
+      front_page: "playlist_images/exitosEspana.png"
+    },
+    {
+      name: "temardos",
+      user_id: null,
+      artist_id: null,
+      description: "Los temas que mas pegan en las fiestas",
+      type: "public",
+      typeP: "Vibra",
+      front_page: "playlist_images/temardos.png"
+    },
+    {
+      name: "FINO",
+      user_id: null,
+      artist_id: null,
+      description: "Fino y elegante, como Feid.",
+      type: "public",
+      typeP: "Vibra",
+      front_page: "playlist_images/FINO.png"
+    },
+    {
+      name: "Que te den",
+      user_id: null,
+      artist_id: null,
+      description: "Despechás y despechaos: esta es vuestra lista. ¡Gritadlo!",
+      type: "public",
+      typeP: "Vibra",
+      front_page: "playlist_images/queteden.png"
+    },
+    {
+      name: "BARRAS",
+      user_id: null,
+      artist_id: null,
+      description: "La calle suena así.",
+      type: "public",
+      typeP: "Vibra",
+      front_page: "playlist_images/BARRAS.png"
+    },
+    {
+      name: "Pop con Ñ",
+      user_id: null,
+      artist_id: null,
+      description: "Lo mejor del pop en español.",
+      type: "public",
+      typeP: "Vibra",
+      front_page: "playlist_images/PopConÑ.png"
     }
   ], {});
 }

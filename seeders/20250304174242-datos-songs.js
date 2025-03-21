@@ -122,8 +122,10 @@ export async function up(queryInterface, Sequelize) {
             'Hear this music\n' +
             'Tiempo de Balvin (leggo\', leggo\')\n' +
             '¡Dímelo, Braza!',
+
           photo_video: "http://localhost:5001/images/Bad-Bunny.png",
           url_mp3: 'songs/Sensualidad - Bad Bunny X Prince Royce X J Balvin X Dj Luian X Mambo Kingz.mp3'
+
       },
       {
         name: 'Macarena',

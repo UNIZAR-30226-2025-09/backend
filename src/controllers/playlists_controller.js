@@ -107,6 +107,24 @@ export const unlikePlaylist = async (req, res) => {
 };
 
 /**
+ * Obtiene todas las playlists con typeP = "Vibra".
+ * GET /api/playlists/vibra
+ */
+export const getVibraPlaylists = async (req, res) => {
+    try {
+        const vibraPlaylists = await db.playlist.findAll({
+            where: { typeP: "Vibra" },
+            attributes: ["id", "name", "front_page"] // Solo traer estos campos
+        });
+
+        res.json(vibraPlaylists);
+    } catch (error) {
+        console.error("Error al obtener las playlists de Vibra:", error);
+        res.status(500).json({ error: "Error interno del servidor" });
+    }
+};
+
+/**
  * Obtiene una playlist por ID con sus canciones.
  * GET /api/playlists/:id
  */
