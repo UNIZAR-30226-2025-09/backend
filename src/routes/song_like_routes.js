@@ -3,13 +3,8 @@ import { likeSong, unlikeSong, getLikedSongs } from '#controllers/song_like_cont
 
 const router = express.Router();
 
-// Ruta para dar "me gusta" a una canción (POST)
-router.post('/like', likeSong);
-
-// Ruta para eliminar "me gusta" de una canción (POST)
-router.post('/unlike', unlikeSong);
-
-// Ruta para obtener todas las canciones que le gustan a un usuario (GET)
-router.get('/:user_id/liked-songs', getLikedSongs);
+router.post("/:id/like", likeSong);
+router.delete("/:id/like", unlikeSong);
+router.get("/:user_id/likedSongs", getLikedSongs);
 
 export default router;
