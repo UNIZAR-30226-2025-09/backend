@@ -4,7 +4,7 @@ import { getIp } from "./get_ip.js"; // Importa la función
 
 import apiRoute from "#routes/api";
 import { sequelize } from "#models/index"; // Importa la instancia de Sequelize
-
+import { createDefaultPlaylist } from "#controllers/playlists_controller";
 import path from "path";
 import fs from "fs";
 
@@ -42,9 +42,10 @@ let BASE_URL;
 
 // Iniciar servidor y conectar a la BD
 sequelize.authenticate()
-    .then(() => {
+    .then(async () => {
         console.log("Conexión exitosa a la base de datos.");
         BASE_URL = `http://${IP}:${PORT}`;
+        await createDefaultPlaylist();
         app.listen(PORT, () => console.log(`Servidor corriendo en ${BASE_URL}`));
     })
     .catch(err => {
