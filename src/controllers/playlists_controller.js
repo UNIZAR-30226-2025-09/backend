@@ -229,7 +229,7 @@ export const createPlaylist = async (req, res) => {
     try {
         const { name, type, description, front_page } = req.body;
         const newPlaylist = await db.playlist.create({ name, type, description, front_page });
-
+        // Falta hacer que haga la relacion con el user_id (qn creo) y name de playlist creada
         res.status(201).json(newPlaylist);
     } catch (error) {
         console.error("Error al crear la playlist:", error);
@@ -275,3 +275,42 @@ export const deletePlaylist = async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 };
+
+/**
+ * Obtiene las playlists que un usuario ha dado like.
+ * @param {Object} req - Objeto de solicitud, debe contener `userId` como parámetro.
+ * @param {Object} res - Objeto de respuesta.
+ */
+export const getPlaylistLike = async (req, res) => {
+  try {
+    const { userId } = req.params;
+
+    if (!userId) {
+      return res.status(400).json({ error: "El userId es obligatorio" });
+    }
+
+    // Obtener directamente las playlists a través de la relación many-to-many
+    const user = await db.user.findByPk(userId, {
+      include: [{
+        model: db.playlist,
+        through: { model: db.playlist_like },
+        attributes: ["id", "name", "user_id", "artist_id", "description", "type", "typeP", "front_page"]
+      }]
+    });
+
+    if (!user) {
+      return res.status(404).json({ message: "Usuario no encontrado" });
+    }
+
+    if (user.playlists.length === 0) {
+      return res.status(404).json({ message: "No hay playlists que hayas dado like" });
+    }
+
+    return res.status(200).json(user.playlists);
+  } catch (error) {
+    console.error("Error al obtener las playlists que el usuario ha dado like:", error.message);
+    console.error(error.stack);
+    return res.status(500).json({ error: "Error interno en el servidor" });
+  }
+};
+
