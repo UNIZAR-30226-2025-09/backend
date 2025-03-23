@@ -13,6 +13,7 @@ const app = express();
 // Middleware
 app.use(cors());
 app.use(express.json()); // Habilita JSON en las peticiones
+app.use('/public', express.static('public')); // Servimos las imágenes
 
 // Configuración de archivos estáticos
 // Directorio base
