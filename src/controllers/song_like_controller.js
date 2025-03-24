@@ -19,59 +19,49 @@ export const likeSong = async (req, res) => {
         }
 
         console.log("Datos recibidos en la API:");
-        console.log("user_id:", user_id);
-        console.log("song_id:", song_id);
-        console.log(`Intentando dar like/unlike: user_id=${user_id}, song_id=${song_id}`);
+        console.log("user_id:", user_id, "song_id:", song_id);
 
-        // Buscar si ya existe la relación en SongLike
+        // 1. Obtener o crear la playlist de "Me Gusta" para este usuario.
+        let likedPlaylist = await db.playlist.findOne({
+            where: { user_id, type: 'private', typeP: 'Vibra_likedSong' }
+        });
+        if (!likedPlaylist) {
+            likedPlaylist = await db.playlist.create({
+                user_id,
+                name: 'Playlist de Me Gusta',
+                type: 'private',
+                typeP: 'Vibra_likedSong',
+                front_page: ''
+            });
+            console.log("Playlist de Me Gusta creada: ID", likedPlaylist.id);
+        } else {
+            console.log("Playlist de Me Gusta encontrada: ID", likedPlaylist.id);
+        }
+
+        // 2. Buscar la canción y el like existente.
+        const songFound = await db.song.findByPk(song_id);
+        if (!songFound) {
+            return res.status(404).json({ error: "Canción no encontrada" });
+        }
+
         const existingLike = await db.SongLike.findOne({
             where: { user_id, song_id }
         });
 
+        // 3. Toggle: Si ya existe el like, lo eliminamos y removemos la canción de la playlist.
         if (existingLike) {
-            // Ya existe el like => se elimina
             console.log("Like ya existe, eliminándolo...");
             await db.SongLike.destroy({ where: { user_id, song_id } });
-
-            // Remover la canción de la playlist "Me Gusta" (playlist con id 0)
-            let playlist = await db.playlist.findByPk(0);
-            if (playlist) {
-                const songFound = await db.song.findByPk(song_id);
-                if (songFound) {
-                    await playlist.removeSong(songFound);
-                    console.log("Canción removida de la playlist de Me Gusta");
-                }
-            }
+            await likedPlaylist.removeSong(songFound);
+            console.log("Like eliminado y canción removida de la playlist");
             return res.json({ message: "Like eliminado correctamente", liked: false });
         } else {
-            // No existe => creamos el registro
-            console.log("📝 Intentando insertar:", { user_id, song_id });
-            const newLike = db.SongLike.build({ user_id, song_id });
-            await newLike.save();
-
-            // Agregar la canción a la playlist "Me Gusta" (playlist con id 0)
-            let playlist = await db.playlist.findByPk(0);
-            if (!playlist) {
-                // Crear la playlist si no existe
-                playlist = await db.playlist.create({
-                    id: 0,
-                    name: 'Mi Playlist de Me Gusta',
-                    type: 'private',
-                    typeP: 'playlist',
-                    front_page: ''
-                });
-            }
-
-            const songFound = await db.song.findByPk(song_id);
-            if (songFound) {
-                await playlist.addSong(songFound);
-                console.log("Canción agregada a la playlist de Me Gusta");
-            } else {
-                console.log("No se encontró la canción para agregar a la playlist");
-            }
-
-            console.log("Registro creado:", newLike);
-            return res.json({ message: "Like agregado correctamente y canción añadida a la playlist de Me Gusta", liked: true, newLike });
+            // 4. Si no existe, creamos el like y añadimos la canción a la playlist.
+            console.log("📝 Intentando insertar like:", { user_id, song_id });
+            const newLike = await db.SongLike.create({ user_id, song_id });
+            await likedPlaylist.addSong(songFound);
+            console.log("Like agregado y canción añadida a la playlist");
+            return res.json({ message: "Like agregado correctamente y canción añadida a la playlist", liked: true, newLike });
         }
     } catch (error) {
         console.error("Error en likeSong:", error);
@@ -140,3 +130,36 @@ export const getLikedSongs = async (req, res) => {
         return res.status(500).json({ error: "Error interno del servidor" });
     }
 };
+export const checkIfSongIsLiked = async (req, res) => {
+    try {
+        // Se obtiene el songId desde el parámetro de la ruta y el userId desde la query
+        const songId = parseInt(req.params.id, 10);
+        const userId = parseInt(req.query.userId, 10);
+
+        console.log(`checkIfSongIsLiked: Parámetros recibidos -> songId: ${songId}, userId: ${userId}`);
+
+        if (isNaN(songId) || isNaN(userId)) {
+            console.error("checkIfSongIsLiked: Parámetros inválidos");
+            return res.status(400).json({ error: "Parámetros inválidos. Asegúrate de que songId y userId sean números." });
+        }
+
+        console.log(`checkIfSongIsLiked: Verificando si la canción ${songId} está en favoritos para el usuario ${userId}`);
+
+        // Nota: Reemplaza db.SongLike por db.song_like si ese es el nombre correcto de tu modelo
+        const existingLike = await db.SongLike.findOne({
+            where: { user_id: userId, song_id: songId }
+        });
+        console.log("checkIfSongIsLiked: Resultado de findOne:", existingLike);
+
+        const isLiked = !!existingLike;
+        console.log(`checkIfSongIsLiked: Resultado final -> isLiked: ${isLiked}`);
+
+        return res.json({ isLiked });
+    } catch (error) {
+        console.error("checkIfSongIsLiked: Error al verificar si la canción está en favoritos:", error);
+        return res.status(500).json({ error: "Error interno del servidor", details: error.message });
+    }
+};
+
+
+
