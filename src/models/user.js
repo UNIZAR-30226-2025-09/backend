@@ -5,7 +5,8 @@ export default (sequelize, DataTypes) => {
         password: { type: DataTypes.STRING, allowNull: false },
         mail: { type: DataTypes.STRING, allowNull: false, unique: true },
         style_fav: DataTypes.STRING,
-        is_premium: { type: DataTypes.BOOLEAN, defaultValue: false }
+        is_premium: { type: DataTypes.BOOLEAN, defaultValue: false },
+        user_picture: { type: DataTypes.STRING, allowNull: true }
     }, {
         tableName: "users",
         timestamps: false
