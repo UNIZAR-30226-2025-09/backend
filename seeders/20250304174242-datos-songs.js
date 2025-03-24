@@ -9,8 +9,61 @@ export async function up(queryInterface, Sequelize) {
       {
         name: 'Tanto La Queria',
         duration: 218,
-        lyrics: '',
-        photo_video: "",
+        lyrics: '¿Por qué eres tan hermosa y a la vez tan difícil?\n' +
+            '¿Por qué la vida pasa y pasa y te quiero a mi vera?\n' +
+            'Si me trataste como a un juguete sucio y abandonado\n' +
+            'Si no comprendes que el amar es algo más que besarnos\n' +
+            '\n' +
+            'Envidio a todo aquel que el amor ha encontrado\n' +
+            'Que lo mío no es ir de flor en flor, que de eso ya me he cansado\n' +
+            'Solo quería adornar las noches con tu cara morena\n' +
+            'Y decirte que hay corazones que no huyen de la tormenta\n' +
+            '\n' +
+            'A veces la miro y lloro y lloro\n' +
+            'Pensando que pudo y no fue al final\n' +
+            'Ver a las nubes, tapar las estrellas\n' +
+            'Estrellas que solo te quieren mirar\n' +
+            '\n' +
+            'Porque eres la cuna que mece sin nada\n' +
+            'Porque eres la lluvia que no hace mojar\n' +
+            'Sin ti yo veía tardes de historias\n' +
+            'Historias que nunca quise ver acabar\n' +
+            '\n' +
+            'Tanto la quería, tanto que yo\n' +
+            'Por ella moría, eso bien lo sabe Dios\n' +
+            'Ella es la reina de mi inspiración\n' +
+            'Por la que yo sufro, la musa de mi amor\n' +
+            '\n' +
+            'Busco en el recuerdo y no encuentro mi pasado\n' +
+            'Las campanas y más campanas que mi alma ha escuchado\n' +
+            'Tú sabes bien que a la última frontera te hubiera llevado\n' +
+            'Que los senderos de la vida hay que cogerlos con dos manos\n' +
+            '\n' +
+            'A veces la miro y lloro y lloro\n' +
+            'Pensando que pudo y no fue al final\n' +
+            'Ver a las nubes, tapar las estrellas\n' +
+            'Estrellas que solo te quieren mirar\n' +
+            '\n' +
+            'Porque eres la cuna que mece sin nada\n' +
+            'Porque eres la lluvia que no hace mojar\n' +
+            'Sin ti yo veía tardes de historias\n' +
+            'Historias que nunca quise ver acabar\n' +
+            '\n' +
+            'Tanto la quería, tanto que yo\n' +
+            'Por ella moría, eso bien lo sabe Dios\n' +
+            'Ella es la reina de mi inspiración\n' +
+            'Por la que yo sufro, la musa de mi amor\n' +
+            '\n' +
+            'Tanto la quería, tanto que yo\n' +
+            'Por ella moría, eso bien lo sabe Dios\n' +
+            'Ella es la reina de mi inspiración\n' +
+            'Por la que yo sufro, la musa de mi amor\n' +
+            '\n' +
+            'Tanto la quería, tanto, tanto la quería\n' +
+            'Que por ella moría, ay por ella yo moría\n' +
+            'Ella es la reina, reina de mi reina\n' +
+            'Por la que yo sufro',
+        photo_video: "songs_images/tantoLaQueria.png",
         url_mp3: 'songs/Andy & Lucas - Tanto La Queria (Videoclip) [b81kOviE7EI].mp3'
 
       },
@@ -125,7 +178,7 @@ export async function up(queryInterface, Sequelize) {
             'Que tu cuerpo es pa\' darle alegría y cosa buena\n' +
             'Dale a tu cuerpo alegría, Macarena\n' +
             'Eh, Macarena (¡ay!)',
-        photo_video: "http://localhost:5001/images/Bad-Bunny.png",
+        photo_video: "songs_images/macarena.png",
         url_mp3: 'songs/Los Del Rio - Macarena (Bayside Boys Remix).mp3'
       },
       {
@@ -187,7 +240,7 @@ export async function up(queryInterface, Sequelize) {
             'Si entre los dedos se me escapa volando una flor\n' +
             'Y yo la dejo que me marque el camino'
             ,
-          photo_video: "http://localhost:5001/images/Bad-Bunny.png",
+          photo_video: "songs_images/laVereda.png",
         url_mp3: 'songs/La vereda de la puerta de atras extremoduro.mp3'
       },
       {
@@ -283,7 +336,7 @@ export async function up(queryInterface, Sequelize) {
             '\n' +
             'Eh-eh, mi diabla, mi ángel, mi loquita\n' +
             'Mi diabla, mi ángel, mi loquita, eh-eh',
-          photo_video: "http://localhost:5001/images/Bad-Bunny.png",
+          photo_video: "songs_images/baileInolvidable.png",
         url_mp3: 'songs/Bad Bunny - BAILE INoLVIDABLE (Letra).mp3'
       },
       {
@@ -351,7 +404,7 @@ export async function up(queryInterface, Sequelize) {
             'Aunque solo uno fuera\n' +
             'Aunque solo uno fuera\n' +
             'Aunque solo uno fuera',
-        photo_video: "",
+        photo_video: "songs_images/laFlaca.png",
         url_mp3: 'songs/Jarabe De Palo - La Flaca (Videoclip Oficial).mp3'
       },
       {
@@ -423,7 +476,7 @@ export async function up(queryInterface, Sequelize) {
             'Me juego la vida por ti\n' +
             '\n' +
             'Si hay que ser torero',
-        photo_video: "",
+        photo_video: "songs_images/torero.png",
         url_mp3: 'songs/Chayanne - Torero (Vídeo Oficial) [GuZzuQvv7uc].mp3'
       },
       {
@@ -468,7 +521,7 @@ export async function up(queryInterface, Sequelize) {
             'Que los que ya te quieren no miran eso\n' +
             'Sólo quieren ver ese guiño de ojos\n' +
             'Sin complejos',
-        photo_video: "",
+        photo_video: "songs_images/besos.png",
         url_mp3: 'songs/El Canto del Loco - Besos [mzSI1oUXYxs].mp3'
       },
       {
@@ -545,7 +598,7 @@ export async function up(queryInterface, Sequelize) {
             'Fue un tiempo para no olvidar\n' +
             'La zona mala quiere ahora descansar\n' +
             'Que campanilla te cuide, y te guarde',
-        photo_video: "",
+        photo_video: "songs_images/peterPan.png",
         url_mp3: 'songs/El Canto del Loco - Peter Pan [rCxLx_3T5GE].mp3'
       },
       {
@@ -596,7 +649,7 @@ export async function up(queryInterface, Sequelize) {
             'Me da pena tanta tontería\n' +
             'Quiero un poquito de normalidad\n' +
             'Pero a ver, mírame, y dime tronco, no veo ni un sitio y no puedo aparcar',
-        photo_video: "",
+        photo_video: "songs_images/zapatillas.png",
         url_mp3: 'songs/El Canto del Loco - Zapatillas (Videoclip) [nHxam-MQg-o].mp3'
       },
       {
@@ -714,7 +767,7 @@ export async function up(queryInterface, Sequelize) {
             'Muy real y muy profundo\n' +
             'Tus ojos no tienen dueño\n' +
             'Porque no son de este mundo',
-        photo_video: "",
+        photo_video: "songs_images/estopa.png",
         url_mp3: 'songs/Estopa - Como Camaron (Videoclip) [JmP89cIGJZM].mp3'
       },
       {
@@ -794,7 +847,7 @@ export async function up(queryInterface, Sequelize) {
             '(No estás a mi lado)\n' +
             'No estás a mi lado\n' +
             '(No estás a mi lado)',
-        photo_video: "",
+        photo_video: "songs_images/laCasaPorElTejado.png",
         url_mp3: 'songs/Fito & Fitipaldis - La casa por el tejado (Videoclip oficial) [8qz8FqmTsJY].mp3'
       },
       {
@@ -828,7 +881,7 @@ export async function up(queryInterface, Sequelize) {
             'Después de un invierno malo, una mala primavera\n' +
             'Dime por que estas buscando una lágrima en la arena\n' +
             'Después de un invierno malo',
-        photo_video: "",
+        photo_video: "songs_images/soldaditoMarinero.png",
         url_mp3: 'songs/Fito & Fitipaldis - Soldadito marinero (Videoclip oficial) [GxQjx7FkmNA].mp3'
       },
       {
@@ -902,7 +955,7 @@ export async function up(queryInterface, Sequelize) {
             'Que nuestra relación fue un chiste\n' +
             'Querida Barbie de extrarradio\n' +
             'Corre, tu Ken te está esperando',
-        photo_video: "",
+        photo_video: "songs_images/barbieDeExtrarradio.png",
         url_mp3: 'songs/Melendi - Barbie de extrarradio (Videoclip Oficial) [f41rIgQF-Mw].mp3'
       },
       {
@@ -977,7 +1030,7 @@ export async function up(queryInterface, Sequelize) {
             'Siempre y cuando tú no llore\'\n' +
             'No llore\'\n' +
             'No llore\'',
-        photo_video: "",
+        photo_video: "songs_images/caminandoPorLaVida.png",
         url_mp3: 'songs/Melendi - Caminando Por La Vida (Videoclip Oficial) [eznXJEjvHbk].mp3'
       },
       {
@@ -1055,7 +1108,7 @@ export async function up(queryInterface, Sequelize) {
             'De este circo que un día montamos\n' +
             '\n' +
             'Pero que no quepa duda',
-        photo_video: "",
+        photo_video: "songs_images/unViolinistaEnTuTejado.png",
         url_mp3: 'songs/Melendi - Un Violinista En Tu Tejado [eJbIMODHIdw].mp3'
       },
       {
@@ -1100,7 +1153,7 @@ export async function up(queryInterface, Sequelize) {
             'Dime quién vendrá a ocupar su lugar\n' +
             '¿Por qué mis sueños se rompen de golpe?\n' +
             'Quiero irme con él',
-        photo_video: "",
+        photo_video: "songs_images/enQueEstrellaEstara.png",
         url_mp3: 'songs/Nena Daconte - En Que Estrella Estara [qZ1H-e8Z-LY].mp3'
       },
       {
