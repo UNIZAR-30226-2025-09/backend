@@ -14,6 +14,7 @@ export default {
       mail: { type: Sequelize.STRING, allowNull: false, unique: true },
       style_fav: { type: Sequelize.STRING },
       is_premium: { type: Sequelize.BOOLEAN, defaultValue: false },
+      user_picture: { type: Sequelize.STRING, allowNull: true },
       created_at: { type: Sequelize.DATE, defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"), allowNull: false }
     });
 

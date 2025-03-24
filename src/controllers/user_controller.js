@@ -129,7 +129,7 @@ export const getUserProfile = async (req, res) => {
 
         const decoded = jwt.verify(token, SECRET_KEY);
         const user = await db.user.findByPk(decoded.id, {
-            attributes: ["id", "nickname", "mail", "style_fav", "is_premium"] // No devolver la contraseña
+            attributes: ["id", "nickname", "mail", "style_fav", "is_premium", "user_picture"] // No devolver la contraseña
         });
 
         if (!user) {
