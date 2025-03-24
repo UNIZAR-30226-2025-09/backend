@@ -1,5 +1,5 @@
 import express from "express";
-import { registerUser, loginUser, logoutUser, getUserProfile, updateUserProfile, updatePremiumStatus, checkEmailExistence} from "#src/controllers/user_controller";
+import { registerUser, loginUser, logoutUser, getUserProfile, updateUserProfile, updatePremiumStatus, checkEmailExistence, getUserById} from "#src/controllers/user_controller";
 
 const router = express.Router();
 
@@ -12,7 +12,8 @@ const router = express.Router();
  * - `GET /api/user/profile` -> Obtiene los datos del perfil del usuario autenticado.
  * - `POST /api/user/update` -> Permite actualizar información del usuario (nickname, email, contraseña, etc.).
  * - `POST /api/user/premium` -> Cambia el estado del usuario a "premium" si ha realizado un pago exitoso.
- * - `POST /api/user/check-email` -> Verifica si el correo ya está registrado .
+ * - `POST /api/user/check-email` -> Verifica si el correo ya está registrado.
+ * - `GET /api/user/:userId` -> Verifica si el usuario existe en la base de datos.
  */
 router.post("/register", registerUser); // Ruta para registrar un usuario
 router.post("/login", loginUser); // Ruta para iniciar sesión de usuario
@@ -21,5 +22,6 @@ router.get("/profile", getUserProfile); // Ruta para obtener el perfil de usuari
 router.post("/update", updateUserProfile); // Ruta para actualizar el perfil de usuario
 router.post("/premium", updatePremiumStatus); // Ruta para actualizar el estado premium del usuario
 router.post("/check-email", checkEmailExistence); // Ruta para verificar si el correo ya está registrado
+router.get('/:userId', getUserById);  // Ruta para verificar si el usuario existe
 
 export default router;
