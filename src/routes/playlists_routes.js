@@ -10,6 +10,7 @@ const router = express.Router();
  * - POST `/api/playlists/` -> Crea una nueva playlist
  * - PUT `/api/playlists/:id` -> Actualiza una playlist por su ID
  * - DELETE `/api/playlists/:id` -> Elimina una playlist por su ID
+ * - GET `/api/playlists/liked/:userId` -> Obtiene las playlists que un usuario ha dado like
  */
 
 
@@ -22,8 +23,7 @@ router.delete("/:id", playlistController.deletePlaylist);
 router.post("/:id/like", playlistController.likePlaylist);
 router.delete("/:id/like", playlistController.unlikePlaylist);
 router.get("/:id/like", playlistController.checkIfLiked);
-router.post("/liked",playlistController.getOrCreateLikedPlaylist)
-
+router.get("/liked/:userId", playlistController.getPlaylistLike);
 
 
 

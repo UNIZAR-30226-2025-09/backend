@@ -129,7 +129,7 @@ export const getUserProfile = async (req, res) => {
 
         const decoded = jwt.verify(token, SECRET_KEY);
         const user = await db.user.findByPk(decoded.id, {
-            attributes: ["id", "nickname", "mail", "style_fav", "is_premium"] // No devolver la contraseña
+            attributes: ["id", "nickname", "mail", "style_fav", "is_premium", "user_picture"] // No devolver la contraseña
         });
 
         if (!user) {
@@ -274,3 +274,44 @@ export const checkEmailExistence = async (req, res) => {
         return res.status(500).json({ error: "Error en la base de datos" });
     }
 };
+
+/**
+ * Obtiene los datos de un usuario a partir de su ID.
+ *
+ * @param {Object} req - El objeto de la solicitud, que contiene los parámetros de la URL.
+ * @param {Object} res - El objeto de la respuesta que se enviará de vuelta al cliente.
+ * @returns {Object} - Responde con un objeto JSON que contiene los datos del usuario si se encuentra,
+ * o un error si el usuario no existe o si ocurre un error en la consulta.
+ *
+ * @throws {Error} - Si ocurre un error al intentar obtener los datos del usuario, se devuelve un error 500.
+ *
+ * Detalles:
+ * - Esta ruta está diseñada para buscar un usuario por su ID en la base de datos utilizando Sequelize.
+ * - Si el usuario existe, se devuelve un objeto con los campos `id`, `nickname`, `mail`, `style_fav`, e `is_premium`.
+ * - Si no se encuentra el usuario, se responde con un error 404.
+ */
+export const getUserById = async (req, res) => {
+    const { userId } = req.params;  // Obtenemos el `userId` del parámetro de la URL
+
+    try {
+        const user = await db.user.findByPk(userId);  // Buscar el usuario por su ID en la base de datos
+
+        if (!user) {
+            return res.status(404).json({ error: "Usuario no encontrado" });  // Si el usuario no existe, devolvemos un 404
+        }
+
+        // Si el usuario existe, devolvemos sus datos (sin la contraseña)
+        return res.status(200).json({
+            id: user.id,
+            nickname: user.nickname,
+            mail: user.mail,
+            style_fav: user.style_fav,
+            is_premium: user.is_premium,
+        });
+    } catch (error) {
+        console.error("Error al verificar usuario:", error);
+        return res.status(500).json({ error: "Error interno en el servidor" });
+    }
+};
+
+

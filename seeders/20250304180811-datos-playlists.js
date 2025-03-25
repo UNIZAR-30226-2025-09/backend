@@ -5,53 +5,16 @@
  */
 export async function up(queryInterface, Sequelize) {
   await queryInterface.bulkInsert('playlist', [
-    {
-      name: "Rock Clásico",
-      user_id: 1,
-      artist_id: 1,
-      description: "Las mejores canciones de rock de los 80s y 90s.",
-      type: "public",
-      typeP: "album",
-      front_page: "http://localhost:5001/images/p1.png"
-    },
-    {
-      name: "Fiesta Latina",
-      user_id: 2,
-      artist_id: 2,
-      description: "Reggaetón, salsa y merengue para una fiesta increíble.",
-      type: "public",
-      typeP: "user",
-      front_page: "http://localhost:5001/images/p1.png"
-    },
-    {
-      name: "Relax & Chill",
-      user_id: 3,
-      artist_id: null,
-      description: "Música tranquila para estudiar o relajarse.",
-      type: "private",
-      typeP: "user",
-      front_page: "http://localhost:5001/images/p2.png"
-    },
-    {
-      name: "Indie Vibes",
-      user_id: 4,
-      artist_id: null,
-      description: "Descubre lo mejor del indie alternativo.",
-      type: "public",
-      typeP: "user",
-      front_page: "http://localhost:5001/images/p2.png"
-    },
-    {
-      name: "Workout Mix",
-      user_id: 5,
-      artist_id: null,
-      description: "Las canciones más motivadoras para entrenar.",
-      type: "public",
-      typeP: "user",
-      front_page: "http://localhost:5001/images/Bad-Bunny.png"
-    },
-
     //playlists oficiales Vibra
+    {
+      name: "Rock Español",
+      user_id: null,
+      artist_id: null,
+      description: "Lo mejor del rock de aquí, como Robe con Leiva.",
+      type: "public",
+      typeP: "Vibra",
+      front_page: "playlist_images/rockEspanol.png"
+    },
     {
       name: "Los 2000 España",
       user_id: null,
