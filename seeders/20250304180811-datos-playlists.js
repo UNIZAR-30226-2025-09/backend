@@ -78,6 +78,15 @@ export async function up(queryInterface, Sequelize) {
       type: "public",
       typeP: "Vibra",
       front_page: "playlist_images/PopConÑ.png"
+    },
+    {
+      name: "Album extremoduro",
+      user_id: null,
+      artist_id: 10,
+      description: "",
+      type: "public",
+      typeP: "album",
+      front_page: "playlist_images/PopConÑ.png"
     }
   ], {});
 }

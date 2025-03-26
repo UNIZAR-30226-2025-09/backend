@@ -84,6 +84,7 @@ export const likePlaylist = async (req, res) => {
             console.log("📝 Verificando tipos:", { userIdNumber, playlistIdNumber });
 
             const newLike = db.playlist_like.build({
+                userId: user_id,
                 user_id: user_id,
                 playlist_id: playlist_id,
                 playlistId: playlist_id,
@@ -186,8 +187,16 @@ export const getPlaylistById = async (req, res) => {
                     ]
                 },
                 {
+                    model: db.user, // Relacionamos con los usuarios que han dado like
+                    through: { attributes: [] }, // Evitamos traer la tabla intermedia
+                    as: "likes", // Asegúrate de que esto esté correctamente configurado en tu modelo
+                    required: false
+                },
+                {
                     model: db.user,
                     attributes: ["nickname"],
+                    as: "owner",
+                    required: false
                 }
             ]
         });

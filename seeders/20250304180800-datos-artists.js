@@ -51,7 +51,7 @@ export async function up(queryInterface, Sequelize) {
       photo: "artists_images/badGyal.png"
     },
     {
-      name: "Extremo Duro",
+      name: "Extremoduro",
       bio: "Cantante colombiana de pop y música latina, famosa por su energía en el escenario y éxitos como 'Hips Don't Lie'.",
       photo: "artists_images/extremoDuro.png"
     },

@@ -43,7 +43,7 @@ export async function up(queryInterface, Sequelize) {
     { song_id: 28, playlist_id: 3, date: new Date("2025-03-25") },
     { song_id: 29, playlist_id: 3, date: new Date("2025-03-25") },
 
-
+    { song_id: 3, playlist_id: 9, date: new Date("2025-03-25") },
   ], {});
 }
 
