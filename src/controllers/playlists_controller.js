@@ -227,8 +227,8 @@ export const checkIfLiked = async (req, res) => {
  */
 export const createPlaylist = async (req, res) => {
     try {
-        const { name, type, description, front_page } = req.body;
-        const newPlaylist = await db.playlist.create({ name, type, description, front_page });
+        const { name, user_id, type, description, front_page } = req.body;
+        const newPlaylist = await db.playlist.create({ name, user_id, type, description, front_page });
         // Falta hacer que haga la relacion con el user_id (qn creo) y name de playlist creada
         res.status(201).json(newPlaylist);
     } catch (error) {
