@@ -65,6 +65,7 @@ export async function up(queryInterface, Sequelize) {
             'Por la que yo sufro',
         photo_video: "songs_images/tantoLaQueria.png",
         url_mp3: 'songs/Andy & Lucas - Tanto La Queria (Videoclip) [b81kOviE7EI].mp3',
+          type: "sencillo",
           genre: 'Flamenco'
 
       },
@@ -181,6 +182,7 @@ export async function up(queryInterface, Sequelize) {
             'Eh, Macarena (¡ay!)',
         photo_video: "songs_images/macarena.png",
         url_mp3: 'songs/Los Del Rio - Macarena (Bayside Boys Remix).mp3',
+          type: "sencillo",
           genre: 'Pop'
       },
       {
@@ -243,7 +245,8 @@ export async function up(queryInterface, Sequelize) {
             'Y yo la dejo que me marque el camino'
             ,
           photo_video: "songs_images/laVereda.png",
-          url_mp3: 'songs/La vereda de la puerta de atras extremoduro.mp3',
+        url_mp3: 'songs/La vereda de la puerta de atras extremoduro.mp3',
+          type: "album",
           genre: 'Rock'
       },
       {
@@ -341,6 +344,7 @@ export async function up(queryInterface, Sequelize) {
             'Mi diabla, mi ángel, mi loquita, eh-eh',
           photo_video: "songs_images/baileInolvidable.png",
         url_mp3: 'songs/Bad Bunny - BAILE INoLVIDABLE (Letra).mp3',
+          type: "album",
           genre: 'Reggaeton'
       },
       {
@@ -410,6 +414,7 @@ export async function up(queryInterface, Sequelize) {
             'Aunque solo uno fuera',
         photo_video: "songs_images/laFlaca.png",
         url_mp3: 'songs/Jarabe De Palo - La Flaca (Videoclip Oficial).mp3',
+          type: "album",
           genre: 'Pop'
       },
       {
@@ -483,6 +488,7 @@ export async function up(queryInterface, Sequelize) {
             'Si hay que ser torero',
         photo_video: "songs_images/torero.png",
         url_mp3: 'songs/Chayanne - Torero (Vídeo Oficial) [GuZzuQvv7uc].mp3',
+          type: "sencillo",
           genre: 'Pop'
       },
       {
@@ -529,6 +535,7 @@ export async function up(queryInterface, Sequelize) {
             'Sin complejos',
         photo_video: "songs_images/besos.png",
         url_mp3: 'songs/El Canto del Loco - Besos [mzSI1oUXYxs].mp3',
+          type: "sencillo",
           genre: 'Pop'
       },
       {
@@ -607,6 +614,7 @@ export async function up(queryInterface, Sequelize) {
             'Que campanilla te cuide, y te guarde',
         photo_video: "songs_images/peterPan.png",
         url_mp3: 'songs/El Canto del Loco - Peter Pan [rCxLx_3T5GE].mp3',
+          type: "album",
           genre: 'Pop'
       },
       {
@@ -659,6 +667,7 @@ export async function up(queryInterface, Sequelize) {
             'Pero a ver, mírame, y dime tronco, no veo ni un sitio y no puedo aparcar',
         photo_video: "songs_images/zapatillas.png",
         url_mp3: 'songs/El Canto del Loco - Zapatillas (Videoclip) [nHxam-MQg-o].mp3',
+          type: "album",
           genre: 'Pop'
       },
       {
@@ -778,6 +787,7 @@ export async function up(queryInterface, Sequelize) {
             'Porque no son de este mundo',
         photo_video: "songs_images/estopa.png",
         url_mp3: 'songs/Estopa - Como Camaron (Videoclip) [JmP89cIGJZM].mp3',
+          type: "album",
           genre: 'Pop'
       },
       {
@@ -859,6 +869,7 @@ export async function up(queryInterface, Sequelize) {
             '(No estás a mi lado)',
         photo_video: "songs_images/laCasaPorElTejado.png",
         url_mp3: 'songs/Fito & Fitipaldis - La casa por el tejado (Videoclip oficial) [8qz8FqmTsJY].mp3',
+          type: "album",
           genre: 'Rock'
       },
       {
@@ -894,6 +905,7 @@ export async function up(queryInterface, Sequelize) {
             'Después de un invierno malo',
         photo_video: "songs_images/soldaditoMarinero.png",
         url_mp3: 'songs/Fito & Fitipaldis - Soldadito marinero (Videoclip oficial) [GxQjx7FkmNA].mp3',
+          type: "album",
           genre: 'Pop'
       },
       {
@@ -969,6 +981,7 @@ export async function up(queryInterface, Sequelize) {
             'Corre, tu Ken te está esperando',
         photo_video: "songs_images/barbieDeExtrarradio.png",
         url_mp3: 'songs/Melendi - Barbie de extrarradio (Videoclip Oficial) [f41rIgQF-Mw].mp3',
+          type: "album",
           genre: 'Pop'
       },
       {
@@ -1045,6 +1058,7 @@ export async function up(queryInterface, Sequelize) {
             'No llore\'',
         photo_video: "songs_images/caminandoPorLaVida.png",
         url_mp3: 'songs/Melendi - Caminando Por La Vida (Videoclip Oficial) [eznXJEjvHbk].mp3',
+          type: "album",
           genre: 'Pop'
       },
       {
@@ -1124,6 +1138,7 @@ export async function up(queryInterface, Sequelize) {
             'Pero que no quepa duda',
         photo_video: "songs_images/unViolinistaEnTuTejado.png",
         url_mp3: 'songs/Melendi - Un Violinista En Tu Tejado [eJbIMODHIdw].mp3',
+          type: "album",
           genre: 'Pop'
       },
       {
@@ -1170,6 +1185,7 @@ export async function up(queryInterface, Sequelize) {
             'Quiero irme con él',
         photo_video: "songs_images/enQueEstrellaEstara.png",
         url_mp3: 'songs/Nena Daconte - En Que Estrella Estara [qZ1H-e8Z-LY].mp3',
+          type: "album",
           genre: 'Rock'
       },
       {
@@ -1228,8 +1244,9 @@ export async function up(queryInterface, Sequelize) {
             'Porque hoy es el último día de nuestras vidas\n' +
             'De nuestras vidas, de nuestras vidas\n' +
             'Porque hoy es el último día de nuestras vidas',
-        photo_video: "songs_images/ultimoDiaVidas.png",
-        url_mp3: 'songs/Dani Martin - El Último Día de Nuestras Vidas (Video Oficial) [Zj2p3njVgng].mp3',
+          photo_video: "songs_images/ultimoDiaVidas.png",
+          url_mp3: 'songs/Dani Martin - El Último Día de Nuestras Vidas (Video Oficial) [Zj2p3njVgng].mp3',
+          type: "sencillo",
           genre: 'Pop'
       },
       {
@@ -1309,9 +1326,10 @@ export async function up(queryInterface, Sequelize) {
             'Y me tiemblan los pies\n' +
             'A su lado\n' +
             'Me dice que estoy descolorío',
-        photo_video: "songs_images/soPayaso.png",
-        url_mp3: 'songs/Extremoduro - So Payaso (Video) [1D3tSv9LQlE].mp3',
-          genre: 'Rock'
+            photo_video: "songs_images/soPayaso.png",
+            url_mp3: 'songs/Extremoduro - So Payaso (Video) [1D3tSv9LQlE].mp3',
+            type: "album",
+            genre: 'Rock'
       },
       {
         name: 'Me equivocaría otra vez',
@@ -1359,6 +1377,7 @@ export async function up(queryInterface, Sequelize) {
             'No sé restar tu mitad a mi corazón',
         photo_video: "songs_images/meEquivocariaOtraVez.png",
         url_mp3: 'songs/Fito & Fitipaldis - Me equivocaría otra vez (Videoclip oficial) [HjF3E2zGNkg].mp3',
+          type: "album",
           genre: 'Rock'
       },
       {
@@ -1410,6 +1429,7 @@ export async function up(queryInterface, Sequelize) {
             'Pa´ que vuelvas otra vez.',
         photo_video: "songs_images/buscandoBasura.png",
         url_mp3: 'songs/La Fuga - Buscando en la basura (video clip) [SE4SmL_SWU8].mp3',
+          type: "album",
           genre: 'Rock'
       },
       {
@@ -1467,6 +1487,7 @@ export async function up(queryInterface, Sequelize) {
             'Voy a hacerme una foto en un fotomatón',
         photo_video: "songs_images/caidaLibre.png",
         url_mp3: 'songs/Leiva - Caída Libre (Video Oficial) ft. Robe [wFUU00eY1Rc].mp3',
+          type: "sencillo",
           genre: 'Rock'
       },
       {
@@ -1557,6 +1578,7 @@ export async function up(queryInterface, Sequelize) {
             'Keep lovin\' you',
         photo_video: 'songs_images/stillLuvin.png',
         url_mp3: 'songs/Delaossa, Quevedo - Still Luvin [gUyeDnATsAs].mp3',
+          type: "sencillo",
           genre: 'Reggaeton'
       },
       {
@@ -1608,6 +1630,7 @@ export async function up(queryInterface, Sequelize) {
               'Ma, está esperando a que se lo meta',
           photo_video: 'songs_images/peligrosa.png',
           url_mp3: 'songs/FloyyMenor - Peligrosa (Video Oficial) [LW5oQl0CxdQ].mp3',
+          type: "sencillo",
           genre: 'Reggaeton'
       },
       {
@@ -1652,6 +1675,7 @@ export async function up(queryInterface, Sequelize) {
               'Labios saben a tropical, quiere ser una santa-ta-ta',
           photo_video: 'songs_images/exotica.png',
           url_mp3: 'songs/Gabry Ponte - Exotica (Official Visualizer) [afUaGspU528].mp3',
+          type: "sencillo",
           genre: 'Reggaeton'
       },
       {
@@ -1719,6 +1743,7 @@ export async function up(queryInterface, Sequelize) {
               'Zé polva fala mesmo, vai ter que me aturar',
           photo_video: 'songs_images/ninfo.png',
           url_mp3: 'songs/JC REYES - NINFO FT DE LA ROSE & MC MENOR JP [AheqpcOwNP4].mp3',
+          type: "sencillo",
           genre: 'Reggaeton'
       },
       {
@@ -1793,6 +1818,7 @@ export async function up(queryInterface, Sequelize) {
               'Pero él no te mira como en el tiempo te he mira\'o',
           photo_video: 'songs_images/seFue.png',
           url_mp3: 'songs/Moncho Chavea, Morad - SE FUE [Db3Wpr0NMMY].mp3',
+          type: "sencillo",
           genre: 'Rap'
       },
       {
@@ -1857,6 +1883,7 @@ export async function up(queryInterface, Sequelize) {
               'Y aunque siempre quiero más',
           photo_video: 'songs_images/mrMoondial.png',
           url_mp3: 'songs/MR. MOONDIAL - Quevedo ft. Pitbull (Visualizer) ｜ BUENAS NOCHES [-ZcNkX1ax80].mp3',
+          type: "sencillo",
           genre: 'Reggaeton'
       },
       {
@@ -1911,6 +1938,7 @@ export async function up(queryInterface, Sequelize) {
               'Esos movimiento\' salvaje\', buscando que yo quede enfermo',
           photo_video: 'songs_images/dondeEscondes.png',
           url_mp3: 'songs/Yapi - DONDE TE ESCONDES？ (Video Oficial) [BPUFjunmNtU].mp3',
+          type: "sencillo",
           genre: 'Pop'
       },
       {
@@ -1985,6 +2013,7 @@ export async function up(queryInterface, Sequelize) {
               '¿Cómo dice, pai?',
           photo_video: 'songs_images/angelito.png',
           url_mp3: 'songs/Bad Gyal, Trueno - Angelito.mp3',
+          type: "sencillo",
           genre: 'Pop'
       },
       // ABDEL: Completar
