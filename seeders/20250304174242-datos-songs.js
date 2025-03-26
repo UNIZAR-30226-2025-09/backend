@@ -1990,7 +1990,7 @@ export async function up(queryInterface, Sequelize) {
       // Canciones añadidas por abdel
       {
           name: 'El Manual',
-          duration: 1,
+          duration: 210,
           lyrics: 'Letra en desarrollo...',
           photo_video: 'default-song.jpg',
           url_mp3: 'songs/Anuel AA - El Manual (Audio Oficial) [70RraHwxgU4].mp3',
@@ -1998,7 +1998,7 @@ export async function up(queryInterface, Sequelize) {
       },
       {
           name: 'Hipocrita',
-          duration: 1,
+          duration: 192,
           lyrics: 'Letra en desarrollo...',
           photo_video: 'default-song.jpg',
           url_mp3: 'songs/Anuel AA - Hipócrita feat. Zion (Audio) [J8gcGyYxDbo].mp3',
@@ -2006,7 +2006,7 @@ export async function up(queryInterface, Sequelize) {
       },
       {
           name: '47 (Remix)',
-          duration: 1,
+          duration: 517,
           lyrics: 'Letra en desarrollo...',
           photo_video: 'default-song.jpg',
           url_mp3: 'songs/Anuel x Nengo Flow, Los G4 - 47 (Remix) ft. Bad Bunny, Darell,  Farruko, Sinfónico, Casper [Audio] [yIpxrDfX6ek].mp3',
@@ -2014,7 +2014,7 @@ export async function up(queryInterface, Sequelize) {
       },
       {
           name: 'Me acostumbre',
-          duration: 1,
+          duration: 270,
           lyrics: 'Letra en desarrollo...',
           photo_video: 'default-song.jpg',
           url_mp3: 'songs/Arcángel, Bad Bunny - Me Acostumbré (Video Oficial) [xKKeqlBQ3Js].mp3',
@@ -2022,7 +2022,7 @@ export async function up(queryInterface, Sequelize) {
       },
       {
           name: 'Muriendo De Envidia',
-          duration: 1,
+          duration: 181,
           lyrics: 'Letra en desarrollo...',
           photo_video: 'default-song.jpg',
           url_mp3: 'songs/C. Tangana, Eliades Ochoa - Muriendo De Envidia [HfkjnAv_uRE].mp3',
@@ -2030,7 +2030,7 @@ export async function up(queryInterface, Sequelize) {
       },
       {
           name: 'Tu Me Dejaste De Querer',
-          duration: 1,
+          duration: 197,
           lyrics: 'Letra en desarrollo...',
           photo_video: 'default-song.jpg',
           url_mp3: 'songs/C. Tangana, Niño de Elche, La Hungara - Tú Me Dejaste De Querer [ltmO9XQVdSg].mp3',
@@ -2038,7 +2038,7 @@ export async function up(queryInterface, Sequelize) {
       },
       {
           name: 'Como el agua',
-          duration: 1,
+          duration: 224,
           lyrics: 'Letra en desarrollo...',
           photo_video: 'default-song.jpg',
           url_mp3: 'songs/Como el agua - Camarón [bKoWfso2_EY].mp3',
@@ -2046,7 +2046,7 @@ export async function up(queryInterface, Sequelize) {
       },
       {
           name: 'MALAMANERA',
-          duration: 1,
+          duration: 191,
           lyrics: 'Letra en desarrollo...',
           photo_video: 'default-song.jpg',
           url_mp3: 'songs/FERNANDOCOSTA - MALAMANERA (PROD. GABRIEL ESCOBAR) ｜ VIDEOCLIP [JVUrmC8_6sA].mp3',
@@ -2054,7 +2054,7 @@ export async function up(queryInterface, Sequelize) {
       },
       {
           name: 'NARCOLEPSIA',
-          duration: 1,
+          duration: 152,
           lyrics: 'Letra en desarrollo...',
           photo_video: 'default-song.jpg',
           url_mp3: 'songs/FERNANDOCOSTA - NARCOLEPSIA (PROD. CHICHOBEATS) [OSAMpZ5A4xQ].mp3',
@@ -2062,7 +2062,7 @@ export async function up(queryInterface, Sequelize) {
       },
       {
           name: 'OYE',
-          duration: 1,
+          duration: 154,
           lyrics: 'Letra en desarrollo...',
           photo_video: 'default-song.jpg',
           url_mp3: 'songs/FERNANDOCOSTA FT DOLLAR SELMOUNI - OYE (Videoclip Oficial) [P0z55sXBW7w].mp3',
@@ -2070,7 +2070,7 @@ export async function up(queryInterface, Sequelize) {
       },
       {
           name: 'PAVOS REALES',
-          duration: 1,
+          duration: 272,
           lyrics: 'Letra en desarrollo...',
           photo_video: 'default-song.jpg',
           url_mp3: 'songs/KASE.O - 08. PAVOS REALES con HERMANO L, SHABU ONE SHANT y MCKLOPEDIA Prod. CRUDO MEANS RAW & KASE.O [AdBfUTsMhMI].mp3',
@@ -2078,7 +2078,7 @@ export async function up(queryInterface, Sequelize) {
       },
       {
           name: 'REPARTIENDO ARTE',
-          duration: 1,
+          duration: 281,
           lyrics: 'Letra en desarrollo...',
           photo_video: 'default-song.jpg',
           url_mp3: 'songs/KASE.O - REPARTIENDO ARTE (Videoclip Oficial) [1vbZMpRTT5M].mp3',
@@ -2086,7 +2086,7 @@ export async function up(queryInterface, Sequelize) {
       },
       {
           name: 'LA LEYENDA DEL TIEMPO',
-          duration: 1,
+          duration: 221,
           lyrics: 'Letra en desarrollo...',
           photo_video: 'default-song.jpg',
           url_mp3: 'songs/LA LEYENDA DEL TIEMPO - CAMARON DE LA ISLA [MrUWtOtfwDw].mp3',
@@ -2094,7 +2094,7 @@ export async function up(queryInterface, Sequelize) {
       },
       {
           name: 'Mi Vecinita',
-          duration: 1,
+          duration: 183,
           lyrics: 'Letra en desarrollo...',
           photo_video: 'default-song.jpg',
           url_mp3: 'songs/Plan B - Mi Vecinita [SB8-YY2DyHI].mp3',
