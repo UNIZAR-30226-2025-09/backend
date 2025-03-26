@@ -35,7 +35,8 @@ export default {
       lyrics: { type: Sequelize.TEXT },
       photo_video: { type: Sequelize.STRING },
       url_mp3: { type: Sequelize.STRING, allowNull: false },
-      type: { type: Sequelize.STRING }
+      type: { type: Sequelize.STRING },
+      genre: { type: Sequelize.STRING }
     });
 
     // Tabla PLAYLIST

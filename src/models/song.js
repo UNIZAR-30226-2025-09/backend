@@ -7,6 +7,7 @@ export default (sequelize, DataTypes) => {
         photo_video: DataTypes.STRING,
         url_mp3: { type: DataTypes.STRING },
         type: DataTypes.STRING,
+        genre: { type: DataTypes.STRING }
     }, { tableName: "song", timestamps: false });
 
     song.associate = function(models) {

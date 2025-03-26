@@ -1,8 +1,6 @@
-
 // Función para dar 'me gusta' a una canción
 import db from "#src/models/index";  // Asegúrate de que esta importación sea correcta
 const { SongLike, Song, Playlist, User } = db;  // Asegúrate de que estás importando User correctamente
-
 
 export const likeSong = async (req, res) => {
     const { user_id, song_id } = req.body;
