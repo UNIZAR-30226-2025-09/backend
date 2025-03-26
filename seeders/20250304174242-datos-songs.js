@@ -1987,12 +1987,118 @@ export async function up(queryInterface, Sequelize) {
           url_mp3: 'songs/Bad Gyal, Trueno - Angelito.mp3',
           pop: "Pop"
       },
+      // Canciones añadidas por abdel
       {
           name: '',
           duration: 1,
           lyrics: '',
           photo_video: 'songs_images/',
-          url_mp3: 'songs/'
+          url_mp3: 'songs/',
+          genre: ''
+      },
+      {
+          name: '',
+          duration: 1,
+          lyrics: '',
+          photo_video: 'songs_images/',
+          url_mp3: 'songs/',
+          genre: ''
+      },
+      {
+          name: '',
+          duration: 1,
+          lyrics: '',
+          photo_video: 'songs_images/',
+          url_mp3: 'songs/',
+          genre: ''
+      },
+      {
+          name: '',
+          duration: 1,
+          lyrics: '',
+          photo_video: 'songs_images/',
+          url_mp3: 'songs/',
+          genre: ''
+      },
+      {
+          name: '',
+          duration: 1,
+          lyrics: '',
+          photo_video: 'songs_images/',
+          url_mp3: 'songs/',
+          genre: ''
+      },
+      {
+          name: '',
+          duration: 1,
+          lyrics: '',
+          photo_video: 'songs_images/',
+          url_mp3: 'songs/',
+          genre: ''
+      },
+      {
+          name: '',
+          duration: 1,
+          lyrics: '',
+          photo_video: 'songs_images/',
+          url_mp3: 'songs/',
+          genre: ''
+      },
+      {
+          name: '',
+          duration: 1,
+          lyrics: '',
+          photo_video: 'songs_images/',
+          url_mp3: 'songs/',
+          genre: ''
+      },
+      {
+          name: '',
+          duration: 1,
+          lyrics: '',
+          photo_video: 'songs_images/',
+          url_mp3: 'songs/',
+          genre: ''
+      },
+      {
+          name: '',
+          duration: 1,
+          lyrics: '',
+          photo_video: 'songs_images/',
+          url_mp3: 'songs/',
+          genre: ''
+      },
+      {
+          name: '',
+          duration: 1,
+          lyrics: '',
+          photo_video: 'songs_images/',
+          url_mp3: 'songs/',
+          genre: ''
+      },
+      {
+          name: '',
+          duration: 1,
+          lyrics: '',
+          photo_video: 'songs_images/',
+          url_mp3: 'songs/',
+          genre: ''
+      },
+      {
+          name: '',
+          duration: 1,
+          lyrics: '',
+          photo_video: 'songs_images/',
+          url_mp3: 'songs/',
+          genre: ''
+      },
+      {
+          name: '',
+          duration: 1,
+          lyrics: '',
+          photo_video: 'songs_images/',
+          url_mp3: 'songs/',
+          genre: ''
       }
     ], {});
 }
