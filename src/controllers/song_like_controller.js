@@ -1,157 +1,165 @@
-// Función para dar 'me gusta' a una canción
-import db from "#src/models/index";  // Asegúrate de que esta importación sea correcta
-const { SongLike, Song, Playlist, User } = db;  // Asegúrate de que estás importando User correctamente
+import db from '#src/models/index'; // Ajusta la ruta si es necesario
 
+/**
+ * Toggle de "Like" para una canción.
+ * POST /api/songs/:id/like
+ * - Si ya existe el like, se elimina.
+ * - Si no existe, se crea.
+ */
 export const likeSong = async (req, res) => {
-    const { user_id, song_id } = req.body;
-
-    // Verify if the parameters are present
-    if (!user_id || !song_id) {
-        return res
-            .status(400)
-            .json({ message: 'user_id and song_id are required.' });
-    }
-
     try {
-        // Start a transaction
-        await sequelize.transaction(async (t) => {
-            // Verify if the user exists
-            const user = await User.findByPk(user_id, { transaction: t });
+        const { user_id } = req.body; // user_id en el body
+        const song_id = req.params.id ? parseInt(req.params.id, 10) : null;
 
-            // Verify if the song exists
-            const song = await Song.findByPk(song_id, { transaction: t });
+        if (!song_id) {
+            return res.status(400).json({ error: "ID de la canción es inválido" });
+        }
+        if (!user_id || isNaN(song_id)) {
+            return res.status(400).json({ error: "Datos inválidos" });
+        }
 
-            // Debugging: Print the values to verify that they are correct
-            console.log('user_id:', user_id, 'song_id:', song_id); // Verify the data received
-            console.log('Usuario encontrado:', user); // Verify if the user exists
-            console.log('Canción encontrada:', song); // Verify if the song exists
+        console.log("Datos recibidos en la API:");
+        console.log("user_id:", user_id, "song_id:", song_id);
 
-            // Verify if the user or the song do not exist
-            if (!user || !song) {
-                return res
-                    .status(400)
-                    .json({ message: 'Usuario o canción no encontrados.' });
-            }
-
-            // Verify if the user already liked the song
-            const existingLike = await SongLike.findOne({
-                where: { user_id, song_id },
-                transaction: t,
-            });
-
-            if (existingLike) {
-                return res
-                    .status(400)
-                    .json({ message: "Ya has dado 'me gusta' a esta canción." });
-            }
-
-            // Create new 'like'
-            const newLike = await SongLike.create(
-                { user_id, song_id },
-                { transaction: t },
-            );
-
-            // Get the song
-            const songFound = await Song.findByPk(song_id, { transaction: t });
-
-            // Verify if the playlist with ID 0 exists
-            let playlist = await Playlist.findByPk(0, { transaction: t });
-
-            if (!playlist) {
-                playlist = await Playlist.create(
-                    {
-                        id: 0,
-                        name: 'Mi Playlist de Me Gusta',
-                        type: 'private',
-                        typeP: 'playlist',
-                        front_page: '',
-                    },
-                    { transaction: t },
-                );
-                console.log('Playlist creada:', playlist); // Log the created playlist
-            }
-
-            console.log('Adding song to playlist:', songFound); // Log the song being added
-            // Add the song to the playlist
-            await playlist.addSong(songFound, { transaction: t });
-
-            return res.status(200).json({
-                message:
-                    "Canción añadida a tus 'me gusta' y a la playlist con ID 0.",
-            });
+        // 1. Obtener o crear la playlist de "Me Gusta" para este usuario.
+        let likedPlaylist = await db.playlist.findOne({
+            where: { user_id, type: 'private', typeP: 'Vibra_likedSong' }
         });
+        if (!likedPlaylist) {
+            likedPlaylist = await db.playlist.create({
+                user_id,
+                name: 'Playlist de Me Gusta',
+                type: 'private',
+                typeP: 'Vibra_likedSong',
+                front_page: ''
+            });
+            console.log("Playlist de Me Gusta creada: ID", likedPlaylist.id);
+        } else {
+            console.log("Playlist de Me Gusta encontrada: ID", likedPlaylist.id);
+        }
+
+        // 2. Buscar la canción y el like existente.
+        const songFound = await db.song.findByPk(song_id);
+        if (!songFound) {
+            return res.status(404).json({ error: "Canción no encontrada" });
+        }
+
+        const existingLike = await db.SongLike.findOne({
+            where: { user_id, song_id }
+        });
+
+        // 3. Toggle: Si ya existe el like, lo eliminamos y removemos la canción de la playlist.
+        if (existingLike) {
+            console.log("Like ya existe, eliminándolo...");
+            await db.SongLike.destroy({ where: { user_id, song_id } });
+            await likedPlaylist.removeSong(songFound);
+            console.log("Like eliminado y canción removida de la playlist");
+            return res.json({ message: "Like eliminado correctamente", liked: false });
+        } else {
+            // 4. Si no existe, creamos el like y añadimos la canción a la playlist.
+            console.log("📝 Intentando insertar like:", { user_id, song_id });
+            const newLike = await db.SongLike.create({ user_id, song_id });
+            await likedPlaylist.addSong(songFound);
+            console.log("Like agregado y canción añadida a la playlist");
+            return res.json({ message: "Like agregado correctamente y canción añadida a la playlist", liked: true, newLike });
+        }
     } catch (error) {
-        console.error("Error al dar 'me gusta' a la canción:", error);
-        return res
-            .status(500)
-            .json({ message: "Error al dar 'me gusta' a la canción." });
+        console.error("Error en likeSong:", error);
+        return res.status(500).json({ error: "Error interno del servidor", details: error.message });
     }
 };
 
 
 
-// Función para eliminar 'me gusta' de una canción
+
+/**
+ * Quitar "Like" a una canción de forma explícita (sin toggle).
+ * DELETE /api/songs/:id/like
+ */
 export const unlikeSong = async (req, res) => {
-    const { user_id, song_id } = req.body;
-
-    // Validar si los parámetros están presentes
-    if (!user_id || !song_id) {
-        return res.status(400).json({ message: "user_id y song_id son requeridos." });
-    }
-
     try {
-        // Verificar si el usuario ha dado 'me gusta' a la canción
-        const existingLike = await SongLike.findOne({
+        const { user_id } = req.body;
+        const song_id = Number(req.params.id);
+
+        if (!user_id || isNaN(song_id)) {
+            return res.status(400).json({ error: "Datos inválidos" });
+        }
+
+        const deleted = await db.song_like.destroy({
             where: { user_id, song_id }
         });
 
-        if (!existingLike) {
-            return res.status(400).json({ message: "No has dado 'me gusta' a esta canción." });
+        if (!deleted) {
+            return res.status(400).json({ error: "No has dado like a esta canción" });
         }
 
-        // Eliminar el 'me gusta'
-        await SongLike.destroy({
-            where: { user_id, song_id }
-        });
-
-        // Obtener la canción
-        const song = await Song.findByPk(song_id);
-        const playlist = await Playlist.findByPk(0);
-
-        // Eliminar la canción de la playlist si existe
-        if (playlist) {
-            await playlist.removeSong(song);
-        }
-
-        return res.status(200).json({ message: "Canción eliminada de tus 'me gusta' y de la playlist con ID 0." });
-
+        console.log("Like eliminado correctamente:", { user_id, song_id });
+        return res.json({ message: "Like eliminado correctamente" });
     } catch (error) {
-        console.error("Error al eliminar 'me gusta' de la canción:", error);
-        return res.status(500).json({ message: "Error al eliminar 'me gusta' de la canción." });
+        console.error("Error al quitar like de la canción:", error);
+        return res.status(500).json({ error: "Error interno del servidor" });
     }
 };
 
-// Función para obtener todas las canciones que le gustan al usuario
+/**
+ * Obtener todas las canciones que le gustan a un usuario.
+ * GET /api/songs/:user_id/likedSongs
+ */
 export const getLikedSongs = async (req, res) => {
-    const { user_id } = req.params;
-
-    if (!user_id) {
-        return res.status(400).json({ message: "El parámetro user_id es requerido." });
-    }
-
     try {
-        const likedSongs = await Song.findAll({
+        const userId = Number(req.params.user_id);
+        if (isNaN(userId)) {
+            return res.status(400).json({ error: "El user_id no es válido" });
+        }
+
+        console.log("Nos llega user_id en params:", userId);
+
+        // Ejemplo: obtener info completa de las canciones que tengan like de ese usuario
+        const likedSongs = await db.song.findAll({
             include: [{
-                model: SongLike,
-                where: { user_id },
+                model: db.song_like,
+                where: { user_id: userId },
                 attributes: []
             }]
         });
 
-        return res.status(200).json(likedSongs);
-
+        console.log("Canciones con like encontradas:", likedSongs.length);
+        return res.json(likedSongs);
     } catch (error) {
-        console.error("Error al obtener las canciones que te gustan:", error);
-        return res.status(500).json({ message: "Error al obtener las canciones que te gustan." });
+        console.error("Error al obtener las canciones con like:", error);
+        return res.status(500).json({ error: "Error interno del servidor" });
     }
 };
+export const checkIfSongIsLiked = async (req, res) => {
+    try {
+        // Se obtiene el songId desde el parámetro de la ruta y el userId desde la query
+        const songId = parseInt(req.params.id, 10);
+        const userId = parseInt(req.query.userId, 10);
+
+        console.log(`checkIfSongIsLiked: Parámetros recibidos -> songId: ${songId}, userId: ${userId}`);
+
+        if (isNaN(songId) || isNaN(userId)) {
+            console.error("checkIfSongIsLiked: Parámetros inválidos");
+            return res.status(400).json({ error: "Parámetros inválidos. Asegúrate de que songId y userId sean números." });
+        }
+
+        console.log(`checkIfSongIsLiked: Verificando si la canción ${songId} está en favoritos para el usuario ${userId}`);
+
+        // Nota: Reemplaza db.SongLike por db.song_like si ese es el nombre correcto de tu modelo
+        const existingLike = await db.SongLike.findOne({
+            where: { user_id: userId, song_id: songId }
+        });
+        console.log("checkIfSongIsLiked: Resultado de findOne:", existingLike);
+
+        const isLiked = !!existingLike;
+        console.log(`checkIfSongIsLiked: Resultado final -> isLiked: ${isLiked}`);
+
+        return res.json({ isLiked });
+    } catch (error) {
+        console.error("checkIfSongIsLiked: Error al verificar si la canción está en favoritos:", error);
+        return res.status(500).json({ error: "Error interno del servidor", details: error.message });
+    }
+};
+
+
+
