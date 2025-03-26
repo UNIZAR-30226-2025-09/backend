@@ -40,10 +40,10 @@ export const getOrCreateLikedPlaylist = async (req, res) => {
             // Si no existe, la creamos
             likedPlaylist = await db.playlist.create({
                 user_id,
-                name: 'Playlist de Me Gusta',
+                name: 'Me Gusta',
                 type: 'private',
                 typeP: 'Vibra_likedSong',
-                front_page: ''  // Valor por defecto para la portada
+                front_page: 'playlist_images/meGusta.png'  // Valor por defecto para la portada
             });
             console.log(`Playlist de Me Gusta creada: ID ${likedPlaylist.id}`);
         }
@@ -113,9 +113,6 @@ export const likePlaylist = async (req, res) => {
         return res.status(500).json({ error: "Error interno del servidor", details: error.message });
     }
 };
-
-
-
 
 
 /**
@@ -324,4 +321,32 @@ export const getPlaylistLike = async (req, res) => {
     return res.status(500).json({ error: "Error interno en el servidor" });
   }
 };
+
+// Función para obtener la playlist de "Me Gusta"
+export const getLikedSongPlaylist = async (req, res) => {
+    try {
+        const { userId } = req.params;
+
+        if (!userId) {
+            return res.status(400).json({ error: "El userId es obligatorio" });
+        }
+
+        // Buscar la playlist de tipo "Vibra_likedSong" para el usuario específico
+        const likedSongPlaylist = await db.playlist.findOne({
+            where: { user_id: userId, typeP: 'Vibra_likedSong' },
+            attributes: ["id", "name", "user_id", "artist_id", "description", "type", "typeP", "front_page"]
+        });
+
+        if (!likedSongPlaylist) {
+            return res.status(404).json({ message: "No se encontró la playlist 'Me Gusta'" });
+        }
+
+        return res.status(200).json(likedSongPlaylist);
+    } catch (error) {
+        console.error("Error al obtener la playlist de Me Gusta:", error.message);
+        console.error(error.stack);
+        return res.status(500).json({ error: "Error interno en el servidor" });
+    }
+};
+
 
