@@ -1,5 +1,6 @@
 import express from "express";
 import * as playlistController from "#controllers/playlists_controller";
+import {getOrCreateLikedPlaylist} from "#controllers/playlists_controller";
 const router = express.Router();
 
 /**
@@ -25,6 +26,8 @@ router.delete("/:id/like", playlistController.unlikePlaylist);
 router.get("/:id/like", playlistController.checkIfLiked);
 router.get("/liked/:userId", playlistController.getPlaylistLike);
 
+// En playlistRoutes.js o el archivo de rutas correspondiente
+router.post('/songliked', playlistController.getOrCreateLikedPlaylist);
 
 
 export default router;
