@@ -59,6 +59,37 @@ export async function up(queryInterface, Sequelize) {
       name: "Fito y Fitipaldis",
       bio: "Cantante colombiana de pop y música latina, famosa por su energía en el escenario y éxitos como 'Hips Don't Lie'.",
       photo: "artists_images/fitoFitipaldis.png"
+    },
+      // ABDEL: Completar
+    {
+      name: "Anuel AA",
+      bio: "Por completar... (Faltan ademas las relaciones con sus canciones)",
+      photo: "default-artist.jpg"
+    },
+    {
+      name: "C. Tangana",
+      bio: "Por completar... (Faltan ademas las relaciones con sus canciones)",
+      photo: "default-artist.jpg"
+    },
+    {
+      name: "Camaron",
+      bio: "Por completar... (Faltan ademas las relaciones con sus canciones)",
+      photo: "default-artist.jpg"
+    },
+    {
+      name: "FERNANDOCOSTA",
+      bio: "Por completar... (Faltan ademas las relaciones con sus canciones)",
+      photo: "default-artist.jpg"
+    },
+    {
+      name: "KASE.O",
+      bio: "Por completar... (Faltan ademas las relaciones con sus canciones)",
+      photo: "default-artist.jpg"
+    },
+    {
+      name: "Plan B",
+      bio: "Por completar... (Faltan ademas las relaciones con sus canciones)",
+      photo: "default-artist.jpg"
     }
   ], {});
 }

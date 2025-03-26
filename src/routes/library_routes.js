@@ -1,11 +1,18 @@
-// library.routes.js
 import { Router } from "express";
 import { getUserLibrary } from "#controllers/library_controller";
-// Si no usas middleware, omite la importación del authMiddleware
 
 const router = Router();
 
-// Define la ruta GET para la biblioteca
+/**
+ * Rutas para la gestión de la biblioteca del usuario autenticado:
+ * - `GET /api/library/` -> Devuelve la biblioteca personalizada del usuario:
+ *     Canciones que le han gustado (`likedSongs`)
+ *     Playlists que le han gustado (`likedPlaylists`)
+ *     Playlists que ha creado (`playlistsCreated`)
+ *
+ *   La ruta requiere un token JWT válido en la cabecera `Authorization` en formato:
+ *     Authorization: Bearer <token>
+ */
 router.get("/", getUserLibrary);
 
 export default router;
