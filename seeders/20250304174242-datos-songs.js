@@ -2020,7 +2020,80 @@ export async function up(queryInterface, Sequelize) {
       {
           name: 'El Manual',
           duration: 210,
-          lyrics: 'Letra en desarrollo...',
+          lyrics: 'El destino nos hizo conocerno\'\n' +
+              'Después de ti ya nada ha sido igual\n' +
+              'En el amor ya yo pasé un infierno\n' +
+              'Por eso es que es difícil confiar\n' +
+              'Nadie va a decirme cómo actuar\n' +
+              'Pero pa\' convencerme ya tú sabe\' cómo hablar\n' +
+              'Al lugar donde nadie ha podido entrar\n' +
+              'Como un tatuaje, de mí no te va\' a borrar\n' +
+              'Contigo fluyo y yo sé que soy tuyo\n' +
+              'Pues tú me dices cosas que hacen que entierre el orgullo\n' +
+              '\n' +
+              'Es que tú tiene\' un manual\n' +
+              'Pa\' calentar mi piel\n' +
+              'Un pacto con mi alma, yo lo sé\n' +
+              'Como un desastre natural\n' +
+              'No te puedo detener\n' +
+              'Bebé, tú me hace\' mal y me hace\' bien\n' +
+              'Es que tú tiene\' un manual\n' +
+              'Pa\' calentar mi piel\n' +
+              'Un pacto con mi alma, yo lo sé\n' +
+              'Como un desastre natural\n' +
+              'No te puedo detener\n' +
+              'Bebé, tú me hace\' mal y me hace\' bien\n' +
+              '\n' +
+              'La vida me enseñó a desconfiar\n' +
+              'El karma existe, no vuelvo a fallar\n' +
+              'Me puse pa\' la vuelta y yo ante\' de los 30\n' +
+              'Y tú te aparece\' cuando te dejo de buscar\n' +
+              'Cara\' vemo\' y corazone\' no sabemo\' \'\n' +
+              'Y nunca valoramo\', baby, hasta que no\' perdemo\'\n' +
+              'La vida es solo una, no la desaprovechemo\'\n' +
+              'Hicimo\' una promesa y me muero si la rompemo\'\n' +
+              '\n' +
+              'Es que tú tiene\' un manual\n' +
+              'Pa\' calentar mi piel\n' +
+              'Un pacto con mi alma, yo lo sé\n' +
+              'Como un desastre natural\n' +
+              'No te puedo detener\n' +
+              'Bebé, tú me hace\' mal y me hace\' bien\n' +
+              'E-E-es que tú tiene\' un manual\n' +
+              'Pa\' calentar mi piel\n' +
+              'Un pacto con mi alma, yo lo sé\n' +
+              'Como un desastre natural\n' +
+              'No te puedo detener\n' +
+              'Bebé, tú me hace\' mal y me hace\' bien\n' +
+              '\n' +
+              'Yo quiero ser tu prisionero\n' +
+              '100 años adentro de tu cuerpo, uoh-oh\n' +
+              'Tu punto debil es el cuello\n' +
+              'Y si me matan, tenme en tu recuerdo, uoh-uah, yeh\n' +
+              'Alcohol y playa, yeh\n' +
+              'Bebé, trae la toalla porque te va\' a mojar\n' +
+              'Y no me refiero al mar\n' +
+              'Baby, la vista es roja, yeh-eh\n' +
+              'Pero se pone verde cuando empiece\' a tomar\n' +
+              'Y te empiece\' a soltar\n' +
+              '\n' +
+              'Es que tú tiene\' un manual\n' +
+              'Pa\' calentar mi piel\n' +
+              'Un pacto con mi alma, yo lo sé\n' +
+              'Como un desastre natural\n' +
+              'No te puedo detener\n' +
+              'Bebé, tú me hace\' mal y me hace\' bien\n' +
+              'E-E-es que tú tiene\' un manual\n' +
+              'Pa\' calentar mi piel\n' +
+              'Un pacto con mi alma, yo lo sé\n' +
+              'Como un desastre natural\n' +
+              'No te puedo detener\n' +
+              'Bebé, tú me hace\' mal y me hace\' bien\n' +
+              '\n' +
+              'Oh-oh, oh-oh\n' +
+              'Uah\n' +
+              'Uah\n' +
+              'O-Ovy On The Drums',
           photo_video: 'default-song.jpg',
           url_mp3: 'songs/Anuel AA - El Manual (Audio Oficial) [70RraHwxgU4].mp3',
           genre: 'Trap'
@@ -2028,7 +2101,90 @@ export async function up(queryInterface, Sequelize) {
       {
           name: 'Hipocrita',
           duration: 192,
-          lyrics: 'Letra en desarrollo...',
+          lyrics: 'Dime si hay alguien más\n' +
+              'Pa’ no rogarte ni suplicarte\n' +
+              'A mí me sobran de más\n' +
+              'No quiero, pero yo puedo olvidarte\n' +
+              '\n' +
+              'Tú ere\' una hipócrita\n' +
+              'Un día me ama\' y otro día me odia\'\n' +
+              'Siempre una incógnita\n' +
+              'Pero olvidamos cuando nos enredamo\' en las sábanas\n' +
+              'Y tú eres buena, pero por dentro tienes tanta maldad\n' +
+              'Tú ere\' una hipócrita\n' +
+              '\n' +
+              'Ooh\n' +
+              'Tú ere\' una hipócrita\n' +
+              'Ooh\n' +
+              'Siempre una incógnita\n' +
+              '\n' +
+              'Tú eres mía desde los diecinueve\n' +
+              'No aparentes ser alguien que no eres\n' +
+              'No te alejes y mi paciencia no la pruebes\n' +
+              'Solo hazme el amor mientras llueve\n' +
+              '\n' +
+              'Adentro de alguien más hay hipocresía\n' +
+              'Bipolar de noche y de día\n' +
+              'Yo te comía y el amor fluía\n' +
+              'Y te llené cuando estabas vacía\n' +
+              '\n' +
+              'Yo nunca estuve el día que Dios dio la cobardía\n' +
+              'Y si me fallas, no olvides que te la cobraría\n' +
+              'Yo te dije que no compartía\n' +
+              'Y nunca pensé que tú a mí me fallarías\n' +
+              '\n' +
+              'Tú ere\' una hipócrita\n' +
+              'Un día me ama\' y otro día me odia\'\n' +
+              'Siempre una incógnita\n' +
+              'Pero olvidamos cuando nos enredamo\' en las sábanas\n' +
+              'Y tú eres buena, pero por dentro tienes tanta maldad\n' +
+              'Tú ere\' una hipócrita\n' +
+              '\n' +
+              'Tengo un problema de inseguridades\n' +
+              'Pero pa’ mi corazón tú tienes la llave (la llave)\n' +
+              'Nunca hice na’ pa’ que tú no me ames\n' +
+              'Pero si me fallas, no esperes que yo te llame\n' +
+              '\n' +
+              'Baby\n' +
+              'Recuerda cuándo te abrí\n' +
+              'Y cuándo te la comí\n' +
+              'Trépate encima de mí\n' +
+              'Y vente pa’ mí, mami\n' +
+              '\n' +
+              'Mami\n' +
+              'Recuerda cuándo te abrí\n' +
+              'Y cuándo te la comí\n' +
+              'Trépate encima de mí\n' +
+              'Y vente pa’ mí, mami\n' +
+              '\n' +
+              'Dime si hay alguien más\n' +
+              'Pa’ no rogarte ni suplicarte\n' +
+              'A mí me sobran de más\n' +
+              'No quiero, pero yo puedo olvidarte\n' +
+              '\n' +
+              'Tú ere\' una hipócrita\n' +
+              'Un día me ama\' y otro día me odia\'\n' +
+              'Siempre una incógnita\n' +
+              'Pero olvidamo\' cuando nos enredamo\' en las sábanas\n' +
+              'Y tú eres buena, pero por dentro tienes tanta maldad\n' +
+              'Tú ere\' una hipócrita\n' +
+              '\n' +
+              'Ooh\n' +
+              'Tú ere\' una hipócrita\n' +
+              'Ooh\n' +
+              'Siempre una incógnita\n' +
+              '\n' +
+              'Real hasta la muerte, baby\n' +
+              'Zion, baby (Zi-diddy), uah\n' +
+              'Anuel\n' +
+              'Real hasta la muerte, ¿oíste, bebé?\n' +
+              '\n' +
+              'Es mejor estar solo\n' +
+              'Que estar con alguien que tiene una máscara puesta, baby\n' +
+              '\n' +
+              'Mera, dime, Frabian\n' +
+              'Mera, dime, Gaby Music\n' +
+              'Mera, dime, Chris Jeday',
           photo_video: 'default-song.jpg',
           url_mp3: 'songs/Anuel AA - Hipócrita feat. Zion (Audio) [J8gcGyYxDbo].mp3',
           genre: 'Trap'
@@ -2036,7 +2192,228 @@ export async function up(queryInterface, Sequelize) {
       {
           name: '47 (Remix)',
           duration: 517,
-          lyrics: 'Letra en desarrollo...',
+          lyrics: 'Mera dime Ñengo\n' +
+              'Real G4 Life hasta la muerte cabrón\n' +
+              'Yo le oro a Dios to\'a las noches\n' +
+              'Pa\' que el día que yo me muera yo vaya pal\' cielo\n' +
+              'Porque si me caigo pal\' infierno\n' +
+              'Le vo\'a quitar el cliché al diablo cabrón\n' +
+              'En el cielo está Dios, en el infierno está el diablo\n' +
+              'Pero entremedio del cielo y el infierno estoy yo lambe bicho\n' +
+              'Yo soy lo más cabrón en la isla\n' +
+              'Desde Roberto Clemente cabrón\n' +
+              'Tú no vistes las noticias cabrón\n' +
+              'Nosotros somos intocables Ñengo\n' +
+              'Mera dime Casper, mera dime Farru\n' +
+              'Los illuminatis, mera dime Darell, brr\n' +
+              'Anuel oiste lambe bicho\n' +
+              'Trap Murdaz cabrón\n' +
+              '\n' +
+              'Bebé tú no me va a olvidar\n' +
+              'Estos cabrones me quieren matar\n' +
+              'Pero tú me brincas encima de este bicho\n' +
+              'Y yo te devoro como un animal\n' +
+              'Yo sé que me quieren matar\n' +
+              'Pero después que yo tenga dinero\n' +
+              'Pa\' comprar pistolas y rifles con balas\n' +
+              'Yo voy a guerrear\n' +
+              'En mi case vivimo\' en guerra, rifles militares\n' +
+              'Yo ruego a Dios porque ninguno de los míos resbale\n' +
+              'Aquí to\' el mundo se muere, nadie resucita\n' +
+              'Cabrones quieren matarte, pa\' verte en una camisa\n' +
+              'Yo me compré un 47\n' +
+              '(RealG4Life)\n' +
+              'Yo me compré un 47, yo me compre un 47\n' +
+              'Toa\' las glocks son fuletes\n' +
+              'Yo me compré un 47, yo me compre un 47\n' +
+              '\n' +
+              'Yo me compré un 47\n' +
+              'Y tengo un Honda sin marbete\n' +
+              'Color vino pa\' hacerle los mandau\' a la muerte\n' +
+              '(A la muerte)\n' +
+              'Ando tranquilo porque soy guerrero, yo soy ligero\n' +
+              'Y voy a estrujarte si nos sacas de primero\n' +
+              'Y cuando tire va morirse el que no se agache\n' +
+              'De sangre correrán los baches\n' +
+              'Dicen, eah diache, te fuiste de escrache\n' +
+              'Llegamos nosotros, esto es pa\' hombres\n' +
+              'Por eso salen con el pelo roto\n' +
+              'Soy agua ardiente, el corriente\n' +
+              'Que te conecta como un 47\n' +
+              'Cuando manda, cuando zumba, y cuando entra\n' +
+              'Te dejan por dentro, yow, con la epiléptica\n' +
+              'Te suenan con los palos\n' +
+              'Y te rematan con las plásticas\n' +
+              '\n' +
+              '(Esta es la verdadera vuelta baby)\n' +
+              'Ya no estamos en cero\n' +
+              'Vivimos la vida como los quileros\n' +
+              'Ya no cachamos octavos\n' +
+              'Cogimos la vía y los cachamo\' entero\n' +
+              'Solo puta y dinero\n' +
+              'La fuleta en la mano y los peines enteros\n' +
+              'Los carros pal trabajo y completo vestido de negro\n' +
+              'Conectao\' en las Islas Canarias\n' +
+              'Los rifles me llegan desde Yugoslavia\n' +
+              'Estamos crecio\' y controlamo\' el área\n' +
+              'Porque ahora no tengo una cone, cabrón tengo varias\n' +
+              'Nosotros estamos conectao\' pa\' allá arriba en New York\n' +
+              '(Real G4 Life my nigga)\n' +
+              '\n' +
+              'Y los bajamos a Orlando directo cabrón pal\' calor\n' +
+              'Aquí tenemos to\'a las cone\n' +
+              'Dime tú quien pone la presión\n' +
+              'Así como Darell bo la pone\n' +
+              'Soldados en to\'a las posiciones\n' +
+              'Las coltas con las extensiones\n' +
+              'Ya tenemos to\'a las direcciones\n' +
+              'Hijueputa es mejor que abandones\n' +
+              'Con los míos me monto en to\'a las misione\n' +
+              '\n' +
+              'Y si quieren guerra, mandenmen\n' +
+              'Pa\' que sepan cabrón no tengo miedo a morir\n' +
+              'Un AK 47 y peines de refill\n' +
+              'Te mueres sí o sí, después que me ponga pa\' ti\n' +
+              'Y si quieren guerra, mandenmen\n' +
+              'Pa\' que sepan cabrón no tengo miedo a morir\n' +
+              'Un AK 47 y peines de refill\n' +
+              'Te mueres sí o sí, después que me ponga pa\' ti\n' +
+              '\n' +
+              'Yo me compra un 47 y una 27\n' +
+              'Por si me quedo sin balas o se me tranca el fulete\n' +
+              'Pa\' borrarte la cara cuando el botón apriete\n' +
+              'Como grita esta ostia, pa\' guerrear aquí hay billete\n' +
+              '\n' +
+              'Quieren roncarme y no pueden\n' +
+              'Quieren matarme y no pueden\n' +
+              'Pero si fallas tirando, en el mismo intento to\'itos se mueren\n' +
+              'To\' pa\' mi tienen manos, pero siempre les gano\n' +
+              'Si los pillo por ahí dormio\'\n' +
+              'Le pago a una puta y los seteamos\n' +
+              'Y ahí te secuestramos, te capturamos, picamo\' el philly\n' +
+              'Tenemos las botella\' en mano en el V.I. p\n' +
+              'Real G como Ñengo y Darell\n' +
+              'Real hasta la muerte siempre, Free Anuel\n' +
+              '\n' +
+              'En mi case vivimo\' en guerra, rifles militares\n' +
+              'Yo le ruego a Dios\n' +
+              'Porque ninguno de los míos ninguno se me vire\n' +
+              'Aquí to\' el mundo se muere, nadie resucita\n' +
+              'Cabrones quieren matarte, pa\' verte en una camisa\n' +
+              'Yo me compré un 47 (Brrr)\n' +
+              'Yo me compré un 47\n' +
+              'Yo me compré un 47, yo me compré un 47\n' +
+              'Toa\' las glocks son fuletes\n' +
+              'Yo me compré un 47\n' +
+              '\n' +
+              'Que yo estoy ready pa\' ti, tú sabes quién yo soy\n' +
+              'Yo ando con Farru en un Rolls-Royce\n' +
+              'Los juguetes y no son de KB toys\n' +
+              'Te pillamos y te los damos\n' +
+              'Antes de que a tu mujer le envíe un voice\n' +
+              'Como Hector con el combo de setenta\n' +
+              'Yo soy lo más cabrón que nació pa\' los noventa\n' +
+              'Me compré un 47 y una 40\n' +
+              'Yo cargo un rosario bendecido\n' +
+              'Y con to\' eso el diablo me tienta\n' +
+              'Ma\' yo estoy regao\' como los Me-mets\n' +
+              'Te enterramos y después a tu mujer, yo sé lo me-me\n' +
+              'Yo sé que estoy mal, que el cielo me condene\n' +
+              'Pero esto es real hasta que en el infierno me queme\n' +
+              'Hoy las retro 11 me las customizo y las pinto de roja\n' +
+              'Con to\'a la sangre tuya que caiga en el piso\n' +
+              'En guerra pisada nunca muere gente\n' +
+              'Por eso es que yo no aviso\n' +
+              'Mi palabra pesa yo no me retracto\n' +
+              'Yo soy la nueva religión la baby quiere un pacto\n' +
+              'Con demonios yo no hablo, pero tengo sus contacto\'\n' +
+              'Marco el 6-6-6 y en el pecho sienten el impacto\n' +
+              '\n' +
+              'Recuerdo cuando no tenía un carajo\n' +
+              'Que las cosas estaban malas\n' +
+              'No tenía ni pa\' un octavo\n' +
+              'Gracias a Dios las cosas cambiaron\n' +
+              'Y ahora quieren de este bicho\n' +
+              'To\' esas putas que picharon\n' +
+              'Me compré un 47 y le puse un botón\n' +
+              'Las Glock son to\'a fuletes, carbon 15 con el caracol\n' +
+              'Ruegale a Dios que no te pille con el de tambor\n' +
+              'Si así lo prendo va a sentir el diablo, el calentón\n' +
+              '\n' +
+              'Mera dime Casper, los intocables, los illuminatis\n' +
+              'Yo estoy preso, yo no estoy muerto cabrón\n' +
+              'Pero, ¿y si yo salgo mañana?, jajá, brr\n' +
+              'Nosotros somos los que tenemos\n' +
+              'La puta calle prendía en fuego oíste cabron\n' +
+              'Nosotros somos los verdaderos hijueputas\n' +
+              'Me wa cagar en la madre\n' +
+              '\n' +
+              'Fuletazo con la 23, Jordan en el \'93\n' +
+              'Me meto pa\' tu canto, el kiosko te tranco\n' +
+              'Y le cara te la hago puré\n' +
+              'Tengo al diablo en la casa \'e cristal\n' +
+              '27, no vamo\' a chotear\n' +
+              'Me compré un 47 lo hize fulete\n' +
+              'Hijueputa quien quiere guerrear\n' +
+              'Te mandamos caliente, 21 pal pecho Roberto Clemente\n' +
+              'Te voy a prender el timbal en la cara cabrón\n' +
+              'A nombre de Tito Puentes\n' +
+              'Se dejaron ver\n' +
+              'Ahora estos cabrones cantan como Anuel\n' +
+              'Se dejaron ver\n' +
+              'Subieron los tuyos a cuenta de lo de el\n' +
+              '\n' +
+              'En mi case vivimo\' en guerra, rifles militares\n' +
+              'Yo ruego a Dios porque ninguno de los míos resbale\n' +
+              'Aquí to\' el mundo se muere, nadie resucita\n' +
+              'Cabrones quieren matarte, pa\' verte en una camisa\n' +
+              'Yo me compré un 47\n' +
+              'Yo me compré un 47, yo me compre un 47\n' +
+              'Toa\' las glocks son fuletes\n' +
+              'Yo me compré un 47, yo me compre un 47\n' +
+              '\n' +
+              'Yo a veces siento que la muerte está persiguiéndome\n' +
+              'Pero yo no wa correr\n' +
+              'Las cortas, los palos, los peines\n' +
+              'Yo me compré 4 tambores ayer\n' +
+              'Ustedes to\' me traicionaron\n' +
+              'Como a Jehová lo traicionó Lucifer (Amén)\n' +
+              'Y yo nunca wa cambiar la lealtad de un hermano por una mujer\n' +
+              '\n' +
+              'Mi hijo va a comer, y con el R fulete te vamos a cocer\n' +
+              'Las balas van a llover\n' +
+              'Pero yo tengo que ver a mi hijo crecer\n' +
+              'Yo no me wa esconder\n' +
+              'Si yo no soy intocable, pues traten a ver\n' +
+              'El AK te va a morder\n' +
+              'Los muertos te están esperando, tú te va a caer\n' +
+              '\n' +
+              'Yo nunca me asusté\n' +
+              'Ellos me fantasmearon y se los acosté\n' +
+              'Les mandé y me bajé\n' +
+              'Y el palo en el pecho yo se lo espeté\n' +
+              'Lo resucité y le prendí mi fulete, volví y lo mate\n' +
+              'La vida se la quité\n' +
+              'Y tirau\' como un zombie yo lo retraté\n' +
+              '\n' +
+              'En mi case vivimo\' en guerra, rifles militares\n' +
+              'Yo ruego a Dios porque ninguno de los míos resbale\n' +
+              'Aquí to\' el mundo se muere, nadie resucita\n' +
+              'Cabrones quieren matarte, pa\' verte en una camisa\n' +
+              'Yo me compré un 47 (Brrr)\n' +
+              'Yo me compré un 47, yo me compré un 47\n' +
+              'Toa\' las glocks son fuletes\n' +
+              'Yo me compré un 47, yo me compré un 47\n' +
+              '\n' +
+              'Brrr, Anuel, Real hasta la muerte, oíste cabrón\n' +
+              'Mera dime Ñengo, RealG4Life hasta que me maten\n' +
+              'Me wa cagar en la madre el diablo\n' +
+              'Trap Murdaz\n' +
+              'Lil Geniuz, Sinfonico, Onyx\n' +
+              'The real trap nigga, real gangsta shit\n' +
+              'Darell\n' +
+              'Brrr, Free Anuel\n' +
+              'Real hasta la muerte hijueputa',
           photo_video: 'default-song.jpg',
           url_mp3: 'songs/Anuel x Nengo Flow, Los G4 - 47 (Remix) ft. Bad Bunny, Darell,  Farruko, Sinfónico, Casper [Audio] [yIpxrDfX6ek].mp3',
           genre: 'Trap'
@@ -2044,7 +2421,113 @@ export async function up(queryInterface, Sequelize) {
       {
           name: 'Me acostumbre',
           duration: 270,
-          lyrics: 'Letra en desarrollo...',
+          lyrics: 'Ey Yo!\n' +
+              'Austin Baby\n' +
+              'Luian\n' +
+              'Mambo Kings\n' +
+              'Let’s Go\n' +
+              '\n' +
+              '[Arcángel]\n' +
+              'Hoy me levanté del lao\' izquierdo de la cama\n' +
+              '(De la cama, de la cama)\n' +
+              'No quiero dramas y por eso rolo un philisito\'e marihuana\n' +
+              'Pal de miles me busqué\n' +
+              'Joseando por la mañana\n' +
+              'Logré comprarme mi cubana\n' +
+              'Me compré mi carro y mi mansión en la nación americana\n' +
+              'Nací pa\' ser millo, no quiero fama\n' +
+              '\n' +
+              '[Bad Bunny]\n' +
+              'Ya me acostumbré\n' +
+              'Ya me acostumbré\n' +
+              'A siempre ganar como el 23\n' +
+              'Ya me acostumbré\n' +
+              'Ya me acostumbré\n' +
+              'A callarle la boca al que no me cree\n' +
+              '\n' +
+              '[Arcángel]\n' +
+              'Ya me acostumbré\n' +
+              'Ya me acostumbré\n' +
+              'A no importarme el precio de lo que compré\n' +
+              'Ya me acostumbré\n' +
+              'Ya me acostumbré\n' +
+              '\n' +
+              '[Bad Bunny]\n' +
+              'A clavarme toda\' esta\' puta\' de tres en tres\n' +
+              '\n' +
+              '[Arcángel]\n' +
+              'Dejarme contarte como yo lo hacía hace 15 años atrás\n' +
+              'Me sentaba con Geezy donde cabe el kilo hasta que no quedaba más\n' +
+              'Luego las cosas cambiaron\n' +
+              'Y nos pusimos a cantar\n' +
+              'El mundo viajar, la funda a llegar\n' +
+              'Ya no había que bregar (no)\n' +
+              'Pero si tu quiere\' que te hable de droga con gusto menor yo te enseño\n' +
+              'Conozco\'los capo\' y ninguno son sapos, dominican\' puertorriqueño\n' +
+              'No me llevo mucho con los empleados\n' +
+              '(¿Por qué?)\n' +
+              'Por la sencilla razón de que me crié con los dueños\n' +
+              'Un día un pana mío un par de millones de él me puso a contar\n' +
+              'Duré to\'a la noche contando billetes y la mano me empezó a picar\n' +
+              'Pasaron las horas y yo estaba lejos de todavía terminar\n' +
+              'Pa\' mi que eso fue una señal\n' +
+              'Que luego me iba a tocar\n' +
+              '\n' +
+              '[Bad Bunny]\n' +
+              'Ya me acostumbré\n' +
+              'Ya me acostumbré\n' +
+              'A siempre ganar como el 23\n' +
+              'Ya me acostumbré\n' +
+              'Ya me acostumbré\n' +
+              'A callarle la boca al que no me cree\n' +
+              '\n' +
+              '[Arcángel]\n' +
+              'Ya me acostumbré\n' +
+              'Ya me acostumbré\n' +
+              'A no importarme el precio de lo que compré\n' +
+              'Ya me acostumbré\n' +
+              'Ya me acostumbré\n' +
+              'A clavarme estas puta de tres en tres\n' +
+              '\n' +
+              '[Bad Bunny]\n' +
+              'Me acostumbré a que el envidioso siempre me traicione\n' +
+              'Y que por las botas mi nombre mencione\n' +
+              '(Cabrón sacate mi nombre de la boca)\n' +
+              'Yo siempre picheo en la mía tranquilo\n' +
+              'Díselo Luian que te engancho este rabo de oro en el cuello\n' +
+              'Y ahora paso un kilo\n' +
+              'Las boobies siempre estelar\n' +
+              'Si no me crees pregunta en el banco popular\n' +
+              'Los topos de kush nunca dan regular\n' +
+              'Este es high star game y tú no vas a jugar\n' +
+              'Dando más palos que David Ortiz\n' +
+              'Ando con los viles loco dentro le tiro aquís\n' +
+              'Me acostumbré a modelos con flow de París\n' +
+              'Él me jodió Donald Trump\n' +
+              'Aceite en el vap y ya no fuman blunt\n' +
+              'Lo pongo a danzar kuduro como don\n' +
+              'Me tocan y adelante el armaggedon\n' +
+              'Gracias a Dios por el don\n' +
+              'Desde que firmé to\'s quieren coger\n' +
+              'Pon tus balas movía\'l tapón\n' +
+              'Te puede\' acercártele haciendo el three sixty\n' +
+              'Y te damos tapón\n' +
+              '\n' +
+              '[Arcángel]\n' +
+              'Ya me acostumbré\n' +
+              'Ya me acostumbré\n' +
+              'A no importarme el precio de lo que compré\n' +
+              'Ya me acostumbré\n' +
+              'Ya me acostumbré\n' +
+              'A clavarme estas puta de tres en tres\n' +
+              '\n' +
+              '[Bad Bunny]\n' +
+              'Ya me acostumbré\n' +
+              'Ya me acostumbré\n' +
+              'A siempre ganar como el 23\n' +
+              'Ya me acostumbré\n' +
+              'Ya me acostumbré\n' +
+              'A callarle la boca al que no me cree',
           photo_video: 'default-song.jpg',
           url_mp3: 'songs/Arcángel, Bad Bunny - Me Acostumbré (Video Oficial) [xKKeqlBQ3Js].mp3',
           genre: 'Trap'
@@ -2052,7 +2535,49 @@ export async function up(queryInterface, Sequelize) {
       {
           name: 'Muriendo De Envidia',
           duration: 181,
-          lyrics: 'Letra en desarrollo...',
+          lyrics: 'Se están muriendo de envidia\n' +
+              'Las flores, las estrellas y la mar bella\n' +
+              'Porque Dios te hizo, Lola\n' +
+              'Más bonita que a todas ellas\n' +
+              'Se están muriendo de envidia\n' +
+              'Las flores, las estrellas y la mar bella\n' +
+              'Porque Dios te hizo, Lola\n' +
+              'Más bonita que a todas ellas\n' +
+              '\n' +
+              'Si un día, Dios no lo quiera, pierdo los cuartos y mi talento\n' +
+              'Le juro a to’s los presentes que voy a morirme\n' +
+              'Igual de contento\n' +
+              'Si un día Dios me arrebata to’ lo que hasta ahora me ha regala’o\n' +
+              'Nada me va a importar\n' +
+              'Mientras tú despiertes aquí a mi la’o\n' +
+              '\n' +
+              'Nada me va a importar\n' +
+              'Mientras tú despiertes aquí a mi la’o (¿cómo?)\n' +
+              'Nada me va a importar\n' +
+              'Mientras tú despiertes aquí a mi la’o\n' +
+              'Nada me va a importar\n' +
+              'Mientras tú despiertes\n' +
+              '\n' +
+              'Se están muriendo de envidia\n' +
+              'Las flores, las estrellas y la mar bella\n' +
+              'Porque Dios te hizo, Lola\n' +
+              'Más bonita que a todas ellas\n' +
+              '\n' +
+              '¡El Madrileño!\n' +
+              'Se están muriendo de envidia (¿cómo, cómo?)\n' +
+              'Quédate aquí esta noche, no vengas mañana\n' +
+              'Porque no encuentras al Tangana\n' +
+              '\n' +
+              'Con tu piquete Kardashian\n' +
+              'Toditas las gatas te envidian\n' +
+              'Se están muriendo, bebé\n' +
+              'Se están muriendo de envidia (¿cómo es?)\n' +
+              'Oye cómo suena\n' +
+              'Muriendo de envidia (eso)\n' +
+              'Muriendo de envidia (qué libre ‘ta)\n' +
+              'Muriendo de envidia (anda)\n' +
+              'Muriendo de envidia (ellos no)\n' +
+              'Muriendo de envidia',
           photo_video: 'default-song.jpg',
           url_mp3: 'songs/C. Tangana, Eliades Ochoa - Muriendo De Envidia [HfkjnAv_uRE].mp3',
           genre: 'Flamenco'
@@ -2060,7 +2585,56 @@ export async function up(queryInterface, Sequelize) {
       {
           name: 'Tu Me Dejaste De Querer',
           duration: 197,
-          lyrics: 'Letra en desarrollo...',
+          lyrics: 'Tú me dejaste de querer cuando te necesitaba\n' +
+              'Cuando más falta hacía, tú me diste la espalda (vamos allá)\n' +
+              'Tú me dejaste de querer cuando menos lo esperaba\n' +
+              'Cuando más te quería, se te fueron las ganas (¡toma que toma!)\n' +
+              '\n' +
+              '(¡Dale!)\n' +
+              '(¡Aire!)\n' +
+              '(¡Toma que toma! ¡Vamos allá, allá! ¡Ala!)\n' +
+              '(¡Oye, El Madrileño! ¡Manda!)\n' +
+              '(¡Que toma, que toma, que toma! ¡Ese Pucho!)\n' +
+              '(¡Ala!)\n' +
+              '(Venga ya, ¿te la sabes? ¡Dale!)\n' +
+              '\n' +
+              'Yo me creía que еra el más cabrón\n' +
+              'Pero me еstoy notando el corazón (dale, dale)\n' +
+              'Estás apretando mucho, mami, déjalo (eso e\')\n' +
+              'Si quieres, te doy la razón (¡ala!)\n' +
+              '\n' +
+              'Yo lo único que quiero es largarme de aquí (¡oh!)\n' +
+              'Me da igual dónde, puedes elegir (¡dale!)\n' +
+              'Algún día, dentro de poco, me voy a arrepentir\n' +
+              'De haberte confesa\'o lo que me haces sufrir (toma que toma)\n' +
+              '\n' +
+              'Tú me dejaste de querer cuando menos lo esperaba (dale)\n' +
+              'Cuando más te quería (madrileño), se te fueron las ganas\n' +
+              '\n' +
+              'De punta en blanco pa\' ir a tu fiesta\n' +
+              'Y he pasa\'o tres días con la misma ropa puesta\n' +
+              'Loco por ti, perdiendo apuestas\n' +
+              'Dime en quién piensas cuando te acuestas\n' +
+              '\n' +
+              'Porque yo pienso en ti, son ilusiones\n' +
+              'Yo pienso en ti (vamos allá), son ilusiones\n' +
+              'Porque yo pienso en ti, son ilusiones\n' +
+              'Yo pienso en ti, son ilusiones (¡ala!)\n' +
+              '\n' +
+              'Tú me dejaste de querer cuando te necesitaba (vamos allá los dos)\n' +
+              'Cuando más falta hacía (dímelo, bonito), tú me diste la espalda (dímelo de verdad)\n' +
+              'Tú me dejaste de querer cuando menos lo esperaba\n' +
+              'Cuando más te quería, se te fueron las ganas\n' +
+              '\n' +
+              '(¡Toma que toma que toma!)\n' +
+              '(¡Ala!)\n' +
+              '(¡Eso es! Vaya, dale)\n' +
+              '(Ah, ¡ese Pucho! ¡Toma que toma que toma!)\n' +
+              '(¡Ey! ¡Pom, pom, pom! ¡Ala, dale!)\n' +
+              '(Vaya, vaya; ¡dale, dale!)\n' +
+              '(Venga ya, ¡venga ya, Tangana!)\n' +
+              '(¡Toma que toma!)\n' +
+              '(Dale, dale los que saben, dale)',
           photo_video: 'default-song.jpg',
           url_mp3: 'songs/C. Tangana, Niño de Elche, La Hungara - Tú Me Dejaste De Querer [ltmO9XQVdSg].mp3',
           genre: 'Flamenco'
@@ -2068,7 +2642,61 @@ export async function up(queryInterface, Sequelize) {
       {
           name: 'Como el agua',
           duration: 224,
-          lyrics: 'Letra en desarrollo...',
+          lyrics: 'Limpiaba el agua del río\n' +
+              'Como la estrella de la mañana\n' +
+              'Limpiaba el cariño mío\n' +
+              'Al manantial de tu fuente clara\n' +
+              '\n' +
+              'Como el agua\n' +
+              'Como el agua\n' +
+              'Como el agua\n' +
+              '\n' +
+              'Como el agua clara\n' +
+              'Que abaja del monte\n' +
+              'Así quiero verte\n' +
+              'De día y de noche\n' +
+              '\n' +
+              'Como el agua\n' +
+              'Como el agua\n' +
+              'Como el agua\n' +
+              '\n' +
+              'Yo te eche mi brazo al hombro\n' +
+              'Y un brillo de luz de Luna\n' +
+              'Iluminaba tus ojos\n' +
+              '\n' +
+              'De ti deseo yo to el calor\n' +
+              'Pa ti mi cuerpo si lo quieres tu\n' +
+              'Fuego en la sangre nos corre a los dos\n' +
+              '\n' +
+              'Como el agua\n' +
+              'Como el agua\n' +
+              'Como el agua\n' +
+              '\n' +
+              'Si tus ojillos fueran\n' +
+              'Aceitunitas verdes\n' +
+              'Toa la noche estaria\n' +
+              'Muele que muele, muele que muele\n' +
+              'Toa la noche estaria\n' +
+              'Muele que muele, muele que muele, muele que muele\n' +
+              '\n' +
+              'Luz del alma mía divina\n' +
+              'Que a mí me alumbra mi corazón\n' +
+              'Mi cuerpo alegre camina\n' +
+              'Porque de ti lleva la ilusión\n' +
+              '\n' +
+              'Como el agua\n' +
+              'Como el agua\n' +
+              'Como el agua\n' +
+              '\n' +
+              'Como el agua\n' +
+              'Como el agua\n' +
+              'Como el agua\n' +
+              '\n' +
+              'Como el agua\n' +
+              'Como el agua\n' +
+              'Como el agua\n' +
+              '\n' +
+              'NaNa!',
           photo_video: 'default-song.jpg',
           url_mp3: 'songs/Como el agua - Camarón [bKoWfso2_EY].mp3',
           genre: 'Flamenco'
@@ -2076,7 +2704,72 @@ export async function up(queryInterface, Sequelize) {
       {
           name: 'MALAMANERA',
           duration: 191,
-          lyrics: 'Letra en desarrollo...',
+          lyrics: 'El roncito sabor madera, Fernandito Malamanera\n' +
+              'Salgo del metro y me enciendo una palmera\n' +
+              'Qué bonita es la mañana cuando hay alguien que te espera\n' +
+              '\n' +
+              'Gitana canastera con ojos de pantera\n' +
+              'Nunca está en la casa, siempre esta por fuera\n' +
+              'Quién quisiera, quién pudiera\n' +
+              'Caerse en esa jaula y dejar que le mordieran\n' +
+              '\n' +
+              'No encuentro a campanilla, buscarla en mi cartera\n' +
+              'Ratas de alcantarilla, predators riñonera\n' +
+              'No te lo repito, si te preguntan los chivatos\n' +
+              'No comprendo, non capito\n' +
+              '\n' +
+              'No parlo el españolo, tú te haces el mongolo\n' +
+              'Recoge tu macuto, no pierdas ni un minuto\n' +
+              'Este beat es una MILF, la reviento como un puto\n' +
+              'La pongo a cuatro patas, yo lo hago modo bruto\n' +
+              '\n' +
+              'Sara, tu porro no me tira\n' +
+              'Todo es una mentira, como Amancio y Zara\n' +
+              'Ahí estaba, esperando a que lo hiciera\n' +
+              'Un cuchillo entre las manos y la cara demacrada\n' +
+              '\n' +
+              'Bendita democracia, fuck\n' +
+              'Spain is gangsta shit, we are politics mafia\n' +
+              'Mente sucia, funerales y desgracias\n' +
+              'No me des la mano, no me des las gracias\n' +
+              '\n' +
+              'De pico pardo, mi adicción a los petardos\n' +
+              'Y a los dardos que tú me lanzabas\n' +
+              'Muerto en vida, volvería a a tropezarme\n' +
+              'Y a levantarme y tú ni te enterarías\n' +
+              '\n' +
+              'Mantenlo crudo, puro y sin tonterías\n' +
+              'Lo tuyo es parafina, lo mío jia-jia\n' +
+              'Tu chari canta pop, la mía por bulería\n' +
+              'Con Gabriel Escobar, primo, más te gustaría\n' +
+              '\n' +
+              'Ey you, qué pasa chico, qué pasa tron\n' +
+              'Camarera con perico, discoteca, Megatron\n' +
+              'El niño chico ha tumbado al gigantón\n' +
+              'El musculitos no salva del palizón\n' +
+              '\n' +
+              'Eso está claro, no voy del palo mi niño malo\n' +
+              'Tu historieta de Dalí la pinto con un Pilot\n' +
+              'Saben que me lo pulo, que me lo follo a pelo\n' +
+              'El primero de la isla, Colón, Marco Polo\n' +
+              '\n' +
+              'No cojas caramelos de desconocidos\n' +
+              'Que te huelen el pelo, te siguen con sigilo\n' +
+              'MDMA cocinado por abuelos\n' +
+              'Esos raperos están nerviosos, estoy cogiendo vuelo\n' +
+              '\n' +
+              'Créetelo, que empezamos desde cero\n' +
+              'Asúmelo, que te quise y que te quiero\n' +
+              'Entiéndelo, yo siempre seré el primero\n' +
+              'En cogerte las estrellas desde el cielo\n' +
+              '\n' +
+              'Estrellarlas contra el suelo, vuelo, vuelo que vuelo\n' +
+              'Fernando, eres un chulo como era tu abuelo\n' +
+              'Bueno, por lo menos me lo creo\n' +
+              'Las señoras de mi barrio dicen: Suena muy feo\'\n' +
+              '\n' +
+              'Qué pasa\n' +
+              'Fernando Costa 2017 se ha colao\' en tu casa',
           photo_video: 'default-song.jpg',
           url_mp3: 'songs/FERNANDOCOSTA - MALAMANERA (PROD. GABRIEL ESCOBAR) ｜ VIDEOCLIP [JVUrmC8_6sA].mp3',
           genre: 'Rap'
@@ -2084,7 +2777,65 @@ export async function up(queryInterface, Sequelize) {
       {
           name: 'NARCOLEPSIA',
           duration: 152,
-          lyrics: 'Letra en desarrollo...',
+          lyrics: 'Narcolepsia, resaca y anestesia\n' +
+              'Estamos en todos lados como dios en la Iglesia\n' +
+              'Drogas de diseño por las islas de Grecia\n' +
+              'Fumando amnesia, sarafaz Indonesia\n' +
+              'Leyendo el delirio en el libro, necesito colirio\n' +
+              'Mi voz en la radio, pal\' barrio\n' +
+              'Un trozo de valium, un poco de Larios\n' +
+              'Pa\' mis niños macarios, salarios, precarios\n' +
+              'Quemando rueda, a jayou y en tercera\n' +
+              'La vida me la juega, Fernandito se la cuela\n' +
+              'Haciendo la quiniela para no salir en la esquela\n' +
+              'Te lo canto más alto, más claro, acapella\n' +
+              'Voy crazy, como Kevin Spacey\n' +
+              'Soy spicy, como los ritmos de Kase\n' +
+              'Pon el play si, quiere que comience mi playlist\n' +
+              'Todas esas putas que se llaman Stacy\n' +
+              'Modo easy, papas risi, AC/DC\n' +
+              'Te han quitao\' las Yeezy, soy un misíl en bici\n' +
+              'Tu rap si que está en crisis, gastroenteritis\n' +
+              'Ando por tu street cómo por mi city\n' +
+              'Vacileo, eso es lo que veo cuándo voy con mis niños guapos\n' +
+              'Que si quieren se ponen muy feos\n' +
+              'Marroneos, te cabreas, me cabreo, te noqueo\n' +
+              'En las calles de mi isla, meneo meneo\n' +
+              'Caralho, no se permite ni un fallo\n' +
+              'Un saludo desde acá para Caraca\' y Medallo\n' +
+              'A mí me escuchan en la calle, a ti los lacayos\n' +
+              'Te como tranquilito como una tapa callo\'\n' +
+              'Caralho, no se permite ni un fallo\n' +
+              'Un saludo desde acá para Caraca\' y Medallo\n' +
+              'A mí me escuchan los papás y los papagallos\n' +
+              'Te como tranquilito como una tapa callo\'\n' +
+              'Ella está sola de colocón\n' +
+              'Los porteros la controlan porque vende drug\n' +
+              'Le gusta el roncola y el vacilón\n' +
+              'Le flipa Marco Carola y el musicón\n' +
+              'Se despertó de hangover en un Range Rover\n' +
+              'Estamos en el gang y tu estás game over\n' +
+              'Está modo destroyer y a tope de power\n' +
+              'Me solté dos temas y me hiciste la cover\n' +
+              'See upcoming rap shows\n' +
+              'Get tickets for your favorite artists\n' +
+              'You might also like\n' +
+              'MalaManera\n' +
+              'FERNANDOCOSTA\n' +
+              'Reproches\n' +
+              'Ayax y Prok\n' +
+              'Nightmares\n' +
+              'Delaossa\n' +
+              '[Estribillo]\n' +
+              'Bebiendo Henny Henny Henny Henny Henny\n' +
+              'Liando honey honey honey honey honey\n' +
+              'Tu rap, so funny funny funny\n' +
+              'One for the show y two for the money\n' +
+              '\n' +
+              'Bebiendo Henny Henny Henny Henny Henny\n' +
+              'Liando honey honey honey honey honey\n' +
+              'Tu rap, so funny funny funny\n' +
+              'One for the show y two for the money',
           photo_video: 'default-song.jpg',
           url_mp3: 'songs/FERNANDOCOSTA - NARCOLEPSIA (PROD. CHICHOBEATS) [OSAMpZ5A4xQ].mp3',
           genre: 'Rap'
@@ -2092,7 +2843,80 @@ export async function up(queryInterface, Sequelize) {
       {
           name: 'OYE',
           duration: 154,
-          lyrics: 'Letra en desarrollo...',
+          lyrics: 'Los niño\'\n' +
+              'Chacho, -cho, -cho\n' +
+              'Díselo, Dollar\n' +
+              'Tiritirititan, tiritirititan, eh-eh, ey (yao\', yao\')\n' +
+              '\n' +
+              'Oye, ¿qué te ha pasa\'o?\n' +
+              'Que me han conta\'o que vas de capo y que te han roba\'o\n' +
+              'Que to\' lo que tú tienes te lo han presta\'o\n' +
+              'Así que cállate la boca que te he pilla\'o\n' +
+              '\n' +
+              'Oye, ¿qué te ha pasa\'o?\n' +
+              'Que me han conta\'o que vas de capo y que te han roba\'o\n' +
+              'Que to\' lo que tú tienes te lo han presta\'o\n' +
+              'Así que cállate la boca que te he pilla\'o\n' +
+              '\n' +
+              'Chacho, tеn cuida\'o\n' +
+              'Que el niño sale pa\' la callе colora\'o\n' +
+              'Los vecino\' le preguntan: ¿Dónde has esta\'o?\n' +
+              'Me han comenta\'o que ha llega\'o hoy una carta del juzga\'o\n' +
+              '\n' +
+              'FERNANDO, échale ron, maldito\' maleante\' de cartón\n' +
+              'Se nota que no tienen ilusión\n' +
+              'Esto huele raro, esto huele a calentón\n' +
+              'Bienvenidos a mi barrio, salam aleikum\n' +
+              '\n' +
+              'Uh, ah, pisando fuerte\n' +
+              'El niño de la calle no le teme a la muerte\n' +
+              'Hablando claro, mirando al frente\n' +
+              'Aquí no hemos cambiado, somos los de siempre\n' +
+              '\n' +
+              'Yo\', y si me miras yo a ti te miro\n' +
+              'Cada cual tiene su destino\n' +
+              'Ay, no te metas en mi camino\n' +
+              'Porque el último se fue por donde vino\n' +
+              '\n' +
+              'Oye, ¿qué te ha pasa\'o?\n' +
+              'Que me han conta\'o que vas de capo y que te han roba\'o\n' +
+              'Que to\' lo que tú tienes te lo han presta\'o\n' +
+              'Así que cállate la boca que te he pilla\'o\n' +
+              '\n' +
+              'Oye, ¿qué te ha pasa\'o?\n' +
+              'Que me han conta\'o que vas de capo y que te han roba\'o\n' +
+              'Que to\' lo que tú tienes te lo han presta\'o\n' +
+              'Así que cállate la boca que te he pilla\'o\n' +
+              '\n' +
+              'FERNANDO, que suenan las sirena\'\n' +
+              '¿Cuánta\' vece\' yo te he dicho que no te meta\' en problema\'?\n' +
+              'Dollar, echa a correr\n' +
+              'Que lo\' moro\' con lo\' mosso\' no se llevan muy bien\n' +
+              '\n' +
+              'Yo estoy con los colombiano\', dominicano\', rumano\'\n' +
+              'Y me bajo pa\' la plaza a liarme un par de gramo\'\n' +
+              'Chillan los niño\', chillan mis hermano\'\n' +
+              'Vivan los moro\', vivan mis gitano\'\n' +
+              '\n' +
+              'Agua, se han chiva\'o (joder)\n' +
+              'Vienen a por ti porque te han delata\'o\n' +
+              'Karma, y el que te ha toca\'o\n' +
+              'Y eso es lo que pasa por hablar demasia\'o\n' +
+              '\n' +
+              'Y así que dale\n' +
+              'Que el ritmo no pare\n' +
+              'La voz de las calle\'\n' +
+              'Y el combo perfecto repartiéndote este tumba\'o\n' +
+              '\n' +
+              'Oye, ¿qué te ha pasa\'o?\n' +
+              'Que me han conta\'o que vas de capo y que te han roba\'o\n' +
+              'Que to\' lo que tú tienes te lo han presta\'o\n' +
+              'Así que cállate la boca que te he pilla\'o\n' +
+              '\n' +
+              'Oye, ¿qué te ha pasa\'o?\n' +
+              'Que me han conta\'o que vas de capo y que te han roba\'o\n' +
+              'Que to\' lo que tú tienes te lo han presta\'o\n' +
+              'Así que cállate la boca que te he pilla\'o',
           photo_video: 'default-song.jpg',
           url_mp3: 'songs/FERNANDOCOSTA FT DOLLAR SELMOUNI - OYE (Videoclip Oficial) [P0z55sXBW7w].mp3',
           genre: 'Rap'
@@ -2100,7 +2924,129 @@ export async function up(queryInterface, Sequelize) {
       {
           name: 'PAVOS REALES',
           duration: 272,
-          lyrics: 'Letra en desarrollo...',
+          lyrics: 'Tú no tienes nada que hacer\n' +
+              'Ha venido el asesino fino que te mata de placer\n' +
+              'Abre paso, llega Kase.O\n' +
+              'Decir mi propio nombre me produce vértigo\n' +
+              '\n' +
+              '¡Oh ooh! Recupérate del susto\n' +
+              'Y dame los honores de César Augusto\n' +
+              'Sueno bien entre los jefes, hago lo que quiero\n' +
+              'Me siento en este ritmo como un jeque petrolero\n' +
+              '\n' +
+              'Vine haciendo surf en un rayo de luz, ups\n' +
+              'Lo siento, ni con zoom puedes ver al gurú, surcando el cielo\n' +
+              'Así es como se hace una canción\n' +
+              'Pregúntanos si quieres aprender, te damos una lección\n' +
+              '\n' +
+              'Chico, si eres listo no me intentes joder\n' +
+              'Hasta ahora solo has visto un poco de mi poder\n' +
+              'Así que no quieras saber con quién estoy relacionado\n' +
+              'Dame mi respect, a mí y a mi conglomerado\n' +
+              '\n' +
+              'Oh, cuando Javi llega al puto microphone\n' +
+              'Corre la voz y toda la gente se acerca\n' +
+              'Al super-estilo suave como el algodón\n' +
+              'Prepara tus oídos para la fiesta\n' +
+              '\n' +
+              'Shabu te hace levitar con su voz angelical\n' +
+              'Kase.O tiene el flow más cabrón\n' +
+              'Y el del ritmo tropical es McKlopedia\n' +
+              'Este que se se viene ¡Es el Ele! ¡Dale man!\n' +
+              '\n' +
+              'Esto suena en sus cabezas, solo sueñan con grandeza\n' +
+              'Sigilosamente entra y destruye su fortaleza\n' +
+              'Simple y minimalista es esta pista\n' +
+              'Para mí otra conquista\n' +
+              '\n' +
+              'Suelen meterme en la lista\n' +
+              'El hombre orquesta, el gran liricista\n' +
+              'Lo pillo y me lo empollo, me los follo si no hay fuelle\n' +
+              'Te agarro por el cuello como a pareja de bueyes\n' +
+              '\n' +
+              'Comencé muy pronto, cuando en Madrid ya firmaba el Muelle\n' +
+              'Ya de pequeño tenía el campeón son un fly, un flow de reyes\n' +
+              'Puede que te desmayen, puede que te desmelenen\n' +
+              'Puede que te entre de repente dolor en las sienes\n' +
+              '\n' +
+              'Pero en lo que es seguro es que cuando llego y me subo\n' +
+              'solo llegas a mi suela y eso en el fondo te duele\n' +
+              'Oros en vela, los que hieren me la pelan\n' +
+              '\n' +
+              'Se les ve venir de lejos, muchos son unos parguela\n' +
+              'Todos quieren su parcela, todos quieren su chalet\n' +
+              'Quieren joder con nosotros pero no tienen caché\n' +
+              '\n' +
+              'Shabu, ¡hazte un cacho guapo, co!\n' +
+              '\n' +
+              'Hoy me llama Ibarra pa\' escupir unas barras\n' +
+              'Yo como hago 8 porque sois unas guarras\n' +
+              'Yo y mis pepinos, tú y tu huerto ¿Quién barras?\n' +
+              'Con marranas, así el sembrao no agarra\n' +
+              '\n' +
+              'Dices que los números en vídeos te abalan\n' +
+              'Miles de millones tienen gatos que cagan\n' +
+              'Crees que eres un máquina si un par de chavalas\n' +
+              'Te alaban y con tu miembro te empalas\n' +
+              '\n' +
+              'Los otros ensayan, nosotros en Zion\n' +
+              'Mi conglomerao\' no falla\n' +
+              'Y somos like iron, sí, como el hierro\n' +
+              'Pues antes que doblarnos nos partimos en dos\n' +
+              '\n' +
+              'Anoche soñé que yo era un cocodrilo\n' +
+              'Bajaba con sigilo por el cauce del Nilo\n' +
+              'Entonces el faraón se arrimó muy al filo\n' +
+              'Al puto Akenatón me lo comí con estilo\n' +
+              'Nosotros por cielo y tierra, vosotros en el limbo\n' +
+              'Nosotros el pan de leña, vosotros el pan Bimbo\n' +
+              'Vosotros bailáis bingo, nosotros más como rimbo\n' +
+              'Malditos del Hip Hop, solo rimas y ritmos\n' +
+              '\n' +
+              'Soy Tetsuo cuando agarro mic\'s\n' +
+              'Más embrujo que el de Panoramix\n' +
+              'Melodies and Tricks como Punchin\' Kids\n' +
+              'Mi flujo de Lujo como Kung-Fu Fist\n' +
+              'Hago un nudo en Larynx, mi combo de Lyrics\n' +
+              'Esto es Swag Metaphysics\n' +
+              'Na\' más que haciendo Aerobic se los mando a Twin Peaks\n' +
+              '\n' +
+              'Materializo en ipso facto aquello que yo creo y pienso\n' +
+              'Futuro oscuro le auguro a los que quieran ser adversos\n' +
+              'Advierto desde lo lejos, su complejo, su tropiezo\n' +
+              '\n' +
+              'Pienso que en vez de los sesos, lo que tienen es un queso\n' +
+              'Tanto que hablas, te llenas la boca pa\' hacer eso\n' +
+              'Tanta mierda, van cayendo por su propio peso\n' +
+              'Quién son los que mantienen el progreso\n' +
+              'Ninguno que quiera va a salir ileso\n' +
+              'Te asome del peso pa\' dejarte tieso\n' +
+              '\n' +
+              'En este proceso peso por mi paso\n' +
+              'Masoquista, quítate o llevas coñazo\n' +
+              'Liricistas, quedan pocos, son escasos\n' +
+              'Oportunistas, que van camino al fracaso\n' +
+              'De los egoístas recogen los pedazos\n' +
+              '\n' +
+              'No hay tiempo, descanso ni plazo\n' +
+              'Me desplazo que te alcanzo y te paso\n' +
+              'Caso, raperos quemao\'s por el falso\n' +
+              'Los amordazo llevando el mazo\n' +
+              '\n' +
+              'Gloria al bravo pueblo que el yugo lanzó, quién como yo\n' +
+              'Junto a Kase.O, asesino del micrófono\n' +
+              'Váyase con Dios, el que no vio no preguntó\n' +
+              'Aquí a cada ladrón se juzga por su condición\n' +
+              'Todo aquel la ventana cerró cuando apareció\n' +
+              '\n' +
+              'McKlopedia, con el señor Javat, Kase.O\n' +
+              'Es sublime la escena del crimen, gimen del dolor\n' +
+              'Máximo respeto a este conglomerado, por favor\n' +
+              'Todo aquel la ventana cerró cuando apareció\n' +
+              '\n' +
+              'McKlopedia, con el señor Javat, Kase.O\n' +
+              'Es sublime la escena del crimen, gimen del dolor\n' +
+              'Máximo respeto a este conglomerado, por favor',
           photo_video: 'default-song.jpg',
           url_mp3: 'songs/KASE.O - 08. PAVOS REALES con HERMANO L, SHABU ONE SHANT y MCKLOPEDIA Prod. CRUDO MEANS RAW & KASE.O [AdBfUTsMhMI].mp3',
           genre: 'Rap'
@@ -2108,7 +3054,99 @@ export async function up(queryInterface, Sequelize) {
       {
           name: 'REPARTIENDO ARTE',
           duration: 281,
-          lyrics: 'Letra en desarrollo...',
+          lyrics: 'Repartiendo arte, porque esa es mi cualidad\n' +
+              'Te llevo de lo cotidiano a otra realidad\n' +
+              'Al estado de la incierta forma\n' +
+              'Territorio en el que habito cuando todos duermen\n' +
+              'Puedes verme\n' +
+              '\n' +
+              'Repartiendo arte, porque esa es mi cualidad\n' +
+              'Te llevo de lo cotidiano a otra realidad\n' +
+              'Al estado de la incierta forma\n' +
+              'Territorio en el que habito cuando todos duermen\n' +
+              '\n' +
+              'Pasaporte con mi nombre rumbo al infinito\n' +
+              'Hay mucho mito, pero nadie ha vuelto y lo ha descrito\n' +
+              'Ese es mi reto. Estoy saliendo ya de mi esqueleto\n' +
+              'Dejando ya obsoleto el ámbito de lo concreto, no me limito\n' +
+              'Traigo el tacto de lo abstracto, nada exacto\n' +
+              'Un extracto de lo perfecto, nada recto\n' +
+              'Un instante rutilante, muy brillante\n' +
+              'De la música de un gigante Arquitecto\n' +
+              'Pilla esta foto en la que: Floto, exploto\n' +
+              'Dejo este universo roto y choco con otro\n' +
+              'De hecho yo formo otro que fundo con otro\n' +
+              'Que junto con otros que sumo: Resulto muchos nosotros\n' +
+              'El punto de expansión total, el origen\n' +
+              'Del que todos los caminos salen y al que se dirigen\n' +
+              'Donde todos los posibles sucesos suceden\n' +
+              'Donde dicen que cocinan sus besos las mujeres\n' +
+              'Por si acaso me perdiera he tendido un hilo\n' +
+              'Que me sujeta a la tierra para viajar tranquilo\n' +
+              'Desde el último balcón del tiempo me asomaré\n' +
+              'Si tú quieres recorrerlo dilo, yo allí estaré\n' +
+              '\n' +
+              'Repartiendo arte, porque esa es mi cualidad\n' +
+              'Te llevo de lo cotidiano a otra realidad\n' +
+              'Al estado de la incierta forma\n' +
+              'Territorio en el que habito cuando todos duermen\n' +
+              'Puedes verme\n' +
+              '\n' +
+              'Repartiendo arte, porque esa es mi cualidad\n' +
+              'Te llevo de lo cotidiano a otra realidad\n' +
+              'Al estado de la incierta forma\n' +
+              'Territorio en el que habito cuando todos duermen\n' +
+              '\n' +
+              'Ya regreso a la región de la que todo emana\n' +
+              'Solo un ser es la Legión de la que formo parte\n' +
+              'Quiero hablarte de esa delgada membrana\n' +
+              'Esa ventana traspasada por la raza humana, solo en el arte\n' +
+              'Puerta de todos los datos matemáticos\n' +
+              'Paraíso de insensatos catedráticos\n' +
+              'Forma que forma las formas de lo físico\n' +
+              'Norma que anula las normas de lo rígido\n' +
+              'Residencia de la esencia de la esencia\n' +
+              'Evidencia de existencias simultáneas\n' +
+              'Es un cúmulo de extrañas coincidencias\n' +
+              'De infinitas incidencias espontáneas\n' +
+              'Percepción de la perfección\n' +
+              'De la percepción de la perfección\n' +
+              'Estoy buscando en lo poético\n' +
+              'Que hay en lo supra-estético\n' +
+              'Que hay en lo macro-cromático\n' +
+              'Que hay en lo no animal\n' +
+              'Estoy ahí dentro, me veo desde fuera\n' +
+              'Justo en el centro de una gran esfera\n' +
+              'Que está justo en el centro de una gran esfera\n' +
+              'Que está justo en el centro\n' +
+              'Espera, porque se me llevan\n' +
+              'Números que se aceleran hasta la eternidad\n' +
+              'Pero en negativo, esta marea me lleva hacia atrás\n' +
+              'Salto al y allí el futuro cambiaré\n' +
+              'Tú si quieres recorrerlo dilo, yo allí estaré\n' +
+              '\n' +
+              'Repartiendo arte, porque esa es mi cualidad\n' +
+              'Te llevo de lo cotidiano a otra realidad\n' +
+              'Al estado de la incierta forma\n' +
+              'Territorio en el que habito cuando todos duermen\n' +
+              'Puedes verme\n' +
+              '\n' +
+              'Repartiendo arte, porque esa es mi cualidad\n' +
+              'Te llevo de lo efímero hasta la eternidad\n' +
+              'Al estado donde todos duermen\n' +
+              'Territorio en el que habito con incierta forma\n' +
+              'Puedes verme\n' +
+              '\n' +
+              '(What does it all mean?)\n' +
+              'What does it all mean!?\n' +
+              'Antes de dormir\n' +
+              '(What does it all mean?)\n' +
+              'Creo que por un accidente se me ha roto el hilo y ya no puedo volver\n' +
+              'Me quedo aquí para siempre\n' +
+              'Cuánto dura un siempre\n' +
+              'No lo sé, pero, creo que por un accidente se me ha roto el hilo\n' +
+              'Y ya no puedo volver, me quedo aquí para siempre\n' +
+              'Cuando acaba un siempre',
           photo_video: 'default-song.jpg',
           url_mp3: 'songs/KASE.O - REPARTIENDO ARTE (Videoclip Oficial) [1vbZMpRTT5M].mp3',
           genre: 'Rap'
@@ -2116,7 +3154,61 @@ export async function up(queryInterface, Sequelize) {
       {
           name: 'LA LEYENDA DEL TIEMPO',
           duration: 221,
-          lyrics: 'Letra en desarrollo...',
+          lyrics: 'El sueño va sobre el tiempo\n' +
+              'Flotando como un velero\n' +
+              'Flotando como un velero\n' +
+              '\n' +
+              'Nadie puede abrir semillas\n' +
+              'En el corazón del sueño\n' +
+              'En el corazón del sueño\n' +
+              '\n' +
+              'El tiempo va sobre el sueño\n' +
+              'Hundido hasta los cabellos\n' +
+              'Hundido hasta los cabellos\n' +
+              '\n' +
+              'Ayer y mañana comen\n' +
+              'Oscura flores de duelo\n' +
+              'Oscura flores de duelo\n' +
+              '\n' +
+              'El sueño va sobre el tiempo\n' +
+              'Flotando como un velero\n' +
+              'Flotando como un velero\n' +
+              '\n' +
+              'Nadie puede abrir semillas\n' +
+              'En el corazón del sueño\n' +
+              'En el corazón del sueño\n' +
+              '\n' +
+              'Sobre la misma columna\n' +
+              'Abrazados, sueño y tiempo\n' +
+              'Abrazados, sueño y tiempo\n' +
+              '\n' +
+              'Cruza el genio del niño\n' +
+              'La lengua rota del viejo\n' +
+              'La lengua rota del viejo\n' +
+              '\n' +
+              'El sueño va sobre el tiempo\n' +
+              'Flotando como un velero\n' +
+              'Flotando como un velero\n' +
+              '\n' +
+              'Nadie puede abrir semillas\n' +
+              'En el corazón del sueño\n' +
+              'En el corazón del sueño\n' +
+              '\n' +
+              'Y si el sueño finge muros\n' +
+              'En la llanura del tiempo\n' +
+              'En la llanura del tiempo\n' +
+              '\n' +
+              'El tiempo le hace creer\n' +
+              'Que nace en aquel momento\n' +
+              'Que nace en aquel momento\n' +
+              '\n' +
+              'El sueño va sobre el tiempo\n' +
+              'Flotando como un velero\n' +
+              'Flotando como un velero\n' +
+              '\n' +
+              'Nadie puede abrir semillas\n' +
+              'En el corazón del sueño\n' +
+              'En el corazón del sueño',
           photo_video: 'default-song.jpg',
           url_mp3: 'songs/LA LEYENDA DEL TIEMPO - CAMARON DE LA ISLA [MrUWtOtfwDw].mp3',
           genre: 'Flamenco'
@@ -2124,7 +3216,96 @@ export async function up(queryInterface, Sequelize) {
       {
           name: 'Mi Vecinita',
           duration: 183,
-          lyrics: 'Letra en desarrollo...',
+          lyrics: 'Hey (jaja!)\n' +
+              'Mucha gente pensaba que este era el limite, pero\n' +
+              'Nosotros seguimos creando\n' +
+              'Mi vecinita, le gustan los jangueitos\n' +
+              'A cada rato que la veo, anda con su cervecita\n' +
+              'Ya no le gusta quedarse en su casita tranquilita\n' +
+              'Porque es media liberal la chamaquita\n' +
+              '\n' +
+              'Su coleccion de CD\'s es desde playero\n' +
+              'Pero en su carro siempre anda con lo nuevo\n' +
+              'Y si le ponen reggaeton se pone fresca y hasta abajo\n' +
+              'A lo under, ella le da sin miedo (le da sin miedo)\n' +
+              'La nena no se compara\n' +
+              'Lleva una vida de suerte\n' +
+              'Mírala como ella baila\n' +
+              'Mientras ella canta, se mueve\n' +
+              '\n' +
+              'Eh ah, eh ah\n' +
+              'Eh ah, eh ah\n' +
+              'Eh ah, eh ah\n' +
+              'Eh ah, eh ah\n' +
+              'Eh ah, eh ah\n' +
+              'Eh ah, eh ah\n' +
+              'Eh ah, eh ah\n' +
+              'Eh ah, eh ah\n' +
+              '\n' +
+              'Se le ve que se le sale por los poros\n' +
+              'Cuando escucha pito y coro, y la bocina retumbando\n' +
+              'Ya la vez ella se pasa en los foros\n' +
+              'Bajando reggaeton, y al rato se graba\n' +
+              'En su cuarto bailando frente al espejo, y lo tira por internet\n' +
+              'Que fresca es bailando Love and Sex\n' +
+              'Mueve su cuerpo de vedette\n' +
+              'A simple vista se le ve que\n' +
+              '\n' +
+              'Adicta, adicta, adicta\n' +
+              'Adicta, adicta (al sex, sex)\n' +
+              'Adicta, adicta, adicta\n' +
+              'Adicta, adicta (al sex, sex)\n' +
+              'Adicta, adicta (al sex, sex)\n' +
+              '\n' +
+              'La nena no se compara\n' +
+              'Lleva una vida de suerte\n' +
+              'Mírala como ella baila\n' +
+              'Mientras ella canta, se mueve\n' +
+              '\n' +
+              'Eh ah, eh ah\n' +
+              'Eh ah, eh ah\n' +
+              'Eh ah, eh ah\n' +
+              'Eh ah, eh ah\n' +
+              'Eh ah, eh ah\n' +
+              'Eh ah, eh ah\n' +
+              'Eh ah, eh ah\n' +
+              'Eh ah, eh ah\n' +
+              '\n' +
+              'Adicta a la pista de Chencho y Maldy, del party\n' +
+              'Del marque, en el parque quemando\n' +
+              'En la esquina la sata, la fina bailando\n' +
+              'Mi rima, yo suelto esta rima a la mano\n' +
+              'Arriba las que son\n' +
+              'Las que son, las que son\n' +
+              '\n' +
+              'Adicta, adicta, adicta\n' +
+              'Adicta, adicta (al sex, sex)\n' +
+              'Adicta, adicta, adicta\n' +
+              'Adicta, adicta (al sex, sex)\n' +
+              '\n' +
+              'La nena no se compara\n' +
+              'Lleva una vida de suerte\n' +
+              'Mirala como ella baila\n' +
+              'Mientras ella canta, se mueve\n' +
+              '\n' +
+              'Eh ah, eh ah\n' +
+              'Eh ah, eh ah\n' +
+              'Eh ah, eh ah\n' +
+              'Eh ah, eh ah\n' +
+              'Eh ah, eh ah\n' +
+              'Eh ah, eh ah\n' +
+              'Eh ah, eh ah\n' +
+              'Eh ah, eh ah\n' +
+              '\n' +
+              'Oye muchachos, se lo estamos diciendo\n' +
+              'Que no estamos jugando (no estamos jugando!)\n' +
+              'La society (la society)\n' +
+              'Los que no fallan\n' +
+              'Fino, fino, fino, fino, como el haze!\n' +
+              'Pina Records (pina!)\n' +
+              'Duran, The Coach\n' +
+              'Con Chencho y Maldy\n' +
+              'En el Love and Sex (Love and Sex)',
           photo_video: 'default-song.jpg',
           url_mp3: 'songs/Plan B - Mi Vecinita [SB8-YY2DyHI].mp3',
           genre: 'Reggaeton'
