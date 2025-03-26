@@ -1987,7 +1987,7 @@ export async function up(queryInterface, Sequelize) {
           url_mp3: 'songs/Bad Gyal, Trueno - Angelito.mp3',
           genre: 'Pop'
       },
-      // Canciones añadidas por abdel
+      // ABDEL: Completar
       {
           name: 'El Manual',
           duration: 210,
