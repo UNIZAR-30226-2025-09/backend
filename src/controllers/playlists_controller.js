@@ -17,6 +17,7 @@ export const getAllPlaylist = async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 };
+
 export const createDefaultPlaylist = async () => {
     try {
         // Verificar si la playlist con ID 0 existe
@@ -43,7 +44,6 @@ export const createDefaultPlaylist = async () => {
         throw new Error("Error al crear la playlist con ID 0.");
     }
 };
-
 
 export const likePlaylist = async (req, res) => {
     try {
@@ -102,10 +102,6 @@ export const likePlaylist = async (req, res) => {
         return res.status(500).json({ error: "Error interno del servidor", details: error.message });
     }
 };
-
-
-
-
 
 /**
  * Quitar like a una playlist.
@@ -313,4 +309,3 @@ export const getPlaylistLike = async (req, res) => {
     return res.status(500).json({ error: "Error interno en el servidor" });
   }
 };
-

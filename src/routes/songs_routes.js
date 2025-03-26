@@ -4,15 +4,15 @@ import { getAllSongs,getSongById } from "#src/controllers/songs_controller";
 const router = express.Router();
 
 /**
- * Rutas para canciones
- * - GET `/api/songs/ obtiene todas las canciones de la BD
- *  */
-router.get("/", getAllSongs);
+ * Rutas para la gestión de canciones:
+ *
+ * - `GET /api/songs/` -> Devuelve todas las canciones disponibles en la base de datos.
+ *
+ * - `GET /api/songs/{id}` -> Devuelve los detalles de una canción específica por su ID.
+ *                            Si no se encuentra la canción, devuelve un error 404.
+ */
 
-/**
- * Rutas para canciones
- * - GET `/api/songs/{id} obtiene la canción con id "id"
- *  */
+router.get("/", getAllSongs);
 router.get("/:id", getSongById);
 
 export default router;
