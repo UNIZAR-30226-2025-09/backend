@@ -80,6 +80,15 @@ export async function up(queryInterface, Sequelize) {
       front_page: "playlist_images/PopConÑ.png"
     },
     {
+      name: "Bachata y Flamenco",
+      user_id: null,
+      artist_id: null,
+      description: "La fusión perfecta. Disfruta de canciones de ambos estilos para que el arte recorra tu cuerpo",
+      type: "public",
+      typeP: "Vibra",
+      front_page: "playlist_images/bachataFlamenco.png"
+    },
+    {
       name: "Album extremoduro",
       user_id: null,
       artist_id: 10,
