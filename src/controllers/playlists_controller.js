@@ -235,8 +235,8 @@ export const checkIfLiked = async (req, res) => {
  */
 export const createPlaylist = async (req, res) => {
     try {
-        const { name, type, description, front_page } = req.body;
-        const newPlaylist = await db.playlist.create({ name, type, description, front_page });
+        const { name, type, description, front_page, user_id} = req.body;
+        const newPlaylist = await db.playlist.create({ name, type, description, front_page, user_id});
         // Falta hacer que haga la relacion con el user_id (qn creo) y name de playlist creada
         res.status(201).json(newPlaylist);
     } catch (error) {
@@ -322,7 +322,22 @@ export const getPlaylistLike = async (req, res) => {
   }
 };
 
-// Función para obtener la playlist de "Me Gusta"
+/**
+ * Obtiene la playlist de "Me Gusta" de un usuario específico.
+ *
+ * Esta función busca en la base de datos la playlist de tipo "Vibra_likedSong" asociada
+ * al userId proporcionado en los parámetros de la solicitud. Si la playlist es encontrada,
+ * se retorna como respuesta con un estado 200. Si no se encuentra la playlist o el `userId`
+ * es inválido, se retorna un error con el código de estado correspondiente.
+ *
+ * @param {Object} req - El objeto de la solicitud HTTP, que contiene los parámetros de la misma.
+ * @param {Object} res - El objeto de la respuesta HTTP, usado para enviar la respuesta al cliente.
+ *
+ * @returns {Object} - Respuesta HTTP con el estado y la información de la playlist o un mensaje de error.
+ *
+ * @throws {Error} - Si ocurre un error durante la ejecución del proceso, se captura y se retorna un
+ *                   error 500 con un mensaje genérico de error interno del servidor.
+ */
 export const getLikedSongPlaylist = async (req, res) => {
     try {
         const { userId } = req.params;
