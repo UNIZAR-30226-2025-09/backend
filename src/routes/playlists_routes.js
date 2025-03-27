@@ -12,6 +12,8 @@ const router = express.Router();
  * - PUT `/api/playlists/:id` -> Actualiza una playlist por su ID
  * - DELETE `/api/playlists/:id` -> Elimina una playlist por su ID
  * - GET `/api/playlists/liked/:userId` -> Obtiene las playlists que un usuario ha dado like
+ * - GET `/api/playlists/liked-song/:userId` -> Obtiene la playlist "Me Gusta" de un usuario específico.
+ * - POST `/api/playlists/songliked` -> Crea o obtiene la playlist de "Me Gusta" para un usuario.
  */
 
 
