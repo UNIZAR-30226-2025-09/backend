@@ -43,7 +43,43 @@ export async function up(queryInterface, Sequelize) {
     { song_id: 28, playlist_id: 3, date: new Date("2025-03-25") },
     { song_id: 29, playlist_id: 3, date: new Date("2025-03-25") },
 
-    { song_id: 3, playlist_id: 9, date: new Date("2025-03-25") },
+    //temardos
+    { song_id: 4, playlist_id: 4, date: new Date("2025-03-27") },
+    { song_id: 22, playlist_id: 4, date: new Date("2025-03-27") },
+    { song_id: 25, playlist_id: 4, date: new Date("2025-03-27") },
+    { song_id: 23, playlist_id: 4, date: new Date("2025-03-27") },
+    { song_id: 27, playlist_id: 4, date: new Date("2025-03-27") },
+    { song_id: 30, playlist_id: 4, date: new Date("2025-03-27") },
+    { song_id: 32, playlist_id: 4, date: new Date("2025-03-27") },
+    { song_id: 33, playlist_id: 4, date: new Date("2025-03-27") },
+    { song_id: 31, playlist_id: 4, date: new Date("2025-03-27") },
+    { song_id: 43, playlist_id: 4, date: new Date("2025-03-27") },
+    { song_id: 37, playlist_id: 4, date: new Date("2025-03-27") },
+    { song_id: 28, playlist_id: 4, date: new Date("2025-03-27") },
+
+    //FINO
+
+    //Que te den
+
+    //BARRAS
+    { song_id: 26, playlist_id: 7, date: new Date("2025-03-27") },
+    { song_id: 37, playlist_id: 7, date: new Date("2025-03-27") },
+    { song_id: 38, playlist_id: 7, date: new Date("2025-03-27") },
+    { song_id: 32, playlist_id: 7, date: new Date("2025-03-27") },
+    { song_id: 39, playlist_id: 7, date: new Date("2025-03-27") },
+    { song_id: 40, playlist_id: 7, date: new Date("2025-03-27") },
+    { song_id: 41, playlist_id: 7, date: new Date("2025-03-27") },
+
+    //PopConÑ
+
+    //Flamenco y Bachata
+    { song_id: 42, playlist_id: 9, date: new Date("2025-03-27") },
+    { song_id: 36, playlist_id: 9, date: new Date("2025-03-27") },
+    { song_id: 35, playlist_id: 9, date: new Date("2025-03-27") },
+    { song_id: 34, playlist_id: 9, date: new Date("2025-03-27") },
+    { song_id:  1, playlist_id: 9, date: new Date("2025-03-27") },
+
+
   ], {});
 }
 

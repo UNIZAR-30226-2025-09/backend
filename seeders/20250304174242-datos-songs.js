@@ -668,7 +668,7 @@ export async function up(queryInterface, Sequelize) {
         photo_video: "songs_images/zapatillas.png",
         url_mp3: 'songs/El Canto del Loco - Zapatillas (Videoclip) [nHxam-MQg-o].mp3',
           type: "album",
-          genre: 'Pop'
+          genre: 'Rock'
       },
       {
         name: 'Como Camaron',
@@ -1186,7 +1186,7 @@ export async function up(queryInterface, Sequelize) {
         photo_video: "songs_images/enQueEstrellaEstara.png",
         url_mp3: 'songs/Nena Daconte - En Que Estrella Estara [qZ1H-e8Z-LY].mp3',
           type: "album",
-          genre: 'Rock'
+          genre: 'Pop'
       },
       {
         name: 'El Último Día de Nuestras Vidas',
@@ -1247,7 +1247,7 @@ export async function up(queryInterface, Sequelize) {
           photo_video: "songs_images/ultimoDiaVidas.png",
           url_mp3: 'songs/Dani Martin - El Último Día de Nuestras Vidas (Video Oficial) [Zj2p3njVgng].mp3',
           type: "sencillo",
-          genre: 'Pop'
+          genre: 'Rock'
       },
       {
         name: 'So Payaso',
@@ -1939,7 +1939,7 @@ export async function up(queryInterface, Sequelize) {
           photo_video: 'songs_images/dondeEscondes.png',
           url_mp3: 'songs/Yapi - DONDE TE ESCONDES？ (Video Oficial) [BPUFjunmNtU].mp3',
           type: "sencillo",
-          genre: 'Pop'
+          genre: 'Reggaeton'
       },
       {
           name: 'Angelito',
@@ -2014,7 +2014,7 @@ export async function up(queryInterface, Sequelize) {
           photo_video: 'songs_images/angelito.png',
           url_mp3: 'songs/Bad Gyal, Trueno - Angelito.mp3',
           type: "sencillo",
-          genre: 'Pop'
+          genre: 'Reggaeton'
       },
       // ABDEL: Completar
       {
@@ -2094,7 +2094,7 @@ export async function up(queryInterface, Sequelize) {
               'Uah\n' +
               'Uah\n' +
               'O-Ovy On The Drums',
-          photo_video: 'default-song.jpg',
+          photo_video: 'songs_images/manual.png',
           url_mp3: 'songs/Anuel AA - El Manual (Audio Oficial) [70RraHwxgU4].mp3',
           genre: 'Trap'
       },
@@ -2185,7 +2185,7 @@ export async function up(queryInterface, Sequelize) {
               'Mera, dime, Frabian\n' +
               'Mera, dime, Gaby Music\n' +
               'Mera, dime, Chris Jeday',
-          photo_video: 'default-song.jpg',
+          photo_video: 'songs_images/hipocrita.png',
           url_mp3: 'songs/Anuel AA - Hipócrita feat. Zion (Audio) [J8gcGyYxDbo].mp3',
           genre: 'Trap'
       },
@@ -2414,7 +2414,7 @@ export async function up(queryInterface, Sequelize) {
               'Darell\n' +
               'Brrr, Free Anuel\n' +
               'Real hasta la muerte hijueputa',
-          photo_video: 'default-song.jpg',
+          photo_video: 'songs_images/47.png',
           url_mp3: 'songs/Anuel x Nengo Flow, Los G4 - 47 (Remix) ft. Bad Bunny, Darell,  Farruko, Sinfónico, Casper [Audio] [yIpxrDfX6ek].mp3',
           genre: 'Trap'
       },
@@ -2528,7 +2528,7 @@ export async function up(queryInterface, Sequelize) {
               'Ya me acostumbré\n' +
               'Ya me acostumbré\n' +
               'A callarle la boca al que no me cree',
-          photo_video: 'default-song.jpg',
+          photo_video: 'songs_images/meAcostumbre.png',
           url_mp3: 'songs/Arcángel, Bad Bunny - Me Acostumbré (Video Oficial) [xKKeqlBQ3Js].mp3',
           genre: 'Trap'
       },
@@ -2578,7 +2578,7 @@ export async function up(queryInterface, Sequelize) {
               'Muriendo de envidia (anda)\n' +
               'Muriendo de envidia (ellos no)\n' +
               'Muriendo de envidia',
-          photo_video: 'default-song.jpg',
+          photo_video: 'songs_images/muriendoEnvidia.png',
           url_mp3: 'songs/C. Tangana, Eliades Ochoa - Muriendo De Envidia [HfkjnAv_uRE].mp3',
           genre: 'Flamenco'
       },
@@ -2635,7 +2635,7 @@ export async function up(queryInterface, Sequelize) {
               '(Venga ya, ¡venga ya, Tangana!)\n' +
               '(¡Toma que toma!)\n' +
               '(Dale, dale los que saben, dale)',
-          photo_video: 'default-song.jpg',
+          photo_video: 'songs_images/dejasteQuerer.png',
           url_mp3: 'songs/C. Tangana, Niño de Elche, La Hungara - Tú Me Dejaste De Querer [ltmO9XQVdSg].mp3',
           genre: 'Flamenco'
       },
@@ -2697,7 +2697,7 @@ export async function up(queryInterface, Sequelize) {
               'Como el agua\n' +
               '\n' +
               'NaNa!',
-          photo_video: 'default-song.jpg',
+          photo_video: 'songs_images/comoAgua.png',
           url_mp3: 'songs/Como el agua - Camarón [bKoWfso2_EY].mp3',
           genre: 'Flamenco'
       },
@@ -2770,7 +2770,7 @@ export async function up(queryInterface, Sequelize) {
               '\n' +
               'Qué pasa\n' +
               'Fernando Costa 2017 se ha colao\' en tu casa',
-          photo_video: 'default-song.jpg',
+          photo_video: 'songs_images/malamanera.png',
           url_mp3: 'songs/FERNANDOCOSTA - MALAMANERA (PROD. GABRIEL ESCOBAR) ｜ VIDEOCLIP [JVUrmC8_6sA].mp3',
           genre: 'Rap'
       },
@@ -2836,7 +2836,7 @@ export async function up(queryInterface, Sequelize) {
               'Liando honey honey honey honey honey\n' +
               'Tu rap, so funny funny funny\n' +
               'One for the show y two for the money',
-          photo_video: 'default-song.jpg',
+          photo_video: 'songs_images/narcolepsia.png',
           url_mp3: 'songs/FERNANDOCOSTA - NARCOLEPSIA (PROD. CHICHOBEATS) [OSAMpZ5A4xQ].mp3',
           genre: 'Rap'
       },
@@ -2917,7 +2917,7 @@ export async function up(queryInterface, Sequelize) {
               'Que me han conta\'o que vas de capo y que te han roba\'o\n' +
               'Que to\' lo que tú tienes te lo han presta\'o\n' +
               'Así que cállate la boca que te he pilla\'o',
-          photo_video: 'default-song.jpg',
+          photo_video: 'songs_images/oye.png',
           url_mp3: 'songs/FERNANDOCOSTA FT DOLLAR SELMOUNI - OYE (Videoclip Oficial) [P0z55sXBW7w].mp3',
           genre: 'Rap'
       },
@@ -3047,7 +3047,7 @@ export async function up(queryInterface, Sequelize) {
               'McKlopedia, con el señor Javat, Kase.O\n' +
               'Es sublime la escena del crimen, gimen del dolor\n' +
               'Máximo respeto a este conglomerado, por favor',
-          photo_video: 'default-song.jpg',
+          photo_video: 'songs_images/pavosReales.png',
           url_mp3: 'songs/KASE.O - 08. PAVOS REALES con HERMANO L, SHABU ONE SHANT y MCKLOPEDIA Prod. CRUDO MEANS RAW & KASE.O [AdBfUTsMhMI].mp3',
           genre: 'Rap'
       },
@@ -3147,7 +3147,7 @@ export async function up(queryInterface, Sequelize) {
               'No lo sé, pero, creo que por un accidente se me ha roto el hilo\n' +
               'Y ya no puedo volver, me quedo aquí para siempre\n' +
               'Cuando acaba un siempre',
-          photo_video: 'default-song.jpg',
+          photo_video: 'songs_images/repartiendoArte.png',
           url_mp3: 'songs/KASE.O - REPARTIENDO ARTE (Videoclip Oficial) [1vbZMpRTT5M].mp3',
           genre: 'Rap'
       },
@@ -3209,7 +3209,7 @@ export async function up(queryInterface, Sequelize) {
               'Nadie puede abrir semillas\n' +
               'En el corazón del sueño\n' +
               'En el corazón del sueño',
-          photo_video: 'default-song.jpg',
+          photo_video: 'songs_images/leyendaTiempo.png',
           url_mp3: 'songs/LA LEYENDA DEL TIEMPO - CAMARON DE LA ISLA [MrUWtOtfwDw].mp3',
           genre: 'Flamenco'
       },
@@ -3306,7 +3306,7 @@ export async function up(queryInterface, Sequelize) {
               'Duran, The Coach\n' +
               'Con Chencho y Maldy\n' +
               'En el Love and Sex (Love and Sex)',
-          photo_video: 'default-song.jpg',
+          photo_video: 'songs_images/vecinita.png',
           url_mp3: 'songs/Plan B - Mi Vecinita [SB8-YY2DyHI].mp3',
           genre: 'Reggaeton'
       }
