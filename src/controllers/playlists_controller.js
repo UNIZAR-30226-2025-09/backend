@@ -8,7 +8,6 @@ import Playlist_like from "#models/playlist_like";
  */
 export const getAllPlaylist = async (req, res) => {
     try {
-        await createDefaultPlaylist();
 
         const playlists = await db.playlist.findAll();
         res.json(playlists);
@@ -17,31 +16,43 @@ export const getAllPlaylist = async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 };
-
-export const createDefaultPlaylist = async () => {
+export const getOrCreateLikedPlaylist = async (req, res) => {
     try {
-        // Verificar si la playlist con ID 0 existe
-        let playlistZero = await db.playlist.findByPk(0);
-
-        if (!playlistZero) {
-            // Crear la playlist con ID 0 si no existe
-            playlistZero = await db.playlist.create({
-                id: 0,  // ID 0
-                name: "Playlist de Me Gusta",  // Nombre predeterminado
-                type: "private",  // Tipo de playlist
-                typeP: "playlist",  // Tipo de propiedad
-                front_page: ""  // Puedes asignar un valor vacío o predeterminado para la portada
-            });
-
-            console.log("Playlist con ID 0 creada:", playlistZero);  // Verificación en consola
-        } else {
-            console.log("La playlist con ID 0 ya existe:", playlistZero);  // Verificación si ya existe
+        const { user_id } = req.body;  // Obtenemos el user_id desde el cuerpo de la solicitud
+        if (!user_id || isNaN(user_id)) {
+            return res.status(400).json({ error: "El user_id debe ser un número válido" });
         }
 
-        return playlistZero;  // Devuelve la playlist creada o ya existente
+        console.log(`Verificando si la playlist de "Me Gusta" existe para el usuario con ID ${user_id}`);
+
+        // Buscar la playlist de "Me Gusta" para este usuario
+        let likedPlaylist = await db.playlist.findOne({
+            where: {
+                user_id,
+                type: 'private',
+                typeP: 'Vibra_likedSong'  // Identificador único de la playlist de "Me Gusta"
+            }
+        });
+
+        if (likedPlaylist) {
+            console.log(`Playlist de Me Gusta encontrada: ID ${likedPlaylist.id}`);
+        } else {
+            // Si no existe, la creamos
+            likedPlaylist = await db.playlist.create({
+                user_id,
+                name: 'Me Gusta',
+                type: 'private',
+                typeP: 'Vibra_likedSong',
+                front_page: 'playlist_images/meGusta.png'  // Valor por defecto para la portada
+            });
+            console.log(`Playlist de Me Gusta creada: ID ${likedPlaylist.id}`);
+        }
+
+        // Devolver la playlist creada o encontrada
+        return res.json({ playlist: likedPlaylist });
     } catch (error) {
-        console.error("Error al crear la playlist con ID 0:", error);
-        throw new Error("Error al crear la playlist con ID 0.");
+        console.error("Error en getOrCreateLikedPlaylist:", error);
+        return res.status(500).json({ error: "Error interno del servidor", details: error.message });
     }
 };
 
@@ -84,7 +95,6 @@ export const likePlaylist = async (req, res) => {
             console.log("📝 Verificando tipos:", { userIdNumber, playlistIdNumber });
 
             const newLike = db.playlist_like.build({
-                userId: user_id,
                 user_id: user_id,
                 playlist_id: playlist_id,
                 playlistId: playlist_id,
@@ -103,6 +113,7 @@ export const likePlaylist = async (req, res) => {
         return res.status(500).json({ error: "Error interno del servidor", details: error.message });
     }
 };
+
 
 /**
  * Quitar like a una playlist.
@@ -183,16 +194,8 @@ export const getPlaylistById = async (req, res) => {
                     ]
                 },
                 {
-                    model: db.user, // Relacionamos con los usuarios que han dado like
-                    through: { attributes: [] }, // Evitamos traer la tabla intermedia
-                    as: "likes", // Asegúrate de que esto esté correctamente configurado en tu modelo
-                    required: false
-                },
-                {
                     model: db.user,
                     attributes: ["nickname"],
-                    as: "owner",
-                    required: false
                 }
             ]
         });
@@ -232,8 +235,8 @@ export const checkIfLiked = async (req, res) => {
  */
 export const createPlaylist = async (req, res) => {
     try {
-        const { name, user_id, type, description, front_page } = req.body;
-        const newPlaylist = await db.playlist.create({ name, user_id, type, description, front_page });
+        const { name, type, description, front_page } = req.body;
+        const newPlaylist = await db.playlist.create({ name, type, description, front_page });
         // Falta hacer que haga la relacion con el user_id (qn creo) y name de playlist creada
         res.status(201).json(newPlaylist);
     } catch (error) {
@@ -318,3 +321,32 @@ export const getPlaylistLike = async (req, res) => {
     return res.status(500).json({ error: "Error interno en el servidor" });
   }
 };
+
+// Función para obtener la playlist de "Me Gusta"
+export const getLikedSongPlaylist = async (req, res) => {
+    try {
+        const { userId } = req.params;
+
+        if (!userId) {
+            return res.status(400).json({ error: "El userId es obligatorio" });
+        }
+
+        // Buscar la playlist de tipo "Vibra_likedSong" para el usuario específico
+        const likedSongPlaylist = await db.playlist.findOne({
+            where: { user_id: userId, typeP: 'Vibra_likedSong' },
+            attributes: ["id", "name", "user_id", "artist_id", "description", "type", "typeP", "front_page"]
+        });
+
+        if (!likedSongPlaylist) {
+            return res.status(404).json({ message: "No se encontró la playlist 'Me Gusta'" });
+        }
+
+        return res.status(200).json(likedSongPlaylist);
+    } catch (error) {
+        console.error("Error al obtener la playlist de Me Gusta:", error.message);
+        console.error(error.stack);
+        return res.status(500).json({ error: "Error interno en el servidor" });
+    }
+};
+
+
