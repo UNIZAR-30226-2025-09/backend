@@ -5,7 +5,6 @@ import { getIp } from "./get_ip.js"; // Importa la función
 import apiRoute from "#routes/api";
 import { sequelize } from "#models/index"; // Importa la instancia de Sequelize
 import path from "path";
-import fs from "fs";
 
 const app = express();
 
