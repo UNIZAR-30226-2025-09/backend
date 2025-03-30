@@ -200,11 +200,17 @@ export const getPlaylistById = async (req, res) => {
             ]
         });
 
-        if (!pl) return res.status(404).json({ error: "Playlist no encontrada" });
+        // Obtén la cantidad de likes de la playlist
+        const likes = await db.playlist_like.count({
+            where: { playlist_id: playlistId }
+        });
 
-        console.log("Playlist obtenida:", JSON.stringify(pl, null, 2));
+        // Agrega la propiedad likes al objeto resultante
+        const result = { ...pl.toJSON(), likes };
 
-        return res.status(200).json(pl);
+        console.log("Playlist obtenida:", JSON.stringify(result, null, 2));
+
+        return res.status(200).json(result);
     } catch (error) {
         console.error("Error al obtener la playlist:", error);
         return res.status(500).json({ error: "Error al obtener la playlist", message: error.message });
