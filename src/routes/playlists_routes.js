@@ -28,6 +28,9 @@ router.delete("/:id/like", playlistController.unlikePlaylist);
 router.get("/:id/like", playlistController.checkIfLiked);
 router.get("/liked/:userId", playlistController.getPlaylistLike);
 router.get('/liked-song/:userId', playlistController.getLikedSongPlaylist);
+router.get('/users/:userId/playlists', playlistController.getUserPlaylists);
+router.post('/:id/addSong', playlistController.addSongToPlaylist);
+router.post('/:id/deleteSong', playlistController.deleteSongToPlaylist);
 
 // En playlistRoutes.js o el archivo de rutas correspondiente
 router.post('/songliked', playlistController.getOrCreateLikedPlaylist);
