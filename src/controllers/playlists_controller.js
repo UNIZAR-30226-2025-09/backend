@@ -370,4 +370,86 @@ export const getLikedSongPlaylist = async (req, res) => {
     }
 };
 
+// obtener las playlist de un usuario
+export const getUserPlaylists = async (req, res) => {
+    try {
+        const userId = Number(req.params.userId);
+        if (isNaN(userId)) {
+            return res.status(400).json({ error: "ID inválido. Debe ser un número." });
+        }
+
+        const playlists = await db.playlist.findAll({
+            where: { user_id: userId }
+        });
+
+        console.log("Playlists del usuario", playlists);
+
+        return res.status(200).json(playlists);
+    } catch (error) {
+        console.error("Error al obtener las playlists del usuario:", error);
+        return res.status(500).json({ error: "Error al obtener las playlists", message: error.message });
+    }
+};
+
+// anadir cancion a una playlist
+export const addSongToPlaylist = async (req, res) => {
+    try {
+        const playlistId = Number(req.params.id);
+        const { songId } = req.body; // Asegúrate de que el frontend envíe { songId: ... }
+
+        if (isNaN(playlistId) || !songId) {
+            return res.status(400).json({ error: "ID de playlist inválido o songId no proporcionado." });
+        }
+
+        // Opcional: podrías verificar si la canción ya existe en la playlist para evitar duplicados.
+        const exists = await db.song_playlist.findOne({
+            where: { playlist_id: playlistId, song_id: songId }
+        });
+        if (exists) {
+            return res.status(400).json({ error: "La canción ya está añadida a la playlist." });
+        }
+
+        // Crea el registro en la tabla intermedia, usando la fecha actual
+        const newEntry = await db.song_playlist.create({
+            playlist_id: playlistId,
+            song_id: songId,
+            date: new Date()
+        });
+
+        return res.status(200).json({ message: "Canción añadida a la playlist.", newEntry });
+    } catch (error) {
+        console.error("Error al añadir la canción a la playlist:", error);
+        return res.status(500).json({ error: "Error al añadir la canción a la playlist", message: error.message });
+    }
+};
+
+
+export const deleteSongToPlaylist = async (req, res) => {
+    try {
+        const playlistId = Number(req.params.id);
+        const { songId } = req.body;
+
+        if (isNaN(playlistId) || !songId) {
+            return res.status(400).json({ error: "ID de playlist inválido o songId no proporcionado." });
+        }
+
+        // Intenta eliminar la entrada en la tabla intermedia
+        const result = await db.song_playlist.destroy({
+            where: { playlist_id: playlistId, song_id: songId }
+        });
+
+        if (result === 0) {
+            return res.status(404).json({ error: "La canción no se encontró en la playlist." });
+        }
+
+        return res.status(200).json({ message: "Canción eliminada de la playlist." });
+    } catch (error) {
+        console.error("Error al eliminar la canción de la playlist:", error);
+        return res.status(500).json({ error: "Error al eliminar la canción de la playlist", message: error.message });
+    }
+};
+
+
+
+
 
