@@ -1,6 +1,7 @@
 import db from "#src/models/index";
 import playlist_like from "#models/playlist_like";
 import Playlist_like from "#models/playlist_like";
+import {Op} from "sequelize";
 
 /**
  * Obtiene todas las playlists.
@@ -172,6 +173,8 @@ export const getPlaylistById = async (req, res) => {
             return res.status(400).json({ error: "ID inválido. Debe ser un número." });
         }
 
+        const userId = req.query.userId ? Number(req.query.userId) : null;
+
         const pl = await db.playlist.findByPk(playlistId, {
             include: [
                 {
@@ -190,6 +193,14 @@ export const getPlaylistById = async (req, res) => {
                             where: { typeP: "album" },
                             required: false,
                             as: "album"
+                        },
+                        {
+                            model: db.user,
+                            as: "likedBy",
+                            through: { attributes: [] },
+                            attributes: ["id"],
+                            where: userId ? { id: userId } : undefined,
+                            required: false
                         }
                     ]
                 },
@@ -200,13 +211,20 @@ export const getPlaylistById = async (req, res) => {
             ]
         });
 
-        // Obtén la cantidad de likes de la playlist
         const likes = await db.playlist_like.count({
             where: { playlist_id: playlistId }
         });
 
+        // Convierte la playlist a JSON y actualiza las canciones
+        let playlistData = pl.toJSON();
+
+        playlistData.songs = playlistData.songs.map(song => ({
+            ...song,
+            liked: song.likedBy && song.likedBy.length > 0
+        }));
+
         // Agrega la propiedad likes al objeto resultante
-        const result = { ...pl.toJSON(), likes };
+        const result = { ...playlistData, likes };
 
         console.log("Playlist obtenida:", JSON.stringify(result, null, 2));
 
@@ -379,7 +397,12 @@ export const getUserPlaylists = async (req, res) => {
         }
 
         const playlists = await db.playlist.findAll({
-            where: { user_id: userId }
+            where: {
+                user_id: userId,
+                name: {
+                    [Op.ne]: "Me Gusta"  // Excluye la playlist con el nombre "Me Gusta"
+                }
+            }
         });
 
         console.log("Playlists del usuario", playlists);

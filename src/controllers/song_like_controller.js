@@ -230,8 +230,6 @@ export const checkIfSongIsLiked = async (req, res) => {
         }
 
         console.log(`checkIfSongIsLiked: Verificando si la canción ${songId} está en favoritos para el usuario ${userId}`);
-
-        // Nota: Reemplaza db.SongLike por db.song_like si ese es el nombre correcto de tu modelo
         const existingLike = await db.song_like.findOne({
             where: { user_id: userId, song_id: songId }
         });
