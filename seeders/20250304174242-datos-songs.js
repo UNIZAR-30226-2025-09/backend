@@ -2185,7 +2185,7 @@ export async function up(queryInterface, Sequelize) {
               'Mera, dime, Frabian\n' +
               'Mera, dime, Gaby Music\n' +
               'Mera, dime, Chris Jeday',
-          photo_video: 'songs_images/hipocrita.png',
+          photo_video: 'songs_images/hipocrcita.png',
           url_mp3: 'songs/Anuel AA - Hipócrita feat. Zion (Audio) [J8gcGyYxDbo].mp3',
           genre: 'Trap'
       },
