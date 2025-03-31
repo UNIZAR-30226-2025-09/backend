@@ -16,7 +16,6 @@ const router = express.Router();
  * - POST `/api/playlists/songliked` -> Crea o obtiene la playlist de "Me Gusta" para un usuario.
  */
 
-
 router.get("/", playlistController.getAllPlaylist);
 router.get("/vibra", playlistController.getVibraPlaylists);
 router.get("/:id", playlistController.getPlaylistById);
