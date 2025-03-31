@@ -1,6 +1,8 @@
 import db from "#src/models/index";
 import bcrypt from "bcryptjs"; // Importamos bcrypt para el hashing de contraseñas
 import jwt from "jsonwebtoken";
+import fs from 'fs';
+import path from 'path';
 
 const SECRET_KEY = "aB1cD2eF3GhIjK4LmN5OpQr6StUvWxY7Z";
 
@@ -313,5 +315,50 @@ export const getUserById = async (req, res) => {
         return res.status(500).json({ error: "Error interno en el servidor" });
     }
 };
+
+export const updateUser = async (req, res) => {
+    try {
+        const userId = req.params.id;
+        const { nickname, user_picture } = req.body;
+
+        const user = await db.user.findByPk(userId);
+
+        if (!user) {
+            return res.status(404).json({ error: "Usuario no encontrado" });
+        }
+
+        // Si hay una imagen comprimida en base64, la guardamos
+        if (user_picture) {
+            // Decodificar la imagen base64 a un buffer
+            const base64Data = user_picture.replace(/^data:image\/(png|jpeg|jpg);base64,/, '');  // Quitar el prefijo de base64
+            const buffer = Buffer.from(base64Data, 'base64');
+
+            // Generamos un nombre único para la imagen
+            const imageFileName = `profile_${userId}.jpg`;  // Usamos .jpg como ejemplo, aunque puedes usar otros formatos
+            const outputPath = path.join(__dirname, 'public', 'uploads', imageFileName);
+
+            // Guardamos la imagen en la carpeta 'uploads'
+            fs.writeFileSync(outputPath, buffer);
+
+            // Actualizamos la ruta de la imagen en la base de datos
+            await user.update({
+                nickname,  // Actualizamos el nombre de usuario
+                user_picture: `public/users/${imageFileName}`  // Guardamos la ruta de la imagen procesada
+            });
+        } else {
+            // Si no hay imagen, solo actualizamos el nickname
+            await user.update({ nickname });
+        }
+
+        // Devolvemos la respuesta con los nuevos datos del usuario
+        return res.status(200).json({ message: "Perfil actualizado", user: { nickname, user_picture: user.user_picture } });
+
+    } catch (error) {
+        console.error("Error al actualizar el perfil:", error);
+        return res.status(500).json({ error: "Error al actualizar el perfil", message: error.message });
+    }
+};
+
+
 
 

@@ -1,5 +1,5 @@
 import express from "express";
-import { registerUser, loginUser, logoutUser, getUserProfile, updateUserProfile, updatePremiumStatus, checkEmailExistence, getUserById} from "#src/controllers/user_controller";
+import { registerUser, loginUser, logoutUser, getUserProfile, updateUserProfile, updatePremiumStatus, checkEmailExistence, getUserById, updateUser} from "#src/controllers/user_controller";
 
 const router = express.Router();
 
@@ -23,5 +23,7 @@ router.post("/update", updateUserProfile); // Ruta para actualizar el perfil de 
 router.post("/premium", updatePremiumStatus); // Ruta para actualizar el estado premium del usuario
 router.post("/check-email", checkEmailExistence); // Ruta para verificar si el correo ya está registrado
 router.get('/:userId', getUserById);  // Ruta para verificar si el usuario existe
+router.put("/users/:id", updateUser);
+
 
 export default router;
