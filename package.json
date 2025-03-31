@@ -12,6 +12,8 @@
     "test-artist": "jasmine --random=false test/artist.test.js",
     "test-user": "jasmine --random=false test/user.test.js",
     "test-library": "jasmine --random=false test/library.test.js",
+    "test-songs": "jasmine --random=false test/songs.test.js",
+    "test-playlist": "jasmine --random=false test/playlists.test.js",
     "test-clean": "node test/clean.js"
   },
   "dependencies": {
