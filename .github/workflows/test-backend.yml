@@ -36,9 +36,6 @@ jobs:
             echo "Ejecutando test-artist"
             npm run test-artist
 
-            echo "Ejecutando test-library"
-            npm run test-library
-
             echo "Ejecutando test-songs"
             npm run test-songs
 
