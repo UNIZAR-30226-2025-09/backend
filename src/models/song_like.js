@@ -1,5 +1,5 @@
 export default (sequelize, DataTypes) => {
-    const SongLike = sequelize.define('SongLike', {
+    const song_like = sequelize.define('song_like', {
         user_id: {
             type: DataTypes.INTEGER,
             allowNull: false,
@@ -15,5 +15,5 @@ export default (sequelize, DataTypes) => {
         timestamps: false         // No usaremos los campos `createdAt` y `updatedAt` en este modelo
     });
 
-    return SongLike;
+    return song_like;
 };

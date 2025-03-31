@@ -13,6 +13,7 @@ const router = Router();
  *   La ruta requiere un token JWT válido en la cabecera `Authorization` en formato:
  *     Authorization: Bearer <token>
  */
+// No esta en tests
 router.get("/", getUserLibrary);
 
 export default router;

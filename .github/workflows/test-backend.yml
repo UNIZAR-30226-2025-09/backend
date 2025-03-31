@@ -1,0 +1,54 @@
+name: Test Backend
+
+on:
+  workflow_run:
+    workflows: ["Deploy Backend"]  # Nombre del workflow anterior
+    types:
+      - completed  # Opciones: requested, completed
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout el código
+        uses: actions/checkout@v3
+
+      - name: Ejecutar tests en servidor remoto
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          script: |
+            echo "Entrando a backend..."
+            cd /home/unizar/backend
+
+            echo "Actualizando dependencias..."
+            npm install
+
+            echo "Limpiando test data..."
+            npm run test-clean
+
+            echo "Ejecutando test-artist"
+            npm run test-artist
+
+            echo "Ejecutando test-user"
+            npm run test-user
+
+            echo "Ejecutando test-library"
+            npm run test-library
+
+            echo "Ejecutando test-songs"
+            npm run test-songs
+
+            echo "Ejecutando test-playlist"
+            npm run test-playlist
+
+            echo "Ejecutando test-stripe"
+            npm run test-stripe
+
+            echo "Ejecutando test-song_like"
+            npm run test-song_like
+
+            echo "Ejecutando test-player"
+            npm run test-player
