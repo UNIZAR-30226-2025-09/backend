@@ -17,7 +17,7 @@ const sequelize = config.use_env_variable
 
 // Leer todos los archivos en la carpeta `models/`, excepto `index.js` y archivos de prueba
 readdirSync(new URL(".", import.meta.url))
-    .filter(file => file.indexOf(".") !== 0 && file !== basename && file.slice(-3) === ".js" && file.indexOf(".test.js") === -1)
+    .filter(file => file.indexOf(".") !== 0 && file !== basename && file.slice(-3) === ".js" && file.indexOf(".test.spec.js") === -1)
     .forEach(async (file) => {
         const { default: modelDefiner } = await import(join(new URL(".", import.meta.url).pathname, file));
         const model = modelDefiner(sequelize, Sequelize.DataTypes);
