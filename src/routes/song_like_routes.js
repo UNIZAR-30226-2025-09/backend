@@ -39,6 +39,7 @@ router.post("/:id/like", likeSong);
 /*================================================================================
     NO FUNCIONA
 ================================================================================*/
+// No esta en tests
 router.delete("/:id/like", unlikeSong);
 
 router.get("/:user_id/likedSongs", getLikedSongs);
@@ -46,6 +47,7 @@ router.get("/:user_id/likedSongs", getLikedSongs);
 /*================================================================================
     NO FUNCIONA
 ================================================================================*/
+// No esta en tests
 router.get("/:id/like", checkIfSongIsLiked);
 
 export default router;
