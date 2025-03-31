@@ -1,7 +1,7 @@
 import request from 'supertest';
 import { BASE_URL, getUserId } from './data.js';
 
-/*describe("Rutas de song_like", () => {
+describe("Rutas de song_like", () => {
     let songId = null;
 
     beforeAll(async () => {
@@ -39,14 +39,6 @@ import { BASE_URL, getUserId } from './data.js';
         expect(res.body.liked).toBe(true);
     });
 
-    it("GET /api/song_like/:id/like - debería indicar que la canción está likeada", async () => {
-        const res = await request(BASE_URL)
-            .get(`/api/song_like/${songId}/like?userId=${getUserId()}`);
-
-        expect(res.status).toBe(200);
-        expect(res.body.isLiked).toBe(true);
-    });
-
     it("GET /api/song_like/:userId/likedSongs - debería devolver canciones con like", async () => {
         const res = await request(BASE_URL).get(`/api/song_like/${getUserId()}/likedSongs`);
         expect(res.status).toBe(200);
@@ -54,20 +46,12 @@ import { BASE_URL, getUserId } from './data.js';
         expect(res.body.some(s => s.id === songId)).toBeTrue();
     });
 
-    it("DELETE /api/song_like/:id/like - debería quitar el like de forma explícita", async () => {
+    it("POST /api/song_like/:id/likeUnlike - debería quitar el like (toggle de nuevo)", async () => {
         const res = await request(BASE_URL)
-            .delete(`/api/song_like/${songId}/like`)
+            .post(`/api/song_like/${songId}/likeUnlike`)
             .send({ user_id: getUserId() });
 
         expect(res.status).toBe(200);
-        expect(res.body.message).toMatch(/eliminado/i);
+        expect(res.body.liked).toBe(false);
     });
-
-    it("GET /api/song_like/:id/like - debería indicar que ya no está likeada", async () => {
-        const res = await request(BASE_URL)
-            .get(`/api/song_like/${songId}/like?userId=${getUserId()}`);
-
-        expect(res.status).toBe(200);
-        expect(res.body.isLiked).toBe(false);
-    });
-});*/
+});

@@ -32,11 +32,20 @@ const router = express.Router();
  *   - Devuelve un booleano indicando si la canción está en favoritos
  */
 
-// Standardize route parameter names
 router.post("/:id/likeUnlike", handleSongLike);
+
 router.post("/:id/like", likeSong);
+
+/*================================================================================
+    NO FUNCIONA
+================================================================================*/
 router.delete("/:id/like", unlikeSong);
+
 router.get("/:user_id/likedSongs", getLikedSongs);
+
+/*================================================================================
+    NO FUNCIONA
+================================================================================*/
 router.get("/:id/like", checkIfSongIsLiked);
 
 export default router;
