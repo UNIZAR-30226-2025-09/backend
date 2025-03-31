@@ -1,8 +1,27 @@
-import { getIp } from "#ip/*"; // Asegúrate de que esta ruta sea correcta
+import { getIp } from "#ip/*";
+
+let authToken = ""
+let userId = ""
 
 const PORT = 5001;
-const IP = await getIp("local"); // "public o local dependiendo de lo que se necesite"
+const IP = await getIp("local");
 let BASE_URL;
 BASE_URL = `http://${IP}:${PORT}`;
 
-export { BASE_URL }; // Exporta BASE_URL correctamente
+export { BASE_URL };
+
+export function setAuthToken(token) {
+    authToken = token;
+}
+
+export function getAuthToken() {
+    return authToken;
+}
+
+export function setUserId(id) {
+    userId = id;
+}
+
+export function getUserId() {
+    return userId;
+}
