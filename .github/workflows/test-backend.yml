@@ -27,14 +27,14 @@ jobs:
             echo "Limpiando test data..."
             npm run test-clean
 
+            echo "Ejecutando test-user"
+            npm run test-user
+
             echo "Ejecutando test-song_like"
             npm run test-song_like
             
             echo "Ejecutando test-artist"
             npm run test-artist
-
-            echo "Ejecutando test-user"
-            npm run test-user
 
             echo "Ejecutando test-library"
             npm run test-library
