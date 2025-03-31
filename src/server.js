@@ -1,7 +1,6 @@
 import cors from "cors";
 import express from "express";
 import { getIp } from "#ip/*";
-
 import apiRoute from "#routes/api";
 import { sequelize } from "#models/index";
 import path from "path";
