@@ -1,9 +1,9 @@
 import db from '#src/models/index';
 import {existsSync, writeFileSync} from "fs";
 
-const TOKEN_PATH = './test/token.json';
+const TOKEN_PATH = './test/json/token.json';
 
-const ID_PATH = './test/id.json';
+const ID_PATH = './test/json/id.json';
 
 // Limpiar archivos si existen
 if (existsSync(TOKEN_PATH)) writeFileSync(TOKEN_PATH, "");
