@@ -95,15 +95,28 @@ describe('Pruebas autenticadas de usuario', () => {
 
 describe('Pruebas de registro e inicio de sesión', () => {
 
-    it('POST /api/user/register - debe registrar un nuevo usuario diferente', async () => {
+    let created = false;
+
+    it('POST /api/user/register - registra o ignora si ya existe', async () => {
         const response = await request(BASE_URL)
             .post('/api/user/register')
             .send(newUser);
+
+        if (response.status === 201 || response.status === 200) {
+            created = true;
+        } else if (response.status === 400) {
+            console.warn("Usuario ya existía, intentando login igual...");
+            created = true;
+        }
 
         expect([200, 201, 400]).toContain(response.status);
     });
 
     it('POST /api/user/login - debe iniciar sesión con el nuevo usuario', async () => {
+        if (!created) {
+            throw new Error("Usuario no creado correctamente en la prueba anterior.");
+        }
+
         const response = await request(BASE_URL)
             .post('/api/user/login')
             .send({ mail: newUser.mail, password: newUser.password });

@@ -244,6 +244,3 @@ export const checkIfSongIsLiked = async (req, res) => {
         return res.status(500).json({ error: "Error interno del servidor", details: error.message });
     }
 };
-
-
-

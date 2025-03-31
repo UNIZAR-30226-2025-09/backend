@@ -1,4 +1,13 @@
 import db from '#src/models/index';
+import {existsSync, writeFileSync} from "fs";
+
+const TOKEN_PATH = './test/token.json';
+
+const ID_PATH = './test/id.json';
+
+// Limpiar archivos si existen
+if (existsSync(TOKEN_PATH)) writeFileSync(TOKEN_PATH, "");
+if (existsSync(ID_PATH)) writeFileSync(ID_PATH, "");
 
 setTimeout(async () => {
     try {
