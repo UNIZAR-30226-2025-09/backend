@@ -130,7 +130,7 @@ router.post("/play/:songId", playerController.playSong);
  *       500:
  *         description: Error interno del servidor.
  */
-router.post("/pause", playerController.pauseSong);
+router.post("/pause/:songId", playerController.pauseSong);
 
 /**
  * @swagger
