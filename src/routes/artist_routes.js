@@ -5,8 +5,17 @@ const router = express.Router();
 
 /**
  * @swagger
+ * tags:
+ *   - name: Artists
+ *     description: Operaciones relacionadas con los artistas.
+ */
+
+/**
+ * @swagger
  * /api/artists:
  *   get:
+ *     tags:
+ *       - Artists
  *     description: Obtiene todos los artistas.
  *     responses:
  *       200:
@@ -27,16 +36,6 @@ const router = express.Router();
  *                   photo:
  *                     type: string
  *                     description: La URL de la foto del artista.
- *             examples:
- *               application/json:
- *                 value:
- *                   [
- *                     {
- *                       "id": 1,
- *                       "name": "Artist Name",
- *                       "photo": "url_to_photo"
- *                     }
- *                   ]
  *       404:
  *         description: No hay artistas disponibles.
  *       500:
