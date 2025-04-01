@@ -3,11 +3,11 @@ import { Op, Sequelize } from "sequelize"; // Asegúrate de importar Sequelize
 
 /**
  * Obtiene todos los artistas.
- * GET /api/artists
+ * GET /api/artist/artists
  */
 export const getAllArtists = async (req, res) => {
     try {
-        // 🔹 Buscar todos los artistas en la BD
+        // Buscar todos los artistas en la BD
         const artists = await db.artist.findAll({
             attributes: ["id", "name", "photo"], // Solo devolver estos campos
             order: [["name", "ASC"]] // Orden alfabético
@@ -27,16 +27,15 @@ export const getAllArtists = async (req, res) => {
 
 /**
  * Obtiene los detalles del artista.
- * GET /api/artists/:artistId
+ * GET /api/artist/:artistId
 */
-/*
 export const getArtistDetails = async (req, res) => {
     const { artistId } = req.params;
 
     try {
         console.log("Recuperando datos del artista...");
 
-        // 🔹 Buscar el artista por su ID
+        // Buscar el artista por su ID
         const artist = await db.artist.findOne({
             where: { id: artistId },
             attributes: ["id", "name", "bio", "photo"], // Atributos básicos del artista
@@ -49,75 +48,83 @@ export const getArtistDetails = async (req, res) => {
 
         console.log(`Artista encontrado: ${artist.name}`);
 
-        // 🔹 Obtener las canciones asociadas al artista
+        // Obtener las canciones del artista
         const songs = await db.song.findAll({
             include: [
                 {
                     model: db.artist,
-                    where: { id: artistId }, // Relacionamos el artista con las canciones
-                    attributes: [] // No es necesario incluir los atributos del artista aquí
+                    where: { id: artistId },
+                    through: { model: db.song_artist }, // Asegúrate de que este modelo esté definido
+                    attributes: []
                 }
             ],
-            attributes: ["id", "name", "duration", "photo_video"], // Atributos básicos de la canción
+            attributes: ["id", "name", "duration", "photo_video", "type"],
             raw: true
         });
 
         // Verifica si hay canciones para el artista
         if (songs.length === 0) {
             console.log("Este artista no tiene canciones.");
-            return res.status(404).json({ message: "Este artista no tiene canciones." });
+            return res.status(200).json({
+                artist: {
+                    id: artist.id,
+                    name: artist.name,
+                    bio: artist.bio,
+                    photo: artist.photo,
+                },
+                message: "Este artista no tiene canciones."
+            });
         }
 
         console.log(`${songs.length} canciones encontradas para el artista`);
 
-        // 🔹 Verificación de canciones con ID válido
+        // Verificación de canciones con ID válido
         const validSongs = songs.filter(song => song.id);
-        if (validSongs.length !== songs.length) {
-            console.warn("Algunas canciones no tienen ID válido:", songs.filter(song => !song.id));
-        }
 
-        // 🔹 Contar la cantidad de likes por canción (solo si la tabla `song_like` tiene datos)
+        // Contar la cantidad de likes por canción
         const songsWithLikes = await Promise.all(validSongs.map(async (song) => {
             try {
-                // Verificamos si song.id existe y es válido
                 if (!song.id) {
                     console.error(`Canción sin ID válido: ${JSON.stringify(song)}`);
-                    return { ...song, likes: 0 }; // Asignamos 0 likes si no tiene ID válido
+                    return { ...song, likes: 0 };
                 }
 
-                // Si no hay datos en `song_like`, asignamos 0 likes directamente
-                const likeCount = await db.song_like.count({
+                if (!db.SongLike) {
+                    console.warn("La tabla song_like no está definida en los modelos");
+                    return { ...song, likes: 0 };
+                }
+
+                const likeCount = await db.SongLike.count({
                     where: { song_id: song.id }
                 });
-
-                // Si `likeCount` es 0, lo asignamos correctamente
-                if (likeCount === 0) {
-                    console.log(`Canción ${song.name} no tiene likes.`);
-                }
 
                 return { ...song, likes: likeCount };
             } catch (error) {
                 console.error(`Error al contar likes para la canción ${song.name} (ID: ${song.id}):`, error);
-                return { ...song, likes: 0 }; // Si algo falla, asignamos 0 likes
+                return { ...song, likes: 0 };
             }
         }));
 
-        console.log("Canciones con likes (verificando 0 likes si no se encuentran):", songsWithLikes);
-
-        // 🔹 Ordenar las canciones por likes de mayor a menor
+        // Ordenar las canciones por likes de mayor a menor
         const sortedSongs = songsWithLikes.sort((a, b) => b.likes - a.likes);
 
-        // 🔹 Si no hay canciones con likes (todas tienen 0 likes), obtener canciones aleatorias
-        if (sortedSongs.length === 0 || sortedSongs[0].likes === 0) {
+        // Obtener los álbumes del artista, con la portada y el nombre
+        const albums = await db.playlist.findAll({
+            where: { artist_id: artistId, typeP: 'album' }, // Filtramos solo los álbumes
+            attributes: ['id', 'name', 'front_page'] // Obtenemos el nombre y la portada del álbum
+        });
+
+        // Obtener las canciones de tipo "single" (sencillos)
+        const singleSongs = songs.filter(song => song.type === 'sencillo');
+
+        // Si no hay canciones con likes, obtener canciones aleatorias
+        if (sortedSongs.every(song => song.likes === 0)) {
             console.log("No hay canciones con likes, devolviendo canciones aleatorias...");
 
-            // Obtener canciones aleatorias del artista
-            const randomSongs = await db.song.findAll({
-                where: { id: { [Op.in]: songs.map(song => song.id) } }, // Filtrar por las canciones del artista
-                attributes: ["id", "name", "duration", "photo_video"],
-                order: Sequelize.fn('RANDOM'), // Usamos RANDOM() para PostgreSQL
-                limit: 5
-            });
+            // Obtener hasta 5 canciones aleatorias del artista de las que ya tenemos
+            const randomSongs = [...songs]
+                .sort(() => 0.5 - Math.random())
+                .slice(0, Math.min(5, songs.length));
 
             return res.json({
                 artist: {
@@ -126,14 +133,16 @@ export const getArtistDetails = async (req, res) => {
                     bio: artist.bio,
                     photo: artist.photo,
                 },
-                songs: randomSongs, // Si no hay likes, canciones aleatorias
+                songs: randomSongs.map(song => ({...song, likes: 0})),
+                albums: albums,   // Aquí devolvemos los álbumes con sus portadas y nombres
+                singles: singleSongs, // Aquí devolvemos las canciones que no están en ningún álbum
             });
         }
 
-        // 🔹 Devolver las 5 canciones más populares (por likes)
-        const topSongs = sortedSongs.slice(0, 5);
+        // Devolver las 5 canciones más populares (por likes)
+        const topSongs = sortedSongs.slice(0, Math.min(5, sortedSongs.length));
 
-        console.log("Devolviendo las 5 canciones más populares:", topSongs);
+        console.log("Devolviendo las canciones más populares:", topSongs);
 
         res.json({
             artist: {
@@ -142,7 +151,9 @@ export const getArtistDetails = async (req, res) => {
                 bio: artist.bio,
                 photo: artist.photo,
             },
-            songs: topSongs, // Las 5 canciones más populares
+            songs: topSongs,
+            albums: albums,   // Aquí devolvemos los álbumes con sus portadas y nombres
+            singles: singleSongs, // Aquí devolvemos las canciones que no están en ningún álbum
         });
 
     } catch (error) {
@@ -151,7 +162,9 @@ export const getArtistDetails = async (req, res) => {
     }
 };
 
- */
+
+
+
 
 
 

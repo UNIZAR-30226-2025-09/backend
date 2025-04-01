@@ -9,7 +9,6 @@ export async function up(queryInterface, Sequelize) {
   //   name: 'John Doe',
   //   isBetaMember: false
   // }], {});
-
 }
 
 /**

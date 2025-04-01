@@ -246,7 +246,7 @@ export async function up(queryInterface, Sequelize) {
             ,
           photo_video: "songs_images/laVereda.png",
         url_mp3: 'songs/La vereda de la puerta de atras extremoduro.mp3',
-          type: "album",
+          type: "sencillo",
           genre: 'Rock'
       },
       {

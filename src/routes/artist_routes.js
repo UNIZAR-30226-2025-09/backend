@@ -11,6 +11,6 @@ const router = express.Router();
  */
 router.get("/artists", artistController.getAllArtists);
 
-//router.get("/:artistId", artistController.getArtistDetails);
+router.get("/:artistId", artistController.getArtistDetails);
 
 export default router;
