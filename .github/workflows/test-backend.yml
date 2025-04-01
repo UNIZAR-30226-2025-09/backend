@@ -21,12 +21,12 @@ jobs:
           key: ${{ secrets.SERVER_SSH_KEY }}
           script: |
             set -e
-            
-            npm install
                       
             echo "Entrando a backend..."
             cd /home/unizar/backend
 
+            npm install
+    
             echo "Limpiando test data..."
             npm run test-clean
 
