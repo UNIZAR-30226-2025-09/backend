@@ -155,9 +155,6 @@ export const likeSong = async (req, res) => {
  * Quitar "Like" a una canción de forma explícita (sin toggle).
  * DELETE /api/song_like/:id/like
  */
-/*================================================================================
-    NO FUNCIONA
-================================================================================*/
 export const unlikeSong = async (req, res) => {
     try {
         const { user_id } = req.body;
@@ -218,9 +215,6 @@ export const getLikedSongs = async (req, res) => {
     }
 };
 
-/*================================================================================
-    NO FUNCIONA
-================================================================================*/
 export const checkIfSongIsLiked = async (req, res) => {
     try {
         // Se obtiene el songId desde el parámetro de la ruta y el userId desde la query
