@@ -90,7 +90,95 @@ export async function up(queryInterface, Sequelize) {
       name: "Plan B",
       bio: "Por completar... (Faltan ademas las relaciones con sus canciones)",
       photo: "default-artist.jpg"
-    }
+    },
+    {
+      name: "El Canto del Loco",
+      bio: "Por completar... (Faltan ademas las relaciones con sus canciones)",
+      photo: "default-artist.jpg"
+    },
+    {
+      name: "Andy y Lucas",
+      bio: "Por completar... (Faltan ademas las relaciones con sus canciones)",
+      photo: "default-artist.jpg"
+    },
+    {
+      name: "Jarabe de Palo",
+      bio: "Por completar... (Faltan ademas las relaciones con sus canciones)",
+      photo: "default-artist.jpg"
+    },
+    {
+      name: "Chayanne",
+      bio: "Por completar... (Faltan ademas las relaciones con sus canciones)",
+      photo: "default-artist.jpg"
+    },
+    {
+      name: "Estopa",
+      bio: "Por completar... (Faltan ademas las relaciones con sus canciones)",
+      photo: "default-artist.jpg"
+    },
+    {
+      name: "Melendi",
+      bio: "Por completar... (Faltan ademas las relaciones con sus canciones)",
+      photo: "default-artist.jpg"
+    },
+    {
+      name: "Dani Martín",
+      bio: "Por completar... (Faltan ademas las relaciones con sus canciones)",
+      photo: "default-artist.jpg"
+    },
+    {
+      name: "Nena Daconte",
+      bio: "Por completar... (Faltan ademas las relaciones con sus canciones)",
+      photo: "default-artist.jpg"
+    },
+    {
+      name: "La Fuga",
+      bio: "Por completar... (Faltan ademas las relaciones con sus canciones)",
+      photo: "default-artist.jpg"
+    },
+    {
+      name: "Leiva",
+      bio: "Por completar... (Faltan ademas las relaciones con sus canciones)",
+      photo: "default-artist.jpg"
+    },
+    {
+      name: "Quevedo",
+      bio: "Por completar... (Faltan ademas las relaciones con sus canciones)",
+      photo: "default-artist.jpg"
+    },
+    {
+      name: "FloyyMenor",
+      bio: "Por completar... (Faltan ademas las relaciones con sus canciones)",
+      photo: "default-artist.jpg"
+    },
+    {
+      name: "Gabry Ponte",
+      bio: "Por completar... (Faltan ademas las relaciones con sus canciones)",
+      photo: "default-artist.jpg"
+    },
+    {
+      name: "JC Reyes",
+      bio: "Por completar... (Faltan ademas las relaciones con sus canciones)",
+      photo: "default-artist.jpg"
+    },
+    {
+      name: "Morad",
+      bio: "Por completar... (Faltan ademas las relaciones con sus canciones)",
+      photo: "default-artist.jpg"
+    },
+    {
+      name: "Los del Rio",
+      bio: "Por completar... (Faltan ademas las relaciones con sus canciones)",
+      photo: "default-artist.jpg"
+    },
+    {
+      name: "Yapi",
+      bio: "Por completar... (Faltan ademas las relaciones con sus canciones)",
+      photo: "default-artist.jpg"
+    },
+
+
+
   ], {});
 }
 

@@ -79,6 +79,9 @@ export async function up(queryInterface, Sequelize) {
     { song_id: 34, playlist_id: 9, date: new Date("2025-03-27") },
     { song_id:  1, playlist_id: 9, date: new Date("2025-03-27") },
 
+    //Prueba album extremo duro
+    { song_id: 18, playlist_id: 10, date: new Date("2025-03-25") },
+
 
   ], {});
 }
