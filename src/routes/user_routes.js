@@ -19,11 +19,11 @@ router.post("/register", registerUser); // Ruta para registrar un usuario
 router.post("/login", loginUser); // Ruta para iniciar sesión de usuario
 router.post("/logout", logoutUser); // Ruta para iniciar sesión de usuario
 router.get("/profile", getUserProfile); // Ruta para obtener el perfil de usuario
-router.post("/update", updateUserProfile); // Ruta para actualizar el perfil de usuario
+router.post("/update", updateUserProfile); // Ruta para actualizar el perfil de usuario, usando multer
 router.post("/premium", updatePremiumStatus); // Ruta para actualizar el estado premium del usuario
 router.post("/check-email", checkEmailExistence); // Ruta para verificar si el correo ya está registrado
 router.get('/:userId', getUserById);  // Ruta para verificar si el usuario existe
-router.put("/users/:id", updateUser);
+router.post("/users/:id", updateUser);
 
 
 export default router;

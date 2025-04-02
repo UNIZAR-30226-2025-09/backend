@@ -1,8 +1,12 @@
 import db from "#src/models/index";
 import bcrypt from "bcryptjs"; // Importamos bcrypt para el hashing de contraseñas
 import jwt from "jsonwebtoken";
-import fs from 'fs';
 import path from 'path';
+import { fileURLToPath } from 'url';
+import { appendFile, open } from 'fs/promises';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const SECRET_KEY = "aB1cD2eF3GhIjK4LmN5OpQr6StUvWxY7Z";
 
@@ -309,6 +313,7 @@ export const getUserById = async (req, res) => {
             mail: user.mail,
             style_fav: user.style_fav,
             is_premium: user.is_premium,
+            user_picture: user.user_picture,
         });
     } catch (error) {
         console.error("Error al verificar usuario:", error);
@@ -319,31 +324,53 @@ export const getUserById = async (req, res) => {
 export const updateUser = async (req, res) => {
     try {
         const userId = req.params.id;
-        const { nickname, user_picture } = req.body;
+        const { nickname, profileImage } = req.body; // Recibimos nickname y la imagen en base64
 
+        //console.log("Valores de respuesta: ", nickname, profileImage);
+        // Buscamos al usuario por su ID
         const user = await db.user.findByPk(userId);
 
         if (!user) {
             return res.status(404).json({ error: "Usuario no encontrado" });
         }
 
-        // Si hay una imagen comprimida en base64, la guardamos
-        if (user_picture) {
-            // Decodificar la imagen base64 a un buffer
-            const base64Data = user_picture.replace(/^data:image\/(png|jpeg|jpg);base64,/, '');  // Quitar el prefijo de base64
-            const buffer = Buffer.from(base64Data, 'base64');
+        // Si la imagen está en base64, la decodificamos y la guardamos como archivo
+        if (profileImage) {
+            console.log("Hay imagen;")
+            // Extraer el tipo de imagen utilizando un grupo de captura
+            const matches = profileImage.match(/^data:image\/(png|jpeg|jpg);base64,/);
+            if (!matches) {
+                throw new Error("Formato de imagen inválido");
+            }
+
+            const imageType = matches[1];
+            // Eliminar el prefijo de base64
+            const base64Data = profileImage.replace(/^data:image\/(png|jpeg|jpg);base64,/, ''); // Quitar el prefijo base64
+            const buffer = Buffer.from(base64Data, 'base64'); // Convertimos base64 a buffer
+
+             console.log(buffer);
 
             // Generamos un nombre único para la imagen
-            const imageFileName = `profile_${userId}.jpg`;  // Usamos .jpg como ejemplo, aunque puedes usar otros formatos
-            const outputPath = path.join(__dirname, 'public', 'uploads', imageFileName);
+            const imageFileName = `users/profile_${userId}.${imageType}`;  // Puedes cambiar el tipo de archivo si lo necesitas
+            const uploadPath = path.join(__dirname, '..', '..', 'public', 'users', `profile_${userId}.${imageType}`);  // Ruta donde se guardará la imagen
+            console.log("PATH: ", uploadPath);
 
-            // Guardamos la imagen en la carpeta 'uploads'
-            fs.writeFileSync(outputPath, buffer);
+            // Guardamos el archivo en el servidor
+            try {
+                const fileHandle = await open(uploadPath, 'a'); // 'a' es para abrir en modo append
+                /*await fileHandle.writeFile(buffer);*/
+                await fileHandle.appendFile(buffer);
+                //await appendFile(uploadPath, buffer, { flag: 'w' });
+                await fileHandle.close();
+                console.log(`Imagen guardada en ${uploadPath}`);
+            } catch (error) {
+                console.error('Error al guardar la imagen:', error);
+            }
 
             // Actualizamos la ruta de la imagen en la base de datos
             await user.update({
                 nickname,  // Actualizamos el nombre de usuario
-                user_picture: `public/users/${imageFileName}`  // Guardamos la ruta de la imagen procesada
+                user_picture: imageFileName  // Guardamos la ruta de la imagen
             });
         } else {
             // Si no hay imagen, solo actualizamos el nickname
@@ -351,7 +378,10 @@ export const updateUser = async (req, res) => {
         }
 
         // Devolvemos la respuesta con los nuevos datos del usuario
-        return res.status(200).json({ message: "Perfil actualizado", user: { nickname, user_picture: user.user_picture } });
+        return res.status(200).json({
+            message: "Perfil actualizado",
+            user: { nickname, user_picture: user.user_picture }
+        });
 
     } catch (error) {
         console.error("Error al actualizar el perfil:", error);
