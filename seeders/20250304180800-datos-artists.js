@@ -88,10 +88,7 @@ export async function up(queryInterface, Sequelize) {
     {
       name: "Plan B",
       bio: "Por completar... (Faltan ademas las relaciones con sus canciones)",
-      photo: "default-artist.jpg"
-    }
-      bio: "Dúo puertorriqueño de reguetón conocido por sus armonías vocales y temas como \"Es un secreto\".",
-      photo: "artists_images/planB.png"
+      photo: "planB.png"
     },
     {
       name: "El Canto del Loco",
@@ -178,7 +175,7 @@ export async function up(queryInterface, Sequelize) {
       bio: "Artista emergente del género urbano español, destacando por su estilo desenfadado y sonidos actuales.",
       photo: "artists_images/yapi.png"
     }
-    
+
   ], {});
 }
 
