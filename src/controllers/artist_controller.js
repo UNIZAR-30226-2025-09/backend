@@ -58,7 +58,7 @@ export const getArtistDetails = async (req, res) => {
                     attributes: []
                 }
             ],
-            attributes: ["id", "name", "duration", "photo_video", "type"],
+            attributes: ["id", "name", "duration", "photo_video", "type", "url_mp3"],
             raw: true
         });
 

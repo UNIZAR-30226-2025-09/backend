@@ -614,7 +614,7 @@ export async function up(queryInterface, Sequelize) {
             'Que campanilla te cuide, y te guarde',
         photo_video: "songs_images/peterPan.png",
         url_mp3: 'songs/El Canto del Loco - Peter Pan [rCxLx_3T5GE].mp3',
-          type: "album",
+          type: "sencillo",
           genre: 'Pop'
       },
       {
@@ -667,7 +667,7 @@ export async function up(queryInterface, Sequelize) {
             'Pero a ver, mírame, y dime tronco, no veo ni un sitio y no puedo aparcar',
         photo_video: "songs_images/zapatillas.png",
         url_mp3: 'songs/El Canto del Loco - Zapatillas (Videoclip) [nHxam-MQg-o].mp3',
-          type: "album",
+          type: "sencillo",
           genre: 'Rock'
       },
       {
@@ -2185,7 +2185,7 @@ export async function up(queryInterface, Sequelize) {
               'Mera, dime, Frabian\n' +
               'Mera, dime, Gaby Music\n' +
               'Mera, dime, Chris Jeday',
-          photo_video: 'songs_images/hipocrcita.png',
+          photo_video: 'songs_images/hipocrita.png',
           url_mp3: 'songs/Anuel AA - Hipócrita feat. Zion (Audio) [J8gcGyYxDbo].mp3',
           genre: 'Trap'
       },
