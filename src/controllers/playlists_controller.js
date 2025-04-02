@@ -17,6 +17,7 @@ export const getAllPlaylist = async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 };
+
 export const getOrCreateLikedPlaylist = async (req, res) => {
     try {
         const { user_id } = req.body;  // Obtenemos el user_id desde el cuerpo de la solicitud
@@ -471,8 +472,3 @@ export const deleteSongToPlaylist = async (req, res) => {
         return res.status(500).json({ error: "Error al eliminar la canción de la playlist", message: error.message });
     }
 };
-
-
-
-
-
