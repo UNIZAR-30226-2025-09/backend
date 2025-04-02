@@ -4,12 +4,14 @@ import { getIp } from "#ip/*";
 import apiRoute from "#routes/api";
 import { sequelize } from "#models/index";
 import path from "path";
+import * as bodyParser from "express";
 
 const app = express();
 
 // Middleware
 app.use(cors());
-app.use(express.json()); // Habilita JSON en las peticiones
+app.use(express.json({ limit: '40mb' }));
+
 
 // Configuración de archivos estáticos
 // Directorio base
@@ -21,7 +23,8 @@ const subdirectories = [
     "playlist_images",
     "songs_images",
     "artists_images",
-    "albums_images"
+    "albums_images",
+    "users"
 ];
 
 // Configurar rutas estáticas dinámicamente

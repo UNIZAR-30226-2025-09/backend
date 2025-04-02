@@ -369,9 +369,6 @@ router.post("/check-email", checkEmailExistence);
  */
 router.get('/:userId', getUserById);
 
-/**
- * Sin terminar
- */
-router.put("/users/:id", updateUser);
+router.post("/users/:id", updateUser);
 
 export default router;
