@@ -1,9 +1,8 @@
 import cors from "cors";
 import express from "express";
-import { getIp } from "./get_ip.js"; // Importa la función
-
+import { getIp } from "#ip/*";
 import apiRoute from "#routes/api";
-import { sequelize } from "#models/index"; // Importa la instancia de Sequelize
+import { sequelize } from "#models/index";
 import path from "path";
 import * as bodyParser from "express";
 

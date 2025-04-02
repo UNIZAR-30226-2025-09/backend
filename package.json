@@ -7,7 +7,17 @@
   "scripts": {
     "start": "node src/server.js",
     "db:migrate": "npx sequelize-cli db:migrate",
-    "db:seed": "npx sequelize-cli db:seed:all"
+    "db:seed": "npx sequelize-cli db:seed:all",
+    "test": "jasmine --random=false test/*test.js",
+    "test-artist": "jasmine --random=false test/artist.test.js",
+    "test-user": "jasmine --random=false test/user.test.js",
+    "test-library": "jasmine --random=false test/library.test.js",
+    "test-songs": "jasmine --random=false test/songs.test.js",
+    "test-playlist": "jasmine --random=false test/playlists.test.js",
+    "test-stripe": "jasmine --random=false test/stripe.test.js",
+    "test-song_like": "jasmine --random=false test/song_like.test.js",
+    "test-player": "jasmine --random=false test/player.test.js",
+    "test-clean": "node test/clean.js"
   },
   "dependencies": {
     "axios": "^1.8.3",
@@ -17,6 +27,7 @@
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.18.2",
+    "jasmine": "^5.6.0",
     "jsonwebtoken": "^9.0.2",
     "multer": "^1.4.5-lts.2",
     "pg": "^8.10.0",
@@ -24,7 +35,8 @@
     "process": "^0.11.10",
     "sequelize": "^6.28.0",
     "sequelize-cli": "^6.6.0",
-    "stripe": "^17.7.0"
+    "stripe": "^17.7.0",
+    "supertest": "^7.1.0"
   },
   "author": "Grupo Sally-Floyd",
   "license": "MIT",
@@ -33,7 +45,9 @@
     "#controllers/*": "./src/controllers/*.js",
     "#routes/*": "./src/routes/*.js",
     "#models/*": "./src/models/*.js",
-    "#config/*": "./config/*.js"
+    "#config/*": "./config/*.js",
+    "#test/*": "./test/*.js",
+    "#ip/*": "./src/get_ip.js"
   },
   "engines": {
     "node": "22.14.0"
