@@ -17,6 +17,7 @@ export const getAllPlaylist = async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 };
+
 export const getOrCreateLikedPlaylist = async (req, res) => {
     try {
         const { user_id } = req.body;  // Obtenemos el user_id desde el cuerpo de la solicitud
@@ -114,7 +115,6 @@ export const likePlaylist = async (req, res) => {
         return res.status(500).json({ error: "Error interno del servidor", details: error.message });
     }
 };
-
 
 /**
  * Quitar like a una playlist.
@@ -314,36 +314,36 @@ export const deletePlaylist = async (req, res) => {
  * @param {Object} res - Objeto de respuesta.
  */
 export const getPlaylistLike = async (req, res) => {
-  try {
-    const { userId } = req.params;
+    try {
+        const { userId } = req.params;
 
-    if (!userId) {
-      return res.status(400).json({ error: "El userId es obligatorio" });
+        if (!userId) {
+            return res.status(400).json({ error: "El userId es obligatorio" });
+        }
+
+        // Obtener directamente las playlists a través de la relación many-to-many
+        const user = await db.user.findByPk(userId, {
+            include: [{
+                model: db.playlist,
+                through: { model: db.playlist_like },
+                attributes: ["id", "name", "user_id", "artist_id", "description", "type", "typeP", "front_page"]
+            }]
+        });
+
+        if (!user) {
+            return res.status(404).json({ message: "Usuario no encontrado" });
+        }
+
+        if (user.playlists.length === 0) {
+            return res.status(404).json({ message: "No hay playlists que hayas dado like" });
+        }
+
+        return res.status(200).json(user.playlists);
+    } catch (error) {
+        console.error("Error al obtener las playlists que el usuario ha dado like:", error.message);
+        console.error(error.stack);
+        return res.status(500).json({ error: "Error interno en el servidor" });
     }
-
-    // Obtener directamente las playlists a través de la relación many-to-many
-    const user = await db.user.findByPk(userId, {
-      include: [{
-        model: db.playlist,
-        through: { model: db.playlist_like },
-        attributes: ["id", "name", "user_id", "artist_id", "description", "type", "typeP", "front_page"]
-      }]
-    });
-
-    if (!user) {
-      return res.status(404).json({ message: "Usuario no encontrado" });
-    }
-
-    if (user.playlists.length === 0) {
-      return res.status(404).json({ message: "No hay playlists que hayas dado like" });
-    }
-
-    return res.status(200).json(user.playlists);
-  } catch (error) {
-    console.error("Error al obtener las playlists que el usuario ha dado like:", error.message);
-    console.error(error.stack);
-    return res.status(500).json({ error: "Error interno en el servidor" });
-  }
 };
 
 /**
@@ -446,7 +446,6 @@ export const addSongToPlaylist = async (req, res) => {
     }
 };
 
-
 export const deleteSongToPlaylist = async (req, res) => {
     try {
         const playlistId = Number(req.params.id);
@@ -471,8 +470,3 @@ export const deleteSongToPlaylist = async (req, res) => {
         return res.status(500).json({ error: "Error al eliminar la canción de la playlist", message: error.message });
     }
 };
-
-
-
-
-

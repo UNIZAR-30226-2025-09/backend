@@ -136,6 +136,8 @@ router.post("/pause/:songId", playerController.pauseSong);
  * @swagger
  * /api/player/next:
  *   post:
+ *     tags:
+ *       - Player
  *     description: Reproduce la siguiente canción en la cola de reproducción.
  *     responses:
  *       200:
@@ -164,6 +166,8 @@ router.post("/next", playerController.playNextSong);
  * @swagger
  * /api/player/previous:
  *   post:
+ *     tags:
+ *       - Player
  *     description: Reproduce la canción anterior en la cola de reproducción.
  *     responses:
  *       200:
@@ -192,6 +196,8 @@ router.post("/previous", playerController.playPreviousSong);
  * @swagger
  * /api/player/lyrics/{songId}:
  *   get:
+ *     tags:
+ *       - Player
  *     description: Obtiene la letra de la canción por su ID.
  *     parameters:
  *       - name: songId
