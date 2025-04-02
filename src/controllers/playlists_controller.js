@@ -3,10 +3,6 @@ import playlist_like from "#models/playlist_like";
 import Playlist_like from "#models/playlist_like";
 import {Op} from "sequelize";
 
-/**
- * Obtiene todas las playlists.
- * GET /api/playlists
- */
 export const getAllPlaylist = async (req, res) => {
     try {
 
@@ -116,11 +112,6 @@ export const likePlaylist = async (req, res) => {
     }
 };
 
-
-/**
- * Quitar like a una playlist.
- * DELETE /api/playlists/:id/like
- */
 export const unlikePlaylist = async (req, res) => {
     try {
         const { user_id } = req.body;
@@ -145,10 +136,6 @@ export const unlikePlaylist = async (req, res) => {
     }
 };
 
-/**
- * Obtiene todas las playlists con typeP = "Vibra".
- * GET /api/playlists/vibra
- */
 export const getVibraPlaylists = async (req, res) => {
     try {
         const vibraPlaylists = await db.playlist.findAll({
@@ -163,10 +150,6 @@ export const getVibraPlaylists = async (req, res) => {
     }
 };
 
-/**
- * Obtiene una playlist por ID con sus canciones.
- * GET /api/playlists/:id
- */
 export const getPlaylistById = async (req, res) => {
     try {
         const playlistId = Number(req.params.id);
@@ -253,11 +236,6 @@ export const checkIfLiked = async (req, res) => {
     }
 };
 
-
-/**
- * Crea una nueva playlist.
- * POST /api/playlists
- */
 export const createPlaylist = async (req, res) => {
     try {
         const { name, type, description, front_page, user_id} = req.body;
@@ -270,10 +248,6 @@ export const createPlaylist = async (req, res) => {
     }
 };
 
-/**
- * Actualiza una playlist por ID.
- * PUT /api/playlists/:id
- */
 export const updatePlaylist = async (req, res) => {
     try {
         const { name, description, type, front_page } = req.body;
@@ -290,10 +264,6 @@ export const updatePlaylist = async (req, res) => {
     }
 };
 
-/**
- * Elimina una playlist por ID.
- * DELETE /api/playlists/:id
- */
 export const deletePlaylist = async (req, res) => {
     try {
         const playlistId = Number(req.params.id);
@@ -309,11 +279,6 @@ export const deletePlaylist = async (req, res) => {
     }
 };
 
-/**
- * Obtiene las playlists que un usuario ha dado like.
- * @param {Object} req - Objeto de solicitud, debe contener `userId` como parámetro.
- * @param {Object} res - Objeto de respuesta.
- */
 export const getPlaylistLike = async (req, res) => {
   try {
     const { userId } = req.params;
@@ -347,22 +312,6 @@ export const getPlaylistLike = async (req, res) => {
   }
 };
 
-/**
- * Obtiene la playlist de "Me Gusta" de un usuario específico.
- *
- * Esta función busca en la base de datos la playlist de tipo "Vibra_likedSong" asociada
- * al userId proporcionado en los parámetros de la solicitud. Si la playlist es encontrada,
- * se retorna como respuesta con un estado 200. Si no se encuentra la playlist o el `userId`
- * es inválido, se retorna un error con el código de estado correspondiente.
- *
- * @param {Object} req - El objeto de la solicitud HTTP, que contiene los parámetros de la misma.
- * @param {Object} res - El objeto de la respuesta HTTP, usado para enviar la respuesta al cliente.
- *
- * @returns {Object} - Respuesta HTTP con el estado y la información de la playlist o un mensaje de error.
- *
- * @throws {Error} - Si ocurre un error durante la ejecución del proceso, se captura y se retorna un
- *                   error 500 con un mensaje genérico de error interno del servidor.
- */
 export const getLikedSongPlaylist = async (req, res) => {
     try {
         const { userId } = req.params;
@@ -389,7 +338,6 @@ export const getLikedSongPlaylist = async (req, res) => {
     }
 };
 
-// obtener las playlist de un usuario
 export const getUserPlaylists = async (req, res) => {
     try {
         const userId = Number(req.params.userId);
@@ -415,7 +363,6 @@ export const getUserPlaylists = async (req, res) => {
     }
 };
 
-// anadir cancion a una playlist
 export const addSongToPlaylist = async (req, res) => {
     try {
         const playlistId = Number(req.params.id);
@@ -446,7 +393,6 @@ export const addSongToPlaylist = async (req, res) => {
         return res.status(500).json({ error: "Error al añadir la canción a la playlist", message: error.message });
     }
 };
-
 
 export const deleteSongToPlaylist = async (req, res) => {
     try {
