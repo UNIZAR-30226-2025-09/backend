@@ -139,7 +139,7 @@ export const likeSong = async (req, res) => {
             return res.json({ message: "Like eliminado correctamente", liked: false });
         } else {
             // 4. Si no existe, creamos el like y añadimos la canción a la playlist.
-            console.log("📝 Intentando insertar like:", { user_id, song_id });
+            console.log("Intentando insertar like:", { user_id, song_id });
             const newLike = await db.song_like.create({ user_id, song_id });
             await likedPlaylist.addSong(songFound);
             console.log("Like agregado y canción añadida a la playlist");
@@ -155,9 +155,6 @@ export const likeSong = async (req, res) => {
  * Quitar "Like" a una canción de forma explícita (sin toggle).
  * DELETE /api/song_like/:id/like
  */
-/*================================================================================
-    NO FUNCIONA
-================================================================================*/
 export const unlikeSong = async (req, res) => {
     try {
         const { user_id } = req.body;
@@ -199,8 +196,13 @@ export const getLikedSongs = async (req, res) => {
         const likedSongs = await db.song.findAll({
             include: [{
                 model: db.user,
+                as: 'likedBy',  // Usamos el alias correcto para la relación 'likedBy'
                 where: { id: userId },
-                through: { attributes: [] } // This excludes junction table attributes
+                through: { attributes: [] }
+            }, {
+                model: db.playlist,
+                as: 'album',  // Alias para la relación con 'playlist'
+                through: { attributes: [] }
             }],
             attributes: ["id", "name", "type", "duration", "lyrics", "photo_video", "url_mp3", "genre"]
         });
@@ -213,9 +215,6 @@ export const getLikedSongs = async (req, res) => {
     }
 };
 
-/*================================================================================
-    NO FUNCIONA
-================================================================================*/
 export const checkIfSongIsLiked = async (req, res) => {
     try {
         // Se obtiene el songId desde el parámetro de la ruta y el userId desde la query

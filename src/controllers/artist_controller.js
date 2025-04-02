@@ -6,7 +6,7 @@ import db from "#src/models/index";
  */
 export const getAllArtists = async (req, res) => {
     try {
-        // 🔹 Buscar todos los artistas en la BD
+        // Buscar todos los artistas en la BD
         const artists = await db.artist.findAll({
             attributes: ["id", "name", "photo"], // Solo devolver estos campos
             order: [["name", "ASC"]] // Orden alfabético
