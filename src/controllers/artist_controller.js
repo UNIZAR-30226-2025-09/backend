@@ -89,12 +89,12 @@ export const getArtistDetails = async (req, res) => {
                     return { ...song, likes: 0 };
                 }
 
-                if (!db.SongLike) {
+                if (!db.song_like) {
                     console.warn("La tabla song_like no está definida en los modelos");
                     return { ...song, likes: 0 };
                 }
 
-                const likeCount = await db.SongLike.count({
+                const likeCount = await db.song_like.count({
                     where: { song_id: song.id }
                 });
 
