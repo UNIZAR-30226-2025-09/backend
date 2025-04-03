@@ -18,7 +18,22 @@ export default (sequelize, DataTypes) => {
         user.belongsToMany(models.playlist, { through: "playlist_like", foreignKey: "user_id" });
         user.belongsToMany(models.playlist, { through: "playlist_feedback", foreignKey: "user_id" });
         user.belongsToMany(models.playlist, { through: "permission_have", foreignKey: "user_id" });
-        user.belongsToMany(models.user, { through: "friendship", as: "Friends", foreignKey: "user1_id" });
+        // Usuario como solicitante (user1)
+        user.belongsToMany(models.user, {
+            through: "friendship",
+            as: "FriendRequests",
+            foreignKey: "user1_id",
+            otherKey: "user2_id"
+        });
+
+        // Usuario como receptor (user2)
+        user.belongsToMany(models.user, {
+            through: "friendship",
+            as: "FriendInvitations",
+            foreignKey: "user2_id",
+            otherKey: "user1_id"
+        });
+
         user.belongsToMany(models.user, { through: "chat", as: "ChatUser", foreignKey: "user1_id" });
     };
 

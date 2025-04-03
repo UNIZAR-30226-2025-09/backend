@@ -5,8 +5,9 @@ import playerRoutes from "#routes/player_routes"; // Importa las rutas del repro
 import songsRoute from "#routes/songs_routes"; // Importa las rutas de canciones
 import userRoute from "#routes/user_routes"; // Importa las rutas de gestión de usuarios
 import stripeRoute from "#routes/stripe_routes"; // Importa las rutas de stripe (Api de pagos)
-import artistRoute from "#routes/artist_routes";
-import songLikeRoutes from "#routes/song_like_routes";
+import artistRoute from "#routes/artist_routes"; // Importa las rutas de artistas
+import songLikeRoutes from "#routes/song_like_routes"; // Importa las rutas de song like
+import socialRoutes from "#routes/social_routes"; // Importa las rutas de song like
 const router = express.Router();
 
 /**
@@ -50,5 +51,11 @@ router.use("/artist", artistRoute);
  * Se montan bajo el prefijo `/api/song_like`
  */
 router.use("/song_like", songLikeRoutes);
+
+/**
+ * Rutas relacionadas con la interacción social
+ * entre los usuarios
+ */
+router.use("/social", socialRoutes);
 
 export default router;
