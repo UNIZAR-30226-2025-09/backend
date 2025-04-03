@@ -8,15 +8,15 @@
     "start": "node src/server.js",
     "db:migrate": "npx sequelize-cli db:migrate",
     "db:seed": "npx sequelize-cli db:seed:all",
-    "test": "jasmine --random=false test/*test.js",
+    "test": "npm run test-clean && npm run test-user && npm run test-artist && npm run test-songs && npm run test-playlist && npm run test-stripe && npm run test-song_like && npm run test-social && npm run test-player && npm run test-clean",
     "test-artist": "jasmine --random=false test/artist.test.js",
     "test-user": "jasmine --random=false test/user.test.js",
-    "test-library": "jasmine --random=false test/library.test.js",
     "test-songs": "jasmine --random=false test/songs.test.js",
     "test-playlist": "jasmine --random=false test/playlists.test.js",
     "test-stripe": "jasmine --random=false test/stripe.test.js",
     "test-song_like": "jasmine --random=false test/song_like.test.js",
     "test-player": "jasmine --random=false test/player.test.js",
+    "test-social": "jasmine --random=false test/social.test.js",
     "test-clean": "node test/clean.js"
   },
   "dependencies": {
