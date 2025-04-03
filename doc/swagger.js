@@ -12,9 +12,9 @@ const options = {
     definition: {
         openapi: '3.0.0',
         info: {
-            title: 'Mi API',
+            title: 'Vibra',
             version: '1.0.0',
-            description: 'Documentación de la API generada con Swagger',
+            description: 'Documentación de la API',
         },
     },
     apis: ['../src/routes/*.js'],

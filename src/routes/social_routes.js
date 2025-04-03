@@ -54,12 +54,6 @@ const router = express.Router();
  *                     state_friend_request:
  *                       type: string
  *                       example: "pending"
- *                     createdAt:
- *                       type: string
- *                       format: date-time
- *                     updatedAt:
- *                       type: string
- *                       format: date-time
  *       400:
  *         description: Error en la solicitud. (ya existe, o es al mismo usuario)
  *         content:
