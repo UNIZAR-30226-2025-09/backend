@@ -388,7 +388,3 @@ export const updateUser = async (req, res) => {
         return res.status(500).json({ error: "Error al actualizar el perfil", message: error.message });
     }
 };
-
-
-
-
