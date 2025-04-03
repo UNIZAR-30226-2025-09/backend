@@ -24,7 +24,8 @@ export const handleSongLike = async (req, res) => {
             where: {
                 user_id,
                 type: 'private',
-                typeP: 'Vibra_likedSong'
+                typeP: 'Vibra_likedSong',
+                front_page: 'playlist_images/meGusta.png'
             }
         });
 
@@ -34,7 +35,7 @@ export const handleSongLike = async (req, res) => {
                 name: 'Playlist de Me Gusta',
                 type: 'private',
                 typeP: 'Vibra_likedSong',
-                front_page: ''
+                front_page: 'playlist_images/meGusta.png'
             });
             console.log("Playlist de Me Gusta creada: ID", likedPlaylist.id);
         }
@@ -113,7 +114,7 @@ export const likeSong = async (req, res) => {
                 name: 'Playlist de Me Gusta',
                 type: 'private',
                 typeP: 'Vibra_likedSong',
-                front_page: ''
+                front_page: 'playlist_images/meGusta.png'
             });
             console.log("Playlist de Me Gusta creada: ID", likedPlaylist.id);
         } else {

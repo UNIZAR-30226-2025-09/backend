@@ -60,6 +60,7 @@ export async function up(queryInterface, Sequelize) {
       bio: "Grupo español liderado por Fito Cabrales, con un estilo que fusiona rock, blues y pop en canciones emotivas.",
       photo: "artists_images/fitoFitipaldis.png"
     },
+      // ABDEL: Completar
     {
       name: "Anuel AA",
       bio: "Rapero y cantante puertorriqueño, figura clave del trap latino con letras crudas y temas como \"Secreto\".",
