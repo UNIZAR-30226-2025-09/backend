@@ -30,6 +30,11 @@ export const sendFriendRequest = async (req, res) => {
         // Extraemos el ID del segundo usuario (user2) desde el cuerpo de la solicitud
         const { user2_id } = req.body;
 
+        // Verificamos que el usuario no esté intentando enviarse una solicitud a sí mismo
+        if (user1_id === user2_id) {
+            return res.status(400).json({ error: "Ya existe una solicitud de amistad entre estos usuarios" });
+        }
+
         // Verificamos si ambos usuarios existen en la base de datos
         const user1 = await db.user.findByPk(user1_id);
         const user2 = await db.user.findByPk(user2_id);

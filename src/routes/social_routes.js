@@ -61,7 +61,7 @@ const router = express.Router();
  *                       type: string
  *                       format: date-time
  *       400:
- *         description: Error en la solicitud.
+ *         description: Error en la solicitud. (ya existe, o es al mismo usuario)
  *         content:
  *           application/json:
  *             schema:
