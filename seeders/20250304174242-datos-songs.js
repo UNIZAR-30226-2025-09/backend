@@ -180,10 +180,10 @@ export async function up(queryInterface, Sequelize) {
             'Que tu cuerpo es pa\' darle alegría y cosa buena\n' +
             'Dale a tu cuerpo alegría, Macarena\n' +
             'Eh, Macarena (¡ay!)',
-        photo_video: "songs_images/macarena.png",
-        url_mp3: 'songs/Los Del Rio - Macarena (Bayside Boys Remix).mp3',
-          type: "sencillo",
-          genre: 'Pop'
+            photo_video: "songs_images/macarena.png",
+            url_mp3: 'songs/Los Del Rio - Macarena (Bayside Boys Remix).mp3',
+            type: "sencillo",
+            genre: 'Pop'
       },
       {
         name: 'La vereda de la puerta de atras',
@@ -3309,6 +3309,14 @@ export async function up(queryInterface, Sequelize) {
           photo_video: 'songs_images/vecinita.png',
           url_mp3: 'songs/Plan B - Mi Vecinita [SB8-YY2DyHI].mp3',
           genre: 'Reggaeton'
+      },
+      {
+          name: 'Anuncio Vibra',
+          duration: 21,
+          lyrics: "Anuncio Vibra..",
+          photo_video: 'default.jpg',
+          url_mp3: 'songs/anuncio1.mp3',
+          type: 'anuncio'
       }
     ], {});
 }

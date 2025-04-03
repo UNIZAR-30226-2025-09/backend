@@ -1,5 +1,5 @@
 import express from "express";
-import { getAllSongs,getSongById } from "#src/controllers/songs_controller";
+import {getAllAdds, getAllSongs, getSongById} from "#src/controllers/songs_controller";
 
 const router = express.Router();
 
@@ -13,6 +13,7 @@ const router = express.Router();
  */
 
 router.get("/", getAllSongs);
+router.get("/adds", getAllAdds);
 router.get("/:id", getSongById);
 
 export default router;
