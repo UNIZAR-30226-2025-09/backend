@@ -27,29 +27,5 @@ jobs:
 
             npm install
     
-            echo "Limpiando test data..."
-            npm run test-clean
-
-            echo "Ejecutando test-user"
-            npm run test-user
-
-            echo "Ejecutando test-song_like"
-            npm run test-song_like
-            
-            echo "Ejecutando test-artist"
-            npm run test-artist
-
-            echo "Ejecutando test-songs"
-            npm run test-songs
-
-            echo "Ejecutando test-playlist"
-            npm run test-playlist
-
-            echo "Ejecutando test-stripe"
-            npm run test-stripe
-
-            echo "Ejecutando test-player"
-            npm run test-player
-            
-            echo "Limpiando test data..."
-            npm run test-clean
+            echo "Ejecutando todos los tests"
+            npm run test

@@ -2,13 +2,14 @@ import request from 'supertest';
 import { BASE_URL } from '#test/data';
 import db from '#models/index';
 import bcrypt from 'bcryptjs';
+import { Op } from 'sequelize';
 import { generateToken } from '#test/utils/generateToken';
 
 // Función auxiliar para esperar un tiempo determinado
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 describe('Pruebas sobre /api/social', () => {
-    let token1, token2;
+    let token1, token2, token3;
     let user1, user2, user3;
 
     // Configuración inicial antes de las pruebas
@@ -19,59 +20,79 @@ describe('Pruebas sobre /api/social', () => {
         // Crear usuarios de prueba
         const hashedPassword = await bcrypt.hash('password123', 10);
 
+        // Primero limpiamos usuarios existentes con los mismos nicknames
+        await db.user.destroy({
+            where: {
+                nickname: ['socialtest1', 'socialtest2', 'socialtest3']
+            }
+        });
+
         user1 = await db.user.create({
-            username: 'socialtest1',
-            mail: 'socialtest1@test.com',
             nickname: 'socialtest1',
+            mail: 'socialtest1@test.com',
             password: hashedPassword
         });
 
         user2 = await db.user.create({
-            username: 'socialtest2',
-            mail: 'socialtest2@test.com',
             nickname: 'socialtest2',
+            mail: 'socialtest2@test.com',
             password: hashedPassword
         });
 
         user3 = await db.user.create({
-            username: 'socialtest3',
-            mail: 'socialtest3@test.com',
             nickname: 'socialtest3',
+            mail: 'socialtest3@test.com',
             password: hashedPassword
         });
 
         // Generar tokens para los usuarios
         token1 = generateToken(user1);
         token2 = generateToken(user2);
+        token3 = generateToken(user3);
     });
 
     beforeEach(async () => {
-        // Crear una solicitud de amistad de user3 a user2
-        await db.friendship.create({
-            user1_id: user3.id,
-            user2_id: user2.id,
-            state_friend_request: 'pending'
-        });
-    });
-
-    // Limpieza después de todas las pruebas
-    afterAll(async () => {
-        // Eliminar las solicitudes de amistad creadas durante las pruebas
+        // Limpiamos solicitudes existentes para empezar cada test con estado limpio
         await db.friendship.destroy({
             where: {
-                [db.Sequelize.Op.or]: [
-                    { user1_id: [user1.id, user2.id, user3.id] },
-                    { user2_id: [user1.id, user2.id, user3.id] }
+                [Op.or]: [
+                    { user1_id: [user1?.id, user2?.id, user3?.id].filter(Boolean) },
+                    { user2_id: [user1?.id, user2?.id, user3?.id].filter(Boolean) }
                 ]
             }
         });
 
-        // Eliminar los usuarios de prueba
-        await db.user.destroy({
-            where: {
-                id: [user1.id, user2.id, user3.id]
-            }
-        });
+        // Crear una solicitud de amistad de user3 a user2 para los tests que necesitan
+        // una solicitud preexistente
+        if (user2 && user3) {
+            await db.friendship.create({
+                user1_id: user3.id,
+                user2_id: user2.id,
+                state_friend_request: 'pending'
+            });
+        }
+    });
+
+    // Limpieza después de todas las pruebas
+    afterAll(async () => {
+        if (user1 && user2 && user3) {
+            // Eliminar las solicitudes de amistad
+            await db.friendship.destroy({
+                where: {
+                    [Op.or]: [
+                        { user1_id: [user1.id, user2.id, user3.id] },
+                        { user2_id: [user1.id, user2.id, user3.id] }
+                    ]
+                }
+            });
+
+            // Eliminar los usuarios de prueba
+            await db.user.destroy({
+                where: {
+                    id: [user1.id, user2.id, user3.id]
+                }
+            });
+        }
     });
 
     describe('POST /api/social/send', () => {
@@ -90,6 +111,13 @@ describe('Pruebas sobre /api/social', () => {
         });
 
         it('debería fallar al enviar una solicitud duplicada', async () => {
+            // Primero creamos una solicitud
+            await request(BASE_URL)
+                .post('/api/social/send')
+                .set('Authorization', `Bearer ${token1}`)
+                .send({ user2_id: user2.id });
+
+            // Luego intentamos crear otra igual
             const res = await request(BASE_URL)
                 .post('/api/social/send')
                 .set('Authorization', `Bearer ${token1}`)
@@ -135,13 +163,11 @@ describe('Pruebas sobre /api/social', () => {
                 .send({});
 
             expect(res.status).toBe(404);
-                expect(res.body.error).toBe('Uno o ambos usuarios no existen');
+            expect(res.body.error).toBe('Uno o ambos usuarios no existen');
         });
     });
 
     describe('POST /api/social/accept', () => {
-        // Primero enviamos una solicitud de amistad para poder aceptarla
-
         it('debería aceptar una solicitud de amistad correctamente', async () => {
             const res = await request(BASE_URL)
                 .post('/api/social/accept')
@@ -184,38 +210,37 @@ describe('Pruebas sobre /api/social', () => {
     });
 
     describe('POST /api/social/reject', () => {
-        beforeEach(async () => {
-            // Crear solicitudes de amistad para las pruebas
-            await db.friendship.destroy({
-                where: {
-                    user1_id: [user1.id, user2.id, user3.id],
-                    user2_id: [user1.id, user2.id, user3.id]
-                }
-            });
+        // Eliminamos el beforeEach que duplica el código
 
-            // Solicitud de user1 a user2
+        it('debería permitir al receptor rechazar una solicitud', async () => {
+            // Creamos una solicitud de user1 a user2 para este test específico
             await db.friendship.create({
                 user1_id: user1.id,
                 user2_id: user2.id,
                 state_friend_request: 'pending'
             });
-        });
 
-        it('debería permitir al receptor rechazar una solicitud', async () => {
             const res = await request(BASE_URL)
                 .post('/api/social/reject')
                 .set('Authorization', `Bearer ${token2}`)
-                .send({ other_user_id: user1.id });
+                .send({ friendId: user1.id });  // Usando friendId consistentemente
 
             expect(res.status).toBe(200);
             expect(res.body.message).toBe('Solicitud de amistad eliminada correctamente');
         });
 
         it('debería permitir al emisor cancelar su solicitud', async () => {
+            // Creamos una solicitud de user1 a user2 para este test
+            await db.friendship.create({
+                user1_id: user1.id,
+                user2_id: user2.id,
+                state_friend_request: 'pending'
+            });
+
             const res = await request(BASE_URL)
                 .post('/api/social/reject')
                 .set('Authorization', `Bearer ${token1}`)
-                .send({ other_user_id: user2.id });
+                .send({ friendId: user2.id });  // Cambiado a friendId por consistencia
 
             expect(res.status).toBe(200);
             expect(res.body.message).toBe('Solicitud de amistad eliminada correctamente');
@@ -224,7 +249,7 @@ describe('Pruebas sobre /api/social', () => {
         it('debería fallar si falta el token', async () => {
             const res = await request(BASE_URL)
                 .post('/api/social/reject')
-                .send({ other_user_id: user1.id });
+                .send({ friendId: user1.id });  // Cambiado a friendId
 
             expect(res.status).toBe(401);
             expect(res.body.error).toBe('Token no proporcionado');
@@ -234,11 +259,10 @@ describe('Pruebas sobre /api/social', () => {
             const res = await request(BASE_URL)
                 .post('/api/social/reject')
                 .set('Authorization', `Bearer ${token1}`)
-                .send({ other_user_id: 99999 });
+                .send({ friendId: 99999 });  // Cambiado a friendId
 
             expect(res.status).toBe(404);
             expect(res.body.error).toBe('Solicitud de amistad no encontrada');
         });
     });
-
 });
