@@ -3,8 +3,7 @@ import axios from "axios";
 
 /**
  * Obtiene la IP local o pública.
- * @param {"local" | "public"} type - Tipo de IP a obtener.
- * @returns {Promise<string>} - Retorna la IP en formato string.
+ * Esta función devuelve la dirección IP según el tipo especificado.
  */
 export async function getIp(type = "local") {
     if (type === "local") {
