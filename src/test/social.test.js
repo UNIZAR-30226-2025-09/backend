@@ -210,7 +210,6 @@ describe('Pruebas sobre /api/social', () => {
     });
 
     describe('POST /api/social/reject', () => {
-        // Eliminamos el beforeEach que duplica el código
 
         it('debería permitir al receptor rechazar una solicitud', async () => {
             // Creamos una solicitud de user1 a user2 para este test específico
@@ -223,7 +222,7 @@ describe('Pruebas sobre /api/social', () => {
             const res = await request(BASE_URL)
                 .post('/api/social/reject')
                 .set('Authorization', `Bearer ${token2}`)
-                .send({ friendId: user1.id });  // Usando friendId consistentemente
+                .send({ friendId: user1.id });
 
             expect(res.status).toBe(200);
             expect(res.body.message).toBe('Solicitud de amistad eliminada correctamente');
@@ -240,7 +239,7 @@ describe('Pruebas sobre /api/social', () => {
             const res = await request(BASE_URL)
                 .post('/api/social/reject')
                 .set('Authorization', `Bearer ${token1}`)
-                .send({ friendId: user2.id });  // Cambiado a friendId por consistencia
+                .send({ friendId: user2.id });
 
             expect(res.status).toBe(200);
             expect(res.body.message).toBe('Solicitud de amistad eliminada correctamente');
@@ -249,7 +248,7 @@ describe('Pruebas sobre /api/social', () => {
         it('debería fallar si falta el token', async () => {
             const res = await request(BASE_URL)
                 .post('/api/social/reject')
-                .send({ friendId: user1.id });  // Cambiado a friendId
+                .send({ friendId: user1.id });
 
             expect(res.status).toBe(401);
             expect(res.body.error).toBe('Token no proporcionado');
@@ -259,7 +258,7 @@ describe('Pruebas sobre /api/social', () => {
             const res = await request(BASE_URL)
                 .post('/api/social/reject')
                 .set('Authorization', `Bearer ${token1}`)
-                .send({ friendId: 99999 });  // Cambiado a friendId
+                .send({ friendId: 99999 });
 
             expect(res.status).toBe(404);
             expect(res.body.error).toBe('Solicitud de amistad no encontrada');

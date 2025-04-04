@@ -1,11 +1,11 @@
 import jwt from 'jsonwebtoken';
 
 /**
- * Genera un token JWT para un usuario dado
- * @param {Object} user - Objeto usuario con al menos una propiedad id
- * @param {string} [secret=process.env.JWT_SECRET || 'aB1cD2eF3GhIjK4LmN5OpQr6StUvWxY7Z'] - Secreto para firmar el token
- * @param {Object} [options={ expiresIn: '24h' }] - Opciones adicionales para el token
- * @returns {string} Token JWT generado
+ * Esta función crea un token JWT para autenticar usuarios.
+ * Recibe un objeto usuario que debe tener al menos un ID.
+ * Opcionalmente acepta un secreto personalizado para firmar el token.
+ * También permite configurar opciones como el tiempo de expiración (por defecto 24 horas).
+ * Devuelve una cadena de texto que representa el token generado.
  */
 export const generateToken = (user, secret = process.env.JWT_SECRET || 'aB1cD2eF3GhIjK4LmN5OpQr6StUvWxY7Z', options = { expiresIn: '24h' }) => {
     return jwt.sign(
