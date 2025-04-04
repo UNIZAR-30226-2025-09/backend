@@ -148,7 +148,7 @@ export const acceptFriendRequest = async (req, res) => {
 export const rejectFriendRequest = async (req, res) => {
     try {
         // Extraemos el token de autorización de las cabeceras
-        const token = req.headers.authorization?.split(' ')[1];  // Obtenemos el token del header 'Authorization'
+        const token = req.headers.authorization?.split(' ')[1];
 
         if (!token) {
             return res.status(401).json({ error: "Token no proporcionado" });
@@ -157,7 +157,6 @@ export const rejectFriendRequest = async (req, res) => {
         // Verificamos y decodificamos el token para obtener el ID del usuario autenticado
         const decoded = jwt.verify(token, process.env.JWT_SECRET || 'aB1cD2eF3GhIjK4LmN5OpQr6StUvWxY7Z');
 
-        // Si no se puede decodificar el token, respondemos con error
         if (!decoded) {
             return res.status(401).json({ error: "Token inválido" });
         }
@@ -183,7 +182,14 @@ export const rejectFriendRequest = async (req, res) => {
             return res.status(404).json({ error: "Solicitud de amistad no encontrada" });
         }
 
-        // Eliminamos la solicitud de amistad
+        // Verificamos que la solicitud esté en estado pendiente
+        if (friendship.state_friend_request !== 'pending') {
+            return res.status(400).json({
+                error: "No se puede eliminar una relación de amistad ya establecida"
+            });
+        }
+
+        // Eliminamos la solicitud de amistad pendiente
         await db.friendship.destroy({
             where: {
                 [Op.or]: [
@@ -199,10 +205,9 @@ export const rejectFriendRequest = async (req, res) => {
         });
 
     } catch (error) {
-        // En caso de error, registramos el error en la consola y respondemos con un error 500
-        console.error("Error al rechazar/eliminar solicitud de amistad:", error);
+        console.error("Error al rechazar solicitud de amistad:", error);
         return res.status(500).json({
-            error: "Error al rechazar/eliminar solicitud de amistad",
+            error: "Error al rechazar solicitud de amistad",
             details: error.message
         });
     }

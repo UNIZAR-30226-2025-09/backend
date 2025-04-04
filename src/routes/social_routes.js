@@ -182,7 +182,7 @@ router.post('/accept', socialController.acceptFriendRequest);
  *   post:
  *     tags:
  *       - Social
- *     description: Rechaza o elimina una solicitud de amistad.
+ *     description: Rechaza o elimina una solicitud de amistad pendiente. No permite eliminar relaciones de amistad ya establecidas.
  *     security:
  *       - bearerAuth: []
  *     requestBody:
@@ -208,6 +208,16 @@ router.post('/accept', socialController.acceptFriendRequest);
  *                 message:
  *                   type: string
  *                   example: "Solicitud de amistad eliminada correctamente"
+ *       400:
+ *         description: Error al intentar eliminar una relación de amistad ya establecida.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "No se puede eliminar una relación de amistad ya establecida"
  *       401:
  *         description: Error de autenticación.
  *         content:

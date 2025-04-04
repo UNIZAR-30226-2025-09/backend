@@ -9,8 +9,8 @@ import { generateToken } from '#test/utils/generateToken';
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 describe('Pruebas sobre /api/social', () => {
-    let token1, token2, token3;
-    let user1, user2, user3;
+    let token1, token2, token3, token4;
+    let user1, user2, user3, user4;
 
     // Configuración inicial antes de las pruebas
     beforeAll(async () => {
@@ -45,19 +45,48 @@ describe('Pruebas sobre /api/social', () => {
             password: hashedPassword
         });
 
+        user4 = await db.user.create({
+            nickname: 'socialtest4',
+            mail: 'socialtest4@test.com',
+            password: hashedPassword
+        });
+
         // Generar tokens para los usuarios
         token1 = generateToken(user1);
         token2 = generateToken(user2);
         token3 = generateToken(user3);
+        token4 = generateToken(user4);
+
+        // Crear una amistad aceptada entre user1 y user4 que persistirá durante todas las pruebas
+        await db.friendship.create({
+            user1_id: user1.id,
+            user2_id: user4.id,
+            state_friend_request: 'accepted'
+        });
     });
 
     beforeEach(async () => {
-        // Limpiamos solicitudes existentes para empezar cada test con estado limpio
+        // Limpiamos solicitudes existentes EXCEPTO la relación aceptada entre user1 y user4
         await db.friendship.destroy({
             where: {
-                [Op.or]: [
-                    { user1_id: [user1?.id, user2?.id, user3?.id].filter(Boolean) },
-                    { user2_id: [user1?.id, user2?.id, user3?.id].filter(Boolean) }
+                [Op.and]: [
+                    {
+                        [Op.or]: [
+                            { user1_id: [user1?.id, user2?.id, user3?.id].filter(Boolean) },
+                            { user2_id: [user1?.id, user2?.id, user3?.id].filter(Boolean) }
+                        ]
+                    },
+                    {
+                        [Op.not]: [
+                            {
+                                [Op.and]: [
+                                    { user1_id: user1?.id },
+                                    { user2_id: user4?.id },
+                                    { state_friend_request: 'accepted' }
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         });
@@ -75,13 +104,13 @@ describe('Pruebas sobre /api/social', () => {
 
     // Limpieza después de todas las pruebas
     afterAll(async () => {
-        if (user1 && user2 && user3) {
-            // Eliminar las solicitudes de amistad
+        if (user1 && user2 && user3 && user4) {
+            // Eliminar TODAS las solicitudes de amistad incluyendo la aceptada
             await db.friendship.destroy({
                 where: {
                     [Op.or]: [
-                        { user1_id: [user1.id, user2.id, user3.id] },
-                        { user2_id: [user1.id, user2.id, user3.id] }
+                        { user1_id: [user1.id, user2.id, user3.id, user4.id] },
+                        { user2_id: [user1.id, user2.id, user3.id, user4.id] }
                     ]
                 }
             });
@@ -89,7 +118,7 @@ describe('Pruebas sobre /api/social', () => {
             // Eliminar los usuarios de prueba
             await db.user.destroy({
                 where: {
-                    id: [user1.id, user2.id, user3.id]
+                    id: [user1.id, user2.id, user3.id, user4.id]
                 }
             });
         }
@@ -262,6 +291,27 @@ describe('Pruebas sobre /api/social', () => {
 
             expect(res.status).toBe(404);
             expect(res.body.error).toBe('Solicitud de amistad no encontrada');
+        });
+
+        it('no debería permitir eliminar una relación de amistad ya aceptada', async () => {
+            // Intentamos eliminar la relación de amistad aceptada entre user1 y user4
+            const res = await request(BASE_URL)
+                .post('/api/social/reject')
+                .set('Authorization', `Bearer ${token1}`)
+                .send({ friendId: user4.id });
+
+            expect(res.status).toBe(400);
+            expect(res.body.error).toBe('No se puede eliminar una relación de amistad ya establecida');
+
+            // Verificamos que la amistad sigue existiendo
+            const checkFriendship = await db.friendship.findOne({
+                where: {
+                    user1_id: user1.id,
+                    user2_id: user4.id
+                }
+            });
+            expect(checkFriendship).not.toBeNull();
+            expect(checkFriendship.state_friend_request).toBe('accepted');
         });
     });
 });
