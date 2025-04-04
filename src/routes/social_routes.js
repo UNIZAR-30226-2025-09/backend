@@ -253,4 +253,6 @@ router.post('/accept', socialController.acceptFriendRequest);
  */
 router.post('/reject', socialController.rejectFriendRequest);
 
+router.post('/searchNewFriends', socialController.searchNewFriends);
+
 export default router;

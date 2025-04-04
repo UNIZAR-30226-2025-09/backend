@@ -212,3 +212,81 @@ export const rejectFriendRequest = async (req, res) => {
         });
     }
 };
+
+// Controlador para buscar usuarios por nickname similar que no sean amigos
+// Este controlador permite buscar usuarios cuyo nickname contenga un texto de búsqueda
+// y que no sean amigos (state_friend_request !== 'accepted') del usuario autenticado.
+export const searchNewFriends = async (req, res) => {
+    try {
+        // Extraemos el token de autorización de las cabeceras
+        const token = req.headers.authorization?.split(' ')[1];
+
+        if (!token) {
+            return res.status(401).json({ error: "Token no proporcionado" });
+        }
+
+        // Verificamos y decodificamos el token para obtener el ID del usuario autenticado
+        const decoded = jwt.verify(token, process.env.JWT_SECRET || 'aB1cD2eF3GhIjK4LmN5OpQr6StUvWxY7Z');
+
+        if (!decoded) {
+            return res.status(401).json({ error: "Token inválido" });
+        }
+
+        // Obtenemos el ID del usuario autenticado
+        const userId = decoded.id;
+
+        // Extraemos el texto de búsqueda de los parámetros de consulta
+        const { search } = req.query;
+
+        if (!search) {
+            return res.status(400).json({ error: "Debes proporcionar un término de búsqueda" });
+        }
+
+        // Primero, obtenemos todos los IDs de los usuarios que ya son amigos (estado 'accepted')
+        const friendships = await db.friendship.findAll({
+            where: {
+                [Op.or]: [
+                    { user1_id: userId },
+                    { user2_id: userId }
+                ],
+                state_friend_request: 'accepted'
+            }
+        });
+
+        // Extraemos los IDs de los amigos
+        const friendIds = friendships.map(friendship =>
+            friendship.user1_id === userId ? friendship.user2_id : friendship.user1_id
+        );
+
+        // Añadimos nuestro propio ID para excluirnos de los resultados
+        friendIds.push(userId);
+
+        // Buscamos usuarios cuyo nickname coincida parcialmente con el texto de búsqueda
+        // y que no estén en la lista de amigos ni sean el propio usuario
+        const potentialFriends = await db.user.findAll({
+            where: {
+                nickname: {
+                    [Op.iLike]: `%${search}%` // Búsqueda case-insensitive
+                },
+                id: {
+                    [Op.notIn]: friendIds
+                }
+            },
+            attributes: ['id', 'nickname', 'user_picture'] // Solo devolvemos información básica
+        });
+
+        // Respondemos con la lista de usuarios encontrados
+        return res.status(200).json({
+            users: potentialFriends,
+            count: potentialFriends.length
+        });
+
+    } catch (error) {
+        console.error("Error al buscar usuarios:", error);
+        return res.status(500).json({
+            error: "Error al buscar usuarios",
+            details: error.message
+        });
+    }
+};
+
