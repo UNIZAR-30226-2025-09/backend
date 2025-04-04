@@ -289,4 +289,3 @@ export const searchNewFriends = async (req, res) => {
         });
     }
 };
-
