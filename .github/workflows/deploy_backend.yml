@@ -21,7 +21,7 @@ jobs:
           key: ${{ secrets.SERVER_SSH_KEY }}  # Clave privada SSH
           script: |
             cd /home/unizar/backend/docker
-            git pull origin main
+            git reset --hard origin/main
             docker compose down -v
             docker system prune -af
             docker volume prune -f
