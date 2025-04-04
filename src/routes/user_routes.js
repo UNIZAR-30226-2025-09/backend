@@ -369,6 +369,6 @@ router.post("/check-email", checkEmailExistence);
  */
 router.get('/:userId', getUserById);
 
-router.post("/users/:id", updateUser);
+router.post("/users/:id", updateUser);  // Sin testear
 
 export default router;
