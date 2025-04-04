@@ -192,9 +192,9 @@ router.post('/accept', socialController.acceptFriendRequest);
  *           schema:
  *             type: object
  *             required:
- *               - other_user_id
+ *               - friendId
  *             properties:
- *               other_user_id:
+ *               friendId:
  *                 type: integer
  *                 description: ID del otro usuario involucrado en la solicitud de amistad.
  *     responses:
