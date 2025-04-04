@@ -120,7 +120,8 @@ router.post('/send', socialController.sendFriendRequest);
  *   post:
  *     tags:
  *       - Social
- *     description: Acepta una solicitud de amistad pendiente.
+ *     summary: Aceptar solicitud de amistad pendiente
+ *     description: Acepta una solicitud de amistad pendiente. Solo el receptor (user2) puede aceptar una solicitud. Verifica que la solicitud exista y esté en estado pendiente, y la actualiza a estado "accepted".
  *     security:
  *       - bearerAuth: []
  *     requestBody:
@@ -134,7 +135,8 @@ router.post('/send', socialController.sendFriendRequest);
  *             properties:
  *               user1_id:
  *                 type: integer
- *                 description: ID del usuario que envió la solicitud de amistad.
+ *                 description: ID del usuario que envió la solicitud de amistad (remitente).
+ *                 example: 3
  *     responses:
  *       200:
  *         description: Solicitud de amistad aceptada correctamente.
@@ -151,8 +153,10 @@ router.post('/send', socialController.sendFriendRequest);
  *                   properties:
  *                     user1_id:
  *                       type: integer
+ *                       example: 3
  *                     user2_id:
  *                       type: integer
+ *                       example: 5
  *                     state_friend_request:
  *                       type: string
  *                       example: "accepted"
@@ -167,7 +171,7 @@ router.post('/send', socialController.sendFriendRequest);
  *                   type: string
  *                   example: "Token no proporcionado"
  *       404:
- *         description: Solicitud de amistad no encontrada.
+ *         description: Solicitud de amistad no encontrada o sin permisos.
  *         content:
  *           application/json:
  *             schema:
@@ -197,7 +201,7 @@ router.post('/accept', socialController.acceptFriendRequest);
  *   post:
  *     tags:
  *       - Social
- *     summary: Rechazar solicitud de amistad
+ *     summary: Rechazar (la recibe) o eliminar (la envia) solicitud de amistad
  *     description: Rechaza o elimina una solicitud de amistad pendiente. Cualquiera de los dos usuarios involucrados (remitente o receptor) puede eliminar la solicitud. No permite eliminar relaciones de amistad ya establecidas (estado 'accepted').
  *     security:
  *       - bearerAuth: []
@@ -348,5 +352,11 @@ router.post('/reject', socialController.rejectFriendRequest);
  *                   type: string
  */
 router.post('/searchNewFriends', socialController.searchNewFriends);
+
+// Listar amigos
+
+// Listar solicitudes de amistad pendientes enviadas
+
+// Listar solicitudes de amistad pendientes recibidas
 
 export default router;
