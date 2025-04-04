@@ -8,9 +8,9 @@ BASE_URL = `http://${IP}:${PORT}`;
 
 export { BASE_URL };
 
-const TOKEN_PATH = './test/token.json';
+const TOKEN_PATH = './src/test/token.json';
 
-const ID_PATH = './test/id.json';
+const ID_PATH = './src/test/id.json';
 
 export function setAuthToken(token) {
     const data = { token };

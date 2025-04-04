@@ -78,3 +78,132 @@ export const sendFriendRequest = async (req, res) => {
         return res.status(500).json({ error: "Error al enviar solicitud de amistad", details: error.message });
     }
 };
+
+// Controlador para aceptar solicitud de amistad
+// Este controlador maneja la aceptación de solicitudes de amistad. Solo el receptor (user2)
+// puede aceptar una solicitud. Verifica que la solicitud exista y esté en estado pendiente,
+// y la actualiza a estado "accepted".
+export const acceptFriendRequest = async (req, res) => {
+    try {
+        // Extraemos el token de autorización de las cabeceras
+        const token = req.headers.authorization?.split(' ')[1];  // Obtenemos el token del header 'Authorization'
+
+        if (!token) {
+            return res.status(401).json({ error: "Token no proporcionado" });
+        }
+
+        // Verificamos y decodificamos el token para obtener el ID del usuario autenticado
+        const decoded = jwt.verify(token, process.env.JWT_SECRET || 'aB1cD2eF3GhIjK4LmN5OpQr6StUvWxY7Z');
+
+        // Si no se puede decodificar el token, respondemos con error
+        if (!decoded) {
+            return res.status(401).json({ error: "Token inválido" });
+        }
+
+        // Obtenemos el ID del usuario autenticado que debe ser el receptor (user2)
+        const user2_id = decoded.id;
+
+        // Extraemos el ID del remitente (user1) desde el cuerpo de la solicitud
+        const { user1_id } = req.body;
+
+        // Buscamos la solicitud de amistad donde el usuario autenticado es el receptor
+        const friendship = await db.friendship.findOne({
+            where: {
+                user1_id: user1_id,
+                user2_id: user2_id,
+                state_friend_request: 'pending'  // La solicitud debe estar pendiente
+            }
+        });
+
+        // Si no existe la solicitud de amistad o no está pendiente
+        if (!friendship) {
+            return res.status(404).json({
+                error: "Solicitud de amistad no encontrada o no tienes permisos para aceptarla"
+            });
+        }
+
+        // Actualizamos el estado de la solicitud a "accepted"
+        await friendship.update({ state_friend_request: 'accepted' });
+
+        // Respondemos con un mensaje de éxito y los detalles de la solicitud actualizada
+        return res.status(200).json({
+            message: "Solicitud de amistad aceptada correctamente",
+            friendship: friendship  // Información de la solicitud actualizada
+        });
+
+    } catch (error) {
+        // En caso de error, registramos el error en la consola y respondemos con un error 500
+        console.error("Error al aceptar solicitud de amistad:", error);
+        return res.status(500).json({
+            error: "Error al aceptar solicitud de amistad",
+            details: error.message
+        });
+    }
+};
+
+// Controlador para rechazar o eliminar solicitud de amistad
+// Este controlador maneja el rechazo o eliminación de solicitudes de amistad. Cualquiera de los
+// dos usuarios involucrados (sender o receiver) puede eliminar la solicitud. Verifica que la
+// solicitud exista y la elimina de la base de datos.
+export const rejectFriendRequest = async (req, res) => {
+    try {
+        // Extraemos el token de autorización de las cabeceras
+        const token = req.headers.authorization?.split(' ')[1];  // Obtenemos el token del header 'Authorization'
+
+        if (!token) {
+            return res.status(401).json({ error: "Token no proporcionado" });
+        }
+
+        // Verificamos y decodificamos el token para obtener el ID del usuario autenticado
+        const decoded = jwt.verify(token, process.env.JWT_SECRET || 'aB1cD2eF3GhIjK4LmN5OpQr6StUvWxY7Z');
+
+        // Si no se puede decodificar el token, respondemos con error
+        if (!decoded) {
+            return res.status(401).json({ error: "Token inválido" });
+        }
+
+        // Obtenemos el ID del usuario autenticado
+        const userId = decoded.id;
+
+        // Extraemos el ID del otro usuario involucrado en la solicitud
+        const { friendId } = req.body;
+
+        // Buscamos la solicitud de amistad que involucre a ambos usuarios
+        const friendship = await db.friendship.findOne({
+            where: {
+                [Op.or]: [
+                    { user1_id: userId, user2_id: friendId },
+                    { user1_id: friendId, user2_id: userId }
+                ]
+            }
+        });
+
+        // Si no existe la solicitud de amistad
+        if (!friendship) {
+            return res.status(404).json({ error: "Solicitud de amistad no encontrada" });
+        }
+
+        // Eliminamos la solicitud de amistad
+        await db.friendship.destroy({
+            where: {
+                [Op.or]: [
+                    { user1_id: userId, user2_id: friendId },
+                    { user1_id: friendId, user2_id: userId }
+                ]
+            }
+        });
+
+        // Respondemos con un mensaje de éxito
+        return res.status(200).json({
+            message: "Solicitud de amistad eliminada correctamente"
+        });
+
+    } catch (error) {
+        // En caso de error, registramos el error en la consola y respondemos con un error 500
+        console.error("Error al rechazar/eliminar solicitud de amistad:", error);
+        return res.status(500).json({
+            error: "Error al rechazar/eliminar solicitud de amistad",
+            details: error.message
+        });
+    }
+};

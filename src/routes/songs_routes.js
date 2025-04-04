@@ -55,7 +55,7 @@ const router = express.Router();
 router.get("/", getAllSongs);
 
 
-router.get("/adds", getAllAdds);
+router.get("/adds", getAllAdds); // Sin testear ni documentar
 
 
 /**
