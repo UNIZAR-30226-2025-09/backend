@@ -45,13 +45,24 @@ describe('Pruebas sobre /api/social', () => {
         token2 = generateToken(user2);
     });
 
+    beforeEach(async () => {
+        // Crear una solicitud de amistad de user3 a user2
+        await db.friendship.create({
+            user1_id: user3.id,
+            user2_id: user2.id,
+            state_friend_request: 'pending'
+        });
+    });
+
     // Limpieza después de todas las pruebas
     afterAll(async () => {
         // Eliminar las solicitudes de amistad creadas durante las pruebas
         await db.friendship.destroy({
             where: {
-                user1_id: [user1.id, user2.id, user3.id],
-                user2_id: [user1.id, user2.id, user3.id]
+                [db.Sequelize.Op.or]: [
+                    { user1_id: [user1.id, user2.id, user3.id] },
+                    { user2_id: [user1.id, user2.id, user3.id] }
+                ]
             }
         });
 
@@ -127,4 +138,107 @@ describe('Pruebas sobre /api/social', () => {
                 expect(res.body.error).toBe('Uno o ambos usuarios no existen');
         });
     });
+
+    describe('POST /api/social/accept', () => {
+        // Primero enviamos una solicitud de amistad para poder aceptarla
+
+        it('debería aceptar una solicitud de amistad correctamente', async () => {
+            const res = await request(BASE_URL)
+                .post('/api/social/accept')
+                .set('Authorization', `Bearer ${token2}`)
+                .send({ user1_id: user3.id });
+
+            expect(res.status).toBe(200);
+            expect(res.body.message).toBe('Solicitud de amistad aceptada correctamente');
+            expect(res.body.friendship.state_friend_request).toBe('accepted');
+        });
+
+        it('debería fallar si falta el token', async () => {
+            const res = await request(BASE_URL)
+                .post('/api/social/accept')
+                .send({ user1_id: user3.id });
+
+            expect(res.status).toBe(401);
+            expect(res.body.error).toBe('Token no proporcionado');
+        });
+
+        it('debería fallar si la solicitud no existe', async () => {
+            const res = await request(BASE_URL)
+                .post('/api/social/accept')
+                .set('Authorization', `Bearer ${token2}`)
+                .send({ user1_id: 99999 });
+
+            expect(res.status).toBe(404);
+            expect(res.body.error).toBe('Solicitud de amistad no encontrada o no tienes permisos para aceptarla');
+        });
+
+        it('debería fallar si otro usuario intenta aceptar la solicitud', async () => {
+            const res = await request(BASE_URL)
+                .post('/api/social/accept')
+                .set('Authorization', `Bearer ${token1}`)
+                .send({ user1_id: user3.id });
+
+            expect(res.status).toBe(404);
+            expect(res.body.error).toBe('Solicitud de amistad no encontrada o no tienes permisos para aceptarla');
+        });
+    });
+
+    describe('POST /api/social/reject', () => {
+        beforeEach(async () => {
+            // Crear solicitudes de amistad para las pruebas
+            await db.friendship.destroy({
+                where: {
+                    user1_id: [user1.id, user2.id, user3.id],
+                    user2_id: [user1.id, user2.id, user3.id]
+                }
+            });
+
+            // Solicitud de user1 a user2
+            await db.friendship.create({
+                user1_id: user1.id,
+                user2_id: user2.id,
+                state_friend_request: 'pending'
+            });
+        });
+
+        it('debería permitir al receptor rechazar una solicitud', async () => {
+            const res = await request(BASE_URL)
+                .post('/api/social/reject')
+                .set('Authorization', `Bearer ${token2}`)
+                .send({ other_user_id: user1.id });
+
+            expect(res.status).toBe(200);
+            expect(res.body.message).toBe('Solicitud de amistad eliminada correctamente');
+        });
+
+        it('debería permitir al emisor cancelar su solicitud', async () => {
+            const res = await request(BASE_URL)
+                .post('/api/social/reject')
+                .set('Authorization', `Bearer ${token1}`)
+                .send({ other_user_id: user2.id });
+
+            expect(res.status).toBe(200);
+            expect(res.body.message).toBe('Solicitud de amistad eliminada correctamente');
+        });
+
+        it('debería fallar si falta el token', async () => {
+            const res = await request(BASE_URL)
+                .post('/api/social/reject')
+                .send({ other_user_id: user1.id });
+
+            expect(res.status).toBe(401);
+            expect(res.body.error).toBe('Token no proporcionado');
+        });
+
+        it('debería fallar si la solicitud no existe', async () => {
+            const res = await request(BASE_URL)
+                .post('/api/social/reject')
+                .set('Authorization', `Bearer ${token1}`)
+                .send({ other_user_id: 99999 });
+
+            expect(res.status).toBe(404);
+            expect(res.body.error).toBe('Solicitud de amistad no encontrada');
+        });
+    });
+
 });

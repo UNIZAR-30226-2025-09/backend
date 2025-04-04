@@ -1,4 +1,4 @@
-import db from '#src/models/index';
+import db from '#models/index';
 import {existsSync, writeFileSync} from "fs";
 
 const TOKEN_PATH = './test/token.json';
