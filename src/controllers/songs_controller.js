@@ -1,4 +1,4 @@
-import db from "#src/models/index"; // Importa el modelo de canciones
+import db from "#src/models/index";
 
 /**
  * Obtiene todas las canciones disponibles en la base de datos.
@@ -11,6 +11,19 @@ export const getAllSongs = async (req, res) => {
         console.error("Error al obtener las canciones:", error);
         res.status(500).json({ message: "Error al obtener las canciones", error: error.message });
     }
+};
+
+export const getAllAdds = async (req, res) => {
+  try {
+      const adds = await db.song.findAll(
+          {where: {type: "anuncio"},
+          });
+
+      res.status(200).json(adds);
+  }   catch (error){
+      console.error("Error al obtener los anuncios:", error);
+      res.status(500).json({ message: "Error al obtener los anuncios", error: error.message });
+  }
 };
 
 /**

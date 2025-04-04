@@ -1,5 +1,6 @@
 import express from "express";
-import { getAllSongs, getSongById } from "#src/controllers/songs_controller";
+
+import {getAllAdds, getAllSongs, getSongById} from "#src/controllers/songs_controller";
 
 const router = express.Router();
 
@@ -52,6 +53,10 @@ const router = express.Router();
  *         description: Error interno del servidor
  */
 router.get("/", getAllSongs);
+
+
+router.get("/adds", getAllAdds);
+
 
 /**
  * @swagger
