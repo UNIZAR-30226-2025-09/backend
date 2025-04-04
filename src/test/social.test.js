@@ -396,13 +396,17 @@ describe('Pruebas sobre /api/social', () => {
                 .set('Authorization', `Bearer ${token2}`)
                 .query({ search: searchTerm });
 
-            // Para user1: user4 no debe aparecer (ya es amigo)
+            // Para user1: user4 no debe aparecer (ya es amigo) pero user2 y user3 sí deben aparecer
             const foundIds1 = res1.body.users.map(user => user.id);
             expect(foundIds1).not.toContain(user4.id);
+            expect(foundIds1).toContain(user2.id);
+            expect(foundIds1).toContain(user3.id);
 
-            // Para user2: user3 no debe aparecer (ya es amigo)
+            // Para user2: user3 no debe aparecer (ya es amigo) pero user1 y user4 sí deben aparecer
             const foundIds2 = res2.body.users.map(user => user.id);
             expect(foundIds2).not.toContain(user3.id);
+            expect(foundIds2).toContain(user1.id);
+            expect(foundIds2).toContain(user4.id);
 
             // Limpiamos la amistad creada para este test
             await db.friendship.destroy({
