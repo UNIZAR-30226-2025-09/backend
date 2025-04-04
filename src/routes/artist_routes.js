@@ -16,7 +16,7 @@ const router = express.Router();
 
 /**
  * @swagger
- * /api/artists:
+ * /api/artist/artists:
  *   get:
  *     tags:
  *       - Artists
@@ -177,6 +177,6 @@ router.get("/artists", artistController.getAllArtists);
  *                   type: string
  *                   example: "Error interno del servidor"
  */
-router.get("/:artistId", artistController.getArtistDetails);
+router.get("/:artistId", artistController.getArtistDetails); // Sin testear
 
 export default router;
