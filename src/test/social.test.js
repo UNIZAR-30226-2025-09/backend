@@ -448,7 +448,10 @@ describe('Pruebas sobre /api/social', () => {
 
             // Limpiamos la solicitud creada para este test
             await db.friendship.destroy({
-                where: { id: testFriendshipId }
+                where: {
+                    user1_id: user1.id,
+                    user2_id: user2.id
+                }
             });
         });
 
