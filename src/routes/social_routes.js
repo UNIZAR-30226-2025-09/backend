@@ -353,10 +353,228 @@ router.post('/reject', socialController.rejectFriendRequest);
  */
 router.post('/searchNewFriends', socialController.searchNewFriends);
 
-// Listar amigos
+/**
+ * @swagger
+ * /api/social/getSentFriendRequests:
+ *   post:
+ *     tags:
+ *       - Social
+ *     summary: Obtener solicitudes de amistad enviadas por el usuario
+ *     description: Devuelve todas las solicitudes de amistad donde el usuario autenticado es el remitente y el estado es 'pending'.
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Lista de solicitudes enviadas obtenida correctamente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 sentRequests:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       friendId:
+ *                         type: integer
+ *                         description: ID del usuario al que se envió la solicitud
+ *                         example: 2
+ *                       nickname:
+ *                         type: string
+ *                         description: Nombre de usuario del destinatario
+ *                         example: "usuario123"
+ *                       user_picture:
+ *                         type: string
+ *                         description: URL de la imagen de perfil del destinatario
+ *                         example: "https://example.com/user_picture.jpg"
+ *                       state:
+ *                         type: string
+ *                         description: Estado de la solicitud de amistad
+ *                         example: "pending"
+ *                 count:
+ *                   type: integer
+ *                   description: Número total de solicitudes enviadas
+ *                   example: 3
+ *       401:
+ *         description: Error de autenticación
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Token no proporcionado"
+ *       404:
+ *         description: Usuario no encontrado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Usuario no encontrado"
+ *       500:
+ *         description: Error interno del servidor
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Error al obtener solicitudes enviadas"
+ *                 details:
+ *                   type: string
+ */
+router.post('/getSentFriendRequests', socialController.getSentFriendRequests);
 
-// Listar solicitudes de amistad pendientes enviadas
+/**
+ * @swagger
+ * /api/social/getReceivedFriendRequests:
+ *   post:
+ *     tags:
+ *       - Social
+ *     summary: Obtener solicitudes de amistad recibidas por el usuario
+ *     description: Devuelve todas las solicitudes de amistad donde el usuario autenticado es el receptor y el estado es 'pending'.
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Lista de solicitudes recibidas obtenida correctamente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 receivedRequests:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       friendId:
+ *                         type: integer
+ *                         description: ID del usuario que envió la solicitud
+ *                         example: 3
+ *                       nickname:
+ *                         type: string
+ *                         description: Nombre de usuario del remitente
+ *                         example: "usuario456"
+ *                       user_picture:
+ *                         type: string
+ *                         description: URL de la imagen de perfil del remitente
+ *                         example: "https://example.com/user_picture.jpg"
+ *                       state:
+ *                         type: string
+ *                         description: Estado de la solicitud de amistad
+ *                         example: "pending"
+ *                 count:
+ *                   type: integer
+ *                   description: Número total de solicitudes recibidas
+ *                   example: 2
+ *       401:
+ *         description: Error de autenticación
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Token no proporcionado"
+ *       404:
+ *         description: Usuario no encontrado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Usuario no encontrado"
+ *       500:
+ *         description: Error interno del servidor
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Error al obtener solicitudes recibidas"
+ *                 details:
+ *                   type: string
+ */
+router.post('/getReceivedFriendRequests', socialController.getReceivedFriendRequests);
 
-// Listar solicitudes de amistad pendientes recibidas
+/**
+ * @swagger
+ * /api/social/getFriendsList:
+ *   post:
+ *     tags:
+ *       - Social
+ *     summary: Obtener lista de amigos del usuario
+ *     description: Devuelve todas las relaciones de amistad aceptadas donde el usuario autenticado es parte de la relación (ya sea como remitente o receptor).
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Lista de amigos obtenida correctamente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 friends:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       friendshipId:
+ *                         type: string
+ *                         description: Identificador único de la relación de amistad
+ *                         example: "1_2"
+ *                       friendId:
+ *                         type: integer
+ *                         description: ID del usuario amigo
+ *                         example: 2
+ *                       nickname:
+ *                         type: string
+ *                         description: Nombre de usuario del amigo
+ *                         example: "amigo123"
+ *                       user_picture:
+ *                         type: string
+ *                         description: URL de la imagen de perfil del amigo
+ *                         example: "https://example.com/user_picture.jpg"
+ *                 count:
+ *                   type: integer
+ *                   description: Número total de amigos
+ *                   example: 3
+ *       401:
+ *         description: Error de autenticación
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Token no proporcionado"
+ *       500:
+ *         description: Error interno del servidor
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Error al obtener lista de amigos"
+ *                 details:
+ *                   type: string
+ */
+router.post('/getFriendsList', socialController.getFriendsList);
 
 export default router;
