@@ -280,8 +280,8 @@ router.post('/reject', socialController.rejectFriendRequest);
  *   post:
  *     tags:
  *       - Social
- *     summary: Buscar usuarios que no son amigos
- *     description: Busca usuarios cuyo nickname coincida parcialmente con el texto de búsqueda y que no sean amigos actuales del usuario autenticado (state_friend_request != 'accepted'). No se incluye al propio usuario en los resultados.
+ *     summary: Buscar usuarios que no tienen ninguna relación
+ *     description: Busca usuarios cuyo nickname coincida parcialmente con el texto de búsqueda y que no tengan ningún tipo de relación con el usuario autenticado (ni amistad aceptada ni solicitudes pendientes). No se incluye al propio usuario en los resultados.
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -352,6 +352,70 @@ router.post('/reject', socialController.rejectFriendRequest);
  *                   type: string
  */
 router.post('/searchNewFriends', socialController.searchNewFriends);
+
+/**
+ * @swagger
+ * /api/social/getNewFriends:
+ *   post:
+ *     tags:
+ *       - Social
+ *     summary: Obtener usuarios sin ninguna relación
+ *     description: Devuelve todos los usuarios del sistema que no tienen ningún tipo de relación (ni amistad aceptada ni solicitudes pendientes) con el usuario autenticado. No incluye al propio usuario en los resultados.
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Lista de usuarios potenciales para amistad obtenida correctamente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 users:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       id:
+ *                         type: integer
+ *                         description: ID único del usuario
+ *                         example: 4
+ *                       nickname:
+ *                         type: string
+ *                         description: Nombre de usuario
+ *                         example: "usuario456"
+ *                       user_picture:
+ *                         type: string
+ *                         description: URL de la imagen de perfil
+ *                         example: "https://example.com/user_picture.jpg"
+ *                 count:
+ *                   type: integer
+ *                   description: Número total de usuarios encontrados
+ *                   example: 5
+ *       401:
+ *         description: Error de autenticación
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Token no proporcionado"
+ *       500:
+ *         description: Error interno del servidor
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Error al obtener usuarios potenciales"
+ *                 details:
+ *                   type: string
+ */
+router.post('/getNewFriends', socialController.getNewFriends);
 
 /**
  * @swagger
