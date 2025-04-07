@@ -221,7 +221,10 @@ router.get("/profile", getUserProfile);
  *   post:
  *     tags:
  *       - Users
- *     description: Permite actualizar la información del usuario.
+ *     summary: Actualiza el perfil del usuario autenticado
+ *     description: Permite actualizar nickname, correo y/o contraseña del usuario. Verifica que no existan otros usuarios con el mismo correo o nickname.
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -249,9 +252,13 @@ router.get("/profile", getUserProfile);
  *                 message:
  *                   type: string
  *                   description: Mensaje de éxito.
+ *                   example: "Perfil actualizado correctamente"
  *                 user:
  *                   type: object
  *                   properties:
+ *                     id:
+ *                       type: integer
+ *                       description: ID del usuario.
  *                     nickname:
  *                       type: string
  *                       description: Nombre del usuario.
@@ -264,12 +271,70 @@ router.get("/profile", getUserProfile);
  *                     is_premium:
  *                       type: boolean
  *                       description: Estado premium del usuario.
+ *                     user_picture:
+ *                       type: string
+ *                       description: URL de la imagen de perfil del usuario.
  *       400:
- *         description: Debes proporcionar al menos un campo para actualizar.
+ *         description: Error en la solicitud.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Debes proporcionar al menos un campo para actualizar"
+ *                   description: Mensaje indicando el problema, también se usa para "Correo ya registrado".
  *       401:
- *         description: Token no proporcionado o inválido.
+ *         description: Error de autenticación.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Token no proporcionado"
+ *       403:
+ *         description: Token inválido o expirado.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Token inválido o expirado"
+ *       404:
+ *         description: Usuario no encontrado.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Usuario no encontrado"
+ *       409:
+ *         description: Conflicto - Nombre de usuario ya registrado.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Nombre de usuario ya registrado"
  *       500:
  *         description: Error al actualizar perfil.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Error al actualizar perfil"
  */
 router.post("/update", updateUserProfile);
 
