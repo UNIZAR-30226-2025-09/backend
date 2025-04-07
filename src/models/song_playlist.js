@@ -5,5 +5,6 @@ export default (sequelize, DataTypes) => {
         date: { type: DataTypes.DATE },
     }, { tableName: "song_playlist", timestamps: false });
 
+    
     return song_playlist;
 };

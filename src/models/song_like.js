@@ -14,6 +14,7 @@ export default (sequelize, DataTypes) => {
         tableName: 'song_like',   // Especifica el nombre de la tabla
         timestamps: false         // No usaremos los campos `createdAt` y `updatedAt` en este modelo
     });
+    
 
     return song_like;
 };

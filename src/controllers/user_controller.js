@@ -388,3 +388,126 @@ export const updateUser = async (req, res) => {
         return res.status(500).json({ error: "Error al actualizar el perfil", message: error.message });
     }
 };
+
+/**
+ * Obtiene el género predominante de las canciones de una playlist
+ */
+async function getPlaylistGenre(playlistId) {
+    // Obtener los IDs de las canciones de la playlist
+    const songIds = await db.song_playlist.findAll({
+        where: { playlist_id: playlistId },
+        attributes: ['song_id']  // Solo necesitamos los IDs de las canciones
+    });
+
+    // Obtener los géneros de las canciones correspondientes
+    const genres = await db.song.findAll({
+        where: {
+            id: songIds.map(song => song.song_id),  // Mapear los song_ids a los géneros de las canciones
+        },
+        attributes: ['genre']  // Solo necesitamos los géneros
+    });
+
+    // Contar los géneros
+    const genreCount = genres.reduce((acc, song) => {
+        acc[song.genre] = (acc[song.genre] || 0) + 1;
+        return acc;
+    }, {});
+
+    // Determinar el género predominante
+    let maxCount = 0;
+    let predominantGenre = null;
+    for (const genre in genreCount) {
+        if (genreCount[genre] > maxCount) {
+            maxCount = genreCount[genre];
+            predominantGenre = genre;
+        }
+    }
+
+    return predominantGenre;
+}
+
+/**
+ * Actualiza el estilo favorito del usuario en base a sus likes de canciones y playlists
+ */
+async function updateUserFavoriteStyle(userId) {
+    // Obtener las canciones que le gustan al usuario
+    const likedSongs = await db.song_like.findAll({
+        where: { user_id: userId },
+        attributes: ['song_id']  // Solo necesitamos los IDs de las canciones
+    });
+
+    // Obtener los géneros de las canciones que le gustan al usuario
+    const songGenres = await db.song.findAll({
+        where: {
+            id: likedSongs.map(like => like.song_id)  // Mapear los song_ids a los géneros de las canciones
+        },
+        attributes: ['genre']
+    });
+
+    const likedGenres = songGenres.map(song => song.genre);
+
+    // Obtener las playlists que le gustan al usuario
+    const likedPlaylists = await db.playlist_like.findAll({
+        where: { user_id: userId },
+        attributes: ['playlist_id']
+    });
+
+    const playlistGenres = [];
+    for (let i = 0; i < likedPlaylists.length; i++) {
+        const playlistId = likedPlaylists[i].playlist_id;
+        const predominantGenre = await getPlaylistGenre(playlistId);
+        playlistGenres.push(predominantGenre);
+    }
+
+    // Combinar los géneros de canciones y playlists
+    const allGenres = [...likedGenres, ...playlistGenres];
+
+    // Contar las frecuencias de cada género
+    const genreCount = allGenres.reduce((acc, genre) => {
+        acc[genre] = (acc[genre] || 0) + 1;
+        return acc;
+    }, {});
+
+    // Determinar el género predominante
+    let maxCount = 0;
+    let favoriteStyle = null;
+    for (const genre in genreCount) {
+        if (genreCount[genre] > maxCount) {
+            maxCount = genreCount[genre];
+            favoriteStyle = genre;
+        }
+    }
+
+    // Actualizamos el estilo favorito del usuario
+    const user = await db.user.findByPk(userId);
+    if (user) {
+        user.style_fav = favoriteStyle;
+        await user.save();
+    }
+
+    return favoriteStyle;
+}
+
+
+/**
+ * Actualizar el estilo favorito del usuario en su perfil
+ */
+export const updateUserFavoriteStyleInProfile = async (req, res) => {
+    try {
+        const token = req.headers.authorization?.split(" ")[1];
+        if (!token) return res.status(401).json({ error: "❌ Token no proporcionado" });
+
+        let decoded;
+        try {
+            decoded = jwt.verify(token, SECRET_KEY);
+        } catch (error) {
+            return res.status(403).json({ error: "⚠ Token inválido o expirado" });
+        }
+
+        const favoriteStyle = await updateUserFavoriteStyle(decoded.id);
+        return res.status(200).json({ message: "Estilo favorito actualizado", style_fav: favoriteStyle });
+    } catch (error) {
+        console.error("❌ Error al actualizar estilo favorito:", error);
+        return res.status(500).json({ error: "Error al actualizar el estilo favorito" });
+    }
+};
