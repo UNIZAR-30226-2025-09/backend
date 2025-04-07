@@ -14,25 +14,31 @@ const router = express.Router();
  * @swagger
  * /api/user/register:
  *   post:
+ *     summary: Registra un nuevo usuario en el sistema
  *     tags:
  *       - Users
- *     description: Registra un nuevo usuario en la base de datos.
+ *     description: Registra un nuevo usuario en la base de datos. Verifica que el correo y el nickname no estén ya registrados.
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
  *             type: object
+ *             required:
+ *               - nickname
+ *               - password
+ *               - mail
  *             properties:
  *               nickname:
  *                 type: string
- *                 description: El nombre del usuario.
+ *                 description: El nombre de usuario único para el registro.
  *               password:
  *                 type: string
- *                 description: La contraseña del usuario.
+ *                 description: La contraseña del usuario (será hasheada antes de almacenarse).
  *               mail:
  *                 type: string
- *                 description: El correo electrónico del usuario.
+ *                 format: email
+ *                 description: El correo electrónico único del usuario.
  *     responses:
  *       201:
  *         description: Usuario registrado con éxito.
@@ -43,13 +49,14 @@ const router = express.Router();
  *               properties:
  *                 message:
  *                   type: string
+ *                   example: "Usuario registrado con éxito"
  *                   description: Mensaje de éxito.
  *                 user:
  *                   type: object
  *                   properties:
  *                     id:
  *                       type: integer
- *                       description: ID del usuario.
+ *                       description: ID del usuario creado.
  *                     nickname:
  *                       type: string
  *                       description: Nombre del usuario.
@@ -58,14 +65,40 @@ const router = express.Router();
  *                       description: Correo electrónico del usuario.
  *                     style_fav:
  *                       type: string
- *                       description: Estilo favorito del usuario.
+ *                       description: Estilo favorito del usuario (por defecto "ninguno").
  *                     is_premium:
  *                       type: boolean
- *                       description: Estado premium del usuario.
+ *                       description: Estado premium del usuario (por defecto false).
  *       400:
  *         description: El correo ya está registrado.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Correo ya registrado"
+ *       409:
+ *         description: El nombre de usuario ya está registrado.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Nombre de usuario ya registrado"
  *       500:
- *         description: Error al registrar usuario.
+ *         description: Error interno al registrar usuario.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Error al registrar usuario"
  */
 router.post("/register", registerUser);
 

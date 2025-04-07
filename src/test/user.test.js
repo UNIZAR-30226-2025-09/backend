@@ -102,14 +102,62 @@ describe('Pruebas de registro e inicio de sesión', () => {
             .post('/api/user/register')
             .send(newUser);
 
-        if (response.status === 201 || response.status === 200) {
+        if (response.status === 201) {
             created = true;
-        } else if (response.status === 400) {
+        } else if (response.status === 400 || response.status === 409) {
             console.warn("Usuario ya existía, intentando login igual...");
             created = true;
         }
 
-        expect([200, 201, 400]).toContain(response.status);
+        expect([201, 400, 409]).toContain(response.status);
+    });
+
+    it('POST /api/user/register - debe rechazar correo repetido con código 400', async () => {
+        // Primero aseguramos que el usuario original esté registrado
+        const initialResponse = await request(BASE_URL)
+            .post('/api/user/register')
+            .send(newUser);
+
+        // Verificamos que se haya registrado o ya exista
+        expect([201, 400, 409]).toContain(initialResponse.status);
+
+        // Intentamos registrar otro usuario con el mismo correo
+        const userWithDuplicateEmail = {
+            nickname: 'otroUsuarioPrueba',
+            mail: newUser.mail, // Correo duplicado del newUser
+            password: 'clave123'
+        };
+
+        const response = await request(BASE_URL)
+            .post('/api/user/register')
+            .send(userWithDuplicateEmail);
+
+        expect(response.status).toBe(400);
+        expect(response.body.error).toBe("Correo ya registrado");
+    });
+
+    it('POST /api/user/register - debe rechazar nickname repetido con código 409', async () => {
+        // Primero aseguramos que el usuario original esté registrado
+        const initialResponse = await request(BASE_URL)
+            .post('/api/user/register')
+            .send(newUser);
+
+        // Verificamos que se haya registrado o ya exista
+        expect([201, 400, 409]).toContain(initialResponse.status);
+
+        // Intentamos registrar otro usuario con el mismo nickname
+        const userWithDuplicateNickname = {
+            nickname: newUser.nickname, // Nickname duplicado del newUser
+            mail: 'otro_correo_diferente_jkh18s9chbak@example.com',
+            password: 'clave123'
+        };
+
+        const response = await request(BASE_URL)
+            .post('/api/user/register')
+            .send(userWithDuplicateNickname);
+
+        expect(response.status).toBe(409);
+        expect(response.body.error).toBe("Nombre de usuario ya registrado");
     });
 
     it('POST /api/user/login - debe iniciar sesión con el nuevo usuario', async () => {
@@ -125,5 +173,4 @@ describe('Pruebas de registro e inicio de sesión', () => {
         expect(response.body.token).toBeDefined();
         expect(response.body.user.mail).toBe(newUser.mail);
     });
-
 });
