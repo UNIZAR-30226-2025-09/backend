@@ -15,6 +15,7 @@ const SECRET_KEY = "aB1cD2eF3GhIjK4LmN5OpQr6StUvWxY7Z";
  *
  * - Recibe: `nickname`, `password`, `mail`, `style_fav`
  * - Verifica si el correo ya está registrado.
+ * - Verifica si el nickname ya está registrado.
  * - Hashea la contraseña antes de almacenarla en la base de datos.
  * - Devuelve un mensaje de éxito con los datos del usuario registrado.
  */
@@ -24,13 +25,18 @@ export const registerUser = async (req, res) => {
     const is_premium = false;
 
     try {
-        // Verificar si el usuario ya existe en la base de datos
-        const userExists = await db.user.findOne({ where: { mail } });
+        // Verificar si el correo electrónico ya existe en la base de datos
+        const mailExists = await db.user.findOne({ where: { mail } });
 
-        console.log("Usuario encontrado:", userExists);
+        if (mailExists) {
+            return res.status(400).json({ error: "Correo ya registrado"});
+        }
 
-        if (userExists) {
-            return res.status(400).json({ error: "Correo ya registrado" });
+        // Verificar si el nickname ya existe en la base de datos
+        const nicknameExists = await db.user.findOne({ where: { nickname } });
+
+        if (nicknameExists) {
+            return res.status(409).json({ error: "Nombre de usuario ya registrado"});
         }
 
         // Hashear la contraseña antes de guardarla
