@@ -316,7 +316,7 @@ describe('Pruebas sobre /api/social', () => {
     });
 
     describe('POST /api/social/searchNewFriends', () => {
-        it('debería buscar usuarios por nickname sin incluir amigos', async () => {
+        it('debería buscar usuarios por nickname sin incluir cualquier tipo de relación', async () => {
             const searchTerm = 'socialtest';
 
             const res = await request(BASE_URL)
@@ -329,16 +329,46 @@ describe('Pruebas sobre /api/social', () => {
             expect(Array.isArray(res.body.users)).toBe(true);
             expect(res.body.count).toBeDefined();
 
-            // Verificar que user2 y user3 aparecen en los resultados (no son amigos de user1)
+            // Verificar que user2 y user3 aparecen en los resultados (no tienen relación con user1)
             const foundIds = res.body.users.map(user => user.id);
             expect(foundIds).toContain(user2.id);
             expect(foundIds).toContain(user3.id);
 
-            // Verificar que user4 NO aparece en los resultados (ya es amigo de user1)
+            // Verificar que user4 NO aparece en los resultados (es amigo de user1)
             expect(foundIds).not.toContain(user4.id);
 
             // Verificar que el propio usuario (user1) no aparece en los resultados
             expect(foundIds).not.toContain(user1.id);
+        });
+
+        it('debería excluir usuarios con solicitudes pendientes', async () => {
+            // Crear una solicitud pendiente entre user1 y user3
+            await db.friendship.create({
+                user1_id: user1.id,
+                user2_id: user3.id,
+                state_friend_request: 'pending'
+            });
+
+            const searchTerm = 'socialtest';
+
+            const res = await request(BASE_URL)
+                .post('/api/social/searchNewFriends')
+                .set('Authorization', `Bearer ${token1}`)
+                .query({ search: searchTerm });
+
+            // La respuesta debe incluir a user2 pero no a user3 (pendiente) ni a user4 (amigo)
+            const foundIds = res.body.users.map(user => user.id);
+            expect(foundIds).toContain(user2.id);
+            expect(foundIds).not.toContain(user3.id);
+            expect(foundIds).not.toContain(user4.id);
+
+            // Eliminar la solicitud pendiente
+            await db.friendship.destroy({
+                where: {
+                    user1_id: user1.id,
+                    user2_id: user3.id
+                }
+            });
         });
 
         it('debería devolver array vacío si no hay coincidencias', async () => {
@@ -372,6 +402,23 @@ describe('Pruebas sobre /api/social', () => {
 
             expect(res.status).toBe(401);
             expect(res.body.error).toBe('Token no proporcionado');
+        });
+
+        it('debería verificar que se retornan los campos correctos', async () => {
+            const res = await request(BASE_URL)
+                .post('/api/social/searchNewFriends')
+                .set('Authorization', `Bearer ${token1}`)
+                .query({ search: 'socialtest' });
+
+            expect(res.status).toBe(200);
+
+            // Verificar que cada usuario tenga solo los campos especificados
+            res.body.users.forEach(user => {
+                expect(Object.keys(user).sort()).toEqual(['id', 'nickname', 'user_picture'].sort());
+                expect(user.id).toBeDefined();
+                expect(user.nickname).toBeDefined();
+                expect(user.user_picture).toBeDefined();
+            });
         });
 
         it('debería mostrar diferentes resultados según el usuario autenticado', async () => {
@@ -414,6 +461,153 @@ describe('Pruebas sobre /api/social', () => {
                     user1_id: user2.id,
                     user2_id: user3.id
                 }
+            });
+        });
+    });
+
+    describe('POST /api/social/getNewFriends', () => {
+        it('debería obtener usuarios sin ningún tipo de relación con el usuario autenticado', async () => {
+            const res = await request(BASE_URL)
+                .post('/api/social/getNewFriends')
+                .set('Authorization', `Bearer ${token1}`);
+
+            expect(res.status).toBe(200);
+            expect(res.body.users).toBeDefined();
+            expect(Array.isArray(res.body.users)).toBe(true);
+            expect(res.body.count).toBeDefined();
+
+            // Verificar que user2 y user3 aparecen en los resultados (no tienen relación con user1)
+            const foundIds = res.body.users.map(user => user.id);
+            expect(foundIds).toContain(user2.id);
+            expect(foundIds).toContain(user3.id);
+
+            // Verificar que user4 NO aparece en los resultados (ya es amigo de user1)
+            expect(foundIds).not.toContain(user4.id);
+
+            // Verificar que el propio usuario (user1) no aparece en los resultados
+            expect(foundIds).not.toContain(user1.id);
+        });
+
+        it('debería excluir todos los usuarios con alguna relación', async () => {
+            // Crear amistad temporal entre user1 y los usuarios de prueba
+            await db.friendship.bulkCreate([
+                { user1_id: user1.id, user2_id: user2.id, state_friend_request: 'accepted' },
+                { user1_id: user1.id, user2_id: user3.id, state_friend_request: 'pending' }
+            ]);
+
+            const res = await request(BASE_URL)
+                .post('/api/social/getNewFriends')
+                .set('Authorization', `Bearer ${token1}`);
+
+            expect(res.status).toBe(200);
+            expect(res.body.users).toBeDefined();
+            expect(Array.isArray(res.body.users)).toBe(true);
+
+            // Verificar que ninguno de los usuarios de prueba aparece en los resultados
+            const foundIds = res.body.users.map(user => user.id);
+            expect(foundIds).not.toContain(user1.id); // El propio usuario
+            expect(foundIds).not.toContain(user2.id); // Amistad aceptada
+            expect(foundIds).not.toContain(user3.id); // Solicitud pendiente
+            expect(foundIds).not.toContain(user4.id); // Amistad preexistente
+
+            // Limpiar relaciones temporales
+            await db.friendship.destroy({
+                where: {
+                    [Op.or]: [
+                        { user1_id: user1.id, user2_id: user2.id },
+                        { user1_id: user1.id, user2_id: user3.id }
+                    ]
+                }
+            });
+        });
+
+        it('debería fallar si falta el token de autenticación', async () => {
+            const res = await request(BASE_URL)
+                .post('/api/social/getNewFriends');
+
+            expect(res.status).toBe(401);
+            expect(res.body.error).toBe('Token no proporcionado');
+        });
+
+        it('debería excluir usuarios con solicitudes pendientes', async () => {
+            // Crear una solicitud pendiente entre user1 y user3
+            await db.friendship.create({
+                user1_id: user1.id,
+                user2_id: user3.id,
+                state_friend_request: 'pending'
+            });
+
+            const res = await request(BASE_URL)
+                .post('/api/social/getNewFriends')
+                .set('Authorization', `Bearer ${token1}`);
+
+            // La respuesta debe incluir a user2 pero no a user3 (pendiente) ni a user4 (amigo)
+            const foundIds = res.body.users.map(user => user.id);
+            expect(foundIds).toContain(user2.id);
+            expect(foundIds).not.toContain(user3.id);
+            expect(foundIds).not.toContain(user4.id);
+
+            // Eliminar la solicitud pendiente
+            await db.friendship.destroy({
+                where: {
+                    user1_id: user1.id,
+                    user2_id: user3.id
+                }
+            });
+        });
+
+        it('debería mostrar diferentes resultados según el usuario autenticado', async () => {
+            // Crear una amistad entre user2 y user3 para este test específico
+            await db.friendship.create({
+                user1_id: user2.id,
+                user2_id: user3.id,
+                state_friend_request: 'accepted'
+            });
+
+            // Obtener resultados para user1
+            const res1 = await request(BASE_URL)
+                .post('/api/social/getNewFriends')
+                .set('Authorization', `Bearer ${token1}`);
+
+            // Obtener resultados para user2
+            const res2 = await request(BASE_URL)
+                .post('/api/social/getNewFriends')
+                .set('Authorization', `Bearer ${token2}`);
+
+            // Para user1: user4 no debe aparecer (ya es amigo) pero user2 y user3 sí deben aparecer
+            const foundIds1 = res1.body.users.map(user => user.id);
+            expect(foundIds1).not.toContain(user4.id);
+            expect(foundIds1).toContain(user2.id);
+            expect(foundIds1).toContain(user3.id);
+
+            // Para user2: user3 no debe aparecer (ya es amigo) pero user1 y user4 sí deben aparecer
+            const foundIds2 = res2.body.users.map(user => user.id);
+            expect(foundIds2).not.toContain(user3.id);
+            expect(foundIds2).toContain(user1.id);
+            expect(foundIds2).toContain(user4.id);
+
+            // Limpiamos la amistad creada para este test
+            await db.friendship.destroy({
+                where: {
+                    user1_id: user2.id,
+                    user2_id: user3.id
+                }
+            });
+        });
+
+        it('debería verificar que se retornan los campos correctos', async () => {
+            const res = await request(BASE_URL)
+                .post('/api/social/getNewFriends')
+                .set('Authorization', `Bearer ${token1}`);
+
+            expect(res.status).toBe(200);
+
+            // Verificar que cada usuario tenga solo los campos especificados
+            res.body.users.forEach(user => {
+                expect(Object.keys(user).sort()).toEqual(['id', 'nickname', 'user_picture'].sort());
+                expect(user.id).toBeDefined();
+                expect(user.nickname).toBeDefined();
+                expect(user.user_picture).toBeDefined();
             });
         });
     });
