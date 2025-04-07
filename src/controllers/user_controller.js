@@ -2,6 +2,7 @@ import db from "#src/models/index";
 import bcrypt from "bcryptjs"; // Importamos bcrypt para el hashing de contraseñas
 import jwt from "jsonwebtoken";
 import path from 'path';
+import { Op, Sequelize } from "sequelize"; // Asegúrate de importar Sequelize
 import { fileURLToPath } from 'url';
 import { appendFile, open } from 'fs/promises';
 
@@ -485,9 +486,60 @@ async function updateUserFavoriteStyle(userId) {
         await user.save();
     }
 
-    return favoriteStyle;
+    // Llamamos a la función para obtener las playlists recomendadas
+    const recommendedPlaylists = await getRecommendedPlaylists(favoriteStyle);
+
+    return { favoriteStyle, recommendedPlaylists };
 }
 
+/**
+ * Obtiene las playlists recomendadas que coinciden con el estilo favorito del usuario
+ */
+async function getRecommendedPlaylists(favoriteStyle) {
+    // Obtener las playlists de tipo 'Vibra' y 'public' (typeP=null, type=public)
+    const playlists = await db.playlist.findAll({
+        where: {
+            [Op.or]: [
+                { typeP: 'Vibra' },
+                { typeP: null, type: 'public' }
+            ]
+        },
+        attributes: ['id', 'name', 'front_page']  // Solo obtenemos los atributos que necesitamos
+    });
+
+    // Filtrar las playlists que tienen al menos una canción que coincida con el estilo favorito
+    const recommendedPlaylists = [];
+
+    for (const playlist of playlists) {
+        // Obtener las canciones de la playlist
+        const songIds = await db.song_playlist.findAll({
+            where: { playlist_id: playlist.id },
+            attributes: ['song_id']  // Solo obtenemos los IDs de las canciones
+        });
+
+        // Obtener los géneros de las canciones de la playlist
+        const songGenres = await db.song.findAll({
+            where: {
+                id: songIds.map(song => song.song_id)  // Usamos los song_ids para obtener los géneros
+            },
+            attributes: ['genre']  // Solo necesitamos el género
+        });
+
+        // Comprobar si alguna de las canciones tiene el género que coincide con el estilo favorito
+        const playlistGenres = songGenres.map(song => song.genre);
+        if (playlistGenres.includes(favoriteStyle)) {
+            recommendedPlaylists.push(playlist);  // Agregar la playlist si hay coincidencia
+        }
+    }
+
+    // Limitar a 8 playlists y devolver aleatorias si hay más
+    if (recommendedPlaylists.length > 8) {
+        const randomPlaylists = recommendedPlaylists.sort(() => 0.5 - Math.random()).slice(0, 8);
+        return randomPlaylists;
+    }
+
+    return recommendedPlaylists;
+}
 
 /**
  * Actualizar el estilo favorito del usuario en su perfil
@@ -504,10 +556,47 @@ export const updateUserFavoriteStyleInProfile = async (req, res) => {
             return res.status(403).json({ error: "⚠ Token inválido o expirado" });
         }
 
-        const favoriteStyle = await updateUserFavoriteStyle(decoded.id);
-        return res.status(200).json({ message: "Estilo favorito actualizado", style_fav: favoriteStyle });
+        const { favoriteStyle} = await updateUserFavoriteStyle(decoded.id);
+        return res.status(200).json({
+            message: "Estilo favorito actualizado",
+            style_fav: favoriteStyle,
+        });
     } catch (error) {
         console.error("❌ Error al actualizar estilo favorito:", error);
         return res.status(500).json({ error: "Error al actualizar el estilo favorito" });
     }
 };
+
+// Nueva ruta para obtener playlists recomendadas
+export const getRecommendedPlaylistsForUser = async (req, res) => {
+    try {
+        const token = req.headers.authorization?.split(" ")[1];
+        if (!token) return res.status(401).json({ error: "❌ Token no proporcionado" });
+
+        let decoded;
+        try {
+            decoded = jwt.verify(token, SECRET_KEY); // Decodifica el token
+        } catch (error) {
+            return res.status(403).json({ error: "⚠ Token inválido o expirado" });
+        }
+
+        const userId = parseInt(decoded.id, 10); // Convertimos el ID a número entero
+
+        if (isNaN(userId)) {
+            return res.status(400).json({ error: "ID de usuario inválido" });
+        }
+
+        // Obtener el estilo favorito del usuario
+        const { favoriteStyle } = await updateUserFavoriteStyle(userId);
+
+        // Obtener las playlists recomendadas basadas en el estilo favorito
+        const recommendedPlaylists = await getRecommendedPlaylists(favoriteStyle);
+
+        // Devolver las playlists recomendadas al frontend
+        return res.status(200).json({ recommendedPlaylists });
+    } catch (error) {
+        console.error("❌ Error al obtener las playlists recomendadas:", error);
+        return res.status(500).json({ error: "Error al obtener las playlists recomendadas" });
+    }
+};
+

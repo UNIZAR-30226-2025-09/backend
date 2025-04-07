@@ -1,5 +1,5 @@
 import express from "express";
-import { registerUser, loginUser, logoutUser, getUserProfile, updateUserProfile, updatePremiumStatus, checkEmailExistence, getUserById, updateUser, updateUserFavoriteStyleInProfile} from "#src/controllers/user_controller";
+import { registerUser, loginUser, logoutUser, getUserProfile, updateUserProfile, updatePremiumStatus, checkEmailExistence, getUserById, updateUser, updateUserFavoriteStyleInProfile, getRecommendedPlaylistsForUser} from "#src/controllers/user_controller";
 
 const router = express.Router();
 
@@ -325,6 +325,8 @@ router.post("/premium", updatePremiumStatus);
  */
 router.post("/check-email", checkEmailExistence);
 
+router.get("/recommended-playlists", getRecommendedPlaylistsForUser);
+
 /**
  * @swagger
  * /api/user/{userId}:
@@ -371,6 +373,7 @@ router.get('/:userId', getUserById);
 
 router.post("/users/:id", updateUser);  // Sin testear
 
-router.post("/updateStyle", updateUserFavoriteStyleInProfile)
+router.post("/updateStyle", updateUserFavoriteStyleInProfile) //funciona bien falta la docu
+
 
 export default router;
