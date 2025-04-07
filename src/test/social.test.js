@@ -417,4 +417,202 @@ describe('Pruebas sobre /api/social', () => {
             });
         });
     });
+
+    describe('POST /api/social/getSentFriendRequests', () => {
+        let testFriendshipId;
+
+        it('debería obtener las solicitudes de amistad enviadas', async () => {
+            // Creamos una solicitud de user1 a user2 para este test
+            const friendship = await db.friendship.create({
+                user1_id: user1.id,
+                user2_id: user2.id,
+                state_friend_request: 'pending'
+            });
+
+            testFriendshipId = friendship.id;
+
+            const res = await request(BASE_URL)
+                .post('/api/social/getSentFriendRequests')
+                .set('Authorization', `Bearer ${token1}`);
+
+            expect(res.status).toBe(200);
+            expect(res.body.sentRequests).toBeDefined();
+            expect(Array.isArray(res.body.sentRequests)).toBe(true);
+            expect(res.body.count).toBeDefined();
+
+            // Verificar que la solicitud a user2 aparece en los resultados
+            const foundRequest = res.body.sentRequests.find(req => req.friendId === user2.id);
+            expect(foundRequest).toBeDefined();
+            expect(foundRequest.nickname).toBe('socialtest2');
+            expect(foundRequest.state).toBe('pending');
+
+            // Limpiamos la solicitud creada para este test
+            await db.friendship.destroy({
+                where: { id: testFriendshipId }
+            });
+        });
+
+        it('debería devolver un array vacío si no hay solicitudes enviadas', async () => {
+            const res = await request(BASE_URL)
+                .post('/api/social/getSentFriendRequests')
+                .set('Authorization', `Bearer ${token2}`);
+
+            expect(res.status).toBe(200);
+            expect(res.body.sentRequests).toBeDefined();
+            expect(Array.isArray(res.body.sentRequests)).toBe(true);
+            expect(res.body.sentRequests.length).toBe(0);
+            expect(res.body.count).toBe(0);
+        });
+
+        it('debería fallar si no hay token de autenticación', async () => {
+            const res = await request(BASE_URL)
+                .post('/api/social/getSentFriendRequests');
+
+            expect(res.status).toBe(401);
+            expect(res.body.error).toBe('Token no proporcionado');
+        });
+
+        it('debería fallar con token inválido', async () => {
+            const res = await request(BASE_URL)
+                .post('/api/social/getSentFriendRequests')
+                .set('Authorization', 'Bearer tokeninvalido123');
+
+            expect(res.status).toBeGreaterThanOrEqual(401);
+            expect(res.body.error).toBeDefined();
+        });
+    });
+
+    describe('POST /api/social/getReceivedFriendRequests', () => {
+        it('debería obtener las solicitudes de amistad recibidas', async () => {
+            // user3 ya tiene una solicitud enviada a user2 (creada en beforeEach)
+            const res = await request(BASE_URL)
+                .post('/api/social/getReceivedFriendRequests')
+                .set('Authorization', `Bearer ${token2}`);
+
+            expect(res.status).toBe(200);
+            expect(res.body.receivedRequests).toBeDefined();
+            expect(Array.isArray(res.body.receivedRequests)).toBe(true);
+            expect(res.body.count).toBeDefined();
+
+            // Verificar que la solicitud de user3 aparece en los resultados
+            const foundRequest = res.body.receivedRequests.find(req => req.friendId === user3.id);
+            expect(foundRequest).toBeDefined();
+            expect(foundRequest.nickname).toBe('socialtest3');
+            expect(foundRequest.state).toBe('pending');
+        });
+
+        it('debería devolver un array vacío si no hay solicitudes recibidas', async () => {
+            const res = await request(BASE_URL)
+                .post('/api/social/getReceivedFriendRequests')
+                .set('Authorization', `Bearer ${token1}`);
+
+            expect(res.status).toBe(200);
+            expect(res.body.receivedRequests).toBeDefined();
+            expect(Array.isArray(res.body.receivedRequests)).toBe(true);
+            expect(res.body.receivedRequests.length).toBe(0);
+            expect(res.body.count).toBe(0);
+        });
+
+        it('debería fallar si no hay token de autenticación', async () => {
+            const res = await request(BASE_URL)
+                .post('/api/social/getReceivedFriendRequests');
+
+            expect(res.status).toBe(401);
+            expect(res.body.error).toBe('Token no proporcionado');
+        });
+
+        it('debería fallar con token inválido', async () => {
+            const res = await request(BASE_URL)
+                .post('/api/social/getReceivedFriendRequests')
+                .set('Authorization', 'Bearer tokeninvalido123');
+
+            expect(res.status).toBeGreaterThanOrEqual(401);
+            expect(res.body.error).toBeDefined();
+        });
+    });
+
+    describe('POST /api/social/getFriendsList', () => {
+        it('debería obtener la lista de amigos del usuario', async () => {
+            // user1 ya tiene una amistad aceptada con user4 (creada en beforeAll)
+            const res = await request(BASE_URL)
+                .post('/api/social/getFriendsList')
+                .set('Authorization', `Bearer ${token1}`);
+
+            expect(res.status).toBe(200);
+            expect(res.body.friends).toBeDefined();
+            expect(Array.isArray(res.body.friends)).toBe(true);
+            expect(res.body.count).toBeDefined();
+
+            // Verificar que user4 aparece como amigo de user1
+            const foundFriend = res.body.friends.find(friend => friend.friendId === user4.id);
+            expect(foundFriend).toBeDefined();
+            expect(foundFriend.nickname).toBe('socialtest4');
+            expect(foundFriend.friendshipId).toBeDefined();
+        });
+
+        it('debería devolver un array vacío si el usuario no tiene amigos', async () => {
+            const res = await request(BASE_URL)
+                .post('/api/social/getFriendsList')
+                .set('Authorization', `Bearer ${token2}`);
+
+            expect(res.status).toBe(200);
+            expect(res.body.friends).toBeDefined();
+            expect(Array.isArray(res.body.friends)).toBe(true);
+            expect(res.body.friends.length).toBe(0);
+            expect(res.body.count).toBe(0);
+        });
+
+        it('debería incluir amistades donde el usuario es receptor (user2)', async () => {
+            // Crear una amistad aceptada donde user3 es el remitente y user2 el receptor
+            await db.friendship.update(
+                { state_friend_request: 'accepted' },
+                {
+                    where: {
+                        user1_id: user3.id,
+                        user2_id: user2.id
+                    }
+                }
+            );
+
+            const res = await request(BASE_URL)
+                .post('/api/social/getFriendsList')
+                .set('Authorization', `Bearer ${token2}`);
+
+            expect(res.status).toBe(200);
+            expect(res.body.friends.length).toBe(1);
+            expect(res.body.friends[0].friendId).toBe(user3.id);
+            expect(res.body.friends[0].nickname).toBe('socialtest3');
+            expect(res.body.friends[0].friendshipId).toBe(`${user3.id}_${user2.id}`);
+        });
+
+        it('debería incluir amistades donde el usuario es remitente (user1)', async () => {
+            // La amistad entre user1 y user4 ya existe (user1 es remitente)
+            const res = await request(BASE_URL)
+                .post('/api/social/getFriendsList')
+                .set('Authorization', `Bearer ${token1}`);
+
+            expect(res.status).toBe(200);
+            expect(res.body.friends.length).toBe(1);
+            expect(res.body.friends[0].friendId).toBe(user4.id);
+            expect(res.body.friends[0].nickname).toBe('socialtest4');
+            expect(res.body.friends[0].friendshipId).toBe(`${user1.id}_${user4.id}`);
+        });
+
+        it('debería fallar si no hay token de autenticación', async () => {
+            const res = await request(BASE_URL)
+                .post('/api/social/getFriendsList');
+
+            expect(res.status).toBe(401);
+            expect(res.body.error).toBe('Token no proporcionado');
+        });
+
+        it('debería fallar con token inválido', async () => {
+            const res = await request(BASE_URL)
+                .post('/api/social/getFriendsList')
+                .set('Authorization', 'Bearer tokeninvalido123');
+
+            expect(res.status).toBeGreaterThanOrEqual(401);
+            expect(res.body.error).toBeDefined();
+        });
+    });
 });
