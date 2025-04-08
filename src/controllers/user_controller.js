@@ -20,8 +20,7 @@ const SECRET_KEY = "aB1cD2eF3GhIjK4LmN5OpQr6StUvWxY7Z";
  * - Devuelve un mensaje de éxito con los datos del usuario registrado.
  */
 export const registerUser = async (req, res) => {
-    const { nickname, password, mail} = req.body;
-    const style_fav = "ninguno"
+    const { nickname, password, mail, style_fav} = req.body;
     const is_premium = false;
 
     try {
@@ -469,66 +468,79 @@ async function updateUserFavoriteStyle(userId) {
         return acc;
     }, {});
 
-    // Determinar el género predominante
+    // Determinar los géneros predominantes
     let maxCount = 0;
-    let favoriteStyle = null;
+    const favoriteStyles = [];
     for (const genre in genreCount) {
         if (genreCount[genre] > maxCount) {
             maxCount = genreCount[genre];
-            favoriteStyle = genre;
+            favoriteStyles.length = 0; // Reiniciar la lista si encontramos un nuevo máximo
+            favoriteStyles.push(genre);
+        } else if (genreCount[genre] === maxCount) {
+            favoriteStyles.push(genre); // Agregar géneros empatados
         }
     }
 
     // Actualizamos el estilo favorito del usuario
     const user = await db.user.findByPk(userId);
     if (user) {
-        user.style_fav = favoriteStyle;
+        // Si no hay géneros predominantes, mantener el estilo favorito actual
+        if (favoriteStyles.length === 0) {
+            favoriteStyles.push(user.style_fav || "ninguno"); // Mantener el estilo actual o usar "ninguno"
+        } else {
+            user.style_fav = favoriteStyles[0]; // Guardar el primer estilo como referencia
+        }
+
         await user.save();
     }
 
-    // Llamamos a la función para obtener las playlists recomendadas
-    const recommendedPlaylists = await getRecommendedPlaylists(favoriteStyle);
+    // Llamamos a la función para obtener las playlists recomendadas para todos los estilos
+    const recommendedPlaylists = [];
+    for (const style of favoriteStyles) {
+        const playlists = await getRecommendedPlaylists(style);
+        recommendedPlaylists.push(...playlists); // Agregar playlists de cada estilo
+    }
 
-    return { favoriteStyle, recommendedPlaylists };
+    return { favoriteStyles, recommendedPlaylists };
 }
 
 /**
- * Obtiene las playlists recomendadas que coinciden con el estilo favorito del usuario
+ * Obtiene las playlists recomendadas donde el estilo favorito del usuario es el género predominante
  */
-async function getRecommendedPlaylists(favoriteStyle) {
-    // Obtener las playlists de tipo 'Vibra' y 'public' (typeP=null, type=public)
-    const playlists = await db.playlist.findAll({
+async function getRecommendedPlaylists(favoriteStyle, currentUserId) {
+    // Obtener las playlists de tipo 'Vibra'
+    const vibraPlaylists = await db.playlist.findAll({
         where: {
-            [Op.or]: [
-                { typeP: 'Vibra' },
-                { typeP: null, type: 'public' }
-            ]
+            typeP: 'Vibra'
         },
-        attributes: ['id', 'name', 'front_page']  // Solo obtenemos los atributos que necesitamos
+        attributes: ['id', 'name', 'front_page']
+    });
+    
+    // Obtener las playlists públicas, excluyendo las del usuario actual
+    const userPublicPlaylists = await db.playlist.findAll({
+        where: {
+            typeP: null,
+            type: 'public',
+            user_id: {
+                [Op.ne]: currentUserId  // Excluir las del usuario actual
+            }
+        },
+        attributes: ['id', 'name', 'front_page']
     });
 
-    // Filtrar las playlists que tienen al menos una canción que coincida con el estilo favorito
+    // Combinar ambos conjuntos de playlists
+    const playlists = [...vibraPlaylists, ...userPublicPlaylists];
+
+    // Filtrar playlists donde el género predominante coincide con el estilo favorito
     const recommendedPlaylists = [];
 
     for (const playlist of playlists) {
-        // Obtener las canciones de la playlist
-        const songIds = await db.song_playlist.findAll({
-            where: { playlist_id: playlist.id },
-            attributes: ['song_id']  // Solo obtenemos los IDs de las canciones
-        });
+        // Obtener el género predominante de la playlist
+        const predominantGenre = await getPlaylistGenre(playlist.id);
 
-        // Obtener los géneros de las canciones de la playlist
-        const songGenres = await db.song.findAll({
-            where: {
-                id: songIds.map(song => song.song_id)  // Usamos los song_ids para obtener los géneros
-            },
-            attributes: ['genre']  // Solo necesitamos el género
-        });
-
-        // Comprobar si alguna de las canciones tiene el género que coincide con el estilo favorito
-        const playlistGenres = songGenres.map(song => song.genre);
-        if (playlistGenres.includes(favoriteStyle)) {
-            recommendedPlaylists.push(playlist);  // Agregar la playlist si hay coincidencia
+        // Solo agregar la playlist si su género predominante coincide con el estilo favorito
+        if (predominantGenre === favoriteStyle) {
+            recommendedPlaylists.push(playlist);
         }
     }
 
@@ -556,10 +568,10 @@ export const updateUserFavoriteStyleInProfile = async (req, res) => {
             return res.status(403).json({ error: "⚠ Token inválido o expirado" });
         }
 
-        const { favoriteStyle} = await updateUserFavoriteStyle(decoded.id);
+        const { favoriteStyles } = await updateUserFavoriteStyle(decoded.id);
         return res.status(200).json({
             message: "Estilo favorito actualizado",
-            style_fav: favoriteStyle,
+            style_fav: favoriteStyles,
         });
     } catch (error) {
         console.error("❌ Error al actualizar estilo favorito:", error);
@@ -587,10 +599,14 @@ export const getRecommendedPlaylistsForUser = async (req, res) => {
         }
 
         // Obtener el estilo favorito del usuario
-        const { favoriteStyle } = await updateUserFavoriteStyle(userId);
+        const { favoriteStyles } = await updateUserFavoriteStyle(userId);
 
-        // Obtener las playlists recomendadas basadas en el estilo favorito
-        const recommendedPlaylists = await getRecommendedPlaylists(favoriteStyle);
+        // Obtener las playlists recomendadas para todos los estilos favoritos
+        const recommendedPlaylists = [];
+        for (const style of favoriteStyles) {
+            const playlists = await getRecommendedPlaylists(style, userId);
+            recommendedPlaylists.push(...playlists); // Agregar playlists de cada estilo
+        }
 
         // Devolver las playlists recomendadas al frontend
         return res.status(200).json({ recommendedPlaylists });
