@@ -2,6 +2,7 @@ import db from "#src/models/index";
 import bcrypt from "bcryptjs"; // Importamos bcrypt para el hashing de contraseñas
 import jwt from "jsonwebtoken";
 import path from 'path';
+import { Op, Sequelize } from "sequelize"; // Asegúrate de importar Sequelize
 import { fileURLToPath } from 'url';
 import { appendFile, open } from 'fs/promises';
 
@@ -20,8 +21,7 @@ const SECRET_KEY = "aB1cD2eF3GhIjK4LmN5OpQr6StUvWxY7Z";
  * - Devuelve un mensaje de éxito con los datos del usuario registrado.
  */
 export const registerUser = async (req, res) => {
-    const { nickname, password, mail} = req.body;
-    const style_fav = "ninguno"
+    const { nickname, password, mail, style_fav} = req.body;
     const is_premium = false;
 
     try {
@@ -410,3 +410,231 @@ export const updateUser = async (req, res) => {
         return res.status(500).json({ error: "Error al actualizar el perfil", message: error.message });
     }
 };
+
+/**
+ * Obtiene el género predominante de las canciones de una playlist
+ */
+async function getPlaylistGenre(playlistId) {
+    // Obtener los IDs de las canciones de la playlist
+    const songIds = await db.song_playlist.findAll({
+        where: { playlist_id: playlistId },
+        attributes: ['song_id']  // Solo necesitamos los IDs de las canciones
+    });
+
+    // Obtener los géneros de las canciones correspondientes
+    const genres = await db.song.findAll({
+        where: {
+            id: songIds.map(song => song.song_id),  // Mapear los song_ids a los géneros de las canciones
+        },
+        attributes: ['genre']  // Solo necesitamos los géneros
+    });
+
+    // Contar los géneros
+    const genreCount = genres.reduce((acc, song) => {
+        acc[song.genre] = (acc[song.genre] || 0) + 1;
+        return acc;
+    }, {});
+
+    // Determinar el género predominante
+    let maxCount = 0;
+    let predominantGenre = null;
+    for (const genre in genreCount) {
+        if (genreCount[genre] > maxCount) {
+            maxCount = genreCount[genre];
+            predominantGenre = genre;
+        }
+    }
+
+    return predominantGenre;
+}
+
+/**
+ * Actualiza el estilo favorito del usuario en base a sus likes de canciones y playlists
+ */
+async function updateUserFavoriteStyle(userId) {
+    // Obtener las canciones que le gustan al usuario
+    const likedSongs = await db.song_like.findAll({
+        where: { user_id: userId },
+        attributes: ['song_id']  // Solo necesitamos los IDs de las canciones
+    });
+
+    // Obtener los géneros de las canciones que le gustan al usuario
+    const songGenres = await db.song.findAll({
+        where: {
+            id: likedSongs.map(like => like.song_id)  // Mapear los song_ids a los géneros de las canciones
+        },
+        attributes: ['genre']
+    });
+
+    const likedGenres = songGenres.map(song => song.genre);
+
+    // Obtener las playlists que le gustan al usuario
+    const likedPlaylists = await db.playlist_like.findAll({
+        where: { user_id: userId },
+        attributes: ['playlist_id']
+    });
+
+    const playlistGenres = [];
+    for (let i = 0; i < likedPlaylists.length; i++) {
+        const playlistId = likedPlaylists[i].playlist_id;
+        const predominantGenre = await getPlaylistGenre(playlistId);
+        playlistGenres.push(predominantGenre);
+    }
+
+    // Combinar los géneros de canciones y playlists
+    const allGenres = [...likedGenres, ...playlistGenres];
+
+    // Contar las frecuencias de cada género
+    const genreCount = allGenres.reduce((acc, genre) => {
+        acc[genre] = (acc[genre] || 0) + 1;
+        return acc;
+    }, {});
+
+    // Determinar los géneros predominantes
+    let maxCount = 0;
+    const favoriteStyles = [];
+    for (const genre in genreCount) {
+        if (genreCount[genre] > maxCount) {
+            maxCount = genreCount[genre];
+            favoriteStyles.length = 0; // Reiniciar la lista si encontramos un nuevo máximo
+            favoriteStyles.push(genre);
+        } else if (genreCount[genre] === maxCount) {
+            favoriteStyles.push(genre); // Agregar géneros empatados
+        }
+    }
+
+    // Actualizamos el estilo favorito del usuario
+    const user = await db.user.findByPk(userId);
+    if (user) {
+        // Si no hay géneros predominantes, mantener el estilo favorito actual
+        if (favoriteStyles.length === 0) {
+            favoriteStyles.push(user.style_fav || "ninguno"); // Mantener el estilo actual o usar "ninguno"
+        } else {
+            user.style_fav = favoriteStyles[0]; // Guardar el primer estilo como referencia
+        }
+
+        await user.save();
+    }
+
+    // Llamamos a la función para obtener las playlists recomendadas para todos los estilos
+    const recommendedPlaylists = [];
+    for (const style of favoriteStyles) {
+        const playlists = await getRecommendedPlaylists(style);
+        recommendedPlaylists.push(...playlists); // Agregar playlists de cada estilo
+    }
+
+    return { favoriteStyles, recommendedPlaylists };
+}
+
+/**
+ * Obtiene las playlists recomendadas donde el estilo favorito del usuario es el género predominante
+ */
+async function getRecommendedPlaylists(favoriteStyle, currentUserId) {
+    // Obtener las playlists de tipo 'Vibra'
+    const vibraPlaylists = await db.playlist.findAll({
+        where: {
+            typeP: 'Vibra'
+        },
+        attributes: ['id', 'name', 'front_page']
+    });
+    
+    // Obtener las playlists públicas, excluyendo las del usuario actual
+    const userPublicPlaylists = await db.playlist.findAll({
+        where: {
+            typeP: null,
+            type: 'public',
+            user_id: {
+                [Op.ne]: currentUserId  // Excluir las del usuario actual
+            }
+        },
+        attributes: ['id', 'name', 'front_page']
+    });
+
+    // Combinar ambos conjuntos de playlists
+    const playlists = [...vibraPlaylists, ...userPublicPlaylists];
+
+    // Filtrar playlists donde el género predominante coincide con el estilo favorito
+    const recommendedPlaylists = [];
+
+    for (const playlist of playlists) {
+        // Obtener el género predominante de la playlist
+        const predominantGenre = await getPlaylistGenre(playlist.id);
+
+        // Solo agregar la playlist si su género predominante coincide con el estilo favorito
+        if (predominantGenre === favoriteStyle) {
+            recommendedPlaylists.push(playlist);
+        }
+    }
+
+    // Limitar a 8 playlists y devolver aleatorias si hay más
+    if (recommendedPlaylists.length > 8) {
+        const randomPlaylists = recommendedPlaylists.sort(() => 0.5 - Math.random()).slice(0, 8);
+        return randomPlaylists;
+    }
+
+    return recommendedPlaylists;
+}
+
+/**
+ * Actualizar el estilo favorito del usuario en su perfil
+ */
+export const updateUserFavoriteStyleInProfile = async (req, res) => {
+    try {
+        const token = req.headers.authorization?.split(" ")[1];
+        if (!token) return res.status(401).json({ error: "❌ Token no proporcionado" });
+
+        let decoded;
+        try {
+            decoded = jwt.verify(token, SECRET_KEY);
+        } catch (error) {
+            return res.status(403).json({ error: "⚠ Token inválido o expirado" });
+        }
+
+        const { favoriteStyles } = await updateUserFavoriteStyle(decoded.id);
+        return res.status(200).json({
+            message: "Estilo favorito actualizado",
+            style_fav: favoriteStyles,
+        });
+    } catch (error) {
+        console.error("❌ Error al actualizar estilo favorito:", error);
+        return res.status(500).json({ error: "Error al actualizar el estilo favorito" });
+    }
+};
+
+// Nueva ruta para obtener playlists recomendadas
+export const getRecommendedPlaylistsForUser = async (req, res) => {
+    try {
+        const token = req.headers.authorization?.split(" ")[1];
+        if (!token) return res.status(401).json({ error: "❌ Token no proporcionado" });
+
+        let decoded;
+        try {
+            decoded = jwt.verify(token, SECRET_KEY); // Decodifica el token
+        } catch (error) {
+            return res.status(403).json({ error: "⚠ Token inválido o expirado" });
+        }
+
+        const userId = parseInt(decoded.id, 10); // Convertimos el ID a número entero
+
+        if (isNaN(userId)) {
+            return res.status(400).json({ error: "ID de usuario inválido" });
+        }
+
+        // Obtener el estilo favorito del usuario
+        const { favoriteStyles } = await updateUserFavoriteStyle(userId);
+
+        // Obtener las playlists recomendadas para todos los estilos favoritos
+        const recommendedPlaylists = [];
+        for (const style of favoriteStyles) {
+            const playlists = await getRecommendedPlaylists(style, userId);
+            recommendedPlaylists.push(...playlists); // Agregar playlists de cada estilo
+        }
+
+        // Devolver las playlists recomendadas al frontend
+        return res.status(200).json({ recommendedPlaylists });
+    } catch (error) {
+        console.error("❌ Error al obtener las playlists recomendadas:", error);
+        return res.status(500).json({ error: "Error al obtener las playlists recomendadas" });
+    }
+};
+
