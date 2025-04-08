@@ -89,12 +89,12 @@ export const likePlaylist = async (req, res) => {
 
             return res.json({ message: "Like eliminado correctamente", liked: false });
         } else {
-            console.log("📝 Intentando insertar:", { user_id, playlist_id });
+            console.log("Intentando insertar:", { user_id, playlist_id });
 
             const userIdNumber = Number(user_id);
             const playlistIdNumber = Number(playlist_id);
 
-            console.log("📝 Verificando tipos:", { userIdNumber, playlistIdNumber });
+            console.log("Verificando tipos:", { userIdNumber, playlistIdNumber });
 
             const newLike = db.playlist_like.build({
                 user_id: user_id,
@@ -235,6 +235,20 @@ export const getPlaylistById = async (req, res) => {
     }
 };
 
+/**
+ * Verifica si una playlist específica ha sido marcada como favorita por un usuario.
+ *
+ * Esta función realiza una solicitud GET al endpoint `/playlists/:id/like` con el ID de usuario
+ * como parámetro de consulta para comprobar si existe una relación de "me gusta" entre
+ * el usuario y la playlist especificada.
+ *
+ * @param playlistId El ID de la playlist a verificar
+ * @param userId El ID del usuario para el cual se verifica el estado de favorito
+ * @return true si la playlist está marcada como favorita por el usuario, false en caso contrario
+ *         También devuelve false en caso de error en la solicitud
+ *
+ * @throws IOException Si ocurre un error durante la comunicación con el servidor
+ */
 export const checkIfLiked = async (req, res) => {
     const { id } = req.params;  // ID de la playlist
     const { user_id } = req.query;  // ID del usuario desde la query
@@ -388,7 +402,19 @@ export const getLikedSongPlaylist = async (req, res) => {
     }
 };
 
-// obtener las playlist de un usuario
+/**
+* Retrieves all playlists created by a specific user, excluding the default "Me Gusta" playlist.
+*
+* @param {Object} req - Express request object containing the user ID in the URL parameters
+* @param {Object} req.params - URL parameters object
+* @param {string} req.params.userId - The ID of the user whose playlists are being retrieved
+* @param {Object} res - Express response object
+* @returns {Object} - JSON response containing either:
+*                    - Status 200 and an array of playlist objects if successful
+*                    - Status 400 and an error message if the user ID is invalid
+*                    - Status 500 and an error message if a server error occurs
+* @throws {Error} - If there's an issue with the database query
+*/
 export const getUserPlaylists = async (req, res) => {
     try {
         const userId = Number(req.params.userId);
@@ -414,7 +440,21 @@ export const getUserPlaylists = async (req, res) => {
     }
 };
 
-// anadir cancion a una playlist
+/**
+* Adds a song to a specific playlist if it doesn't already exist in that playlist.
+*
+* @param {Object} req - Express request object
+* @param {Object} req.params - URL parameters object
+* @param {string} req.params.id - The ID of the playlist to add the song to
+* @param {Object} req.body - Request body containing the song ID
+* @param {number} req.body.songId - The ID of the song to be added to the playlist
+* @param {Object} res - Express response object
+* @returns {Object} - JSON response containing either:
+*                    - Status 200, success message, and the new entry details if successful
+*                    - Status 400 and an error message if the playlist ID is invalid, songId is missing, or the song already exists in the playlist
+*                    - Status 500 and an error message if a server error occurs
+* @throws {Error} - If there's an issue with the database query
+*/
 export const addSongToPlaylist = async (req, res) => {
     try {
         const playlistId = Number(req.params.id);
@@ -446,6 +486,22 @@ export const addSongToPlaylist = async (req, res) => {
     }
 };
 
+/**
+* Removes a song from a specific playlist.
+*
+* @param {Object} req - Express request object
+* @param {Object} req.params - URL parameters object
+* @param {string} req.params.id - The ID of the playlist to remove the song from
+* @param {Object} req.body - Request body containing the song ID
+* @param {number} req.body.songId - The ID of the song to be removed from the playlist
+* @param {Object} res - Express response object
+* @returns {Object} - JSON response containing either:
+*                    - Status 200 and success message if the song was successfully removed
+*                    - Status 400 and an error message if the playlist ID is invalid or songId is missing
+*                    - Status 404 and an error message if the song was not found in the playlist
+*                    - Status 500 and an error message if a server error occurs
+* @throws {Error} - If there's an issue with the database operation
+*/
 export const deleteSongToPlaylist = async (req, res) => {
     try {
         const playlistId = Number(req.params.id);
