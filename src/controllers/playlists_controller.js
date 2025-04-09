@@ -661,3 +661,60 @@ export const getPlaylistsBySongId = async (req, res) => {
         });
     }
 };
+
+/**
+ * Checks if a user is the owner of a playlist.
+ *
+ * @param {Object} req - Express request object
+ * @param {Object} req.params - URL parameters object
+ * @param {string} req.params.playlistId - The ID of the playlist to check
+ * @param {string} req.params.userId - The ID of the user to check for ownership
+ * @param {Object} res - Express response object
+ * @returns {Object} - JSON response containing either:
+ *                    - Status 200 and an ownership status (true/false)
+ *                    - Status 400 and an error message if IDs are invalid
+ *                    - Status 404 if the playlist doesn't exist
+ *                    - Status 500 and an error message if a server error occurs
+ * @throws {Error} - If there's an issue with the database operations
+ */
+export const checkPlaylistOwnership = async (req, res) => {
+    try {
+        const playlistId = Number(req.params.playlistId);
+        const userId = Number(req.params.userId);
+
+        if (isNaN(playlistId) || isNaN(userId)) {
+            return res.status(400).json({
+                error: "ID de playlist o ID de usuario inválido."
+            });
+        }
+
+        // Verificar si la playlist existe
+        const playlist = await db.playlist.findByPk(playlistId);
+        if (!playlist) {
+            return res.status(404).json({
+                error: "La playlist especificada no existe."
+            });
+        }
+
+        // Verificar si el usuario es el propietario de la playlist
+        const isOwner = playlist.user_id === userId;
+
+        return res.status(200).json({
+            playlistId,
+            userId,
+            isOwner,
+            playlist: {
+                id: playlist.id,
+                name: playlist.name,
+                user_id: playlist.user_id
+                // Puedes incluir más campos si es necesario
+            }
+        });
+    } catch (error) {
+        console.error("Error al verificar propiedad de playlist:", error);
+        return res.status(500).json({
+            error: "Error al verificar propiedad de playlist",
+            message: error.message
+        });
+    }
+};

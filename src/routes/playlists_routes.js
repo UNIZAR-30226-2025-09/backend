@@ -764,4 +764,55 @@ router.post('/:id/:operation/handleSong', playlistController.handleSongToPlaylis
 
 router.get('/:songId/songPlaylists', playlistController.getPlaylistsBySongId);
 
+
+/**
+ * @swagger
+ * /api/playlists/{playlistId}/isOwner/{userId}:
+ *   get:
+ *     tags:
+ *       - Playlists
+ *     description: Verifica si un usuario es el propietario de una playlist específica.
+ *     parameters:
+ *       - in: path
+ *         name: playlistId
+ *         required: true
+ *         description: El ID de la playlist a verificar.
+ *         schema:
+ *           type: integer
+ *       - in: path
+ *         name: userId
+ *         required: true
+ *         description: El ID del usuario a verificar como propietario.
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Verificación realizada correctamente.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 playlistId:
+ *                   type: integer
+ *                   description: ID de la playlist.
+ *                 userId:
+ *                   type: integer
+ *                   description: ID del usuario.
+ *                 isOwner:
+ *                   type: boolean
+ *                   description: Indica si el usuario es propietario de la playlist.
+ *                 playlist:
+ *                   type: object
+ *                   description: Datos de la playlist.
+ *       400:
+ *         description: IDs de playlist o usuario inválidos.
+ *       404:
+ *         description: La playlist especificada no existe.
+ *       500:
+ *         description: Error interno del servidor.
+ */
+
+ router.get('/:playlistId/isOwner/:userId', playlistController.checkPlaylistOwnership);
+
 export default router;
