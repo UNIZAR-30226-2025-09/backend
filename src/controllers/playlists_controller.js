@@ -526,3 +526,138 @@ export const deleteSongToPlaylist = async (req, res) => {
         return res.status(500).json({ error: "Error al eliminar la canción de la playlist", message: error.message });
     }
 };
+
+/**
+ * Handles adding or removing a song from a playlist based on the operation type specified.
+ *
+ * @param {Object} req - Express request object
+ * @param {Object} req.params - URL parameters object
+ * @param {string} req.params.id - The ID of the playlist to modify
+ * @param {string} req.params.operation - The operation to perform ('add' or 'remove')
+ * @param {Object} req.body - Request body containing the song ID
+ * @param {number} req.body.songId - The ID of the song to be added to or removed from the playlist
+ * @param {Object} res - Express response object
+ * @returns {Object} - JSON response containing either:
+ *                    - Status 200 and success message with operation details
+ *                    - Status 400 and an error message if parameters are invalid
+ *                    - Status 404 if the song was not found (for removal)
+ *                    - Status 500 and an error message if a server error occurs
+ * @throws {Error} - If there's an issue with the database operations
+ */
+export const handleSongToPlaylist = async (req, res) => {
+    try {
+        const playlistId = Number(req.params.id);
+        const operation = req.params.operation; // 'add' or 'remove'
+        const { songId } = req.body;
+
+        if (isNaN(playlistId) || !songId) {
+            return res.status(400).json({ error: "ID de playlist inválido o songId no proporcionado." });
+        }
+
+        if (operation !== 'add' && operation !== 'remove') {
+            return res.status(400).json({ error: "Operación inválida. Debe ser 'add' o 'remove'." });
+        }
+
+        if (operation === 'add') {
+            // Verificar si la canción ya existe en la playlist para evitar duplicados
+            const exists = await db.song_playlist.findOne({
+                where: { playlist_id: playlistId, song_id: songId }
+            });
+
+            if (exists) {
+                return res.status(400).json({ error: "La canción ya está añadida a la playlist." });
+            }
+
+            // Crear el registro en la tabla intermedia
+            const newEntry = await db.song_playlist.create({
+                playlist_id: playlistId,
+                song_id: songId,
+                date: new Date()
+            });
+
+            return res.status(200).json({
+                message: "Canción añadida a la playlist.",
+                operation: "add",
+                newEntry
+            });
+        } else {
+            // Eliminar la entrada en la tabla intermedia
+            const result = await db.song_playlist.destroy({
+                where: { playlist_id: playlistId, song_id: songId }
+            });
+
+            if (result === 0) {
+                return res.status(404).json({ error: "La canción no se encontró en la playlist." });
+            }
+
+            return res.status(200).json({
+                message: "Canción eliminada de la playlist.",
+                operation: "remove"
+            });
+        }
+    } catch (error) {
+        console.error(`Error al ${req.params.operation === 'add' ? 'añadir' : 'eliminar'} la canción de la playlist:`, error);
+        return res.status(500).json({
+            error: `Error al ${req.params.operation === 'add' ? 'añadir' : 'eliminar'} la canción de la playlist`,
+            message: error.message
+        });
+    }
+};
+
+/**
+ * Retrieves all playlists that contain a specific song.
+ *
+ * @param {Object} req - Express request object
+ * @param {Object} req.params - URL parameters object
+ * @param {string} req.params.songId - The ID of the song to search for in playlists
+ * @param {Object} res - Express response object
+ * @returns {Object} - JSON response containing either:
+ *                    - Status 200 and a list of playlists containing the song
+ *                    - Status 400 and an error message if the song ID is invalid
+ *                    - Status 404 if no playlists contain the specified song
+ *                    - Status 500 and an error message if a server error occurs
+ * @throws {Error} - If there's an issue with the database operations
+ */
+export const getPlaylistsBySongId = async (req, res) => {
+    try {
+        const songId = Number(req.params.songId);
+
+        if (isNaN(songId)) {
+            return res.status(400).json({ error: "ID de canción inválido." });
+        }
+
+        // Verificar si la canción existe
+        const song = await db.song.findByPk(songId);
+        if (!song) {
+            return res.status(404).json({ error: "La canción especificada no existe." });
+        }
+
+        // Buscar todas las playlists que contienen esta canción
+        const playlistsWithSong = await db.playlist.findAll({
+            include: [{
+                model: db.song,
+                through: { attributes: [] },
+                where: { id: songId },
+                required: true
+            }],
+            order: [['name', 'ASC']] // Ordenar playlists por nombre
+        });
+
+        if (playlistsWithSong.length === 0) {
+            return res.status(404).json({
+                message: "No se encontraron playlists que contengan esta canción."
+            });
+        }
+
+        return res.status(200).json({
+            count: playlistsWithSong.length,
+            playlists: playlistsWithSong
+        });
+    } catch (error) {
+        console.error("Error al buscar playlists por ID de canción:", error);
+        return res.status(500).json({
+            error: "Error al buscar playlists por ID de canción",
+            message: error.message
+        });
+    }
+};

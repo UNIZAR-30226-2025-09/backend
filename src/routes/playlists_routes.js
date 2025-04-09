@@ -665,4 +665,103 @@ router.post('/:id/addSong', playlistController.addSongToPlaylist);
  */
 router.post('/:id/deleteSong', playlistController.deleteSongToPlaylist);
 
+/**
+ * @swagger
+ * /api/playlists/{id}/{operation}/handleSong:
+ *   post:
+ *     tags:
+ *       - Playlists
+ *     description: Gestiona la adición o eliminación de una canción en una playlist.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: El ID de la playlist a modificar.
+ *         schema:
+ *           type: integer
+ *       - in: path
+ *         name: operation
+ *         required: true
+ *         description: Operación a realizar (debe ser 'add' o 'remove').
+ *         schema:
+ *           type: string
+ *           enum: [add, remove]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               songId:
+ *                 type: integer
+ *                 description: El ID de la canción para añadir o eliminar de la playlist.
+ *     responses:
+ *       200:
+ *         description: Operación realizada correctamente. Incluye detalles sobre la acción ejecutada.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: Mensaje de éxito.
+ *                 operation:
+ *                   type: string
+ *                   enum: [add, remove]
+ *                   description: Operación que se realizó.
+ *                 newEntry:
+ *                   type: object
+ *                   description: Detalles del nuevo registro (solo para operación 'add').
+ *       400:
+ *         description: Parámetros inválidos, la operación no es válida, o la canción ya existe en la playlist.
+ *       404:
+ *         description: La canción no se encontró en la playlist (para la operación 'remove').
+ *       500:
+ *         description: Error interno del servidor.
+ */
+
+router.post('/:id/:operation/handleSong', playlistController.handleSongToPlaylist);
+
+/**
+ * @swagger
+ * /api/playlists/{songId}/songPlaylists:
+ *   get:
+ *     tags:
+ *       - Playlists
+ *     description: Obtiene todas las playlists que contienen una canción específica.
+ *     parameters:
+ *       - in: path
+ *         name: songId
+ *         required: true
+ *         description: El ID de la canción para buscar en las playlists.
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Lista de playlists recuperada correctamente.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 count:
+ *                   type: integer
+ *                   description: Número de playlists encontradas.
+ *                 playlists:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     description: Detalles de las playlists.
+ *       400:
+ *         description: ID de canción inválido.
+ *       404:
+ *         description: La canción no existe o no se encontraron playlists con esta canción.
+ *       500:
+ *         description: Error interno del servidor.
+ */
+
+router.get('/:songId/songPlaylists', playlistController.getPlaylistsBySongId);
+
 export default router;
