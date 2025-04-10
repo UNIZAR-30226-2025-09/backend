@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="NONE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="c086a02d-91fe-4a38-acdc-afaaef287bff" name="Changes" comment="checkPlaylistOwnership" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;gaxur&quot;
+  }
+}</component>
+  <component name="GithubProjectSettings">
+    <option name="branchProtectionPatterns">
+      <list>
+        <option value="main" />
+      </list>
+    </option>
+  </component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/UNIZAR-30226-2025-09/backend.git&quot;,
+    &quot;accountId&quot;: &quot;12dd5ad5-7bee-4f7f-8e23-05bd7f82c09e&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 1
+}</component>
+  <component name="ProjectId" id="2uJ2k0CBPoQOc8yNxJdgB90B9LR" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "RunOnceActivity.readMode.enableVisualFormatting": "true",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true",
+    "git-widget-placeholder": "#116 on marcos-rodri",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/nande/OneDrive/Escritorio/frontend_mobile",
+    "settings.editor.selected.configurable": "preferences.pluginManager"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\nande\OneDrive\Escritorio\backend\public\default" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="c086a02d-91fe-4a38-acdc-afaaef287bff" name="Changes" comment="" />
+      <created>1741952495198</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1741952495198</updated>
+    </task>
+    <task id="LOCAL-00001" summary="Implementado funcion para obtener Playlist con like de un user_id">
+      <option name="closed" value="true" />
+      <created>1742760559503</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1742760559503</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Crea bn ahora el user_id en createPlaylist">
+      <option name="closed" value="true" />
+      <created>1742992507808</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1742992507808</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Like Songs Mobile + Comments + handleSonglike (like + unlike fusion)">
+      <option name="closed" value="true" />
+      <created>1743108861333</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1743108861333</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Ruta imagen me gusta">
+      <option name="closed" value="true" />
+      <created>1743626562349</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1743626562349</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Documentacion">
+      <option name="closed" value="true" />
+      <created>1744141050238</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1744141050239</updated>
+    </task>
+    <task id="LOCAL-00006" summary="HandleSongToPlaylist + getPlaylistsBySongId">
+      <option name="closed" value="true" />
+      <created>1744197139541</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1744197139541</updated>
+    </task>
+    <task id="LOCAL-00007" summary="checkPlaylistOwnership">
+      <option name="closed" value="true" />
+      <created>1744214457442</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1744214457442</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Implementado funcion para obtener Playlist con like de un user_id" />
+    <MESSAGE value="Crea bn ahora el user_id en createPlaylist" />
+    <MESSAGE value="Like Songs Mobile + Comments + handleSonglike (like + unlike fusion)" />
+    <MESSAGE value="Ruta imagen me gusta" />
+    <MESSAGE value="Documentacion" />
+    <MESSAGE value="HandleSongToPlaylist + getPlaylistsBySongId" />
+    <MESSAGE value="checkPlaylistOwnership" />
+    <option name="LAST_COMMIT_MESSAGE" value="checkPlaylistOwnership" />
+  </component>
+</project>
