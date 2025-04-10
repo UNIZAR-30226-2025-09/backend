@@ -43,7 +43,6 @@ const router = express.Router();
  */
 router.get("/artists", artistController.getAllArtists);
 
-// No testeada
 /**
  * @swagger
  * /api/artist/{artistId}:
