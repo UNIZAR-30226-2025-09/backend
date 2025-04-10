@@ -143,7 +143,7 @@ describe('Pruebas autenticadas de usuario', () => {
             .set('Authorization', `Bearer ${getAuthToken()}`)
             .send({});
 
-        expect(response.status).toBe(400);
+        expect(response.status).toBe(422);
         expect(response.body.error).toBe("Debes proporcionar al menos un campo para actualizar");
     });
 

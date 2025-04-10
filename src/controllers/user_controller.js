@@ -175,7 +175,7 @@ export const updateUserProfile = async (req, res) => {
         if (!user) return res.status(404).json({ error: "Usuario no encontrado" });
 
         const { nickname, mail, password } = req.body;
-        if (!nickname && !mail && !password) return res.status(400).json({ error: "Debes proporcionar al menos un campo para actualizar" });
+        if (!nickname && !mail && !password) return res.status(422).json({ error: "Debes proporcionar al menos un campo para actualizar" });
 
         // Verificar si el correo ya existe
         if (mail && mail !== user.mail) {
@@ -581,13 +581,13 @@ async function getRecommendedPlaylists(favoriteStyle, currentUserId) {
 export const updateUserFavoriteStyleInProfile = async (req, res) => {
     try {
         const token = req.headers.authorization?.split(" ")[1];
-        if (!token) return res.status(401).json({ error: "❌ Token no proporcionado" });
+        if (!token) return res.status(401).json({ error: "Token no proporcionado" });
 
         let decoded;
         try {
             decoded = jwt.verify(token, SECRET_KEY);
         } catch (error) {
-            return res.status(403).json({ error: "⚠ Token inválido o expirado" });
+            return res.status(403).json({ error: "Token inválido o expirado" });
         }
 
         const { favoriteStyles } = await updateUserFavoriteStyle(decoded.id);
@@ -596,7 +596,7 @@ export const updateUserFavoriteStyleInProfile = async (req, res) => {
             style_fav: favoriteStyles,
         });
     } catch (error) {
-        console.error("❌ Error al actualizar estilo favorito:", error);
+        console.error("Error al actualizar estilo favorito:", error);
         return res.status(500).json({ error: "Error al actualizar el estilo favorito" });
     }
 };
@@ -637,4 +637,3 @@ export const getRecommendedPlaylistsForUser = async (req, res) => {
         return res.status(500).json({ error: "Error al obtener las playlists recomendadas" });
     }
 };
-

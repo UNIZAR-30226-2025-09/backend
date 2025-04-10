@@ -24,7 +24,6 @@ export const getAllArtists = async (req, res) => {
     }
 };
 
-
 /**
  * Obtiene los detalles del artista.
  * GET /api/artist/:artistId
