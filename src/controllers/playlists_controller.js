@@ -1,6 +1,5 @@
 import db from "#src/models/index";
 import playlist_like from "#models/playlist_like";
-import Playlist_like from "#models/playlist_like";
 import {Op} from "sequelize";
 
 /**
