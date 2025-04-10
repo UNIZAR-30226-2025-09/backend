@@ -423,8 +423,6 @@ router.post("/premium", updatePremiumStatus);
  */
 router.post("/check-email", checkEmailExistence);
 
-router.get("/recommended-playlists", getRecommendedPlaylistsForUser);
-
 /**
  * @swagger
  * /api/user/{userId}:
@@ -469,9 +467,219 @@ router.get("/recommended-playlists", getRecommendedPlaylistsForUser);
  */
 router.get('/:userId', getUserById);
 
-router.post("/users/:id", updateUser);  // Sin testear
+// No testeada
+/**
+ * @swagger
+ * /api/user/users/{id}:
+ *   post:
+ *     summary: Actualiza el nickname y/o foto de perfil de un usuario
+ *     tags:
+ *       - Users
+ *     description: Permite actualizar el nickname del usuario y subir una nueva imagen de perfil en formato base64.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID del usuario a actualizar.
+ *         schema:
+ *           type: integer
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               nickname:
+ *                 type: string
+ *                 description: Nuevo nombre de usuario.
+ *               profileImage:
+ *                 type: string
+ *                 format: base64
+ *                 description: Imagen de perfil codificada en base64 (debe incluir prefijo data:image/png;base64, o similar).
+ *     responses:
+ *       200:
+ *         description: Perfil actualizado correctamente.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Perfil actualizado"
+ *                 user:
+ *                   type: object
+ *                   properties:
+ *                     nickname:
+ *                       type: string
+ *                       description: Nombre de usuario actualizado.
+ *                     user_picture:
+ *                       type: string
+ *                       description: Ruta de la imagen de perfil guardada.
+ *       404:
+ *         description: Usuario no encontrado.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Usuario no encontrado"
+ *       500:
+ *         description: Error al actualizar el perfil.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Error al actualizar el perfil"
+ *                 message:
+ *                   type: string
+ *                   description: Detalles del error.
+ */
+router.post("/users/:id", updateUser);
 
-router.post("/updateStyle", updateUserFavoriteStyleInProfile) //funciona bien falta la docu
+// No testeada
+/**
+ * @swagger
+ * /api/user/updateStyle:
+ *   post:
+ *     summary: Actualiza automáticamente el estilo musical favorito del usuario
+ *     tags:
+ *       - Users
+ *     description: Analiza los likes de canciones y playlists del usuario para determinar su género musical preferido,
+ *                 actualiza su perfil con este estilo y devuelve los estilos favoritos detectados.
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Estilo favorito actualizado correctamente.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Estilo favorito actualizado"
+ *                 style_fav:
+ *                   type: array
+ *                   items:
+ *                     type: string
+ *                   description: Lista de géneros musicales preferidos del usuario.
+ *                   example: ["rock", "pop"]
+ *       401:
+ *         description: Token no proporcionado.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Token no proporcionado"
+ *       403:
+ *         description: Token inválido o expirado.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Token inválido o expirado"
+ *       500:
+ *         description: Error al actualizar el estilo favorito.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Error al actualizar el estilo favorito"
+ */
+router.post("/updateStyle", updateUserFavoriteStyleInProfile);
 
+// No testeada
+/**
+ * @swagger
+ * /api/user/recommended-playlists:
+ *   get:
+ *     summary: Obtiene playlists recomendadas basadas en los estilos favoritos del usuario
+ *     tags:
+ *       - Users
+ *     description: Analiza los estilos musicales favoritos del usuario y devuelve un conjunto de playlists recomendadas
+ *                  que coinciden con estos estilos, excluyendo las playlists del propio usuario.
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Playlists recomendadas obtenidas correctamente.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 recommendedPlaylists:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       id:
+ *                         type: integer
+ *                         description: ID de la playlist.
+ *                       name:
+ *                         type: string
+ *                         description: Nombre de la playlist.
+ *                       front_page:
+ *                         type: string
+ *                         description: URL de la imagen de portada de la playlist.
+ *       400:
+ *         description: ID de usuario inválido.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "ID de usuario inválido"
+ *       401:
+ *         description: Token no proporcionado.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "❌ Token no proporcionado"
+ *       403:
+ *         description: Token inválido o expirado.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "⚠ Token inválido o expirado"
+ *       500:
+ *         description: Error al obtener las playlists recomendadas.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Error al obtener las playlists recomendadas"
+ */
+router.get("/recommended-playlists", getRecommendedPlaylistsForUser);
 
 export default router;
