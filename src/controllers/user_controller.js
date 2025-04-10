@@ -175,7 +175,7 @@ export const updateUserProfile = async (req, res) => {
         if (!user) return res.status(404).json({ error: "Usuario no encontrado" });
 
         const { nickname, mail, password } = req.body;
-        if (!nickname && !mail && !password) return res.status(400).json({ error: "Debes proporcionar al menos un campo para actualizar" });
+        if (!nickname && !mail && !password) return res.status(422).json({ error: "Debes proporcionar al menos un campo para actualizar" });
 
         // Verificar si el correo ya existe
         if (mail && mail !== user.mail) {

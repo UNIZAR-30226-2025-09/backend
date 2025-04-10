@@ -275,7 +275,7 @@ router.get("/profile", getUserProfile);
  *                       type: string
  *                       description: URL de la imagen de perfil del usuario.
  *       400:
- *         description: Error en la solicitud.
+ *         description: Error - Correo ya registrado.
  *         content:
  *           application/json:
  *             schema:
@@ -283,8 +283,7 @@ router.get("/profile", getUserProfile);
  *               properties:
  *                 error:
  *                   type: string
- *                   example: "Debes proporcionar al menos un campo para actualizar"
- *                   description: Mensaje indicando el problema, también se usa para "Correo ya registrado".
+ *                   example: "Correo ya registrado"
  *       401:
  *         description: Error de autenticación.
  *         content:
@@ -325,6 +324,16 @@ router.get("/profile", getUserProfile);
  *                 error:
  *                   type: string
  *                   example: "Nombre de usuario ya registrado"
+ *       422:
+ *         description: Error de validación - No hay campos para actualizar.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Debes proporcionar al menos un campo para actualizar"
  *       500:
  *         description: Error al actualizar perfil.
  *         content:
