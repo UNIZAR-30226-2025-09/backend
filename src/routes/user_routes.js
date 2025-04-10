@@ -12,6 +12,82 @@ const router = express.Router();
 
 /**
  * @swagger
+ * /api/user/recommended-playlists:
+ *   get:
+ *     summary: Obtiene playlists recomendadas basadas en los estilos favoritos del usuario
+ *     tags:
+ *       - Users
+ *     description: Analiza los estilos musicales favoritos del usuario y devuelve un conjunto de playlists recomendadas
+ *                  que coinciden con estos estilos, excluyendo las playlists del propio usuario.
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Playlists recomendadas obtenidas correctamente.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 recommendedPlaylists:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       id:
+ *                         type: integer
+ *                         description: ID de la playlist.
+ *                       name:
+ *                         type: string
+ *                         description: Nombre de la playlist.
+ *                       front_page:
+ *                         type: string
+ *                         description: URL de la imagen de portada de la playlist.
+ *       400:
+ *         description: ID de usuario inválido.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "ID de usuario inválido"
+ *       401:
+ *         description: Token no proporcionado.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Token no proporcionado"
+ *       403:
+ *         description: Token inválido o expirado.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Token inválido o expirado"
+ *       500:
+ *         description: Error al obtener las playlists recomendadas.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Error al obtener las playlists recomendadas"
+ */
+router.get("/recommended-playlists", getRecommendedPlaylistsForUser);
+
+/**
+ * @swagger
  * /api/user/register:
  *   post:
  *     summary: Registra un nuevo usuario en el sistema
@@ -479,50 +555,6 @@ router.post("/check-email", checkEmailExistence);
 
 /**
  * @swagger
- * /api/user/{userId}:
- *   get:
- *     tags:
- *       - Users
- *     description: Verifica si el usuario existe en la base de datos.
- *     parameters:
- *       - in: path
- *         name: userId
- *         required: true
- *         description: ID del usuario a verificar.
- *         schema:
- *           type: integer
- *     responses:
- *       200:
- *         description: Datos del usuario.
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 id:
- *                   type: integer
- *                   description: ID del usuario.
- *                 nickname:
- *                   type: string
- *                   description: Nombre del usuario.
- *                 mail:
- *                   type: string
- *                   description: Correo electrónico del usuario.
- *                 style_fav:
- *                   type: string
- *                   description: Estilo favorito del usuario.
- *                 is_premium:
- *                   type: boolean
- *                   description: Estado premium del usuario.
- *       404:
- *         description: Usuario no encontrado.
- *       500:
- *         description: Error al verificar el usuario.
- */
-router.get('/:userId', getUserById);
-
-/**
- * @swagger
  * /api/user/users/{id}:
  *   post:
  *     summary: Actualiza el nickname y/o foto de perfil de un usuario
@@ -669,78 +701,46 @@ router.post("/updateStyle", updateUserFavoriteStyleInProfile);
 
 /**
  * @swagger
- * /api/user/recommended-playlists:
+ * /api/user/{userId}:
  *   get:
- *     summary: Obtiene playlists recomendadas basadas en los estilos favoritos del usuario
  *     tags:
  *       - Users
- *     description: Analiza los estilos musicales favoritos del usuario y devuelve un conjunto de playlists recomendadas
- *                  que coinciden con estos estilos, excluyendo las playlists del propio usuario.
- *     security:
- *       - bearerAuth: []
+ *     description: Verifica si el usuario existe en la base de datos.
+ *     parameters:
+ *       - in: path
+ *         name: userId
+ *         required: true
+ *         description: ID del usuario a verificar.
+ *         schema:
+ *           type: integer
  *     responses:
  *       200:
- *         description: Playlists recomendadas obtenidas correctamente.
+ *         description: Datos del usuario.
  *         content:
  *           application/json:
  *             schema:
  *               type: object
  *               properties:
- *                 recommendedPlaylists:
- *                   type: array
- *                   items:
- *                     type: object
- *                     properties:
- *                       id:
- *                         type: integer
- *                         description: ID de la playlist.
- *                       name:
- *                         type: string
- *                         description: Nombre de la playlist.
- *                       front_page:
- *                         type: string
- *                         description: URL de la imagen de portada de la playlist.
- *       400:
- *         description: ID de usuario inválido.
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 error:
+ *                 id:
+ *                   type: integer
+ *                   description: ID del usuario.
+ *                 nickname:
  *                   type: string
- *                   example: "ID de usuario inválido"
- *       401:
- *         description: Token no proporcionado.
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 error:
+ *                   description: Nombre del usuario.
+ *                 mail:
  *                   type: string
- *                   example: "Token no proporcionado"
- *       403:
- *         description: Token inválido o expirado.
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 error:
+ *                   description: Correo electrónico del usuario.
+ *                 style_fav:
  *                   type: string
- *                   example: "Token inválido o expirado"
+ *                   description: Estilo favorito del usuario.
+ *                 is_premium:
+ *                   type: boolean
+ *                   description: Estado premium del usuario.
+ *       404:
+ *         description: Usuario no encontrado.
  *       500:
- *         description: Error al obtener las playlists recomendadas.
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 error:
- *                   type: string
- *                   example: "Error al obtener las playlists recomendadas"
+ *         description: Error al verificar el usuario.
  */
-router.get("/recommended-playlists", getRecommendedPlaylistsForUser);
+router.get('/:userId', getUserById);
 
 export default router;

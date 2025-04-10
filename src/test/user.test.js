@@ -627,4 +627,485 @@ describe('Pruebas sobre /api/user', () => {
             await updatedUser.save();
         });
     });
+
+    describe('POST /api/user/premium', () => {
+        // Token generado específicamente para pruebas premium
+        let premiumToken;
+
+        beforeAll(async () => {
+            // Asegurarse de que sharedUser existe y no es premium
+            await sharedUser.update({ is_premium: false });
+            // Generar token fresco
+            premiumToken = generateToken(sharedUser);
+        });
+
+        it('debería actualizar exitosamente de usuario gratuito a premium', async () => {
+            const updateData = {
+                is_premium: true
+            };
+
+            const res = await request(BASE_URL)
+                .post('/api/user/premium')
+                .set('Authorization', `Bearer ${premiumToken}`)
+                .send(updateData);
+
+            expect(res.status).toBe(200);
+            expect(res.body.message).toBe('Estado actualizado a: Premium');
+            expect(res.body.user).toBeDefined();
+            expect(res.body.user.is_premium).toBe(true);
+
+            // Verificar que se actualizó en la BD
+            const updatedUser = await db.user.findByPk(sharedUser.id);
+            expect(updatedUser.is_premium).toBe(true);
+        });
+
+        it('debería actualizar exitosamente de usuario premium a gratuito', async () => {
+            // El usuario ya debería estar en premium por la prueba anterior
+            const updateData = {
+                is_premium: false
+            };
+
+            const res = await request(BASE_URL)
+                .post('/api/user/premium')
+                .set('Authorization', `Bearer ${premiumToken}`)
+                .send(updateData);
+
+            expect(res.status).toBe(200);
+            expect(res.body.message).toBe('Estado actualizado a: Gratuito');
+            expect(res.body.user.is_premium).toBe(false);
+
+            // Verificar actualización en BD
+            const updatedUser = await db.user.findByPk(sharedUser.id);
+            expect(updatedUser.is_premium).toBe(false);
+        });
+
+        it('debería informar cuando el usuario ya está en el estado solicitado', async () => {
+            // El usuario debería estar en estado gratuito por la prueba anterior
+            const updateData = {
+                is_premium: false  // Mismo estado actual
+            };
+
+            const res = await request(BASE_URL)
+                .post('/api/user/premium')
+                .set('Authorization', `Bearer ${premiumToken}`)
+                .send(updateData);
+
+            expect(res.status).toBe(200);
+            expect(res.body.message).toBe('El usuario ya está en el estado Gratuito');
+            expect(res.body.user.is_premium).toBe(false);
+        });
+
+        it('debería fallar si no se proporciona token', async () => {
+            const updateData = {
+                is_premium: true
+            };
+
+            const res = await request(BASE_URL)
+                .post('/api/user/premium')
+                .send(updateData);
+
+            expect(res.status).toBe(401);
+            expect(res.body.error).toBe('Token no proporcionado');
+        });
+
+        it('debería fallar con token inválido', async () => {
+            const updateData = {
+                is_premium: true
+            };
+
+            const res = await request(BASE_URL)
+                .post('/api/user/premium')
+                .set('Authorization', 'Bearer tokeninvalido123')
+                .send(updateData);
+
+            expect(res.status).toBe(401);
+            expect(res.body.error).toBe('Token inválido o expirado');
+        });
+
+        it('debería fallar si el usuario no existe', async () => {
+            // Crear token con un ID que no existe
+            const fakeToken = jwt.sign(
+                { id: 99999, mail: 'noexiste@test.com' },
+                SECRET_KEY,
+                { expiresIn: '1h' }
+            );
+
+            const updateData = {
+                is_premium: true
+            };
+
+            const res = await request(BASE_URL)
+                .post('/api/user/premium')
+                .set('Authorization', `Bearer ${fakeToken}`)
+                .send(updateData);
+
+            expect(res.status).toBe(404);
+            expect(res.body.error).toBe('Usuario no encontrado');
+        });
+
+        it('debería fallar si is_premium no es booleano', async () => {
+            const updateData = {
+                is_premium: "true"
+            };
+
+            const res = await request(BASE_URL)
+                .post('/api/user/premium')
+                .set('Authorization', `Bearer ${premiumToken}`)
+                .send(updateData);
+
+            expect(res.status).toBe(400);
+            expect(res.body.error).toBe("El valor de 'is_premium' debe ser booleano (true/false)");
+        });
+    });
+
+    describe('POST /api/user/check-email', () => {
+
+        it('debería confirmar que un correo existente está registrado', async () => {
+            const requestData = {
+                mail: sharedUser.mail
+            };
+
+            const res = await request(BASE_URL)
+                .post('/api/user/check-email')
+                .send(requestData);
+
+            expect(res.status).toBe(200);
+            expect(res.body.exists).toBe(true);
+        });
+
+        it('debería confirmar que un correo no existente no está registrado', async () => {
+            const requestData = {
+                mail: 'correo_inexistente@test.com'
+            };
+
+            const res = await request(BASE_URL)
+                .post('/api/user/check-email')
+                .send(requestData);
+
+            expect(res.status).toBe(200);
+            expect(res.body.exists).toBe(false);
+        });
+
+        it('debería manejar solicitudes sin correo electrónico', async () => {
+            const requestData = {}; // Objeto vacío sin campo mail
+
+            const res = await request(BASE_URL)
+                .post('/api/user/check-email')
+                .send(requestData);
+
+            expect(res.status).toBe(500);
+        });
+    });
+
+    describe('GET /api/user/:userId', () => {
+
+        it('debería obtener correctamente los datos de un usuario existente', async () => {
+            const res = await request(BASE_URL)
+                .get(`/api/user/${sharedUser.id}`);
+
+            expect(res.status).toBe(200);
+            expect(res.body.id).toBe(sharedUser.id);
+            expect(res.body.nickname).toBe(sharedUser.nickname);
+            expect(res.body.mail).toBe(sharedUser.mail);
+            expect(res.body.style_fav).toBe(sharedUser.style_fav);
+            expect(res.body.is_premium).toBe(sharedUser.is_premium);
+            // No debería devolver la contraseña
+            expect(res.body.password).toBeUndefined();
+        });
+
+        it('debería devolver un error 404 si el usuario no existe', async () => {
+            const idInexistente = 99999;
+
+            const res = await request(BASE_URL)
+                .get(`/api/user/${idInexistente}`);
+
+            expect(res.status).toBe(404);
+            expect(res.body.error).toBe('Usuario no encontrado');
+        });
+
+        it('debería devolver todos los campos públicos del perfil de usuario', async () => {
+            const res = await request(BASE_URL)
+                .get(`/api/user/${sharedUser.id}`);
+
+            // Verificar que contiene todos los campos esperados
+            expect(res.status).toBe(200);
+            expect(res.body.id).toBeDefined();
+            expect(res.body.nickname).toBeDefined();
+            expect(res.body.mail).toBeDefined();
+            expect(res.body.style_fav).toBeDefined();
+            expect(res.body.is_premium).toBeDefined();
+            expect(res.body.user_picture).toBeDefined(); // Puede ser null pero debe estar definido
+        });
+    });
+    describe('POST /api/user/updateStyle', () => {
+        let testSongs, testPlaylists;
+
+        // Configuración inicial
+        beforeEach(async () => {
+            try {
+                // Añadir url_mp3 como campo obligatorio
+                testSongs = await Promise.all([
+                    db.song.create({
+                        name: 'Canción Rock',
+                        genre: 'Rock',
+                        url_mp3: 'http://ejemplo.com/rock.mp3' // Añadir campo obligatorio
+                    }),
+                    db.song.create({
+                        name: 'Canción Pop',
+                        genre: 'Pop',
+                        url_mp3: 'http://ejemplo.com/pop.mp3' // Añadir campo obligatorio
+                    }),
+                    db.song.create({
+                        name: 'Canción Jazz',
+                        genre: 'Jazz',
+                        url_mp3: 'http://ejemplo.com/jazz.mp3' // Añadir campo obligatorio
+                    })
+                ]);
+
+                // Crear playlists de prueba
+                testPlaylists = await Promise.all([
+                    db.playlist.create({ name: 'Playlist Rock', user_id: sharedUser.id })
+                ]);
+
+                // Añadir canción de rock a la playlist rock
+                await db.song_playlist.create({
+                    playlist_id: testPlaylists[0].id,
+                    song_id: testSongs[0].id
+                });
+            } catch (error) {
+                console.error('Error en configuración:', error);
+            }
+        });
+
+        // Limpiar datos después de las pruebas
+        afterEach(async () => {
+            try {
+                // Verificar que existan los arrays antes de usar map
+                if (testSongs && testSongs.length) {
+                    await db.song_like.destroy({ where: { user_id: sharedUser.id } });
+
+                    await db.song.destroy({
+                        where: { id: testSongs.map(s => s.id) }
+                    });
+                }
+
+                if (testPlaylists && testPlaylists.length) {
+                    await db.playlist_like.destroy({
+                        where: { user_id: sharedUser.id }
+                    });
+
+                    await db.song_playlist.destroy({
+                        where: {
+                            playlist_id: testPlaylists.map(p => p.id)
+                        }
+                    });
+
+                    await db.playlist.destroy({
+                        where: { id: testPlaylists.map(p => p.id) }
+                    });
+                }
+
+                // Restaurar estilo favorito original
+                await sharedUser.update({ style_fav: 'pop' });
+            } catch (error) {
+                console.error('Error en limpieza:', error);
+            }
+        });
+
+        it('debería actualizar el estilo favorito según los likes de canciones', async () => {
+            if (!testSongs || !testSongs.length) {
+                fail('Las canciones de prueba no se crearon correctamente');
+                return;
+            }
+
+            await Promise.all([
+                db.song_like.create({ user_id: sharedUser.id, song_id: testSongs[0].id }),
+                db.song_like.create({ user_id: sharedUser.id, song_id: testSongs[1].id }),
+            ]);
+
+            const res = await request(BASE_URL)
+                .post('/api/user/updateStyle')
+                .set('Authorization', `Bearer ${sharedToken}`);
+
+            expect(res.status).toBe(200);
+            expect(res.body.message).toBe("Estilo favorito actualizado");
+            expect(res.body.style_fav).toContain("Rock");
+        });
+
+        it('debería fallar si no hay token de autenticación', async () => {
+            const res = await request(BASE_URL)
+                .post('/api/user/updateStyle');
+
+            expect(res.status).toBe(401);
+            expect(res.body.error).toBe("Token no proporcionado");
+        });
+
+        it('debería considerar tanto los likes de canciones como de playlists', async () => {
+            // Dar like a una canción de jazz
+            await db.song_like.create({
+                user_id: sharedUser.id,
+                song_id: testSongs[2].id
+            });
+
+            // Dar like a una playlist de rock
+            await db.playlist_like.create({
+                user_id: sharedUser.id,
+                playlist_id: testPlaylists[0].id
+            });
+
+            const res = await request(BASE_URL)
+                .post('/api/user/updateStyle')
+                .set('Authorization', `Bearer ${sharedToken}`);
+
+            expect(res.status).toBe(200);
+            // Debería estar empatado entre jazz y rock
+            expect(res.body.style_fav.length).toBeGreaterThanOrEqual(1);
+        });
+    });
+
+    describe('GET /api/user/recommended-playlists', () => {
+        let testPlaylists;
+        let testSongs;
+
+        // Configuración inicial antes de cada prueba
+        beforeEach(async () => {
+            try {
+                // Asignar un estilo favorito al usuario compartido
+                await sharedUser.update({ style_fav: 'Rock' });
+
+                // Crear canciones con diferentes géneros
+                testSongs = await Promise.all([
+                    db.song.create({
+                        name: 'Canción Rock 1',
+                        genre: 'rock',
+                        url_mp3: 'http://ejemplo.com/rock1.mp3'
+                    }),
+                    db.song.create({
+                        name: 'Canción Rock 2',
+                        genre: 'rock',
+                        url_mp3: 'http://ejemplo.com/rock2.mp3'
+                    }),
+                    db.song.create({
+                        name: 'Canción Pop',
+                        genre: 'pop',
+                        url_mp3: 'http://ejemplo.com/pop1.mp3'
+                    })
+                ]);
+
+                // Crear playlists
+                testPlaylists = await Promise.all([
+                    db.playlist.create({
+                        name: 'Playlist Rock',
+                        user_id: sharedUser.id + 1, // Otro usuario
+                        type: 'public',
+                        front_page: 'http://ejemplo.com/rock.jpg'
+                    }),
+                    db.playlist.create({
+                        name: 'Playlist Pop',
+                        user_id: sharedUser.id + 1,
+                        type: 'public',
+                        front_page: 'http://ejemplo.com/pop.jpg'
+                    }),
+                    db.playlist.create({
+                        name: 'Mi Playlist Rock',
+                        user_id: sharedUser.id, // Playlist del usuario actual
+                        type: 'public',
+                        front_page: 'http://ejemplo.com/mirock.jpg'
+                    })
+                ]);
+
+                // Crear asociaciones usando directamente el modelo song_playlist
+                await db.song_playlist.bulkCreate([
+                    { song_id: testSongs[0].id, playlist_id: testPlaylists[0].id },
+                    { song_id: testSongs[1].id, playlist_id: testPlaylists[0].id },
+                    { song_id: testSongs[2].id, playlist_id: testPlaylists[1].id },
+                    { song_id: testSongs[0].id, playlist_id: testPlaylists[2].id }
+                ]);
+
+            } catch (error) {
+                console.error('Error en configuración de tests de playlists recomendadas:', error);
+            }
+        });
+
+        // Limpieza después de cada prueba
+        afterEach(async () => {
+            try {
+                // Eliminar asociaciones primero
+                if (testPlaylists && testSongs) {
+                    await db.song_playlist.destroy({
+                        where: {
+                            playlist_id: testPlaylists.map(p => p.id)
+                        }
+                    });
+                }
+
+                // Eliminar playlists y canciones
+                if (testPlaylists && testPlaylists.length) {
+                    await db.playlist.destroy({
+                        where: { id: testPlaylists.map(p => p.id) }
+                    });
+                }
+
+                if (testSongs && testSongs.length) {
+                    await db.song.destroy({
+                        where: { id: testSongs.map(s => s.id) }
+                    });
+                }
+
+                // Restaurar estilo favorito original
+                await sharedUser.update({ style_fav: 'pop' });
+            } catch (error) {
+                console.error('Error en limpieza de tests de playlists recomendadas:', error);
+            }
+        });
+
+        it('debería obtener playlists recomendadas basadas en el estilo favorito del usuario', async () => {
+            const res = await request(BASE_URL)
+                .get('/api/user/recommended-playlists')
+                .set('Authorization', `Bearer ${sharedToken}`);
+
+            expect(res.status).toBe(200);
+            expect(res.body.recommendedPlaylists).toBeDefined();
+            expect(Array.isArray(res.body.recommendedPlaylists)).toBe(true);
+
+            // Verificar que al menos se recomienda la playlist de rock que no es del usuario
+            const recommendedIds = res.body.recommendedPlaylists.map(p => p.id);
+            expect(recommendedIds).toContain(testPlaylists[0].id);
+
+            // Verificar que no se recomienda la playlist del propio usuario
+            expect(recommendedIds).not.toContain(testPlaylists[2].id);
+        });
+
+        it('debería fallar si no hay token de autenticación', async () => {
+            const res = await request(BASE_URL)
+                .get('/api/user/recommended-playlists');
+
+            expect(res.status).toBe(401);
+            expect(res.body.error).toBe('Token no proporcionado');
+        });
+
+        it('debería fallar con token inválido', async () => {
+            const res = await request(BASE_URL)
+                .get('/api/user/recommended-playlists')
+                .set('Authorization', 'Bearer tokeninvalido123');
+
+            expect(res.status).toBe(403);
+            expect(res.body.error).toBe('Token inválido o expirado');
+        });
+
+        it('debería devolver playlists con la estructura correcta', async () => {
+            const res = await request(BASE_URL)
+                .get('/api/user/recommended-playlists')
+                .set('Authorization', `Bearer ${sharedToken}`);
+
+            expect(res.status).toBe(200);
+
+            if (res.body.recommendedPlaylists.length > 0) {
+                const playlist = res.body.recommendedPlaylists[0];
+                expect(playlist.id).toBeDefined();
+                expect(playlist.name).toBeDefined();
+                expect(playlist.front_page).toBeDefined();
+            }
+        });
+    });
 });
