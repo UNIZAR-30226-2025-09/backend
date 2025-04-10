@@ -19,6 +19,8 @@ export default (sequelize, DataTypes) => {
             foreignKey: "song_id",
             as: "album"
         });
+        song.hasMany(models.lastPlaybackState, { foreignKey: 'songId' });
+
     };
 
     return song;

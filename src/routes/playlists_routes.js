@@ -665,10 +665,12 @@ router.post('/:id/addSong', playlistController.addSongToPlaylist);
  */
 router.post('/:id/deleteSong', playlistController.deleteSongToPlaylist);
 
+// No testeada
 /**
  * @swagger
  * /api/playlists/{id}/{operation}/handleSong:
  *   post:
+ *     summary: Añade o elimina una canción de una playlist
  *     tags:
  *       - Playlists
  *     description: Gestiona la adición o eliminación de una canción en una playlist.
@@ -721,13 +723,14 @@ router.post('/:id/deleteSong', playlistController.deleteSongToPlaylist);
  *       500:
  *         description: Error interno del servidor.
  */
-
 router.post('/:id/:operation/handleSong', playlistController.handleSongToPlaylist);
 
+// No testeada
 /**
  * @swagger
  * /api/playlists/{songId}/songPlaylists:
  *   get:
+ *     summary: Obtiene playlists que contienen una canción específica
  *     tags:
  *       - Playlists
  *     description: Obtiene todas las playlists que contienen una canción específica.
@@ -761,14 +764,14 @@ router.post('/:id/:operation/handleSong', playlistController.handleSongToPlaylis
  *       500:
  *         description: Error interno del servidor.
  */
-
 router.get('/:songId/songPlaylists', playlistController.getPlaylistsBySongId);
 
-
+// No testeada
 /**
  * @swagger
  * /api/playlists/{playlistId}/isOwner/{userId}:
  *   get:
+ *     summary: Verifica la propiedad de una playlist por un usuario
  *     tags:
  *       - Playlists
  *     description: Verifica si un usuario es el propietario de una playlist específica.
@@ -812,7 +815,6 @@ router.get('/:songId/songPlaylists', playlistController.getPlaylistsBySongId);
  *       500:
  *         description: Error interno del servidor.
  */
-
  router.get('/:playlistId/isOwner/:userId', playlistController.checkPlaylistOwnership);
 
 export default router;

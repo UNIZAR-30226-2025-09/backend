@@ -1,138 +1,141 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="AutoImportSettings">
-    <option name="autoReloadType" value="NONE" />
+    <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c086a02d-91fe-4a38-acdc-afaaef287bff" name="Changes" comment="checkPlaylistOwnership" />
+    <list default="true" id="a8044cc0-26c6-4086-8df5-3b7b3997d957" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/controllers/lastPlaybackState_controller.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/models/lastPlaybackState.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/routes/lastPlaybackState_routes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/20250303174524-create-tables.js" beforeDir="false" afterPath="$PROJECT_DIR$/migrations/20250303174524-create-tables.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controllers/playlists_controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/playlists_controller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/playlist.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/playlist.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/song.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/song.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/user.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/api.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/api.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ClangdSettings">
-    <option name="formatViaClangd" value="false" />
-  </component>
   <component name="Git.Settings">
-    <option name="RECENT_BRANCH_BY_REPOSITORY">
-      <map>
-        <entry key="$PROJECT_DIR$" value="main" />
-      </map>
-    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
     &quot;state&quot;: &quot;OPEN&quot;,
-    &quot;assignee&quot;: &quot;gaxur&quot;
+    &quot;assignee&quot;: &quot;diego33454&quot;
   }
 }</component>
-  <component name="GithubProjectSettings">
-    <option name="branchProtectionPatterns">
-      <list>
-        <option value="main" />
-      </list>
-    </option>
-  </component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/UNIZAR-30226-2025-09/backend.git&quot;,
-    &quot;accountId&quot;: &quot;12dd5ad5-7bee-4f7f-8e23-05bd7f82c09e&quot;
+    &quot;accountId&quot;: &quot;6aa230fb-6e72-4956-98a1-e4d9c3387bb1&quot;
   }
 }</component>
   <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 1
+  &quot;associatedIndex&quot;: 4
 }</component>
-  <component name="ProjectId" id="2uJ2k0CBPoQOc8yNxJdgB90B9LR" />
+  <component name="ProjectId" id="2trPqcYmNgNLgJ2X8sAUPsplPsF" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Node.js.lastPlaybackState_controller.js.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.cidr.known.project.marker": "true",
-    "RunOnceActivity.readMode.enableVisualFormatting": "true",
-    "cf.first.check.clang-format": "false",
-    "cidr.known.project.marker": "true",
-    "git-widget-placeholder": "#116 on marcos-rodri",
+    "git-widget-placeholder": "alejos-valen",
+    "javascript.nodejs.core.library.configured.version": "23.7.0",
+    "javascript.nodejs.core.library.typings.version": "22.13.9",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/nande/OneDrive/Escritorio/frontend_mobile",
-    "settings.editor.selected.configurable": "preferences.pluginManager"
+    "last_opened_file_path": "/Users/diegovalenzuela/Desktop/3rd de carrera/PrSoft/backend",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "ts.external.directory.path": "/Applications/IntelliJ IDEA.app/Contents/plugins/javascript-plugin/jsLanguageServicesImpl/external",
+    "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\nande\OneDrive\Escritorio\backend\public\default" />
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/src" />
     </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="docker-deploy" factoryName="dockerfile" temporary="true">
+      <deployment type="dockerfile">
+        <settings />
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <configuration name="lastPlaybackState_controller.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/src/controllers/lastPlaybackState_controller.js" working-dir="$PROJECT_DIR$/src/controllers">
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="docker-deploy" factoryName="dockerfile" temporary="true">
+      <deployment type="dockerfile">
+        <settings />
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Node.js.lastPlaybackState_controller.js" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23726.103" />
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23726.103" />
+      </set>
+    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="c086a02d-91fe-4a38-acdc-afaaef287bff" name="Changes" comment="" />
-      <created>1741952495198</created>
+      <changelist id="a8044cc0-26c6-4086-8df5-3b7b3997d957" name="Changes" comment="" />
+      <created>1741107412947</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1741952495198</updated>
+      <updated>1741107412947</updated>
+      <workItem from="1741107414108" duration="55819000" />
+      <workItem from="1741538012724" duration="9841000" />
+      <workItem from="1741601529765" duration="602000" />
+      <workItem from="1741619244310" duration="4997000" />
+      <workItem from="1741713898274" duration="16911000" />
+      <workItem from="1741802956268" duration="14103000" />
+      <workItem from="1741885552252" duration="5475000" />
+      <workItem from="1742144557170" duration="2251000" />
+      <workItem from="1742224463437" duration="11788000" />
+      <workItem from="1742465323160" duration="1018000" />
+      <workItem from="1742466417742" duration="10221000" />
+      <workItem from="1742555134245" duration="5923000" />
+      <workItem from="1742729181379" duration="147000" />
+      <workItem from="1742754889134" duration="1289000" />
+      <workItem from="1742835106464" duration="16800000" />
+      <workItem from="1742980301886" duration="601000" />
+      <workItem from="1742981804487" duration="30000" />
+      <workItem from="1743000633701" duration="8736000" />
+      <workItem from="1743094164309" duration="12946000" />
+      <workItem from="1743411500483" duration="68009000" />
+      <workItem from="1744211718452" duration="24060000" />
     </task>
-    <task id="LOCAL-00001" summary="Implementado funcion para obtener Playlist con like de un user_id">
-      <option name="closed" value="true" />
-      <created>1742760559503</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1742760559503</updated>
-    </task>
-    <task id="LOCAL-00002" summary="Crea bn ahora el user_id en createPlaylist">
-      <option name="closed" value="true" />
-      <created>1742992507808</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1742992507808</updated>
-    </task>
-    <task id="LOCAL-00003" summary="Like Songs Mobile + Comments + handleSonglike (like + unlike fusion)">
-      <option name="closed" value="true" />
-      <created>1743108861333</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1743108861333</updated>
-    </task>
-    <task id="LOCAL-00004" summary="Ruta imagen me gusta">
-      <option name="closed" value="true" />
-      <created>1743626562349</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1743626562349</updated>
-    </task>
-    <task id="LOCAL-00005" summary="Documentacion">
-      <option name="closed" value="true" />
-      <created>1744141050238</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1744141050239</updated>
-    </task>
-    <task id="LOCAL-00006" summary="HandleSongToPlaylist + getPlaylistsBySongId">
-      <option name="closed" value="true" />
-      <created>1744197139541</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1744197139541</updated>
-    </task>
-    <task id="LOCAL-00007" summary="checkPlaylistOwnership">
-      <option name="closed" value="true" />
-      <created>1744214457442</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1744214457442</updated>
-    </task>
-    <option name="localTasksCounter" value="8" />
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+    <option name="includedJSSourcePackages">
+      <set>
+        <option value="sequelize" />
+      </set>
+    </option>
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -144,15 +147,5 @@
         </entry>
       </map>
     </option>
-  </component>
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="Implementado funcion para obtener Playlist con like de un user_id" />
-    <MESSAGE value="Crea bn ahora el user_id en createPlaylist" />
-    <MESSAGE value="Like Songs Mobile + Comments + handleSonglike (like + unlike fusion)" />
-    <MESSAGE value="Ruta imagen me gusta" />
-    <MESSAGE value="Documentacion" />
-    <MESSAGE value="HandleSongToPlaylist + getPlaylistsBySongId" />
-    <MESSAGE value="checkPlaylistOwnership" />
-    <option name="LAST_COMMIT_MESSAGE" value="checkPlaylistOwnership" />
   </component>
 </project>
