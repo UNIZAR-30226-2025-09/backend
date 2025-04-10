@@ -5,6 +5,7 @@ import path from 'path';
 import { Op, Sequelize } from "sequelize"; // Asegúrate de importar Sequelize
 import { fileURLToPath } from 'url';
 import { appendFile, open } from 'fs/promises';
+import nodemailer from 'nodemailer'; // Importamos nodemailer para el envío de correos electrónicos
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -613,6 +614,138 @@ export const getRecommendedPlaylistsForUser = async (req, res) => {
     } catch (error) {
         console.error("❌ Error al obtener las playlists recomendadas:", error);
         return res.status(500).json({ error: "Error al obtener las playlists recomendadas" });
+    }
+};
+
+/**
+ * Maneja la solicitud de recuperación de contraseña
+ * Envía un correo con un enlace para restablecer la contraseña
+ */
+export const forgotPassword = async (req, res) => {
+    try {
+        const { mail } = req.body;
+        
+        if (!mail) {
+            return res.status(400).json({ error: "Debe proporcionar un correo electrónico" });
+        }
+        
+        // Buscar usuario por email
+        const user = await db.user.findOne({ where: { mail } });
+        
+        if (!user) {
+            return res.status(404).json({ error: "No existe una cuenta con este correo electrónico" });
+        }
+        
+        // Generar token único para recuperación (expira en 1 hora)
+        const resetToken = jwt.sign(
+            { id: user.id, mail: user.mail },
+            SECRET_KEY,
+            { expiresIn: "1h" }
+        );
+        
+        // Guardar el token en el usuario (opcional, solo si quieres verificar el token)
+        user.reset_token = resetToken;
+        user.reset_token_expires = new Date(Date.now() + 3600000); // 1 hora
+        await user.save();
+        
+        // URL para restablecer la contraseña (frontend)
+        const resetUrl = `http://localhost:5173/reset-password?token=${resetToken}`;
+
+        // Configurar transportador de nodemailer
+        const transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+              user: 'vibraassistance@gmail.com', // Cambia esto por tu correo real
+              pass: 'jsws nqpi cwtg yeds' // Cambia esto por tu contraseña o clave de app
+            }
+        });
+
+        // Configurar el correo electrónico
+        const mailOptions = {
+            from: 'vibraassistance@gmail.com', // Cambia esto por tu correo real
+            to: mail,
+            subject: 'Recuperación de contraseña - Vibra',
+            html: `
+              <h1>Recuperación de contraseña</h1>
+              <p>Haz click en el siguiente enlace para restablecer tu contraseña:</p>
+              <a href="${resetUrl}">Restablecer contraseña</a>
+              <p>Este enlace expirará en 1 hora.</p>
+              <p>Si no solicitaste recuperar tu contraseña, puedes ignorar este correo.</p>
+            `
+        };
+
+        // Enviar el correo
+        await transporter.sendMail(mailOptions);
+        
+        console.log("Email de recuperación enviado a:", mail);
+        console.log("URL de recuperación:", resetUrl);
+        
+        return res.status(200).json({ 
+            message: "Se ha enviado un correo con instrucciones para restablecer tu contraseña",
+            // En producción NO enviaríamos el token en la respuesta, esto es solo para pruebas
+            resetUrl, // Solo para testing, eliminar en producción
+            resetToken // Solo para testing, eliminar en producción
+        });
+        
+    } catch (error) {
+        console.error("Error en recuperación de contraseña:", error);
+        return res.status(500).json({ error: "Error al procesar la solicitud de recuperación" });
+    }
+};
+
+/**
+ * Restablece la contraseña utilizando el token enviado al correo
+ */
+export const resetPassword = async (req, res) => {
+    try {
+        const { token, newPassword } = req.body;
+        
+        if (!token || !newPassword) {
+            return res.status(400).json({ error: "Debe proporcionar el token y la nueva contraseña" });
+        }
+        
+        // Verificar el token
+        let decoded;
+        try {
+            decoded = jwt.verify(token, SECRET_KEY);
+        } catch (error) {
+            return res.status(401).json({ error: "Token inválido o expirado" });
+        }
+        
+        // Buscar usuario por ID del token
+        const user = await db.user.findByPk(decoded.id);
+        
+        if (!user) {
+            return res.status(404).json({ error: "Usuario no encontrado" });
+        }
+        
+        // En la función resetPassword, añade esta verificación:
+        if (user.reset_token !== token) {
+            return res.status(401).json({ error: "Token inválido o ya utilizado" });
+        }
+
+        // Verificar que el token no haya expirado
+        if (user.reset_token_expires < new Date()) {
+            return res.status(401).json({ error: "Token expirado" });
+        }
+        
+        // Hashear la nueva contraseña
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(newPassword, salt);
+        
+        // Actualizar la contraseña
+        user.password = hashedPassword;
+        // Limpiar el token de recuperación (si lo implementaste)
+        user.reset_token = null;
+        user.reset_token_expires = null;
+        
+        await user.save();
+        
+        return res.status(200).json({ message: "Contraseña restablecida con éxito" });
+        
+    } catch (error) {
+        console.error("Error al restablecer contraseña:", error);
+        return res.status(500).json({ error: "Error al restablecer la contraseña" });
     }
 };
 
