@@ -6,7 +6,7 @@ export default (sequelize, DataTypes) => {
         mail: { type: DataTypes.STRING, allowNull: false, unique: true },
         style_fav: DataTypes.STRING,
         is_premium: { type: DataTypes.BOOLEAN, defaultValue: false },
-        user_picture: { type: DataTypes.STRING, allowNull: true }
+        user_picture: { type: DataTypes.STRING, allowNull: true },
     }, {
         tableName: "users",
         timestamps: false
@@ -35,6 +35,8 @@ export default (sequelize, DataTypes) => {
         });
 
         user.belongsToMany(models.user, { through: "chat", as: "ChatUser", foreignKey: "user1_id" });
+        user.hasOne(models.lastPlaybackState, { foreignKey: 'userId', as: 'lastPlayback' });
+
     };
 
     return user;
