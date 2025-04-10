@@ -71,18 +71,18 @@ export const registerUser = async (req, res) => {
 export const loginUser = async (req, res) => {
     const { mail, password } = req.body;
 
+    const foundUser = await db.user.findOne({ where: { mail } });
+
+    if (!foundUser) {
+        return res.status(404).json({ error: "Usuario no encontrado" });
+    }
+
+    const validPassword = await bcrypt.compare(password, foundUser.password);
+    if (!validPassword) {
+        return res.status(401).json({ error: "Contraseña incorrecta" });
+    }
+
     try {
-        const foundUser = await db.user.findOne({ where: { mail } });
-
-        if (!foundUser) {
-            return res.status(404).json({ error: "Usuario no encontrado" });
-        }
-
-        const validPassword = await bcrypt.compare(password, foundUser.password);
-        if (!validPassword) {
-            return res.status(401).json({ error: "Contraseña incorrecta" });
-        }
-
         // Generar el token
         const token = jwt.sign(
             { id: foundUser.id, mail: foundUser.mail },
@@ -112,7 +112,7 @@ export const loginUser = async (req, res) => {
         });
 
     } catch (error) {
-        console.error("❌ Error en el login:", error);
+        console.error("Error en el login:", error);
         return res.status(500).json({ error: "Error en el login" });
     }
 };
@@ -157,8 +157,9 @@ export const getUserProfile = async (req, res) => {
 
 // Actualiza la información del usuario autenticado.
 // Requiere token de autenticación.
+// Requiere contraseña actual para validar la identidad del usuario.
 // Permite actualizar nickname, mail y password.
-// Valida que no existan usuarios con el mismo correo o nickname.
+// Valida que no existan usuarios con el mismo correo o nickname
 export const updateUserProfile = async (req, res) => {
     try {
         const token = req.headers.authorization?.split(" ")[1];
@@ -174,8 +175,22 @@ export const updateUserProfile = async (req, res) => {
         const user = await db.user.findByPk(decoded.id);
         if (!user) return res.status(404).json({ error: "Usuario no encontrado" });
 
-        const { nickname, mail, password } = req.body;
-        if (!nickname && !mail && !password) return res.status(422).json({ error: "Debes proporcionar al menos un campo para actualizar" });
+        const { currentPassword, nickname, mail, password } = req.body;
+
+        // Verificar que se proporcionó la contraseña actual
+        if (!currentPassword) {
+            return res.status(400).json({ error: "Debes proporcionar tu contraseña actual para actualizar tu perfil" });
+        }
+
+        // Verificar que la contraseña actual es correcta
+        const validPassword = await bcrypt.compare(currentPassword, user.password);
+        if (!validPassword) {
+            return res.status(401).json({ error: "Contraseña actual incorrecta" });
+        }
+
+        if (!nickname && !mail && !password) {
+            return res.status(422).json({ error: "Debes proporcionar al menos un campo para actualizar" });
+        }
 
         // Verificar si el correo ya existe
         if (mail && mail !== user.mail) {
@@ -200,7 +215,17 @@ export const updateUserProfile = async (req, res) => {
         }
 
         await user.save();
-        return res.status(200).json({ message: "Perfil actualizado correctamente", user });
+
+        // No enviamos la contraseña en la respuesta por seguridad
+        const userResponse = {
+            id: user.id,
+            nickname: user.nickname,
+            mail: user.mail,
+            style_fav: user.style_fav,
+            is_premium: user.is_premium
+        };
+
+        return res.status(200).json({ message: "Perfil actualizado correctamente", user: userResponse });
     } catch (error) {
         console.error("Error al actualizar perfil:", error);
         return res.status(500).json({ error: "Error al actualizar perfil" });
@@ -272,7 +297,7 @@ export const updatePremiumStatus = async (req, res) => {
         });
 
     } catch (error) {
-        console.error("❌ Error al actualizar estado de premium:", error);
+        console.error("Error al actualizar estado de premium:", error);
         return res.status(500).json({ error: "Error interno al actualizar el estado de premium" });
     }
 };
@@ -348,12 +373,19 @@ export const updateUser = async (req, res) => {
         const userId = req.params.id;
         const { nickname, profileImage } = req.body; // Recibimos nickname y la imagen en base64
 
-        //console.log("Valores de respuesta: ", nickname, profileImage);
         // Buscamos al usuario por su ID
         const user = await db.user.findByPk(userId);
 
         if (!user) {
             return res.status(404).json({ error: "Usuario no encontrado" });
+        }
+
+        // Verificar si el nickname ya existe (si es diferente al actual)
+        if (nickname && nickname !== user.nickname) {
+            const nicknameExists = await db.user.findOne({ where: { nickname } });
+            if (nicknameExists) {
+                return res.status(409).json({ error: "Nombre de usuario ya registrado" });
+            }
         }
 
         // Si la imagen está en base64, la decodificamos y la guardamos como archivo
@@ -605,13 +637,13 @@ export const updateUserFavoriteStyleInProfile = async (req, res) => {
 export const getRecommendedPlaylistsForUser = async (req, res) => {
     try {
         const token = req.headers.authorization?.split(" ")[1];
-        if (!token) return res.status(401).json({ error: "❌ Token no proporcionado" });
+        if (!token) return res.status(401).json({ error: "Token no proporcionado" });
 
         let decoded;
         try {
             decoded = jwt.verify(token, SECRET_KEY); // Decodifica el token
         } catch (error) {
-            return res.status(403).json({ error: "⚠ Token inválido o expirado" });
+            return res.status(403).json({ error: "Token inválido o expirado" });
         }
 
         const userId = parseInt(decoded.id, 10); // Convertimos el ID a número entero
@@ -633,7 +665,7 @@ export const getRecommendedPlaylistsForUser = async (req, res) => {
         // Devolver las playlists recomendadas al frontend
         return res.status(200).json({ recommendedPlaylists });
     } catch (error) {
-        console.error("❌ Error al obtener las playlists recomendadas:", error);
+        console.error("Error al obtener las playlists recomendadas:", error);
         return res.status(500).json({ error: "Error al obtener las playlists recomendadas" });
     }
 };
