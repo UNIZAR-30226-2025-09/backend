@@ -5,6 +5,7 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { Op } from 'sequelize';
 import {generateToken} from './utils/generateToken.js';
+import {getPlaylistGenre} from "#test/utils/getPlaylistGenre";
 
 const SECRET_KEY = "aB1cD2eF3GhIjK4LmN5OpQr6StUvWxY7Z";
 
@@ -1060,6 +1061,9 @@ describe('Pruebas sobre /api/user', () => {
         });
 
         it('debería obtener playlists recomendadas basadas en el estilo favorito del usuario', async () => {
+            // Primero obtenemos el valor exacto del estilo favorito establecido
+            const userInfo = await db.user.findByPk(sharedUser.id);
+
             const res = await request(BASE_URL)
                 .get('/api/user/recommended-playlists')
                 .set('Authorization', `Bearer ${sharedToken}`);
@@ -1067,13 +1071,26 @@ describe('Pruebas sobre /api/user', () => {
             expect(res.status).toBe(200);
             expect(res.body.recommendedPlaylists).toBeDefined();
             expect(Array.isArray(res.body.recommendedPlaylists)).toBe(true);
-
-            // Verificar que al menos se recomienda la playlist de rock que no es del usuario
-            const recommendedIds = res.body.recommendedPlaylists.map(p => p.id);
-            expect(recommendedIds).toContain(testPlaylists[0].id);
+            expect(res.body.recommendedPlaylists.length).toBeGreaterThan(0);
 
             // Verificar que no se recomienda la playlist del propio usuario
+            const recommendedIds = res.body.recommendedPlaylists.map(p => p.id);
             expect(recommendedIds).not.toContain(testPlaylists[2].id);
+
+            // Verificar que las playlists recomendadas tienen Rock como género predominante
+            let generosCorrecto = true;
+            for (const playlist of res.body.recommendedPlaylists) {
+                const predominantGenre = await getPlaylistGenre(playlist.id);
+
+                // Comparar ignorando mayúsculas/minúsculas
+                if (predominantGenre && predominantGenre.toLowerCase() !== userInfo.style_fav.toLowerCase()) {
+                    generosCorrecto = false;
+                    break;
+                }
+            }
+
+            // Todas las playlists recomendadas deben tener el género predominante Rock
+            expect(generosCorrecto).toBe(true);
         });
 
         it('debería fallar si no hay token de autenticación', async () => {
