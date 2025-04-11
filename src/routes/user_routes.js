@@ -1,5 +1,5 @@
 import express from "express";
-import { registerUser, loginUser, logoutUser, getUserProfile, updateUserProfile, updatePremiumStatus, checkEmailExistence, getUserById, updateUser, updateUserFavoriteStyleInProfile, getRecommendedPlaylistsForUser} from "#src/controllers/user_controller";
+import { registerUser, loginUser, logoutUser, getUserProfile, updateUserProfile, updatePremiumStatus, checkEmailExistence, getUserById, updateUser, updateUserFavoriteStyleInProfile, getRecommendedPlaylistsForUser, forgotPassword, resetPassword} from "#src/controllers/user_controller";
 
 const router = express.Router();
 
@@ -690,5 +690,64 @@ router.post("/updateStyle", updateUserFavoriteStyleInProfile);
  *                   example: "Error al obtener las playlists recomendadas"
  */
 router.get("/recommended-playlists", getRecommendedPlaylistsForUser);
+
+// Añade estas nuevas rutas donde estén el resto de las rutas:
+/**
+ * @swagger
+ * /api/user/forgot-password:
+ *   post:
+ *     tags:
+ *       - Users
+ *     description: Envía un correo con instrucciones para restablecer la contraseña.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               mail:
+ *                 type: string
+ *                 description: Correo electrónico de la cuenta.
+ *     responses:
+ *       200:
+ *         description: Correo enviado con éxito.
+ *       404:
+ *         description: No existe una cuenta con ese correo.
+ *       500:
+ *         description: Error al procesar la solicitud.
+ */
+router.post("/forgot-password", forgotPassword);
+
+/**
+ * @swagger
+ * /api/user/reset-password:
+ *   post:
+ *     tags:
+ *       - Users
+ *     description: Restablece la contraseña con el token recibido por correo.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               token:
+ *                 type: string
+ *                 description: Token recibido por correo.
+ *               newPassword:
+ *                 type: string
+ *                 description: Nueva contraseña.
+ *     responses:
+ *       200:
+ *         description: Contraseña restablecida con éxito.
+ *       401:
+ *         description: Token inválido o expirado.
+ *       500:
+ *         description: Error al restablecer la contraseña.
+ */
+router.post("/reset-password", resetPassword);
+
 
 export default router;
