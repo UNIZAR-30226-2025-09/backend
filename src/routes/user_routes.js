@@ -12,6 +12,82 @@ const router = express.Router();
 
 /**
  * @swagger
+ * /api/user/recommended-playlists:
+ *   get:
+ *     summary: Obtiene playlists recomendadas basadas en los estilos favoritos del usuario
+ *     tags:
+ *       - Users
+ *     description: Analiza los estilos musicales favoritos del usuario y devuelve un conjunto de playlists recomendadas
+ *                  que coinciden con estos estilos, excluyendo las playlists del propio usuario.
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Playlists recomendadas obtenidas correctamente.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 recommendedPlaylists:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       id:
+ *                         type: integer
+ *                         description: ID de la playlist.
+ *                       name:
+ *                         type: string
+ *                         description: Nombre de la playlist.
+ *                       front_page:
+ *                         type: string
+ *                         description: URL de la imagen de portada de la playlist.
+ *       400:
+ *         description: ID de usuario inválido.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "ID de usuario inválido"
+ *       401:
+ *         description: Token no proporcionado.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Token no proporcionado"
+ *       403:
+ *         description: Token inválido o expirado.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Token inválido o expirado"
+ *       500:
+ *         description: Error al obtener las playlists recomendadas.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Error al obtener las playlists recomendadas"
+ */
+router.get("/recommended-playlists", getRecommendedPlaylistsForUser);
+
+/**
+ * @swagger
  * /api/user/register:
  *   post:
  *     summary: Registra un nuevo usuario en el sistema
@@ -182,9 +258,12 @@ router.post("/logout", logoutUser);
  * @swagger
  * /api/user/profile:
  *   get:
+ *     summary: Obtiene el perfil del usuario autenticado
  *     tags:
  *       - Users
- *     description: Obtiene los datos del perfil del usuario autenticado.
+ *     description: Obtiene los datos del perfil del usuario autenticado mediante su token JWT.
+ *     security:
+ *       - bearerAuth: []
  *     responses:
  *       200:
  *         description: Datos del perfil del usuario.
@@ -208,10 +287,50 @@ router.post("/logout", logoutUser);
  *                 is_premium:
  *                   type: boolean
  *                   description: Estado premium del usuario.
+ *                 user_picture:
+ *                   type: string
+ *                   nullable: true
+ *                   description: URL de la imagen de perfil del usuario.
  *       401:
- *         description: Token no proporcionado o inválido.
+ *         description: Token no proporcionado.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Token no proporcionado"
+ *       403:
+ *         description: Token inválido o expirado.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Token inválido o expirado"
+ *       404:
+ *         description: Usuario no encontrado.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Usuario no encontrado"
  *       500:
  *         description: Error al obtener el perfil.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Error al obtener el perfil"
  */
 router.get("/profile", getUserProfile);
 
@@ -221,8 +340,8 @@ router.get("/profile", getUserProfile);
  *   post:
  *     tags:
  *       - Users
- *     summary: Actualiza el perfil del usuario autenticado
- *     description: Permite actualizar nickname, correo y/o contraseña del usuario. Verifica que no existan otros usuarios con el mismo correo o nickname.
+ *     summary: Actualiza el perfil del usuario autenticado verificando su identidad
+ *     description: Permite actualizar nickname, correo y/o contraseña del usuario. Requiere la contraseña actual para validar la identidad del usuario. Verifica que no existan otros usuarios con el mismo correo o nickname.
  *     security:
  *       - bearerAuth: []
  *     requestBody:
@@ -231,7 +350,12 @@ router.get("/profile", getUserProfile);
  *         application/json:
  *           schema:
  *             type: object
+ *             required:
+ *               - currentPassword
  *             properties:
+ *               currentPassword:
+ *                 type: string
+ *                 description: Contraseña actual del usuario para verificar su identidad.
  *               nickname:
  *                 type: string
  *                 description: El nuevo nombre del usuario.
@@ -271,11 +395,8 @@ router.get("/profile", getUserProfile);
  *                     is_premium:
  *                       type: boolean
  *                       description: Estado premium del usuario.
- *                     user_picture:
- *                       type: string
- *                       description: URL de la imagen de perfil del usuario.
  *       400:
- *         description: Error - Correo ya registrado.
+ *         description: Error - Datos inválidos o correo ya registrado.
  *         content:
  *           application/json:
  *             schema:
@@ -283,9 +404,9 @@ router.get("/profile", getUserProfile);
  *               properties:
  *                 error:
  *                   type: string
- *                   example: "Correo ya registrado"
+ *                   example: "Debes proporcionar tu contraseña actual para actualizar tu perfil"
  *       401:
- *         description: Error de autenticación.
+ *         description: Error de autenticación o contraseña incorrecta.
  *         content:
  *           application/json:
  *             schema:
@@ -293,7 +414,7 @@ router.get("/profile", getUserProfile);
  *               properties:
  *                 error:
  *                   type: string
- *                   example: "Token no proporcionado"
+ *                   example: "Contraseña actual incorrecta"
  *       403:
  *         description: Token inválido o expirado.
  *         content:
@@ -434,57 +555,12 @@ router.post("/check-email", checkEmailExistence);
 
 /**
  * @swagger
- * /api/user/{userId}:
- *   get:
- *     tags:
- *       - Users
- *     description: Verifica si el usuario existe en la base de datos.
- *     parameters:
- *       - in: path
- *         name: userId
- *         required: true
- *         description: ID del usuario a verificar.
- *         schema:
- *           type: integer
- *     responses:
- *       200:
- *         description: Datos del usuario.
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 id:
- *                   type: integer
- *                   description: ID del usuario.
- *                 nickname:
- *                   type: string
- *                   description: Nombre del usuario.
- *                 mail:
- *                   type: string
- *                   description: Correo electrónico del usuario.
- *                 style_fav:
- *                   type: string
- *                   description: Estilo favorito del usuario.
- *                 is_premium:
- *                   type: boolean
- *                   description: Estado premium del usuario.
- *       404:
- *         description: Usuario no encontrado.
- *       500:
- *         description: Error al verificar el usuario.
- */
-router.get('/:userId', getUserById);
-
-// No testeada
-/**
- * @swagger
  * /api/user/users/{id}:
  *   post:
  *     summary: Actualiza el nickname y/o foto de perfil de un usuario
  *     tags:
  *       - Users
- *     description: Permite actualizar el nickname del usuario y subir una nueva imagen de perfil en formato base64.
+ *     description: Permite actualizar el nickname del usuario y subir una nueva imagen de perfil en formato base64. Verifica que no existan otros usuarios con el mismo nickname.
  *     parameters:
  *       - in: path
  *         name: id
@@ -536,6 +612,16 @@ router.get('/:userId', getUserById);
  *                 error:
  *                   type: string
  *                   example: "Usuario no encontrado"
+ *       409:
+ *         description: Conflicto - Nombre de usuario ya registrado.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Nombre de usuario ya registrado"
  *       500:
  *         description: Error al actualizar el perfil.
  *         content:
@@ -552,7 +638,6 @@ router.get('/:userId', getUserById);
  */
 router.post("/users/:id", updateUser);
 
-// No testeada
 /**
  * @swagger
  * /api/user/updateStyle:
@@ -614,82 +699,49 @@ router.post("/users/:id", updateUser);
  */
 router.post("/updateStyle", updateUserFavoriteStyleInProfile);
 
-// No testeada
 /**
  * @swagger
- * /api/user/recommended-playlists:
+ * /api/user/{userId}:
  *   get:
- *     summary: Obtiene playlists recomendadas basadas en los estilos favoritos del usuario
  *     tags:
  *       - Users
- *     description: Analiza los estilos musicales favoritos del usuario y devuelve un conjunto de playlists recomendadas
- *                  que coinciden con estos estilos, excluyendo las playlists del propio usuario.
- *     security:
- *       - bearerAuth: []
+ *     description: Verifica si el usuario existe en la base de datos.
+ *     parameters:
+ *       - in: path
+ *         name: userId
+ *         required: true
+ *         description: ID del usuario a verificar.
+ *         schema:
+ *           type: integer
  *     responses:
  *       200:
- *         description: Playlists recomendadas obtenidas correctamente.
+ *         description: Datos del usuario.
  *         content:
  *           application/json:
  *             schema:
  *               type: object
  *               properties:
- *                 recommendedPlaylists:
- *                   type: array
- *                   items:
- *                     type: object
- *                     properties:
- *                       id:
- *                         type: integer
- *                         description: ID de la playlist.
- *                       name:
- *                         type: string
- *                         description: Nombre de la playlist.
- *                       front_page:
- *                         type: string
- *                         description: URL de la imagen de portada de la playlist.
- *       400:
- *         description: ID de usuario inválido.
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 error:
+ *                 id:
+ *                   type: integer
+ *                   description: ID del usuario.
+ *                 nickname:
  *                   type: string
- *                   example: "ID de usuario inválido"
- *       401:
- *         description: Token no proporcionado.
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 error:
+ *                   description: Nombre del usuario.
+ *                 mail:
  *                   type: string
- *                   example: "❌ Token no proporcionado"
- *       403:
- *         description: Token inválido o expirado.
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 error:
+ *                   description: Correo electrónico del usuario.
+ *                 style_fav:
  *                   type: string
- *                   example: "⚠ Token inválido o expirado"
+ *                   description: Estilo favorito del usuario.
+ *                 is_premium:
+ *                   type: boolean
+ *                   description: Estado premium del usuario.
+ *       404:
+ *         description: Usuario no encontrado.
  *       500:
- *         description: Error al obtener las playlists recomendadas.
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 error:
- *                   type: string
- *                   example: "Error al obtener las playlists recomendadas"
+ *         description: Error al verificar el usuario.
  */
-router.get("/recommended-playlists", getRecommendedPlaylistsForUser);
+router.get('/:userId', getUserById);
 
 // Añade estas nuevas rutas donde estén el resto de las rutas:
 /**
