@@ -132,6 +132,48 @@ export default {
         allowNull: false
       }
     });
+
+    // Tabla LAST_PLAYBACK_STATE (estado de reproducción por usuario)
+    await queryInterface.createTable("lastPlaybackState", {
+      id: {
+        type: Sequelize.INTEGER,
+        autoIncrement: true,
+        primaryKey: true,
+        allowNull: false,
+      },
+      user_id: {
+        type: Sequelize.INTEGER,
+        references: { model: "users", key: "id" },
+        onDelete: "CASCADE",
+        unique: true, // Solo un estado por usuario
+      },
+      song_id: {
+        type: Sequelize.INTEGER,
+        references: { model: "song", key: "id" },
+        onDelete: "SET NULL",
+      },
+      playlist_id: {
+        type: Sequelize.INTEGER,
+        references: { model: "playlist", key: "id" },
+        onDelete: "SET NULL",
+      },
+      position_minutes: {
+        type: Sequelize.INTEGER,
+        defaultValue: 0,
+      },
+      position_seconds: {
+        type: Sequelize.INTEGER,
+        defaultValue: 0,
+      },
+      updated_at: {
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
+      },
+      created_at: {
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
+      },
+    });
   },
 
   down: async (queryInterface, Sequelize) => {
@@ -149,6 +191,7 @@ export default {
     await queryInterface.dropTable("song");
     await queryInterface.dropTable("artist");
     await queryInterface.dropTable("users");
+    await queryInterface.dropTable("lastPlaybackState");
 
   }
 };

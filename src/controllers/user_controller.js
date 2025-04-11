@@ -17,6 +17,7 @@ const SECRET_KEY = "aB1cD2eF3GhIjK4LmN5OpQr6StUvWxY7Z";
  *
  * - Recibe: `nickname`, `password`, `mail`, `style_fav`
  * - Verifica si el correo ya está registrado.
+ * - Verifica si el nickname ya está registrado.
  * - Hashea la contraseña antes de almacenarla en la base de datos.
  * - Devuelve un mensaje de éxito con los datos del usuario registrado.
  */
@@ -25,13 +26,18 @@ export const registerUser = async (req, res) => {
     const is_premium = false;
 
     try {
-        // Verificar si el usuario ya existe en la base de datos
-        const userExists = await db.user.findOne({ where: { mail } });
+        // Verificar si el correo electrónico ya existe en la base de datos
+        const mailExists = await db.user.findOne({ where: { mail } });
 
-        console.log("Usuario encontrado:", userExists);
+        if (mailExists) {
+            return res.status(400).json({ error: "Correo ya registrado"});
+        }
 
-        if (userExists) {
-            return res.status(400).json({ error: "Correo ya registrado" });
+        // Verificar si el nickname ya existe en la base de datos
+        const nicknameExists = await db.user.findOne({ where: { nickname } });
+
+        if (nicknameExists) {
+            return res.status(409).json({ error: "Nombre de usuario ya registrado"});
         }
 
         // Hashear la contraseña antes de guardarla
@@ -150,26 +156,43 @@ export const getUserProfile = async (req, res) => {
     }
 };
 
-/**
- * Actualiza la información del usuario autenticado.
- */
+// Actualiza la información del usuario autenticado.
+// Requiere token de autenticación.
+// Permite actualizar nickname, mail y password.
+// Valida que no existan usuarios con el mismo correo o nickname.
 export const updateUserProfile = async (req, res) => {
     try {
         const token = req.headers.authorization?.split(" ")[1];
-        if (!token) return res.status(401).json({ error: "❌ Token no proporcionado" });
+        if (!token) return res.status(401).json({ error: "Token no proporcionado" });
 
         let decoded;
         try {
             decoded = jwt.verify(token, SECRET_KEY);
         } catch (error) {
-            return res.status(403).json({ error: "⚠ Token inválido o expirado" });
+            return res.status(403).json({ error: "Token inválido o expirado" });
         }
 
         const user = await db.user.findByPk(decoded.id);
-        if (!user) return res.status(404).json({ error: "❌ Usuario no encontrado" });
+        if (!user) return res.status(404).json({ error: "Usuario no encontrado" });
 
         const { nickname, mail, password } = req.body;
-        if (!nickname && !mail && !password) return res.status(400).json({ error: "⚠ Debes proporcionar al menos un campo para actualizar" });
+        if (!nickname && !mail && !password) return res.status(422).json({ error: "Debes proporcionar al menos un campo para actualizar" });
+
+        // Verificar si el correo ya existe
+        if (mail && mail !== user.mail) {
+            const mailExists = await db.user.findOne({ where: { mail } });
+            if (mailExists) {
+                return res.status(400).json({ error: "Correo ya registrado" });
+            }
+        }
+
+        // Verificar si el nickname ya existe
+        if (nickname && nickname !== user.nickname) {
+            const nicknameExists = await db.user.findOne({ where: { nickname } });
+            if (nicknameExists) {
+                return res.status(409).json({ error: "Nombre de usuario ya registrado" });
+            }
+        }
 
         if (nickname) user.nickname = nickname;
         if (mail) user.mail = mail;
@@ -178,13 +201,12 @@ export const updateUserProfile = async (req, res) => {
         }
 
         await user.save();
-        return res.status(200).json({ message: "✅ Perfil actualizado correctamente", user });
+        return res.status(200).json({ message: "Perfil actualizado correctamente", user });
     } catch (error) {
-        console.error("❌ Error al actualizar perfil:", error);
+        console.error("Error al actualizar perfil:", error);
         return res.status(500).json({ error: "Error al actualizar perfil" });
     }
 };
-
 
 /**
  * Actualiza el estado de `is_premium` del usuario autenticado.
@@ -560,13 +582,13 @@ async function getRecommendedPlaylists(favoriteStyle, currentUserId) {
 export const updateUserFavoriteStyleInProfile = async (req, res) => {
     try {
         const token = req.headers.authorization?.split(" ")[1];
-        if (!token) return res.status(401).json({ error: "❌ Token no proporcionado" });
+        if (!token) return res.status(401).json({ error: "Token no proporcionado" });
 
         let decoded;
         try {
             decoded = jwt.verify(token, SECRET_KEY);
         } catch (error) {
-            return res.status(403).json({ error: "⚠ Token inválido o expirado" });
+            return res.status(403).json({ error: "Token inválido o expirado" });
         }
 
         const { favoriteStyles } = await updateUserFavoriteStyle(decoded.id);
@@ -575,7 +597,7 @@ export const updateUserFavoriteStyleInProfile = async (req, res) => {
             style_fav: favoriteStyles,
         });
     } catch (error) {
-        console.error("❌ Error al actualizar estilo favorito:", error);
+        console.error("Error al actualizar estilo favorito:", error);
         return res.status(500).json({ error: "Error al actualizar el estilo favorito" });
     }
 };
@@ -748,4 +770,3 @@ export const resetPassword = async (req, res) => {
         return res.status(500).json({ error: "Error al restablecer la contraseña" });
     }
 };
-

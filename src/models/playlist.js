@@ -16,6 +16,8 @@ export default (sequelize, DataTypes) => {
         playlist.belongsToMany(models.user, { through: "playlist_like", foreignKey: "playlist_id", as: "likes" });
         playlist.belongsToMany(models.user, { through: "playlist_feedback", foreignKey: "playlist_id" });
         playlist.belongsToMany(models.user, { through: "permission_have", foreignKey: "playlist_id" });
+        playlist.hasMany(models.lastPlaybackState, { foreignKey: 'playlistId' });
+
     };
     return playlist;
 };

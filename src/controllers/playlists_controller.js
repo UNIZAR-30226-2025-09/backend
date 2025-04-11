@@ -1,6 +1,5 @@
 import db from "#src/models/index";
 import playlist_like from "#models/playlist_like";
-import Playlist_like from "#models/playlist_like";
 import {Op} from "sequelize";
 
 /**
@@ -89,12 +88,12 @@ export const likePlaylist = async (req, res) => {
 
             return res.json({ message: "Like eliminado correctamente", liked: false });
         } else {
-            console.log("📝 Intentando insertar:", { user_id, playlist_id });
+            console.log("Intentando insertar:", { user_id, playlist_id });
 
             const userIdNumber = Number(user_id);
             const playlistIdNumber = Number(playlist_id);
 
-            console.log("📝 Verificando tipos:", { userIdNumber, playlistIdNumber });
+            console.log("Verificando tipos:", { userIdNumber, playlistIdNumber });
 
             const newLike = db.playlist_like.build({
                 user_id: user_id,
@@ -235,6 +234,20 @@ export const getPlaylistById = async (req, res) => {
     }
 };
 
+/**
+ * Verifica si una playlist específica ha sido marcada como favorita por un usuario.
+ *
+ * Esta función realiza una solicitud GET al endpoint `/playlists/:id/like` con el ID de usuario
+ * como parámetro de consulta para comprobar si existe una relación de "me gusta" entre
+ * el usuario y la playlist especificada.
+ *
+ * @param playlistId El ID de la playlist a verificar
+ * @param userId El ID del usuario para el cual se verifica el estado de favorito
+ * @return true si la playlist está marcada como favorita por el usuario, false en caso contrario
+ *         También devuelve false en caso de error en la solicitud
+ *
+ * @throws IOException Si ocurre un error durante la comunicación con el servidor
+ */
 export const checkIfLiked = async (req, res) => {
     const { id } = req.params;  // ID de la playlist
     const { user_id } = req.query;  // ID del usuario desde la query
@@ -388,7 +401,19 @@ export const getLikedSongPlaylist = async (req, res) => {
     }
 };
 
-// obtener las playlist de un usuario
+/**
+* Retrieves all playlists created by a specific user, excluding the default "Me Gusta" playlist.
+*
+* @param {Object} req - Express request object containing the user ID in the URL parameters
+* @param {Object} req.params - URL parameters object
+* @param {string} req.params.userId - The ID of the user whose playlists are being retrieved
+* @param {Object} res - Express response object
+* @returns {Object} - JSON response containing either:
+*                    - Status 200 and an array of playlist objects if successful
+*                    - Status 400 and an error message if the user ID is invalid
+*                    - Status 500 and an error message if a server error occurs
+* @throws {Error} - If there's an issue with the database query
+*/
 export const getUserPlaylists = async (req, res) => {
     try {
         const userId = Number(req.params.userId);
@@ -414,7 +439,21 @@ export const getUserPlaylists = async (req, res) => {
     }
 };
 
-// anadir cancion a una playlist
+/**
+* Adds a song to a specific playlist if it doesn't already exist in that playlist.
+*
+* @param {Object} req - Express request object
+* @param {Object} req.params - URL parameters object
+* @param {string} req.params.id - The ID of the playlist to add the song to
+* @param {Object} req.body - Request body containing the song ID
+* @param {number} req.body.songId - The ID of the song to be added to the playlist
+* @param {Object} res - Express response object
+* @returns {Object} - JSON response containing either:
+*                    - Status 200, success message, and the new entry details if successful
+*                    - Status 400 and an error message if the playlist ID is invalid, songId is missing, or the song already exists in the playlist
+*                    - Status 500 and an error message if a server error occurs
+* @throws {Error} - If there's an issue with the database query
+*/
 export const addSongToPlaylist = async (req, res) => {
     try {
         const playlistId = Number(req.params.id);
@@ -446,6 +485,22 @@ export const addSongToPlaylist = async (req, res) => {
     }
 };
 
+/**
+* Removes a song from a specific playlist.
+*
+* @param {Object} req - Express request object
+* @param {Object} req.params - URL parameters object
+* @param {string} req.params.id - The ID of the playlist to remove the song from
+* @param {Object} req.body - Request body containing the song ID
+* @param {number} req.body.songId - The ID of the song to be removed from the playlist
+* @param {Object} res - Express response object
+* @returns {Object} - JSON response containing either:
+*                    - Status 200 and success message if the song was successfully removed
+*                    - Status 400 and an error message if the playlist ID is invalid or songId is missing
+*                    - Status 404 and an error message if the song was not found in the playlist
+*                    - Status 500 and an error message if a server error occurs
+* @throws {Error} - If there's an issue with the database operation
+*/
 export const deleteSongToPlaylist = async (req, res) => {
     try {
         const playlistId = Number(req.params.id);
@@ -468,5 +523,197 @@ export const deleteSongToPlaylist = async (req, res) => {
     } catch (error) {
         console.error("Error al eliminar la canción de la playlist:", error);
         return res.status(500).json({ error: "Error al eliminar la canción de la playlist", message: error.message });
+    }
+};
+
+/**
+ * Handles adding or removing a song from a playlist based on the operation type specified.
+ *
+ * @param {Object} req - Express request object
+ * @param {Object} req.params - URL parameters object
+ * @param {string} req.params.id - The ID of the playlist to modify
+ * @param {string} req.params.operation - The operation to perform ('add' or 'remove')
+ * @param {Object} req.body - Request body containing the song ID
+ * @param {number} req.body.songId - The ID of the song to be added to or removed from the playlist
+ * @param {Object} res - Express response object
+ * @returns {Object} - JSON response containing either:
+ *                    - Status 200 and success message with operation details
+ *                    - Status 400 and an error message if parameters are invalid
+ *                    - Status 404 if the song was not found (for removal)
+ *                    - Status 500 and an error message if a server error occurs
+ * @throws {Error} - If there's an issue with the database operations
+ */
+export const handleSongToPlaylist = async (req, res) => {
+    try {
+        const playlistId = Number(req.params.id);
+        const operation = req.params.operation; // 'add' or 'remove'
+        const { songId } = req.body;
+
+        if (isNaN(playlistId) || !songId) {
+            return res.status(400).json({ error: "ID de playlist inválido o songId no proporcionado." });
+        }
+
+        if (operation !== 'add' && operation !== 'remove') {
+            return res.status(400).json({ error: "Operación inválida. Debe ser 'add' o 'remove'." });
+        }
+
+        if (operation === 'add') {
+            // Verificar si la canción ya existe en la playlist para evitar duplicados
+            const exists = await db.song_playlist.findOne({
+                where: { playlist_id: playlistId, song_id: songId }
+            });
+
+            if (exists) {
+                return res.status(400).json({ error: "La canción ya está añadida a la playlist." });
+            }
+
+            // Crear el registro en la tabla intermedia
+            const newEntry = await db.song_playlist.create({
+                playlist_id: playlistId,
+                song_id: songId,
+                date: new Date()
+            });
+
+            return res.status(200).json({
+                message: "Canción añadida a la playlist.",
+                operation: "add",
+                newEntry
+            });
+        } else {
+            // Eliminar la entrada en la tabla intermedia
+            const result = await db.song_playlist.destroy({
+                where: { playlist_id: playlistId, song_id: songId }
+            });
+
+            if (result === 0) {
+                return res.status(404).json({ error: "La canción no se encontró en la playlist." });
+            }
+
+            return res.status(200).json({
+                message: "Canción eliminada de la playlist.",
+                operation: "remove"
+            });
+        }
+    } catch (error) {
+        console.error(`Error al ${req.params.operation === 'add' ? 'añadir' : 'eliminar'} la canción de la playlist:`, error);
+        return res.status(500).json({
+            error: `Error al ${req.params.operation === 'add' ? 'añadir' : 'eliminar'} la canción de la playlist`,
+            message: error.message
+        });
+    }
+};
+
+/**
+ * Retrieves all playlists that contain a specific song.
+ *
+ * @param {Object} req - Express request object
+ * @param {Object} req.params - URL parameters object
+ * @param {string} req.params.songId - The ID of the song to search for in playlists
+ * @param {Object} res - Express response object
+ * @returns {Object} - JSON response containing either:
+ *                    - Status 200 and a list of playlists containing the song
+ *                    - Status 400 and an error message if the song ID is invalid
+ *                    - Status 404 if no playlists contain the specified song
+ *                    - Status 500 and an error message if a server error occurs
+ * @throws {Error} - If there's an issue with the database operations
+ */
+export const getPlaylistsBySongId = async (req, res) => {
+    try {
+        const songId = Number(req.params.songId);
+
+        if (isNaN(songId)) {
+            return res.status(400).json({ error: "ID de canción inválido." });
+        }
+
+        // Verificar si la canción existe
+        const song = await db.song.findByPk(songId);
+        if (!song) {
+            return res.status(404).json({ error: "La canción especificada no existe." });
+        }
+
+        // Buscar todas las playlists que contienen esta canción
+        const playlistsWithSong = await db.playlist.findAll({
+            include: [{
+                model: db.song,
+                through: { attributes: [] },
+                where: { id: songId },
+                required: true
+            }],
+            order: [['name', 'ASC']] // Ordenar playlists por nombre
+        });
+
+        if (playlistsWithSong.length === 0) {
+            return res.status(404).json({
+                message: "No se encontraron playlists que contengan esta canción."
+            });
+        }
+
+        return res.status(200).json({
+            count: playlistsWithSong.length,
+            playlists: playlistsWithSong
+        });
+    } catch (error) {
+        console.error("Error al buscar playlists por ID de canción:", error);
+        return res.status(500).json({
+            error: "Error al buscar playlists por ID de canción",
+            message: error.message
+        });
+    }
+};
+
+/**
+ * Checks if a user is the owner of a playlist.
+ *
+ * @param {Object} req - Express request object
+ * @param {Object} req.params - URL parameters object
+ * @param {string} req.params.playlistId - The ID of the playlist to check
+ * @param {string} req.params.userId - The ID of the user to check for ownership
+ * @param {Object} res - Express response object
+ * @returns {Object} - JSON response containing either:
+ *                    - Status 200 and an ownership status (true/false)
+ *                    - Status 400 and an error message if IDs are invalid
+ *                    - Status 404 if the playlist doesn't exist
+ *                    - Status 500 and an error message if a server error occurs
+ * @throws {Error} - If there's an issue with the database operations
+ */
+export const checkPlaylistOwnership = async (req, res) => {
+    try {
+        const playlistId = Number(req.params.playlistId);
+        const userId = Number(req.params.userId);
+
+        if (isNaN(playlistId) || isNaN(userId)) {
+            return res.status(400).json({
+                error: "ID de playlist o ID de usuario inválido."
+            });
+        }
+
+        // Verificar si la playlist existe
+        const playlist = await db.playlist.findByPk(playlistId);
+        if (!playlist) {
+            return res.status(404).json({
+                error: "La playlist especificada no existe."
+            });
+        }
+
+        // Verificar si el usuario es el propietario de la playlist
+        const isOwner = playlist.user_id === userId;
+
+        return res.status(200).json({
+            playlistId,
+            userId,
+            isOwner,
+            playlist: {
+                id: playlist.id,
+                name: playlist.name,
+                user_id: playlist.user_id
+                // Puedes incluir más campos si es necesario
+            }
+        });
+    } catch (error) {
+        console.error("Error al verificar propiedad de playlist:", error);
+        return res.status(500).json({
+            error: "Error al verificar propiedad de playlist",
+            message: error.message
+        });
     }
 };

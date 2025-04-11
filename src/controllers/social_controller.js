@@ -213,9 +213,9 @@ export const rejectFriendRequest = async (req, res) => {
     }
 };
 
-// Controlador para buscar usuarios por nickname similar que no sean amigos
+// Controlador para buscar usuarios por nickname similar que no sean amigos ni tengan solicitudes pendientes
 // Este controlador permite buscar usuarios cuyo nickname contenga un texto de búsqueda
-// y que no sean amigos (state_friend_request !== 'accepted') del usuario autenticado.
+// y que no tengan ninguna relación con el usuario autenticado
 export const searchNewFriends = async (req, res) => {
     try {
         // Extraemos el token de autorización de las cabeceras
@@ -242,34 +242,33 @@ export const searchNewFriends = async (req, res) => {
             return res.status(400).json({ error: "Debes proporcionar un término de búsqueda" });
         }
 
-        // Primero, obtenemos todos los IDs de los usuarios que ya son amigos (estado 'accepted')
+        // Obtenemos todos los IDs de usuarios con los que tenemos cualquier tipo de relación
         const friendships = await db.friendship.findAll({
             where: {
                 [Op.or]: [
                     { user1_id: userId },
                     { user2_id: userId }
-                ],
-                state_friend_request: 'accepted'
+                ]
             }
         });
 
-        // Extraemos los IDs de los amigos
-        const friendIds = friendships.map(friendship =>
+        // Extraemos los IDs de los usuarios relacionados
+        const relatedUserIds = friendships.map(friendship =>
             friendship.user1_id === userId ? friendship.user2_id : friendship.user1_id
         );
 
         // Añadimos nuestro propio ID para excluirnos de los resultados
-        friendIds.push(userId);
+        relatedUserIds.push(userId);
 
         // Buscamos usuarios cuyo nickname coincida parcialmente con el texto de búsqueda
-        // y que no estén en la lista de amigos ni sean el propio usuario
+        // y que no tengan ninguna relación con el usuario autenticado
         const potentialFriends = await db.user.findAll({
             where: {
                 nickname: {
                     [Op.iLike]: `%${search}%` // Búsqueda case-insensitive
                 },
                 id: {
-                    [Op.notIn]: friendIds
+                    [Op.notIn]: relatedUserIds
                 }
             },
             attributes: ['id', 'nickname', 'user_picture'] // Solo devolvemos información básica
@@ -285,6 +284,259 @@ export const searchNewFriends = async (req, res) => {
         console.error("Error al buscar usuarios:", error);
         return res.status(500).json({
             error: "Error al buscar usuarios",
+            details: error.message
+        });
+    }
+};
+
+// Controlador para obtener todos los usuarios que no son amigos del usuario autenticado
+// Busca y devuelve todos los usuarios que no tienen una relación de amistad aceptada con el usuario
+// Solo incluye información básica de cada usuario: id, nickname y foto de perfil
+export const getNewFriends = async (req, res) => {
+    try {
+        // Extraemos el token de autorización de las cabeceras
+        const token = req.headers.authorization?.split(' ')[1];
+
+        if (!token) {
+            return res.status(401).json({ error: "Token no proporcionado" });
+        }
+
+        // Verificamos y decodificamos el token para obtener el ID del usuario autenticado
+        const decoded = jwt.verify(token, process.env.JWT_SECRET || 'aB1cD2eF3GhIjK4LmN5OpQr6StUvWxY7Z');
+
+        if (!decoded) {
+            return res.status(401).json({ error: "Token inválido" });
+        }
+
+        // Obtenemos el ID del usuario autenticado
+        const userId = decoded.id;
+
+        // Obtenemos todos los IDs de usuarios con los que tenemos cualquier tipo de relación
+        const friendships = await db.friendship.findAll({
+            where: {
+                [Op.or]: [
+                    { user1_id: userId },
+                    { user2_id: userId }
+                ]
+            }
+        });
+
+        // Extraemos los IDs de los usuarios relacionados
+        const relatedUserIds = friendships.map(friendship =>
+            friendship.user1_id === userId ? friendship.user2_id : friendship.user1_id
+        );
+
+        // Añadimos nuestro propio ID para excluirnos de los resultados
+        relatedUserIds.push(userId);
+
+        // Buscamos todos los usuarios que no están en la lista de usuarios relacionados
+        const potentialFriends = await db.user.findAll({
+            where: {
+                id: {
+                    [Op.notIn]: relatedUserIds
+                }
+            },
+            attributes: ['id', 'nickname', 'user_picture'] // Solo devolvemos información básica
+        });
+
+        // Respondemos con la lista de usuarios encontrados
+        return res.status(200).json({
+            users: potentialFriends,
+            count: potentialFriends.length
+        });
+
+    } catch (error) {
+        console.error("Error al obtener usuarios potenciales:", error);
+        return res.status(500).json({
+            error: "Error al obtener usuarios potenciales",
+            details: error.message
+        });
+    }
+};
+
+// Controlador para obtener las solicitudes de amistad enviadas por el usuario
+// Devuelve todas las solicitudes de amistad donde el usuario autenticado es el remitente
+// y el estado es 'pending'.
+export const getSentFriendRequests = async (req, res) => {
+    try {
+        const token = req.headers.authorization?.split(' ')[1];
+
+        if (!token) {
+            return res.status(401).json({ error: "Token no proporcionado" });
+        }
+
+        const decoded = jwt.verify(token, process.env.JWT_SECRET || 'aB1cD2eF3GhIjK4LmN5OpQr6StUvWxY7Z');
+
+        if (!decoded) {
+            return res.status(401).json({ error: "Token inválido" });
+        }
+
+        const userId = decoded.id;
+
+        // Consulta modificada para usar la relación correcta
+        const user = await db.user.findByPk(userId, {
+            include: [{
+                model: db.user,
+                as: "FriendRequests", // Nombre de la relación en user.js
+                through: {
+                    where: { state_friend_request: 'pending' }
+                },
+                attributes: ['id', 'nickname', 'user_picture']
+            }]
+        });
+
+        if (!user) {
+            return res.status(404).json({ error: "Usuario no encontrado" });
+        }
+
+        const sentRequests = user.FriendRequests.map(friend => ({
+            friendId: friend.id,
+            nickname: friend.nickname,
+            user_picture: friend.user_picture,
+            state: friend.friendship.state_friend_request
+        }));
+
+        return res.status(200).json({
+            sentRequests,
+            count: sentRequests.length
+        });
+
+    } catch (error) {
+        console.error("Error al obtener solicitudes enviadas:", error);
+        return res.status(500).json({
+            error: "Error al obtener solicitudes enviadas",
+            details: error.message
+        });
+    }
+};
+
+// Controlador para obtener las solicitudes de amistad recibidas por el usuario
+// Devuelve todas las solicitudes de amistad donde el usuario autenticado es el receptor
+// y el estado es 'pending'.
+export const getReceivedFriendRequests = async (req, res) => {
+    try {
+        const token = req.headers.authorization?.split(' ')[1];
+
+        if (!token) {
+            return res.status(401).json({ error: "Token no proporcionado" });
+        }
+
+        const decoded = jwt.verify(token, process.env.JWT_SECRET || 'aB1cD2eF3GhIjK4LmN5OpQr6StUvWxY7Z');
+
+        if (!decoded) {
+            return res.status(401).json({ error: "Token inválido" });
+        }
+
+        const userId = decoded.id;
+
+        // Consulta modificada para usar la relación correcta
+        const user = await db.user.findByPk(userId, {
+            include: [{
+                model: db.user,
+                as: "FriendInvitations", // Nombre de la relación en user.js
+                through: {
+                    where: { state_friend_request: 'pending' }
+                },
+                attributes: ['id', 'nickname', 'user_picture']
+            }]
+        });
+
+        if (!user) {
+            return res.status(404).json({ error: "Usuario no encontrado" });
+        }
+
+        const receivedRequests = user.FriendInvitations.map(friend => ({
+            friendId: friend.id,
+            nickname: friend.nickname,
+            user_picture: friend.user_picture,
+            state: friend.friendship.state_friend_request
+        }));
+
+        return res.status(200).json({
+            receivedRequests,
+            count: receivedRequests.length
+        });
+
+    } catch (error) {
+        console.error("Error al obtener solicitudes recibidas:", error);
+        return res.status(500).json({
+            error: "Error al obtener solicitudes recibidas",
+            details: error.message
+        });
+    }
+};
+
+// Controlador para listar todos los amigos del usuario
+// Devuelve todas las relaciones de amistad aceptadas donde el usuario autenticado
+// es parte de la relación (ya sea como user1 o user2).
+export const getFriendsList = async (req, res) => {
+    try {
+        const token = req.headers.authorization?.split(' ')[1];
+
+        if (!token) {
+            return res.status(401).json({ error: "Token no proporcionado" });
+        }
+
+        const decoded = jwt.verify(token, process.env.JWT_SECRET || 'aB1cD2eF3GhIjK4LmN5OpQr6StUvWxY7Z');
+
+        if (!decoded) {
+            return res.status(401).json({ error: "Token inválido" });
+        }
+
+        const userId = decoded.id;
+
+        // Obtenemos amigos donde el usuario es el remitente (user1)
+        const sentFriendships = await db.user.findByPk(userId, {
+            include: [{
+                model: db.user,
+                as: "FriendRequests",
+                through: {
+                    where: { state_friend_request: 'accepted' }
+                },
+                attributes: ['id', 'nickname', 'user_picture']
+            }]
+        });
+
+        // Obtenemos amigos donde el usuario es el receptor (user2)
+        const receivedFriendships = await db.user.findByPk(userId, {
+            include: [{
+                model: db.user,
+                as: "FriendInvitations",
+                through: {
+                    where: { state_friend_request: 'accepted' }
+                },
+                attributes: ['id', 'nickname', 'user_picture']
+            }]
+        });
+
+        // Combinamos ambos resultados
+        const sentFriends = sentFriendships?.FriendRequests || [];
+        const receivedFriends = receivedFriendships?.FriendInvitations || [];
+
+        const allFriends = [
+            ...sentFriends.map(friend => ({
+                friendshipId: `${userId}_${friend.id}`,
+                friendId: friend.id,
+                nickname: friend.nickname,
+                user_picture: friend.user_picture
+            })),
+            ...receivedFriends.map(friend => ({
+                friendshipId: `${friend.id}_${userId}`,
+                friendId: friend.id,
+                nickname: friend.nickname,
+                user_picture: friend.user_picture
+            }))
+        ];
+
+        return res.status(200).json({
+            friends: allFriends,
+            count: allFriends.length
+        });
+
+    } catch (error) {
+        console.error("Error al obtener lista de amigos:", error);
+        return res.status(500).json({
+            error: "Error al obtener lista de amigos",
             details: error.message
         });
     }
