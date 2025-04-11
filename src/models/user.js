@@ -6,7 +6,9 @@ export default (sequelize, DataTypes) => {
         mail: { type: DataTypes.STRING, allowNull: false, unique: true },
         style_fav: DataTypes.STRING,
         is_premium: { type: DataTypes.BOOLEAN, defaultValue: false },
-        user_picture: { type: DataTypes.STRING, allowNull: true },
+        user_picture: { type: DataTypes.STRING, allowNull: true }
+        reset_token: { type: DataTypes.STRING, allowNull: true },
+        reset_token_expires: { type: DataTypes.DATE, allowNull: true },
     }, {
         tableName: "users",
         timestamps: false
