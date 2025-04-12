@@ -14,11 +14,13 @@ export default (sequelize, DataTypes) => {
         song.belongsToMany(models.artist, { through: "song_artist", foreignKey: "song_id" });
         song.belongsToMany(models.playlist, { through: "song_playlist", foreignKey: "song_id" });
         song.belongsToMany(models.user, { through: "song_like", foreignKey: "song_id", as: "likedBy"});
+        /*
         song.belongsToMany(models.playlist, {
             through: "song_playlist",
             foreignKey: "song_id",
             as: "album"
         });
+        */
         song.hasMany(models.lastPlaybackState, { foreignKey: 'songId' });
 
     };
