@@ -177,8 +177,8 @@ export default {
   },
 
   down: async (queryInterface, Sequelize) => {
+    await queryInterface.dropTable("lastPlaybackState");
     await queryInterface.dropTable("user_replist");
-
     await queryInterface.dropTable("chat");
     await queryInterface.dropTable("permission_have");
     await queryInterface.dropTable("friendship");
@@ -187,11 +187,10 @@ export default {
     await queryInterface.dropTable("song_like");
     await queryInterface.dropTable("song_playlist");
     await queryInterface.dropTable("song_artist");
+
     await queryInterface.dropTable("playlist");
     await queryInterface.dropTable("song");
     await queryInterface.dropTable("artist");
     await queryInterface.dropTable("users");
-    await queryInterface.dropTable("lastPlaybackState");
-
   }
 };
