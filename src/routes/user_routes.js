@@ -1,5 +1,5 @@
 import express from "express";
-import { registerUser, loginUser, logoutUser, getUserProfile, updateUserProfile, updatePremiumStatus, checkEmailExistence, getUserById, updateUser, updateUserFavoriteStyleInProfile, getRecommendedPlaylistsForUser, forgotPassword, resetPassword} from "#src/controllers/user_controller";
+import { registerUser, loginUser, logoutUser, getUserProfile, updateUserProfile, updatePremiumStatus, checkEmailExistence, getUserById, updateUser, updateUserFavoriteStyleInProfile, getRecommendedPlaylistsForUser, forgotPassword, resetPassword, useDailySkip} from "#src/controllers/user_controller";
 
 const router = express.Router();
 
@@ -801,5 +801,41 @@ router.post("/forgot-password", forgotPassword);
  */
 router.post("/reset-password", resetPassword);
 
+/**
+ * @swagger
+ * /api/user/use-daily-skip/{userId}:
+ *   post:
+ *     tags:
+ *       - Users
+ *     description: Resta un skip diario al usuario si tiene disponibles.
+ *     parameters:
+ *       - in: path
+ *         name: userId
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: ID del usuario.
+ *     responses:
+ *       200:
+ *         description: Skip utilizado correctamente.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 message:
+ *                   type: string
+ *                 remainingSkips:
+ *                   type: integer
+ *       400:
+ *         description: El usuario no tiene skips disponibles.
+ *       404:
+ *         description: Usuario no encontrado.
+ *       500:
+ *         description: Error interno al procesar el skip.
+ */
+router.post("/use-daily-skip/:userId", useDailySkip);
 
 export default router;
