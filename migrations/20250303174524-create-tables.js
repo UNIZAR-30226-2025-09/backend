@@ -102,9 +102,12 @@ export default {
 
     // Tabla CHAT (M:N entre USER y USER)
     await queryInterface.createTable("chat", {
-      user1_id: { type: Sequelize.INTEGER, references: { model: "users", key: "id" }, onDelete: "CASCADE", primaryKey: true },
-      user2_id: { type: Sequelize.INTEGER, references: { model: "users", key: "id" }, onDelete: "CASCADE", primaryKey: true },
-      txt_message: { type: Sequelize.STRING }
+      id: { type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false },
+      user1_id: { type: Sequelize.INTEGER, references: { model: "users", key: "id" }, onDelete: "CASCADE" },
+      user2_id: { type: Sequelize.INTEGER, references: { model: "users", key: "id" }, onDelete: "CASCADE" },
+      txt_message: { type: Sequelize.TEXT },
+      sent_at: { type: Sequelize.DATE, defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"), allowNull: false },
+      read: { type: Sequelize.BOOLEAN, defaultValue: false }
     });
 
     // Crear la tabla para almacenar la lista de reproduccion de cada usuario (M:N entre USER y SONG)

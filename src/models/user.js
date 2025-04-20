@@ -36,7 +36,18 @@ export default (sequelize, DataTypes) => {
             otherKey: "user1_id"
         });
 
-        user.belongsToMany(models.user, { through: "chat", as: "ChatUser", foreignKey: "user1_id" });
+        user.hasMany(models.chat, { 
+            foreignKey: "user1_id",
+            as: "SentMessages",
+            constraints: false
+        });
+        
+        user.hasMany(models.chat, { 
+            foreignKey: "user2_id",
+            as: "ReceivedMessages",
+            constraints: false
+        });
+                
         user.hasOne(models.lastPlaybackState, { foreignKey: 'userId', as: 'lastPlayback' });
 
     };

@@ -541,3 +541,65 @@ export const getFriendsList = async (req, res) => {
         });
     }
 };
+
+// Controlador para dejar de seguir a un amigo
+// Este controlador permite eliminar una relación de amistad establecida
+// entre el usuario autenticado y otro usuario
+export const unfollowFriend = async (req, res) => {
+    try {
+        // Extraemos el token de autorización de las cabeceras
+        const token = req.headers.authorization?.split(' ')[1];
+
+        if (!token) {
+            return res.status(401).json({ error: "Token no proporcionado" });
+        }
+
+        // Verificamos y decodificamos el token
+        const decoded = jwt.verify(token, process.env.JWT_SECRET || 'aB1cD2eF3GhIjK4LmN5OpQr6StUvWxY7Z');
+
+        if (!decoded) {
+            return res.status(401).json({ error: "Token inválido" });
+        }
+
+        // Obtenemos el ID del usuario autenticado
+        const userId = decoded.id;
+
+        // Extraemos el ID del amigo a dejar de seguir
+        const { friendId } = req.body;
+
+        if (!friendId) {
+            return res.status(400).json({ error: "Debes proporcionar un ID de amigo" });
+        }
+
+        // Buscamos la relación de amistad entre ambos usuarios
+        const friendship = await db.friendship.findOne({
+            where: {
+                [Op.or]: [
+                    { user1_id: userId, user2_id: friendId },
+                    { user1_id: friendId, user2_id: userId }
+                ],
+                state_friend_request: 'accepted' // Solo eliminamos relaciones aceptadas
+            }
+        });
+
+        // Si no existe la relación de amistad
+        if (!friendship) {
+            return res.status(404).json({ error: "Relación de amistad no encontrada" });
+        }
+
+        // Eliminamos la relación de amistad
+        await friendship.destroy();
+
+        // Respondemos con un mensaje de éxito
+        return res.status(200).json({
+            message: "Has dejado de seguir a este usuario correctamente"
+        });
+
+    } catch (error) {
+        console.error("Error al dejar de seguir al usuario:", error);
+        return res.status(500).json({
+            error: "Error al dejar de seguir al usuario",
+            details: error.message
+        });
+    }
+};

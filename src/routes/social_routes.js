@@ -641,4 +641,79 @@ router.post('/getReceivedFriendRequests', socialController.getReceivedFriendRequ
  */
 router.post('/getFriendsList', socialController.getFriendsList);
 
+/**
+ * @swagger
+ * /api/social/unfollow:
+ *   post:
+ *     tags:
+ *       - Social
+ *     summary: Dejar de seguir a un amigo
+ *     description: Elimina una relación de amistad existente entre el usuario autenticado y otro usuario.
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               friendId:
+ *                 type: integer
+ *                 description: ID del amigo que se desea dejar de seguir
+ *                 example: 2
+ *     responses:
+ *       200:
+ *         description: Relación de amistad eliminada correctamente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Has dejado de seguir a este usuario correctamente"
+ *       400:
+ *         description: Solicitud inválida
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Debes proporcionar un ID de amigo"
+ *       401:
+ *         description: Error de autenticación
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Token no proporcionado"
+ *       404:
+ *         description: Relación no encontrada
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Relación de amistad no encontrada"
+ *       500:
+ *         description: Error interno del servidor
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Error al dejar de seguir al usuario"
+ */
+router.post('/unfollow', socialController.unfollowFriend);
+
 export default router;
