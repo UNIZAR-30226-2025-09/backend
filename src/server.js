@@ -24,7 +24,8 @@ const subdirectories = [
     "songs_images",
     "artists_images",
     "albums_images",
-    "users"
+    "users",
+    "lyrics",
 ];
 
 // Configurar rutas estáticas dinámicamente
@@ -39,7 +40,27 @@ const PORT = 5001;
 const IP = await getIp("local"); // "public o local dependiendo de lo que se necesite"
 
 let BASE_URL;
+// Add this to your server code
+app.get('/lyrics/:filename', (req, res) => {
+    const filename = req.params.filename;
 
+    // Use the correct path to your lyrics folder
+    // Based on your code, it should be in the public directory
+    const filePath = path.join(publicPath, 'lyrics', filename);
+
+    console.log("Accessing lyrics file at:", filePath);
+
+    // Set the content type to text/plain so browser doesn't try to download it
+    res.setHeader('Content-Type', 'text/plain');
+
+    // Send the file
+    res.sendFile(filePath, (err) => {
+        if (err) {
+            console.error('Error sending lyrics file:', err);
+            res.status(404).send('Lyrics not found');
+        }
+    });
+});
 // Iniciar servidor y conectar a la BD
 sequelize.authenticate()
     .then(async () => {
