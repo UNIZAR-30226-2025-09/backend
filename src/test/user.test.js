@@ -1,275 +1,1128 @@
 import request from 'supertest';
-import {
-    BASE_URL,
-    setAuthToken,
-    getAuthToken,
-    setUserId,
-    getUserId
-} from './data.js';
+import { BASE_URL } from '#test/data';
+import db from '#models/index';
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
+import { Op } from 'sequelize';
+import {generateToken} from './utils/generateToken.js';
+import {getPlaylistGenre} from "#test/utils/getPlaylistGenre";
 
-const testUser = {
-    nickname: 'testuser',
-    mail: 'testuser_jkh18s9chbak@example.com',
-    password: '123456'
-};
+const SECRET_KEY = "aB1cD2eF3GhIjK4LmN5OpQr6StUvWxY7Z";
 
-const newUser = {
-    nickname: 'nuevoUsuario',
-    mail: 'nuevo_jkh18s9chbak@example.com',
-    password: 'abc12345'
-};
+// Función auxiliar para esperar un tiempo determinado
+const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
-describe('Pruebas autenticadas de usuario', () => {
+describe('Pruebas sobre /api/user', () => {
+    // Usuario compartido para todas las pruebas
+    let sharedUser;
+    const sharedPassword = 'compartidopass123';
+    let sharedHashedPassword;
+    let sharedToken;
 
+    // Configuración inicial antes de todas las pruebas
     beforeAll(async () => {
-        // Intentamos registrar por si no existe aún
-        await request(BASE_URL)
-            .post('/api/user/register')
-            .send(testUser);
+        // Esperar a que se inicialice la conexión de la base de datos
+        await delay(100);
 
-        // Hacemos login para obtener token e ID
-        const loginResponse = await request(BASE_URL)
-            .post('/api/user/login')
-            .send({ mail: testUser.mail, password: testUser.password });
+        // Eliminar los usuarios de prueba si existen
+        await db.user.destroy({
+            where: {
+                nickname: {
+                    [Op.in]: ['testuser1', 'testuser2', 'testuser3', 'shareduser']
+                }
+            }
+        });
 
-        if (loginResponse.status === 200) {
-            setAuthToken(loginResponse.body.token);
-            setUserId(loginResponse.body.user.id);
-        } else {
-            throw new Error('No se pudo hacer login en beforeAll');
-        }
+        // Crear usuario compartido para todas las pruebas
+        sharedHashedPassword = await bcrypt.hash(sharedPassword, 10);
+        sharedUser = await db.user.create({
+            nickname: 'shareduser',
+            password: sharedHashedPassword,
+            mail: 'shared@test.com',
+            style_fav: 'pop',
+            is_premium: false
+        });
+
+        // Generar token para el usuario compartido
+        sharedToken = generateToken(sharedUser);
+
+        console.log('Usuario compartido creado:', sharedUser.id);
     });
 
-    it('GET /api/user/profile - debe devolver el perfil del usuario autenticado', async () => {
-        const response = await request(BASE_URL)
-            .get('/api/user/profile')
-            .set('Authorization', `Bearer ${getAuthToken()}`);
-
-        expect(response.status).toBe(200);
-        expect(response.body.mail).toBe(testUser.mail);
-    });
-
-    it('POST /api/user/premium - debe cambiar el estado premium del usuario', async () => {
-        const response = await request(BASE_URL)
-            .post('/api/user/premium')
-            .set('Authorization', `Bearer ${getAuthToken()}`)
-            .send({ is_premium: true });
-
-        expect(response.status).toBe(200);
-        expect(response.body.user.is_premium).toBe(true);
-    });
-
-    it('POST /api/user/check-email - debe confirmar que el correo ya existe', async () => {
-        const response = await request(BASE_URL)
-            .post('/api/user/check-email')
-            .send({ mail: testUser.mail });
-
-        expect(response.status).toBe(200);
-        expect(response.body.exists).toBe(true);
-    });
-
-    it('GET /api/user/:userId - debe devolver los datos del usuario por ID', async () => {
-        const response = await request(BASE_URL)
-            .get(`/api/user/${getUserId()}`);
-
-        expect(response.status).toBe(200);
-        expect(response.body.mail).toBe(testUser.mail);
-    });
-
-    it('POST /api/user/logout - debe cerrar la sesión correctamente', async () => {
-        const response = await request(BASE_URL).post('/api/user/logout');
-        expect(response.status).toBe(200);
-        expect(response.body.message).toMatch(/Sesión cerrada/i);
-    });
-
-    it('POST /api/user/update - debe actualizar el nickname del usuario correctamente', async () => {
-        const nuevoNickname = 'updatedUser_' + Date.now().toString().slice(-5);
-        const response = await request(BASE_URL)
-            .post('/api/user/update')
-            .set('Authorization', `Bearer ${getAuthToken()}`)
-            .send({ nickname: nuevoNickname });
-
-        expect(response.status).toBe(200);
-        expect(response.body.user.nickname).toBe(nuevoNickname);
-    });
-
-    it('POST /api/user/update - debe rechazar nickname duplicado con código 409', async () => {
-        // Registrar un usuario temporal para este test
-        const tempUser = {
-            nickname: 'tempUser_' + Date.now(),
-            mail: 'tempuser_' + Date.now() + '@example.com',
-            password: 'password123'
-        };
-
-        await request(BASE_URL)
-            .post('/api/user/register')
-            .send(tempUser);
-
-        // Intentar actualizar nuestro usuario con el nickname del usuario temporal
-        const response = await request(BASE_URL)
-            .post('/api/user/update')
-            .set('Authorization', `Bearer ${getAuthToken()}`)
-            .send({ nickname: tempUser.nickname });
-
-        expect(response.status).toBe(409);
-        expect(response.body.error).toBe("Nombre de usuario ya registrado");
-    });
-
-    it('POST /api/user/update - debe rechazar correo duplicado con código 400', async () => {
-        // Registrar un usuario temporal para este test si no se creó en el test anterior
-        const tempUser = {
-            nickname: 'tempEmailUser_' + Date.now(),
-            mail: 'tempemail_' + Date.now() + '@example.com',
-            password: 'password123'
-        };
-
-        await request(BASE_URL)
-            .post('/api/user/register')
-            .send(tempUser);
-
-        // Intentar actualizar nuestro usuario con el correo del usuario temporal
-        const response = await request(BASE_URL)
-            .post('/api/user/update')
-            .set('Authorization', `Bearer ${getAuthToken()}`)
-            .send({ mail: tempUser.mail });
-
-        expect(response.status).toBe(400);
-        expect(response.body.error).toBe("Correo ya registrado");
-    });
-
-    it('POST /api/user/update - debe rechazar peticiones sin campos para actualizar', async () => {
-        const response = await request(BASE_URL)
-            .post('/api/user/update')
-            .set('Authorization', `Bearer ${getAuthToken()}`)
-            .send({});
-
-        expect(response.status).toBe(400);
-        expect(response.body.error).toBe("Debes proporcionar al menos un campo para actualizar");
-    });
-
-    it('POST /api/user/update - debe rechazar peticiones sin token', async () => {
-        const response = await request(BASE_URL)
-            .post('/api/user/update')
-            .send({ nickname: 'cualquiernickname' });
-
-        expect(response.status).toBe(401);
-        expect(response.body.error).toBe("Token no proporcionado");
-    });
-
-    // Prueba para actualización de contraseña
-    it('POST /api/user/update - debe permitir actualizar la contraseña', async () => {
-        const nuevaPassword = 'nuevaPassword123';
-
-        // Actualizar contraseña
-        const updateResponse = await request(BASE_URL)
-            .post('/api/user/update')
-            .set('Authorization', `Bearer ${getAuthToken()}`)
-            .send({ password: nuevaPassword });
-
-        expect(updateResponse.status).toBe(200);
-
-        // Cerrar sesión
-        await request(BASE_URL).post('/api/user/logout');
-
-        // Verificar que podemos iniciar sesión con la nueva contraseña
-        const loginResponse = await request(BASE_URL)
-            .post('/api/user/login')
-            .send({ mail: testUser.mail, password: nuevaPassword });
-
-        expect(loginResponse.status).toBe(200);
-        expect(loginResponse.body.token).toBeDefined();
-
-        // Actualizar el token para tests posteriores
-        setAuthToken(loginResponse.body.token);
-    });
-
-    // Restaurar la contraseña original para no afectar otros tests
+    // Limpieza después de todas las pruebas
     afterAll(async () => {
-        await request(BASE_URL)
-            .post('/api/user/update')
-            .set('Authorization', `Bearer ${getAuthToken()}`)
-            .send({ password: testUser.password });
-    });
-});
-
-describe('Pruebas de registro e inicio de sesión', () => {
-
-    let created = false;
-
-    it('POST /api/user/register - registra o ignora si ya existe', async () => {
-        const response = await request(BASE_URL)
-            .post('/api/user/register')
-            .send(newUser);
-
-        if (response.status === 201) {
-            created = true;
-        } else if (response.status === 400 || response.status === 409) {
-            console.warn("Usuario ya existía, intentando login igual...");
-            created = true;
-        }
-
-        expect([201, 400, 409]).toContain(response.status);
+        // Eliminar todos los usuarios de prueba incluyendo el compartido
+        await db.user.destroy({
+            where: {
+                nickname: {
+                    [Op.in]: ['testuser1', 'testuser2', 'testuser3', 'shareduser']
+                }
+            }
+        });
+        console.log('Usuarios de prueba eliminados');
     });
 
-    it('POST /api/user/register - debe rechazar correo repetido con código 400', async () => {
-        // Primero aseguramos que el usuario original esté registrado
-        const initialResponse = await request(BASE_URL)
-            .post('/api/user/register')
-            .send(newUser);
+    describe('POST /api/user/register', () => {
 
-        // Verificamos que se haya registrado o ya exista
-        expect([201, 400, 409]).toContain(initialResponse.status);
+        it('debería registrar un usuario exitosamente', async () => {
+            const userData = {
+                nickname: 'testuser1',
+                password: 'password123',
+                mail: 'testuser1@test.com',
+                style_fav: 'rock'
+            };
 
-        // Intentamos registrar otro usuario con el mismo correo
-        const userWithDuplicateEmail = {
-            nickname: 'otroUsuarioPrueba',
-            mail: newUser.mail, // Correo duplicado del newUser
-            password: 'clave123'
-        };
+            const res = await request(BASE_URL)
+                .post('/api/user/register')
+                .send(userData);
 
-        const response = await request(BASE_URL)
-            .post('/api/user/register')
-            .send(userWithDuplicateEmail);
+            expect(res.status).toBe(201);
+            expect(res.body.message).toBe('Usuario registrado con éxito');
+            expect(res.body.user).toBeDefined();
+            expect(res.body.user.nickname).toBe(userData.nickname);
+            expect(res.body.user.mail).toBe(userData.mail);
+            expect(res.body.user.style_fav).toBe(userData.style_fav);
+            expect(res.body.user.is_premium).toBe(false);
 
-        expect(response.status).toBe(400);
-        expect(response.body.error).toBe("Correo ya registrado");
+            // Verificar que la contraseña esté hasheada
+            expect(res.body.user.password).not.toBe(userData.password);
+
+            // Verificar que se pueda validar la contraseña con bcrypt
+            const storedUser = await db.user.findOne({ where: { nickname: userData.nickname } });
+            const validPassword = await bcrypt.compare(userData.password, storedUser.password);
+            expect(validPassword).toBe(true);
+        });
+
+        it('debería fallar al registrar un correo que ya existe', async () => {
+            // Primero creamos un usuario
+            const userData = {
+                nickname: 'testuser2',
+                password: 'password123',
+                mail: 'testuser2@test.com',
+                style_fav: 'pop'
+            };
+
+            await request(BASE_URL)
+                .post('/api/user/register')
+                .send(userData);
+
+            // Intentamos crear otro con el mismo correo
+            const duplicateMailUser = {
+                nickname: 'differentuser',
+                password: 'password456',
+                mail: 'testuser2@test.com', // Mismo correo
+                style_fav: 'jazz'
+            };
+
+            const res = await request(BASE_URL)
+                .post('/api/user/register')
+                .send(duplicateMailUser);
+
+            expect(res.status).toBe(400);
+            expect(res.body.error).toBe('Correo ya registrado');
+        });
+
+        it('debería fallar al registrar un nickname que ya existe', async () => {
+            // Ya tenemos usuarios creados, intentamos uno con nickname duplicado
+            const duplicateNicknameUser = {
+                nickname: 'testuser1', // Nickname existente
+                password: 'password789',
+                mail: 'different@test.com',
+                style_fav: 'electronic'
+            };
+
+            const res = await request(BASE_URL)
+                .post('/api/user/register')
+                .send(duplicateNicknameUser);
+
+            expect(res.status).toBe(409);
+            expect(res.body.error).toBe('Nombre de usuario ya registrado');
+        });
+
+        it('debería registrar correctamente con campos opcionales omitidos', async () => {
+            const minimalUserData = {
+                nickname: 'testuser3',
+                password: 'password123',
+                mail: 'testuser3@test.com'
+            };
+
+            const res = await request(BASE_URL)
+                .post('/api/user/register')
+                .send(minimalUserData);
+
+            expect(res.status).toBe(201);
+            expect(res.body.message).toBe('Usuario registrado con éxito');
+            expect(res.body.user.nickname).toBe(minimalUserData.nickname);
+            expect(res.body.user.style_fav).toBeNull(); // Debería ser null si se omite
+        });
+
+        it('debería fallar si faltan campos requeridos', async () => {
+            // Sin nickname
+            const missingNickname = {
+                password: 'password123',
+                mail: 'incomplete@test.com',
+                style_fav: 'rock'
+            };
+
+            const res1 = await request(BASE_URL)
+                .post('/api/user/register')
+                .send(missingNickname);
+
+            expect(res1.status).toBe(500);
+
+            // Sin contraseña
+            const missingPassword = {
+                nickname: 'incompleteuser',
+                mail: 'incomplete@test.com',
+                style_fav: 'rock'
+            };
+
+            const res2 = await request(BASE_URL)
+                .post('/api/user/register')
+                .send(missingPassword);
+
+            expect(res2.status).toBe(500);
+
+            // Sin correo
+            const missingMail = {
+                nickname: 'incompleteuser',
+                password: 'password123',
+                style_fav: 'rock'
+            };
+
+            const res3 = await request(BASE_URL)
+                .post('/api/user/register')
+                .send(missingMail);
+
+            expect(res3.status).toBe(500);
+        });
     });
 
-    it('POST /api/user/register - debe rechazar nickname repetido con código 409', async () => {
-        // Primero aseguramos que el usuario original esté registrado
-        const initialResponse = await request(BASE_URL)
-            .post('/api/user/register')
-            .send(newUser);
+    describe('POST /api/user/login', () => {
+        it('debería iniciar sesión correctamente con credenciales válidas', async () => {
+            const credentials = {
+                mail: sharedUser.mail,
+                password: sharedPassword
+            };
 
-        // Verificamos que se haya registrado o ya exista
-        expect([201, 400, 409]).toContain(initialResponse.status);
+            const res = await request(BASE_URL)
+                .post('/api/user/login')
+                .send(credentials);
 
-        // Intentamos registrar otro usuario con el mismo nickname
-        const userWithDuplicateNickname = {
-            nickname: newUser.nickname, // Nickname duplicado del newUser
-            mail: 'otro_correo_diferente_jkh18s9chbak@example.com',
-            password: 'clave123'
-        };
+            expect(res.status).toBe(200);
+            expect(res.body.message).toBe('Login Exitoso');
+            expect(res.body.token).toBeDefined();
+            expect(res.header.authorization).toBeDefined();
+            expect(res.body.user).toBeDefined();
+            expect(res.body.user.id).toBe(sharedUser.id);
+            expect(res.body.user.nickname).toBe(sharedUser.nickname);
+            expect(res.body.user.mail).toBe(sharedUser.mail);
+        });
 
-        const response = await request(BASE_URL)
-            .post('/api/user/register')
-            .send(userWithDuplicateNickname);
+        it('debería fallar con correo inexistente', async () => {
+            const credentials = {
+                mail: 'noexiste@test.com',
+                password: sharedPassword
+            };
 
-        expect(response.status).toBe(409);
-        expect(response.body.error).toBe("Nombre de usuario ya registrado");
+            const res = await request(BASE_URL)
+                .post('/api/user/login')
+                .send(credentials);
+
+            expect(res.status).toBe(404);
+            expect(res.body.error).toBe('Usuario no encontrado');
+        });
+
+        it('debería fallar con contraseña incorrecta', async () => {
+            const credentials = {
+                mail: sharedUser.mail,
+                password: 'contraseñaincorrecta'
+            };
+
+            const res = await request(BASE_URL)
+                .post('/api/user/login')
+                .send(credentials);
+
+            expect(res.status).toBe(401);
+            expect(res.body.error).toBe('Contraseña incorrecta');
+        });
+
+        /*it('debería fallar si falta el correo', async () => {
+            const credentials = {
+                password: sharedPassword
+            };
+
+            const res = await request(BASE_URL)
+                .post('/api/user/login')
+                .send(credentials);
+
+            expect(res.status).toBe(404);
+            expect(res.body.error).toBe('Usuario no encontrado');
+        });
+
+        it('debería fallar si falta la contraseña', async () => {
+            const credentials = {
+                mail: sharedUser.mail
+            };
+
+            const res = await request(BASE_URL)
+                .post('/api/user/login')
+                .send(credentials);
+
+            expect(res.status).toBe(401);
+            expect(res.body.error).toBe('Contraseña incorrecta');
+        });*/
+
+        it('debería devolver los datos correctos del usuario sin exponer la contraseña real', async () => {
+            const credentials = {
+                mail: sharedUser.mail,
+                password: sharedPassword
+            };
+
+            const res = await request(BASE_URL)
+                .post('/api/user/login')
+                .send(credentials);
+
+            expect(res.status).toBe(200);
+
+            // La contraseña devuelta no debe ser la contraseña en texto plano
+            expect(res.body.user.password).not.toBe(sharedPassword);
+
+            // Debe ser la contraseña hasheada
+            expect(res.body.user.password).toBe(sharedHashedPassword);
+
+            // Verificar el resto de datos
+            expect(res.body.user.style_fav).toBe(sharedUser.style_fav);
+            expect(res.body.user.is_premium).toBe(sharedUser.is_premium);
+        });
     });
 
-    it('POST /api/user/login - debe iniciar sesión con el nuevo usuario', async () => {
-        if (!created) {
-            throw new Error("Usuario no creado correctamente en la prueba anterior.");
-        }
+    describe('POST /api/user/logout', () => {
+        it('debería cerrar la sesión correctamente', async () => {
+            const res = await request(BASE_URL)
+                .post('/api/user/logout')
+                .send();
 
-        const response = await request(BASE_URL)
-            .post('/api/user/login')
-            .send({ mail: newUser.mail, password: newUser.password });
+            expect(res.status).toBe(200);
+            expect(res.body.message).toBe('Sesión cerrada correctamente');
+        });
 
-        expect(response.status).toBe(200);
-        expect(response.body.token).toBeDefined();
-        expect(response.body.user.mail).toBe(newUser.mail);
+        it('debería funcionar correctamente incluso con token de autorización', async () => {
+            // Intentamos cerrar sesión con el token incluido
+            const logoutRes = await request(BASE_URL)
+                .post('/api/user/logout')
+                .set('Authorization', `Bearer ${sharedToken}`)
+                .send();
+
+            // Verificamos que la respuesta sea correcta
+            expect(logoutRes.status).toBe(200);
+            expect(logoutRes.body.message).toBe('Sesión cerrada correctamente');
+        });
+    });
+
+    describe('GET /api/user/profile', () => {
+
+        it('debería obtener el perfil del usuario autenticado correctamente', async () => {
+            const res = await request(BASE_URL)
+                .get('/api/user/profile')
+                .set('Authorization', `Bearer ${sharedToken}`);
+
+            expect(res.status).toBe(200);
+            expect(res.body).toBeDefined();
+            expect(res.body.id).toBe(sharedUser.id);
+            expect(res.body.nickname).toBe(sharedUser.nickname);
+            expect(res.body.mail).toBe(sharedUser.mail);
+            expect(res.body.style_fav).toBe(sharedUser.style_fav);
+            expect(res.body.is_premium).toBe(sharedUser.is_premium);
+            // Verificar que no se devuelve la contraseña
+            expect(res.body.password).toBeUndefined();
+        });
+
+        it('debería fallar cuando no se proporciona token', async () => {
+            const res = await request(BASE_URL)
+                .get('/api/user/profile');
+
+            expect(res.status).toBe(401);
+            expect(res.body.error).toBe('Token no proporcionado');
+        });
+
+        it('debería fallar cuando el token es inválido', async () => {
+            const res = await request(BASE_URL)
+                .get('/api/user/profile')
+                .set('Authorization', 'Bearer tokeninvalido123');
+
+            expect(res.status).toBe(500);
+            expect(res.body.error).toBe('Error al obtener el perfil');
+        });
+
+        it('debería fallar cuando el usuario no existe en la base de datos', async () => {
+            // Crear un token con un ID que no existe en la base de datos
+            const fakeToken = jwt.sign(
+                { id: 99999, mail: 'noexiste@test.com' },
+                SECRET_KEY,
+                { expiresIn: '1h' }
+            );
+
+            const res = await request(BASE_URL)
+                .get('/api/user/profile')
+                .set('Authorization', `Bearer ${fakeToken}`);
+
+            expect(res.status).toBe(404);
+            expect(res.body.error).toBe('Usuario no encontrado');
+        });
+
+        it('debería devolver solo los atributos específicos del usuario', async () => {
+            const res = await request(BASE_URL)
+                .get('/api/user/profile')
+                .set('Authorization', `Bearer ${sharedToken}`);
+
+            expect(res.status).toBe(200);
+
+            // Verificar que solo se devuelven los campos específicos
+            const allowedFields = ['id', 'nickname', 'mail', 'style_fav', 'is_premium', 'user_picture'];
+            const responseFields = Object.keys(res.body);
+
+            // Verificar que todos los campos devueltos están en la lista permitida
+            responseFields.forEach(field => {
+                expect(allowedFields).toContain(field);
+            });
+
+            // Verificar que no hay campos adicionales
+            expect(responseFields.length).toBeLessThanOrEqual(allowedFields.length);
+        });
+    });
+
+    describe('POST /api/user/update', () => {
+        let secondUser;
+        const newPassword = 'nuevacontraseña123';
+
+        beforeAll(async () => {
+            // Crear un segundo usuario para pruebas de conflicto
+            await db.user.destroy({ where: { nickname: 'secondtestuser' } });
+
+            const hashedPassword = await bcrypt.hash('secondpassword', 10);
+            secondUser = await db.user.create({
+                nickname: 'secondtestuser',
+                password: hashedPassword,
+                mail: 'second@test.com',
+                style_fav: 'jazz',
+                is_premium: false
+            });
+        });
+
+        afterAll(async () => {
+            // Eliminar el segundo usuario de prueba
+            await db.user.destroy({ where: { id: secondUser.id } });
+        });
+
+        it('debería actualizar el nickname correctamente', async () => {
+            const updateData = {
+                currentPassword: sharedPassword,
+                nickname: 'nuevonickname'
+            };
+
+            const res = await request(BASE_URL)
+                .post('/api/user/update')
+                .set('Authorization', `Bearer ${sharedToken}`)
+                .send(updateData);
+
+            expect(res.status).toBe(200);
+            expect(res.body.message).toBe('Perfil actualizado correctamente');
+            expect(res.body.user.nickname).toBe('nuevonickname');
+
+            // Verificar en la base de datos
+            const updatedUser = await db.user.findByPk(sharedUser.id);
+            expect(updatedUser.nickname).toBe('nuevonickname');
+
+            // Restaurar para otras pruebas
+            updatedUser.nickname = 'shareduser';
+            await updatedUser.save();
+        });
+
+        it('debería actualizar el correo correctamente', async () => {
+            const updateData = {
+                currentPassword: sharedPassword,
+                mail: 'nuevo@correo.com'
+            };
+
+            const res = await request(BASE_URL)
+                .post('/api/user/update')
+                .set('Authorization', `Bearer ${sharedToken}`)
+                .send(updateData);
+
+            expect(res.status).toBe(200);
+            expect(res.body.user.mail).toBe('nuevo@correo.com');
+
+            // Restaurar para otras pruebas
+            const updatedUser = await db.user.findByPk(sharedUser.id);
+            updatedUser.mail = 'shared@test.com';
+            await updatedUser.save();
+        });
+
+        // Resto de pruebas actualizadas con la ruta y método correctos
+        it('debería actualizar la contraseña correctamente', async () => {
+            const updateData = {
+                currentPassword: sharedPassword,
+                password: newPassword
+            };
+
+            const res = await request(BASE_URL)
+                .post('/api/user/update')
+                .set('Authorization', `Bearer ${sharedToken}`)
+                .send(updateData);
+
+            expect(res.status).toBe(200);
+
+            // Verificar que la contraseña se actualizó correctamente
+            const updatedUser = await db.user.findByPk(sharedUser.id);
+            const validNewPassword = await bcrypt.compare(newPassword, updatedUser.password);
+            expect(validNewPassword).toBe(true);
+
+            // Restaurar la contraseña original para otras pruebas
+            updatedUser.password = sharedHashedPassword;
+            await updatedUser.save();
+        });
+
+        it('debería actualizar varios campos a la vez', async () => {
+            const updateData = {
+                currentPassword: sharedPassword,
+                nickname: 'multiactualizacion',
+                mail: 'multi@test.com'
+            };
+
+            const res = await request(BASE_URL)
+                .post('/api/user/update')
+                .set('Authorization', `Bearer ${sharedToken}`)
+                .send(updateData);
+
+            expect(res.status).toBe(200);
+            expect(res.body.user.nickname).toBe('multiactualizacion');
+            expect(res.body.user.mail).toBe('multi@test.com');
+
+            // Restaurar para otras pruebas
+            const updatedUser = await db.user.findByPk(sharedUser.id);
+            updatedUser.nickname = 'shareduser';
+            updatedUser.mail = 'shared@test.com';
+            await updatedUser.save();
+        });
+
+        it('debería fallar sin token de autenticación', async () => {
+            const updateData = {
+                currentPassword: sharedPassword,
+                nickname: 'fallaranickname'
+            };
+
+            const res = await request(BASE_URL)
+                .post('/api/user/update')
+                .send(updateData);
+
+            expect(res.status).toBe(401);
+            expect(res.body.error).toBe('Token no proporcionado');
+        });
+
+        it('debería fallar con token inválido', async () => {
+            const updateData = {
+                currentPassword: sharedPassword,
+                nickname: 'fallaranickname'
+            };
+
+            const res = await request(BASE_URL)
+                .post('/api/user/update')
+                .set('Authorization', 'Bearer tokeninvalido123')
+                .send(updateData);
+
+            expect(res.status).toBe(403);
+            expect(res.body.error).toBe('Token inválido o expirado');
+        });
+
+        it('debería fallar sin contraseña actual', async () => {
+            const updateData = {
+                nickname: 'fallaranickname'
+            };
+
+            const res = await request(BASE_URL)
+                .post('/api/user/update')
+                .set('Authorization', `Bearer ${sharedToken}`)
+                .send(updateData);
+
+            expect(res.status).toBe(400);
+            expect(res.body.error).toBe('Debes proporcionar tu contraseña actual para actualizar tu perfil');
+        });
+
+        it('debería fallar con contraseña actual incorrecta', async () => {
+            const updateData = {
+                currentPassword: 'contraseñaincorrecta',
+                nickname: 'fallaranickname'
+            };
+
+            const res = await request(BASE_URL)
+                .post('/api/user/update')
+                .set('Authorization', `Bearer ${sharedToken}`)
+                .send(updateData);
+
+            expect(res.status).toBe(401);
+            expect(res.body.error).toBe('Contraseña actual incorrecta');
+        });
+
+        it('debería fallar sin campos para actualizar', async () => {
+            const updateData = {
+                currentPassword: sharedPassword
+            };
+
+            const res = await request(BASE_URL)
+                .post('/api/user/update')
+                .set('Authorization', `Bearer ${sharedToken}`)
+                .send(updateData);
+
+            expect(res.status).toBe(422);
+            expect(res.body.error).toBe('Debes proporcionar al menos un campo para actualizar');
+        });
+
+        it('debería fallar al intentar usar un correo existente', async () => {
+            const updateData = {
+                currentPassword: sharedPassword,
+                mail: secondUser.mail
+            };
+
+            const res = await request(BASE_URL)
+                .post('/api/user/update')
+                .set('Authorization', `Bearer ${sharedToken}`)
+                .send(updateData);
+
+            expect(res.status).toBe(400);
+            expect(res.body.error).toBe('Correo ya registrado');
+        });
+
+        it('debería fallar al intentar usar un nickname existente', async () => {
+            const updateData = {
+                currentPassword: sharedPassword,
+                nickname: secondUser.nickname
+            };
+
+            const res = await request(BASE_URL)
+                .post('/api/user/update')
+                .set('Authorization', `Bearer ${sharedToken}`)
+                .send(updateData);
+
+            expect(res.status).toBe(409);
+            expect(res.body.error).toBe('Nombre de usuario ya registrado');
+        });
+
+        it('no debería exponer la contraseña en la respuesta', async () => {
+            const updateData = {
+                currentPassword: sharedPassword,
+                nickname: 'otrointento'
+            };
+
+            const res = await request(BASE_URL)
+                .post('/api/user/update')
+                .set('Authorization', `Bearer ${sharedToken}`)
+                .send(updateData);
+
+            expect(res.status).toBe(200);
+            expect(res.body.user.password).toBeUndefined();
+
+            // Restaurar para otras pruebas
+            const updatedUser = await db.user.findByPk(sharedUser.id);
+            updatedUser.nickname = 'shareduser';
+            await updatedUser.save();
+        });
+    });
+
+    describe('POST /api/user/premium', () => {
+        // Token generado específicamente para pruebas premium
+        let premiumToken;
+
+        beforeAll(async () => {
+            // Asegurarse de que sharedUser existe y no es premium
+            await sharedUser.update({ is_premium: false });
+            // Generar token fresco
+            premiumToken = generateToken(sharedUser);
+        });
+
+        it('debería actualizar exitosamente de usuario gratuito a premium', async () => {
+            const updateData = {
+                is_premium: true
+            };
+
+            const res = await request(BASE_URL)
+                .post('/api/user/premium')
+                .set('Authorization', `Bearer ${premiumToken}`)
+                .send(updateData);
+
+            expect(res.status).toBe(200);
+            expect(res.body.message).toBe('Estado actualizado a: Premium');
+            expect(res.body.user).toBeDefined();
+            expect(res.body.user.is_premium).toBe(true);
+
+            // Verificar que se actualizó en la BD
+            const updatedUser = await db.user.findByPk(sharedUser.id);
+            expect(updatedUser.is_premium).toBe(true);
+        });
+
+        it('debería actualizar exitosamente de usuario premium a gratuito', async () => {
+            // El usuario ya debería estar en premium por la prueba anterior
+            const updateData = {
+                is_premium: false
+            };
+
+            const res = await request(BASE_URL)
+                .post('/api/user/premium')
+                .set('Authorization', `Bearer ${premiumToken}`)
+                .send(updateData);
+
+            expect(res.status).toBe(200);
+            expect(res.body.message).toBe('Estado actualizado a: Gratuito');
+            expect(res.body.user.is_premium).toBe(false);
+
+            // Verificar actualización en BD
+            const updatedUser = await db.user.findByPk(sharedUser.id);
+            expect(updatedUser.is_premium).toBe(false);
+        });
+
+        it('debería informar cuando el usuario ya está en el estado solicitado', async () => {
+            // El usuario debería estar en estado gratuito por la prueba anterior
+            const updateData = {
+                is_premium: false  // Mismo estado actual
+            };
+
+            const res = await request(BASE_URL)
+                .post('/api/user/premium')
+                .set('Authorization', `Bearer ${premiumToken}`)
+                .send(updateData);
+
+            expect(res.status).toBe(200);
+            expect(res.body.message).toBe('El usuario ya está en el estado Gratuito');
+            expect(res.body.user.is_premium).toBe(false);
+        });
+
+        it('debería fallar si no se proporciona token', async () => {
+            const updateData = {
+                is_premium: true
+            };
+
+            const res = await request(BASE_URL)
+                .post('/api/user/premium')
+                .send(updateData);
+
+            expect(res.status).toBe(401);
+            expect(res.body.error).toBe('Token no proporcionado');
+        });
+
+        it('debería fallar con token inválido', async () => {
+            const updateData = {
+                is_premium: true
+            };
+
+            const res = await request(BASE_URL)
+                .post('/api/user/premium')
+                .set('Authorization', 'Bearer tokeninvalido123')
+                .send(updateData);
+
+            expect(res.status).toBe(401);
+            expect(res.body.error).toBe('Token inválido o expirado');
+        });
+
+        it('debería fallar si el usuario no existe', async () => {
+            // Crear token con un ID que no existe
+            const fakeToken = jwt.sign(
+                { id: 99999, mail: 'noexiste@test.com' },
+                SECRET_KEY,
+                { expiresIn: '1h' }
+            );
+
+            const updateData = {
+                is_premium: true
+            };
+
+            const res = await request(BASE_URL)
+                .post('/api/user/premium')
+                .set('Authorization', `Bearer ${fakeToken}`)
+                .send(updateData);
+
+            expect(res.status).toBe(404);
+            expect(res.body.error).toBe('Usuario no encontrado');
+        });
+
+        it('debería fallar si is_premium no es booleano', async () => {
+            const updateData = {
+                is_premium: "true"
+            };
+
+            const res = await request(BASE_URL)
+                .post('/api/user/premium')
+                .set('Authorization', `Bearer ${premiumToken}`)
+                .send(updateData);
+
+            expect(res.status).toBe(400);
+            expect(res.body.error).toBe("El valor de 'is_premium' debe ser booleano (true/false)");
+        });
+    });
+
+    describe('POST /api/user/check-email', () => {
+
+        it('debería confirmar que un correo existente está registrado', async () => {
+            const requestData = {
+                mail: sharedUser.mail
+            };
+
+            const res = await request(BASE_URL)
+                .post('/api/user/check-email')
+                .send(requestData);
+
+            expect(res.status).toBe(200);
+            expect(res.body.exists).toBe(true);
+        });
+
+        it('debería confirmar que un correo no existente no está registrado', async () => {
+            const requestData = {
+                mail: 'correo_inexistente@test.com'
+            };
+
+            const res = await request(BASE_URL)
+                .post('/api/user/check-email')
+                .send(requestData);
+
+            expect(res.status).toBe(200);
+            expect(res.body.exists).toBe(false);
+        });
+
+        it('debería manejar solicitudes sin correo electrónico', async () => {
+            const requestData = {}; // Objeto vacío sin campo mail
+
+            const res = await request(BASE_URL)
+                .post('/api/user/check-email')
+                .send(requestData);
+
+            expect(res.status).toBe(500);
+        });
+    });
+
+    describe('GET /api/user/:userId', () => {
+
+        it('debería obtener correctamente los datos de un usuario existente', async () => {
+            const res = await request(BASE_URL)
+                .get(`/api/user/${sharedUser.id}`);
+
+            expect(res.status).toBe(200);
+            expect(res.body.id).toBe(sharedUser.id);
+            expect(res.body.nickname).toBe(sharedUser.nickname);
+            expect(res.body.mail).toBe(sharedUser.mail);
+            expect(res.body.style_fav).toBe(sharedUser.style_fav);
+            expect(res.body.is_premium).toBe(sharedUser.is_premium);
+            // No debería devolver la contraseña
+            expect(res.body.password).toBeUndefined();
+        });
+
+        it('debería devolver un error 404 si el usuario no existe', async () => {
+            const idInexistente = 99999;
+
+            const res = await request(BASE_URL)
+                .get(`/api/user/${idInexistente}`);
+
+            expect(res.status).toBe(404);
+            expect(res.body.error).toBe('Usuario no encontrado');
+        });
+
+        it('debería devolver todos los campos públicos del perfil de usuario', async () => {
+            const res = await request(BASE_URL)
+                .get(`/api/user/${sharedUser.id}`);
+
+            // Verificar que contiene todos los campos esperados
+            expect(res.status).toBe(200);
+            expect(res.body.id).toBeDefined();
+            expect(res.body.nickname).toBeDefined();
+            expect(res.body.mail).toBeDefined();
+            expect(res.body.style_fav).toBeDefined();
+            expect(res.body.is_premium).toBeDefined();
+            expect(res.body.user_picture).toBeDefined(); // Puede ser null pero debe estar definido
+        });
+    });
+    describe('POST /api/user/updateStyle', () => {
+        let testSongs, testPlaylists;
+
+        // Configuración inicial
+        beforeEach(async () => {
+            try {
+                // Añadir url_mp3 como campo obligatorio
+                testSongs = await Promise.all([
+                    db.song.create({
+                        name: 'Canción Rock',
+                        genre: 'Rock',
+                        url_mp3: 'http://ejemplo.com/rock.mp3' // Añadir campo obligatorio
+                    }),
+                    db.song.create({
+                        name: 'Canción Pop',
+                        genre: 'Pop',
+                        url_mp3: 'http://ejemplo.com/pop.mp3' // Añadir campo obligatorio
+                    }),
+                    db.song.create({
+                        name: 'Canción Jazz',
+                        genre: 'Jazz',
+                        url_mp3: 'http://ejemplo.com/jazz.mp3' // Añadir campo obligatorio
+                    })
+                ]);
+
+                // Crear playlists de prueba
+                testPlaylists = await Promise.all([
+                    db.playlist.create({ name: 'Playlist Rock', user_id: sharedUser.id })
+                ]);
+
+                // Añadir canción de rock a la playlist rock
+                await db.song_playlist.create({
+                    playlist_id: testPlaylists[0].id,
+                    song_id: testSongs[0].id
+                });
+            } catch (error) {
+                console.error('Error en configuración:', error);
+            }
+        });
+
+        // Limpiar datos después de las pruebas
+        afterEach(async () => {
+            try {
+                // Verificar que existan los arrays antes de usar map
+                if (testSongs && testSongs.length) {
+                    await db.song_like.destroy({ where: { user_id: sharedUser.id } });
+
+                    await db.song.destroy({
+                        where: { id: testSongs.map(s => s.id) }
+                    });
+                }
+
+                if (testPlaylists && testPlaylists.length) {
+                    await db.playlist_like.destroy({
+                        where: { user_id: sharedUser.id }
+                    });
+
+                    await db.song_playlist.destroy({
+                        where: {
+                            playlist_id: testPlaylists.map(p => p.id)
+                        }
+                    });
+
+                    await db.playlist.destroy({
+                        where: { id: testPlaylists.map(p => p.id) }
+                    });
+                }
+
+                // Restaurar estilo favorito original
+                await sharedUser.update({ style_fav: 'pop' });
+            } catch (error) {
+                console.error('Error en limpieza:', error);
+            }
+        });
+
+        it('debería actualizar el estilo favorito según los likes de canciones', async () => {
+            if (!testSongs || !testSongs.length) {
+                fail('Las canciones de prueba no se crearon correctamente');
+                return;
+            }
+
+            await Promise.all([
+                db.song_like.create({ user_id: sharedUser.id, song_id: testSongs[0].id }),
+                db.song_like.create({ user_id: sharedUser.id, song_id: testSongs[1].id }),
+            ]);
+
+            const res = await request(BASE_URL)
+                .post('/api/user/updateStyle')
+                .set('Authorization', `Bearer ${sharedToken}`);
+
+            expect(res.status).toBe(200);
+            expect(res.body.message).toBe("Estilo favorito actualizado");
+            expect(res.body.style_fav).toContain("Rock");
+        });
+
+        it('debería fallar si no hay token de autenticación', async () => {
+            const res = await request(BASE_URL)
+                .post('/api/user/updateStyle');
+
+            expect(res.status).toBe(401);
+            expect(res.body.error).toBe("Token no proporcionado");
+        });
+
+        it('debería considerar tanto los likes de canciones como de playlists', async () => {
+            // Dar like a una canción de jazz
+            await db.song_like.create({
+                user_id: sharedUser.id,
+                song_id: testSongs[2].id
+            });
+
+            // Dar like a una playlist de rock
+            await db.playlist_like.create({
+                user_id: sharedUser.id,
+                playlist_id: testPlaylists[0].id
+            });
+
+            const res = await request(BASE_URL)
+                .post('/api/user/updateStyle')
+                .set('Authorization', `Bearer ${sharedToken}`);
+
+            expect(res.status).toBe(200);
+            // Debería estar empatado entre jazz y rock
+            expect(res.body.style_fav.length).toBeGreaterThanOrEqual(1);
+        });
+    });
+
+    describe('GET /api/user/recommended-playlists', () => {
+        let testPlaylists;
+        let testSongs;
+
+        // Configuración inicial antes de cada prueba
+        beforeEach(async () => {
+            try {
+                // Asignar un estilo favorito al usuario compartido
+                await sharedUser.update({ style_fav: 'Rock' });
+
+                // Crear canciones con diferentes géneros
+                testSongs = await Promise.all([
+                    db.song.create({
+                        name: 'Canción Rock 1',
+                        genre: 'rock',
+                        url_mp3: 'http://ejemplo.com/rock1.mp3'
+                    }),
+                    db.song.create({
+                        name: 'Canción Rock 2',
+                        genre: 'rock',
+                        url_mp3: 'http://ejemplo.com/rock2.mp3'
+                    }),
+                    db.song.create({
+                        name: 'Canción Pop',
+                        genre: 'pop',
+                        url_mp3: 'http://ejemplo.com/pop1.mp3'
+                    })
+                ]);
+
+                // Crear playlists
+                testPlaylists = await Promise.all([
+                    db.playlist.create({
+                        name: 'Playlist Rock',
+                        user_id: sharedUser.id + 1, // Otro usuario
+                        type: 'public',
+                        front_page: 'http://ejemplo.com/rock.jpg'
+                    }),
+                    db.playlist.create({
+                        name: 'Playlist Pop',
+                        user_id: sharedUser.id + 1,
+                        type: 'public',
+                        front_page: 'http://ejemplo.com/pop.jpg'
+                    }),
+                    db.playlist.create({
+                        name: 'Mi Playlist Rock',
+                        user_id: sharedUser.id, // Playlist del usuario actual
+                        type: 'public',
+                        front_page: 'http://ejemplo.com/mirock.jpg'
+                    })
+                ]);
+
+                // Crear asociaciones usando directamente el modelo song_playlist
+                await db.song_playlist.bulkCreate([
+                    { song_id: testSongs[0].id, playlist_id: testPlaylists[0].id },
+                    { song_id: testSongs[1].id, playlist_id: testPlaylists[0].id },
+                    { song_id: testSongs[2].id, playlist_id: testPlaylists[1].id },
+                    { song_id: testSongs[0].id, playlist_id: testPlaylists[2].id }
+                ]);
+
+            } catch (error) {
+                console.error('Error en configuración de tests de playlists recomendadas:', error);
+            }
+        });
+
+        // Limpieza después de cada prueba
+        afterEach(async () => {
+            try {
+                // Eliminar asociaciones primero
+                if (testPlaylists && testSongs) {
+                    await db.song_playlist.destroy({
+                        where: {
+                            playlist_id: testPlaylists.map(p => p.id)
+                        }
+                    });
+                }
+
+                // Eliminar playlists y canciones
+                if (testPlaylists && testPlaylists.length) {
+                    await db.playlist.destroy({
+                        where: { id: testPlaylists.map(p => p.id) }
+                    });
+                }
+
+                if (testSongs && testSongs.length) {
+                    await db.song.destroy({
+                        where: { id: testSongs.map(s => s.id) }
+                    });
+                }
+
+                // Restaurar estilo favorito original
+                await sharedUser.update({ style_fav: 'pop' });
+            } catch (error) {
+                console.error('Error en limpieza de tests de playlists recomendadas:', error);
+            }
+        });
+
+        it('debería obtener playlists recomendadas basadas en el estilo favorito del usuario', async () => {
+            // Primero obtenemos el valor exacto del estilo favorito establecido
+            const userInfo = await db.user.findByPk(sharedUser.id);
+
+            const res = await request(BASE_URL)
+                .get('/api/user/recommended-playlists')
+                .set('Authorization', `Bearer ${sharedToken}`);
+
+            expect(res.status).toBe(200);
+            expect(res.body.recommendedPlaylists).toBeDefined();
+            expect(Array.isArray(res.body.recommendedPlaylists)).toBe(true);
+            expect(res.body.recommendedPlaylists.length).toBeGreaterThan(0);
+
+            // Verificar que no se recomienda la playlist del propio usuario
+            const recommendedIds = res.body.recommendedPlaylists.map(p => p.id);
+            expect(recommendedIds).not.toContain(testPlaylists[2].id);
+
+            // Verificar que las playlists recomendadas tienen Rock como género predominante
+            let generosCorrecto = true;
+            for (const playlist of res.body.recommendedPlaylists) {
+                const predominantGenre = await getPlaylistGenre(playlist.id);
+
+                // Comparar ignorando mayúsculas/minúsculas
+                if (predominantGenre && predominantGenre.toLowerCase() !== userInfo.style_fav.toLowerCase()) {
+                    generosCorrecto = false;
+                    break;
+                }
+            }
+
+            // Todas las playlists recomendadas deben tener el género predominante Rock
+            expect(generosCorrecto).toBe(true);
+        });
+
+        it('debería fallar si no hay token de autenticación', async () => {
+            const res = await request(BASE_URL)
+                .get('/api/user/recommended-playlists');
+
+            expect(res.status).toBe(401);
+            expect(res.body.error).toBe('Token no proporcionado');
+        });
+
+        it('debería fallar con token inválido', async () => {
+            const res = await request(BASE_URL)
+                .get('/api/user/recommended-playlists')
+                .set('Authorization', 'Bearer tokeninvalido123');
+
+            expect(res.status).toBe(403);
+            expect(res.body.error).toBe('Token inválido o expirado');
+        });
+
+        it('debería devolver playlists con la estructura correcta', async () => {
+            const res = await request(BASE_URL)
+                .get('/api/user/recommended-playlists')
+                .set('Authorization', `Bearer ${sharedToken}`);
+
+            expect(res.status).toBe(200);
+
+            if (res.body.recommendedPlaylists.length > 0) {
+                const playlist = res.body.recommendedPlaylists[0];
+                expect(playlist.id).toBeDefined();
+                expect(playlist.name).toBeDefined();
+                expect(playlist.front_page).toBeDefined();
+            }
+        });
     });
 });

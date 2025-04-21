@@ -5,6 +5,7 @@ import path from 'path';
 import { Op, Sequelize } from "sequelize"; // Asegúrate de importar Sequelize
 import { fileURLToPath } from 'url';
 import { appendFile, open } from 'fs/promises';
+import nodemailer from 'nodemailer'; // Importamos nodemailer para el envío de correos electrónicos
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -49,7 +50,8 @@ export const registerUser = async (req, res) => {
             password: hashedPassword, // Guardamos la contraseña hasheada
             mail,
             style_fav,
-            is_premium
+            is_premium,
+            daily_skips: 5, // Valor por defecto
         });
 
         res.status(201).json({ message: "Usuario registrado con éxito", user: newUser });
@@ -71,18 +73,18 @@ export const registerUser = async (req, res) => {
 export const loginUser = async (req, res) => {
     const { mail, password } = req.body;
 
+    const foundUser = await db.user.findOne({ where: { mail } });
+
+    if (!foundUser) {
+        return res.status(404).json({ error: "Usuario no encontrado" });
+    }
+
+    const validPassword = await bcrypt.compare(password, foundUser.password);
+    if (!validPassword) {
+        return res.status(401).json({ error: "Contraseña incorrecta" });
+    }
+
     try {
-        const foundUser = await db.user.findOne({ where: { mail } });
-
-        if (!foundUser) {
-            return res.status(404).json({ error: "Usuario no encontrado" });
-        }
-
-        const validPassword = await bcrypt.compare(password, foundUser.password);
-        if (!validPassword) {
-            return res.status(401).json({ error: "Contraseña incorrecta" });
-        }
-
         // Generar el token
         const token = jwt.sign(
             { id: foundUser.id, mail: foundUser.mail },
@@ -112,7 +114,7 @@ export const loginUser = async (req, res) => {
         });
 
     } catch (error) {
-        console.error("❌ Error en el login:", error);
+        console.error("Error en el login:", error);
         return res.status(500).json({ error: "Error en el login" });
     }
 };
@@ -141,7 +143,7 @@ export const getUserProfile = async (req, res) => {
 
         const decoded = jwt.verify(token, SECRET_KEY);
         const user = await db.user.findByPk(decoded.id, {
-            attributes: ["id", "nickname", "mail", "style_fav", "is_premium", "user_picture"] // No devolver la contraseña
+            attributes: ["id", "nickname", "mail", "style_fav", "is_premium", "user_picture", "daily_skips"] // No devolver la contraseña
         });
 
         if (!user) {
@@ -157,8 +159,9 @@ export const getUserProfile = async (req, res) => {
 
 // Actualiza la información del usuario autenticado.
 // Requiere token de autenticación.
+// Requiere contraseña actual para validar la identidad del usuario.
 // Permite actualizar nickname, mail y password.
-// Valida que no existan usuarios con el mismo correo o nickname.
+// Valida que no existan usuarios con el mismo correo o nickname
 export const updateUserProfile = async (req, res) => {
     try {
         const token = req.headers.authorization?.split(" ")[1];
@@ -174,8 +177,22 @@ export const updateUserProfile = async (req, res) => {
         const user = await db.user.findByPk(decoded.id);
         if (!user) return res.status(404).json({ error: "Usuario no encontrado" });
 
-        const { nickname, mail, password } = req.body;
-        if (!nickname && !mail && !password) return res.status(400).json({ error: "Debes proporcionar al menos un campo para actualizar" });
+        const { currentPassword, nickname, mail, password } = req.body;
+
+        // Verificar que se proporcionó la contraseña actual
+        if (!currentPassword) {
+            return res.status(400).json({ error: "Debes proporcionar tu contraseña actual para actualizar tu perfil" });
+        }
+
+        // Verificar que la contraseña actual es correcta
+        const validPassword = await bcrypt.compare(currentPassword, user.password);
+        if (!validPassword) {
+            return res.status(401).json({ error: "Contraseña actual incorrecta" });
+        }
+
+        if (!nickname && !mail && !password) {
+            return res.status(422).json({ error: "Debes proporcionar al menos un campo para actualizar" });
+        }
 
         // Verificar si el correo ya existe
         if (mail && mail !== user.mail) {
@@ -200,7 +217,17 @@ export const updateUserProfile = async (req, res) => {
         }
 
         await user.save();
-        return res.status(200).json({ message: "Perfil actualizado correctamente", user });
+
+        // No enviamos la contraseña en la respuesta por seguridad
+        const userResponse = {
+            id: user.id,
+            nickname: user.nickname,
+            mail: user.mail,
+            style_fav: user.style_fav,
+            is_premium: user.is_premium
+        };
+
+        return res.status(200).json({ message: "Perfil actualizado correctamente", user: userResponse });
     } catch (error) {
         console.error("Error al actualizar perfil:", error);
         return res.status(500).json({ error: "Error al actualizar perfil" });
@@ -272,7 +299,7 @@ export const updatePremiumStatus = async (req, res) => {
         });
 
     } catch (error) {
-        console.error("❌ Error al actualizar estado de premium:", error);
+        console.error("Error al actualizar estado de premium:", error);
         return res.status(500).json({ error: "Error interno al actualizar el estado de premium" });
     }
 };
@@ -348,12 +375,19 @@ export const updateUser = async (req, res) => {
         const userId = req.params.id;
         const { nickname, profileImage } = req.body; // Recibimos nickname y la imagen en base64
 
-        //console.log("Valores de respuesta: ", nickname, profileImage);
         // Buscamos al usuario por su ID
         const user = await db.user.findByPk(userId);
 
         if (!user) {
             return res.status(404).json({ error: "Usuario no encontrado" });
+        }
+
+        // Verificar si el nickname ya existe (si es diferente al actual)
+        if (nickname && nickname !== user.nickname) {
+            const nicknameExists = await db.user.findOne({ where: { nickname } });
+            if (nicknameExists) {
+                return res.status(409).json({ error: "Nombre de usuario ya registrado" });
+            }
         }
 
         // Si la imagen está en base64, la decodificamos y la guardamos como archivo
@@ -581,13 +615,13 @@ async function getRecommendedPlaylists(favoriteStyle, currentUserId) {
 export const updateUserFavoriteStyleInProfile = async (req, res) => {
     try {
         const token = req.headers.authorization?.split(" ")[1];
-        if (!token) return res.status(401).json({ error: "❌ Token no proporcionado" });
+        if (!token) return res.status(401).json({ error: "Token no proporcionado" });
 
         let decoded;
         try {
             decoded = jwt.verify(token, SECRET_KEY);
         } catch (error) {
-            return res.status(403).json({ error: "⚠ Token inválido o expirado" });
+            return res.status(403).json({ error: "Token inválido o expirado" });
         }
 
         const { favoriteStyles } = await updateUserFavoriteStyle(decoded.id);
@@ -596,7 +630,7 @@ export const updateUserFavoriteStyleInProfile = async (req, res) => {
             style_fav: favoriteStyles,
         });
     } catch (error) {
-        console.error("❌ Error al actualizar estilo favorito:", error);
+        console.error("Error al actualizar estilo favorito:", error);
         return res.status(500).json({ error: "Error al actualizar el estilo favorito" });
     }
 };
@@ -605,13 +639,13 @@ export const updateUserFavoriteStyleInProfile = async (req, res) => {
 export const getRecommendedPlaylistsForUser = async (req, res) => {
     try {
         const token = req.headers.authorization?.split(" ")[1];
-        if (!token) return res.status(401).json({ error: "❌ Token no proporcionado" });
+        if (!token) return res.status(401).json({ error: "Token no proporcionado" });
 
         let decoded;
         try {
             decoded = jwt.verify(token, SECRET_KEY); // Decodifica el token
         } catch (error) {
-            return res.status(403).json({ error: "⚠ Token inválido o expirado" });
+            return res.status(403).json({ error: "Token inválido o expirado" });
         }
 
         const userId = parseInt(decoded.id, 10); // Convertimos el ID a número entero
@@ -633,8 +667,185 @@ export const getRecommendedPlaylistsForUser = async (req, res) => {
         // Devolver las playlists recomendadas al frontend
         return res.status(200).json({ recommendedPlaylists });
     } catch (error) {
-        console.error("❌ Error al obtener las playlists recomendadas:", error);
+        console.error("Error al obtener las playlists recomendadas:", error);
         return res.status(500).json({ error: "Error al obtener las playlists recomendadas" });
     }
 };
 
+/**
+ * Maneja la solicitud de recuperación de contraseña
+ * Envía un correo con un enlace para restablecer la contraseña
+ */
+export const forgotPassword = async (req, res) => {
+    try {
+        const { mail } = req.body;
+        
+        if (!mail) {
+            return res.status(400).json({ error: "Debe proporcionar un correo electrónico" });
+        }
+        
+        // Buscar usuario por email
+        const user = await db.user.findOne({ where: { mail } });
+        
+        if (!user) {
+            return res.status(404).json({ error: "No existe una cuenta con este correo electrónico" });
+        }
+        
+        // Generar token único para recuperación (expira en 1 hora)
+        const resetToken = jwt.sign(
+            { id: user.id, mail: user.mail },
+            SECRET_KEY,
+            { expiresIn: "1h" }
+        );
+        
+        // Guardar el token en el usuario (opcional, solo si quieres verificar el token)
+        user.reset_token = resetToken;
+        user.reset_token_expires = new Date(Date.now() + 3600000); // 1 hora
+        await user.save();
+        
+        // URL para restablecer la contraseña (frontend)
+        const resetUrl = `http://localhost:5173/reset-password?token=${resetToken}`;
+
+        // Configurar transportador de nodemailer
+        const transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+              user: 'vibraassistance@gmail.com', // Cambia esto por tu correo real
+              pass: 'jsws nqpi cwtg yeds' // Cambia esto por tu contraseña o clave de app
+            }
+        });
+
+        // Configurar el correo electrónico
+        const mailOptions = {
+            from: 'vibraassistance@gmail.com', // Cambia esto por tu correo real
+            to: mail,
+            subject: 'Recuperación de contraseña - Vibra',
+            html: `
+              <h1>Recuperación de contraseña</h1>
+              <p>Haz click en el siguiente enlace para restablecer tu contraseña:</p>
+              <a href="${resetUrl}">Restablecer contraseña</a>
+              <p>Este enlace expirará en 1 hora.</p>
+              <p>Si no solicitaste recuperar tu contraseña, puedes ignorar este correo.</p>
+            `
+        };
+
+        // Enviar el correo
+        await transporter.sendMail(mailOptions);
+        
+        console.log("Email de recuperación enviado a:", mail);
+        console.log("URL de recuperación:", resetUrl);
+        
+        return res.status(200).json({ 
+            message: "Se ha enviado un correo con instrucciones para restablecer tu contraseña",
+            // En producción NO enviaríamos el token en la respuesta, esto es solo para pruebas
+            resetUrl, // Solo para testing, eliminar en producción
+            resetToken // Solo para testing, eliminar en producción
+        });
+        
+    } catch (error) {
+        console.error("Error en recuperación de contraseña:", error);
+        return res.status(500).json({ error: "Error al procesar la solicitud de recuperación" });
+    }
+};
+
+/**
+ * Restablece la contraseña utilizando el token enviado al correo
+ */
+export const resetPassword = async (req, res) => {
+    try {
+        const { token, newPassword } = req.body;
+        
+        if (!token || !newPassword) {
+            return res.status(400).json({ error: "Debe proporcionar el token y la nueva contraseña" });
+        }
+        
+        // Verificar el token
+        let decoded;
+        try {
+            decoded = jwt.verify(token, SECRET_KEY);
+        } catch (error) {
+            return res.status(401).json({ error: "Token inválido o expirado" });
+        }
+        
+        // Buscar usuario por ID del token
+        const user = await db.user.findByPk(decoded.id);
+        
+        if (!user) {
+            return res.status(404).json({ error: "Usuario no encontrado" });
+        }
+        
+        // En la función resetPassword, añade esta verificación:
+        if (user.reset_token !== token) {
+            return res.status(401).json({ error: "Token inválido o ya utilizado" });
+        }
+
+        // Verificar que el token no haya expirado
+        if (user.reset_token_expires < new Date()) {
+            return res.status(401).json({ error: "Token expirado" });
+        }
+        
+        // Hashear la nueva contraseña
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(newPassword, salt);
+        
+        // Actualizar la contraseña
+        user.password = hashedPassword;
+        // Limpiar el token de recuperación (si lo implementaste)
+        user.reset_token = null;
+        user.reset_token_expires = null;
+        
+        await user.save();
+        
+        return res.status(200).json({ message: "Contraseña restablecida con éxito" });
+        
+    } catch (error) {
+        console.error("Error al restablecer contraseña:", error);
+        return res.status(500).json({ error: "Error al restablecer la contraseña" });
+    }
+};
+
+/**
+ * Resta un skip diario al usuario (si tiene skips disponibles)
+ *
+ * Ruta: POST /use-daily-skip/:userId
+ */
+export const useDailySkip = async (req, res) => {
+    const { userId } = req.params;
+
+    try {
+        // Buscar al usuario
+        const user = await db.user.findByPk(userId);
+
+        if (!user) {
+            return res.status(404).json({ success: false, error: "Usuario no encontrado" });
+        }
+
+        // Verificar si tiene skips disponibles
+        if (user.daily_skips <= 0) {
+            return res.status(400).json({
+                success: false,
+                error: "No tienes skips disponibles",
+                remainingSkips: 0
+            });
+        }
+
+        // Restar un skip (sin permitir valores negativos)
+        const newSkips = Math.max(user.daily_skips - 1, 0);
+
+        // Actualizar en la base de datos
+        await user.update({ daily_skips: newSkips });
+
+        return res.json({
+            success: true,
+            message: "Skip utilizado correctamente",
+            remainingSkips: newSkips
+        });
+
+    } catch (error) {
+        console.error("Error al usar skip diario:", error);
+        return res.status(500).json({
+            success: false,
+            error: "Error interno al procesar el skip"
+        });
+    }
+};

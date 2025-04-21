@@ -7,6 +7,9 @@ export default (sequelize, DataTypes) => {
         style_fav: DataTypes.STRING,
         is_premium: { type: DataTypes.BOOLEAN, defaultValue: false },
         user_picture: { type: DataTypes.STRING, allowNull: true },
+        reset_token: { type: DataTypes.STRING, allowNull: true },
+        reset_token_expires: { type: DataTypes.DATE, allowNull: true },
+        daily_skips: { type: DataTypes.INTEGER, defaultValue: 5, allowNull: false}
     }, {
         tableName: "users",
         timestamps: false
@@ -34,7 +37,18 @@ export default (sequelize, DataTypes) => {
             otherKey: "user1_id"
         });
 
-        user.belongsToMany(models.user, { through: "chat", as: "ChatUser", foreignKey: "user1_id" });
+        user.hasMany(models.chat, { 
+            foreignKey: "user1_id",
+            as: "SentMessages",
+            constraints: false
+        });
+        
+        user.hasMany(models.chat, { 
+            foreignKey: "user2_id",
+            as: "ReceivedMessages",
+            constraints: false
+        });
+                
         user.hasOne(models.lastPlaybackState, { foreignKey: 'userId', as: 'lastPlayback' });
 
     };

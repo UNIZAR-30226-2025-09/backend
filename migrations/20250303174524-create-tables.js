@@ -15,7 +15,10 @@ export default {
       style_fav: { type: Sequelize.STRING },
       is_premium: { type: Sequelize.BOOLEAN, defaultValue: false },
       user_picture: { type: Sequelize.STRING, allowNull: true },
-      created_at: { type: Sequelize.DATE, defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"), allowNull: false }
+      created_at: { type: Sequelize.DATE, defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"), allowNull: false },
+      reset_token: { type: Sequelize.STRING, allowNull: true },
+      reset_token_expires: { type: Sequelize.DATE, allowNull: true },
+      daily_skips: { type: Sequelize.INTEGER, defaultValue: 5, allowNull: false}
     });
 
     // Tabla ARTIST
@@ -100,9 +103,12 @@ export default {
 
     // Tabla CHAT (M:N entre USER y USER)
     await queryInterface.createTable("chat", {
-      user1_id: { type: Sequelize.INTEGER, references: { model: "users", key: "id" }, onDelete: "CASCADE", primaryKey: true },
-      user2_id: { type: Sequelize.INTEGER, references: { model: "users", key: "id" }, onDelete: "CASCADE", primaryKey: true },
-      txt_message: { type: Sequelize.STRING }
+      id: { type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false },
+      user1_id: { type: Sequelize.INTEGER, references: { model: "users", key: "id" }, onDelete: "CASCADE" },
+      user2_id: { type: Sequelize.INTEGER, references: { model: "users", key: "id" }, onDelete: "CASCADE" },
+      txt_message: { type: Sequelize.TEXT },
+      sent_at: { type: Sequelize.DATE, defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"), allowNull: false },
+      read: { type: Sequelize.BOOLEAN, defaultValue: false }
     });
 
     // Crear la tabla para almacenar la lista de reproduccion de cada usuario (M:N entre USER y SONG)
@@ -175,8 +181,8 @@ export default {
   },
 
   down: async (queryInterface, Sequelize) => {
+    await queryInterface.dropTable("lastPlaybackState");
     await queryInterface.dropTable("user_replist");
-
     await queryInterface.dropTable("chat");
     await queryInterface.dropTable("permission_have");
     await queryInterface.dropTable("friendship");
@@ -185,11 +191,10 @@ export default {
     await queryInterface.dropTable("song_like");
     await queryInterface.dropTable("song_playlist");
     await queryInterface.dropTable("song_artist");
+
     await queryInterface.dropTable("playlist");
     await queryInterface.dropTable("song");
     await queryInterface.dropTable("artist");
     await queryInterface.dropTable("users");
-    await queryInterface.dropTable("lastPlaybackState");
-
   }
 };
