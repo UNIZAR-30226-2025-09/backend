@@ -717,3 +717,213 @@ export const checkPlaylistOwnership = async (req, res) => {
         });
     }
 };
+
+
+/**
+ * Registra la visita de un usuario a una playlist específica.
+ * Si ya existe una visita previa del mismo usuario a la misma playlist, actualiza la fecha.
+ * POST /api/playlists/:playlistId/visit
+ *
+ * @param {Object} req - Objeto de solicitud Express
+ * @param {Object} res - Objeto de respuesta Express
+ * @returns {Object} - Respuesta JSON con mensaje de éxito o error
+ */
+export const recordPlaylistVisit = async (req, res) => {
+    try {
+        // Obtenemos los datos necesarios
+        const userId = req.body.userId; // Ahora lo recibimos del cuerpo de la petición
+        const playlistId = Number(req.params.playlistId);
+
+        // Validaciones básicas
+        if (!userId) {
+            return res.status(400).json({ error: "userId es requerido" });
+        }
+
+        if (isNaN(playlistId)) {
+            return res.status(400).json({ error: "ID de playlist inválido" });
+        }
+
+        // Verificar si la playlist existe
+        const playlist = await db.playlist.findByPk(playlistId);
+        if (!playlist) {
+            return res.status(404).json({ error: "Playlist no encontrada" });
+        }
+
+        // Buscar si ya existe una visita del usuario a esta playlist
+        const existingVisit = await db.playlist_visit.findOne({
+            where: {
+                user_id: userId,
+                playlist_id: playlistId
+            }
+        });
+
+        const currentDate = new Date();
+        let message = "";
+        let statusCode = 200;
+
+        if (existingVisit) {
+            // Actualizar la visita existente
+            await existingVisit.update({
+                visited_at: currentDate
+            });
+            message = "Visita actualizada correctamente";
+            statusCode = 200;
+        } else {
+            // Crear una nueva visita
+            await db.playlist_visit.create({
+                user_id: userId,
+                playlist_id: playlistId,
+                visited_at: currentDate
+            });
+            message = "Visita registrada correctamente";
+            statusCode = 201; // Created
+        }
+
+        // Devolver respuesta exitosa
+        return res.status(statusCode).json({
+            message: message,
+            data: {
+                user_id: userId,
+                playlist_id: playlistId,
+                visited_at: currentDate
+            }
+        });
+    } catch (error) {
+        console.error('Error al registrar visita a playlist:', error);
+        return res.status(500).json({
+            error: "Error al registrar la visita",
+            details: error.message
+        });
+    }
+}
+
+
+/**
+ * Obtiene las últimas 8 playlists visitadas por un usuario, ordenadas por fecha descendente.
+ * Si hay menos de 8 playlists visitadas, se completan con playlists aleatorias.
+ *
+ * @param {Object} req - Objeto de solicitud Express
+ * @param {Object} req.params - Parámetros de la ruta
+ * @param {string} req.params.userId - ID del usuario
+ * @param {Object} res - Objeto de respuesta Express
+ * @returns {Object} JSON con las playlists recientes o mensaje de error
+ */
+export const getRecentlyVisitedPlaylists = async (req, res) => {
+    try {
+        const userId = parseInt(req.params.userId);
+        const limit = 8;
+
+        // Validación básica del userId
+        if (isNaN(userId)) {
+            return res.status(400).json({
+                success: false,
+                message: 'ID de usuario no válido'
+            });
+        }
+
+        // Consulta para obtener las playlists visitadas recientemente
+        const recentVisits = await db.playlist_visit.findAll({
+            where: { user_id: userId },
+            include: [
+                {
+                    model: db.playlist,
+                    required: true, // Solo incluir visitas con playlist existente
+                    include: [{
+                        model: db.user,
+                        attributes: ['id', 'nickname', 'user_picture']
+                    }]
+                }
+            ],
+            order: [['visited_at', 'DESC']],
+            limit: limit
+        });
+
+        // Formatear las playlists visitadas
+        const recentPlaylists = recentVisits
+            .filter(visit => visit.playlist) // Filtrar playlists nulas
+            .map(visit => {
+                const playlist = visit.playlist;
+                const owner = playlist.user || {}; // Usar playlist.user en lugar de playlist.owner
+
+                return {
+                    id: playlist.id,
+                    name: playlist.name,
+                    description: playlist.description || '',
+                    front_page: playlist.front_page || null,
+                    type: playlist.type || 'playlist',
+                    typeP: playlist.typeP || 'regular',
+                    user_id: playlist.user_id || null,
+                    artist_id: playlist.artist_id || null,
+                    visited_at: visit.visited_at,
+                    owner: {
+                        id: owner.id || null,
+                        nickname: owner.nickname || 'Usuario desconocido',
+                        user_picture: owner.user_picture || null
+                    }
+                };
+            });
+
+        // Obtener IDs de playlists ya obtenidas (para no repetir en las aleatorias)
+        const existingPlaylistIds = recentPlaylists.map(playlist => playlist.id);
+
+        // Calculamos cuántas playlists aleatorias necesitamos
+        const neededRandomPlaylists = limit - recentPlaylists.length;
+
+        // Solo consultar playlists aleatorias si necesitamos más
+        if (neededRandomPlaylists > 0) {
+            // Opción alternativa si no funciona db.sequelize.literal
+            const randomPlaylists = await db.playlist.findAll({
+                where: {
+                    id: existingPlaylistIds.length > 0 ?
+                        { [Op.notIn]: existingPlaylistIds } :
+                        {}
+                },
+                include: [{
+                    model: db.user,
+                    attributes: ['id', 'nickname', 'user_picture']
+                }],
+                limit: neededRandomPlaylists
+            });
+
+            // Mezclar aleatoriamente el resultado
+            randomPlaylists.sort(() => Math.random() - 0.5);
+
+            // Formateamos las playlists aleatorias
+            const formattedRandomPlaylists = randomPlaylists.map(playlist => {
+                const owner = playlist.user || {};
+
+                return {
+                    id: playlist.id,
+                    name: playlist.name,
+                    description: playlist.description || '',
+                    front_page: playlist.front_page || null,
+                    type: playlist.type || 'playlist',
+                    typeP: playlist.typeP || 'regular',
+                    user_id: playlist.user_id || null,
+                    artist_id: playlist.artist_id || null,
+                    visited_at: null, // No tienen fecha de visita
+                    owner: {
+                        id: owner.id || null,
+                        nickname: owner.nickname || 'Usuario desconocido',
+                        user_picture: owner.user_picture || null
+                    }
+                };
+            });
+
+            // Combinamos las playlists recientes con las aleatorias
+            return res.status(200).json([...recentPlaylists, ...formattedRandomPlaylists]);
+        }
+
+        // Si no necesitamos aleatorias, devolvemos solo las recientes
+        return res.status(200).json(recentPlaylists);
+
+    } catch (error) {
+        console.error('Error al obtener playlists recientes:', error);
+        return res.status(500).json({
+            success: false,
+            message: 'Error interno al obtener playlists recientes',
+            error: error.message,
+            stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
+        });
+    }
+};
