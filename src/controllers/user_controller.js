@@ -50,7 +50,8 @@ export const registerUser = async (req, res) => {
             password: hashedPassword, // Guardamos la contraseña hasheada
             mail,
             style_fav,
-            is_premium
+            is_premium,
+            daily_skips: 5, // Valor por defecto
         });
 
         res.status(201).json({ message: "Usuario registrado con éxito", user: newUser });
@@ -142,7 +143,7 @@ export const getUserProfile = async (req, res) => {
 
         const decoded = jwt.verify(token, SECRET_KEY);
         const user = await db.user.findByPk(decoded.id, {
-            attributes: ["id", "nickname", "mail", "style_fav", "is_premium", "user_picture"] // No devolver la contraseña
+            attributes: ["id", "nickname", "mail", "style_fav", "is_premium", "user_picture", "daily_skips"] // No devolver la contraseña
         });
 
         if (!user) {
@@ -800,5 +801,51 @@ export const resetPassword = async (req, res) => {
     } catch (error) {
         console.error("Error al restablecer contraseña:", error);
         return res.status(500).json({ error: "Error al restablecer la contraseña" });
+    }
+};
+
+/**
+ * Resta un skip diario al usuario (si tiene skips disponibles)
+ *
+ * Ruta: POST /use-daily-skip/:userId
+ */
+export const useDailySkip = async (req, res) => {
+    const { userId } = req.params;
+
+    try {
+        // Buscar al usuario
+        const user = await db.user.findByPk(userId);
+
+        if (!user) {
+            return res.status(404).json({ success: false, error: "Usuario no encontrado" });
+        }
+
+        // Verificar si tiene skips disponibles
+        if (user.daily_skips <= 0) {
+            return res.status(400).json({
+                success: false,
+                error: "No tienes skips disponibles",
+                remainingSkips: 0
+            });
+        }
+
+        // Restar un skip (sin permitir valores negativos)
+        const newSkips = Math.max(user.daily_skips - 1, 0);
+
+        // Actualizar en la base de datos
+        await user.update({ daily_skips: newSkips });
+
+        return res.json({
+            success: true,
+            message: "Skip utilizado correctamente",
+            remainingSkips: newSkips
+        });
+
+    } catch (error) {
+        console.error("Error al usar skip diario:", error);
+        return res.status(500).json({
+            success: false,
+            error: "Error interno al procesar el skip"
+        });
     }
 };

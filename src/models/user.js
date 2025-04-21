@@ -9,6 +9,7 @@ export default (sequelize, DataTypes) => {
         user_picture: { type: DataTypes.STRING, allowNull: true },
         reset_token: { type: DataTypes.STRING, allowNull: true },
         reset_token_expires: { type: DataTypes.DATE, allowNull: true },
+        daily_skips: { type: DataTypes.INTEGER, defaultValue: 5, allowNull: false}
     }, {
         tableName: "users",
         timestamps: false
