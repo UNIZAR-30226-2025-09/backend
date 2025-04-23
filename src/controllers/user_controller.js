@@ -363,6 +363,7 @@ export const getUserById = async (req, res) => {
             style_fav: user.style_fav,
             is_premium: user.is_premium,
             user_picture: user.user_picture,
+            dailySkips: user.daily_skips,
         });
     } catch (error) {
         console.error("Error al verificar usuario:", error);
