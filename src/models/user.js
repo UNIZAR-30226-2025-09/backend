@@ -50,7 +50,7 @@ export default (sequelize, DataTypes) => {
         });
                 
         user.hasOne(models.lastPlaybackState, { foreignKey: 'userId', as: 'lastPlayback' });
-
+        user.hasMany(models.playlist_visit, { foreignKey: "user_id" });
     };
 
     return user;

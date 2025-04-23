@@ -55,6 +55,28 @@ export default {
       front_page: { type: Sequelize.STRING }
     });
 
+    // Tabla PLAYLIST_VISIT
+    await queryInterface.createTable("playlist_visit", {
+      id: { type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false },
+      user_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: { model: "users", key: "id" },
+        onDelete: "CASCADE"
+      },
+      playlist_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: { model: "playlist", key: "id" },
+        onDelete: "CASCADE"
+      },
+      visited_at: {
+        type: Sequelize.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP")
+      }
+    });
+
     // Tabla intermedia SONG-ARTIST (M:N)
     await queryInterface.createTable("song_artist", {
       song_id: { type: Sequelize.INTEGER, references: { model: "song", key: "id" }, onDelete: "CASCADE", primaryKey: true },
