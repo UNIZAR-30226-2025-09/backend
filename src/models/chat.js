@@ -25,7 +25,11 @@ export default (sequelize, DataTypes) => {
       read: {
         type: DataTypes.BOOLEAN,
         defaultValue: false
-      }
+      },
+      shared_content: {
+        type: DataTypes.JSON,
+        allowNull: true
+    }
     }, {
       tableName: 'chat',
       timestamps: false

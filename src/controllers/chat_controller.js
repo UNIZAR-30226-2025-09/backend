@@ -18,7 +18,7 @@ export const sendMessage = async (req, res) => {
         }
 
         const user1_id = decoded.id; // Remitente
-        const { user2_id, message } = req.body; // Destinatario y mensaje
+        const { user2_id, message, shared_content } = req.body; 
 
         if (!user2_id || !message) {
             return res.status(400).json({ error: "Se requiere ID de destinatario y mensaje" });
@@ -45,7 +45,8 @@ export const sendMessage = async (req, res) => {
             user2_id: user2_id,
             txt_message: message,
             sent_at: new Date(),
-            read: false
+            read: false,
+            shared_content: shared_content || null 
         });
         await newMessage.save();
 
