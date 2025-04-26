@@ -10,6 +10,7 @@ import socialRoutes from "#routes/social_routes"; // Importa las rutas de song l
 import lastPlaybackState from  "#routes/lastPlaybackState_routes";
 import ratingRoutes from "#routes/playlist_feedback_routes"; // Importa las rutas de rating
 import chatROutes from "#routes/chat_routes"; // Importa las rutas de chat
+import collaboratorsRoutes from "#routes/collaboratorsRoutes";
 const router = express.Router();
 
 /**
@@ -78,6 +79,13 @@ router.use("/ratingPlaylist", ratingRoutes);
  * Se montan bajo el prefijo `/api/chat`
  */
 router.use("/chat", chatROutes);
+
+
+/**
+ * Rutas relacionadas con los colaboradores
+ * Se montan bajo el prefijo `/api/collaborators`
+ */
+router.use("/collaborators", collaboratorsRoutes);
 
 
 export default router;

@@ -213,6 +213,7 @@ export default {
     await queryInterface.dropTable("song_like");
     await queryInterface.dropTable("song_playlist");
     await queryInterface.dropTable("song_artist");
+    await queryInterface.dropTable("playlist_visit");
 
     await queryInterface.dropTable("playlist");
     await queryInterface.dropTable("song");

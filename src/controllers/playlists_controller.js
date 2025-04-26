@@ -272,16 +272,32 @@ export const checkIfLiked = async (req, res) => {
  */
 export const createPlaylist = async (req, res) => {
     try {
-        const { name, type, description, front_page, user_id} = req.body;
-        const newPlaylist = await db.playlist.create({ name, type, description, front_page, user_id});
-        // Falta hacer que haga la relacion con el user_id (qn creo) y name de playlist creada
+        const { name, type, description, front_page, user_id, typeP } = req.body;
+
+        // Crear la playlist con los datos proporcionados
+        const newPlaylist = await db.playlist.create({
+            name,
+            type,
+            description,
+            front_page,
+            user_id,
+            typeP,
+        });
+
+        // Crear la relación entre el usuario y la playlist (si existe una tabla de permisos o relaciones)
+        await db.permission_have.create({
+            playlist_id: newPlaylist.id, // ID de la playlist recién creada
+            user_id: user_id, // ID del usuario creador
+            type_permission: "owner", // Asignar permisos de propietario al usuario
+        });
+
+        // Responder con la playlist creada
         res.status(201).json(newPlaylist);
     } catch (error) {
         console.error("Error al crear la playlist:", error);
         res.status(500).json({ error: error.message });
     }
 };
-
 /**
  * Actualiza una playlist por ID.
  * PUT /api/playlists/:id
