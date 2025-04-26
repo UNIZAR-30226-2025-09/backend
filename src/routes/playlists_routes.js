@@ -817,4 +817,122 @@ router.get('/:songId/songPlaylists', playlistController.getPlaylistsBySongId);
  */
  router.get('/:playlistId/isOwner/:userId', playlistController.checkPlaylistOwnership);
 
+/**
+ * @swagger
+ * /api/playlists/{playlistId}/visit:
+ *   post:
+ *     summary: Registra la visita de un usuario a una playlist
+ *     tags:
+ *       - Playlists
+ *     description: Registra o actualiza la fecha de visita de un usuario a una playlist específica.
+ *     parameters:
+ *       - in: path
+ *         name: playlistId
+ *         required: true
+ *         description: El ID de la playlist visitada.
+ *         schema:
+ *           type: integer
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               userId:
+ *                 type: integer
+ *                 description: El ID del usuario que visita la playlist.
+ *     responses:
+ *       200:
+ *         description: Visita registrada correctamente.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 message:
+ *                   type: string
+ *                   example: "Visita registrada correctamente"
+ *                 data:
+ *                   type: object
+ *                   description: Datos de la visita registrada
+ *       400:
+ *         description: ID de playlist o usuario inválidos.
+ *       500:
+ *         description: Error interno del servidor.
+ */
+router.post('/:playlistId/visit', playlistController.recordPlaylistVisit);
+
+/**
+ * @swagger
+ * /api/playlists/recent/{userId}:
+ *   get:
+ *     summary: Obtiene las playlists recientemente visitadas por un usuario
+ *     tags:
+ *       - Playlists
+ *     description: Obtiene las últimas 8 playlists visitadas por un usuario específico, ordenadas por fecha de visita más reciente.
+ *     parameters:
+ *       - in: path
+ *         name: userId
+ *         required: true
+ *         description: El ID del usuario cuyas visitas recientes se quieren consultar.
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Lista de playlists recientemente visitadas.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       id:
+ *                         type: integer
+ *                         description: ID de la playlist.
+ *                       name:
+ *                         type: string
+ *                         description: Nombre de la playlist.
+ *                       type:
+ *                         type: string
+ *                         description: Tipo de la playlist.
+ *                       front_page:
+ *                         type: string
+ *                         description: URL de la imagen de portada de la playlist.
+ *                       playlist_visit:
+ *                         type: object
+ *                         properties:
+ *                           visited_at:
+ *                             type: string
+ *                             format: date-time
+ *                             description: Fecha y hora de la visita.
+ *                       owner:
+ *                         type: object
+ *                         properties:
+ *                           id:
+ *                             type: integer
+ *                             description: ID del propietario de la playlist.
+ *                           nickname:
+ *                             type: string
+ *                             description: Nickname del propietario.
+ *                           user_picture:
+ *                             type: string
+ *                             description: URL de la foto de perfil del propietario.
+ *       404:
+ *         description: No se encontraron playlists visitadas recientemente.
+ *       500:
+ *         description: Error interno del servidor.
+ */
+router.get('/recent/:userId', playlistController.getRecentlyVisitedPlaylists);
+
 export default router;

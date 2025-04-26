@@ -371,6 +371,24 @@ export const getUserById = async (req, res) => {
     }
 };
 
+/**
+ * Actualiza la información de perfil de un usuario, incluyendo nickname e imagen de perfil.
+ *
+ * @async
+ * @function updateUser
+ * @param {Object} req - Objeto de solicitud Express
+ * @param {Object} req.params - Parámetros de la ruta
+ * @param {string} req.params.id - ID del usuario a actualizar
+ * @param {Object} req.body - Cuerpo de la solicitud
+ * @param {string} [req.body.nickname] - Nuevo nickname del usuario (opcional)
+ * @param {string} [req.body.profileImage] - Imagen de perfil en base64 (opcional)
+ * @param {Object} res - Objeto de respuesta Express
+ * @returns {Promise<Object>} Respuesta JSON con el resultado de la operación
+ * @throws {404} Si el usuario no existe
+ * @throws {409} Si el nickname ya está en uso
+ * @throws {500} Error interno del servidor
+ */
+
 export const updateUser = async (req, res) => {
     try {
         const userId = req.params.id;
