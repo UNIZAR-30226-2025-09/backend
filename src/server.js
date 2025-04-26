@@ -20,6 +20,7 @@ const publicPath = path.resolve("public");
 // Subcarpetas dentro de public
 const subdirectories = [
     "songs",
+    "playlist",
     "playlist_images",
     "songs_images",
     "artists_images",
@@ -27,6 +28,7 @@ const subdirectories = [
     "users",
     "lyrics",
 ];
+
 
 // Configurar rutas estáticas dinámicamente
 subdirectories.forEach((dir) => {
