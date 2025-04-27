@@ -379,7 +379,7 @@ describe('Pruebas sobre /api/user', () => {
             expect(res.status).toBe(200);
 
             // Verificar que solo se devuelven los campos específicos
-            const allowedFields = ['id', 'nickname', 'mail', 'style_fav', 'is_premium', 'user_picture'];
+            const allowedFields = ['id', 'nickname', 'mail', 'style_fav', 'is_premium', 'user_picture', 'daily_skips'];
             const responseFields = Object.keys(res.body);
 
             // Verificar que todos los campos devueltos están en la lista permitida
