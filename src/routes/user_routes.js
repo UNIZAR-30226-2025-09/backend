@@ -291,6 +291,9 @@ router.post("/logout", logoutUser);
  *                   type: string
  *                   nullable: true
  *                   description: URL de la imagen de perfil del usuario.
+ *                 daily_skips:
+ *                   type: integer
+ *                   description: Número de saltos de canción diarios disponibles.
  *       401:
  *         description: Token no proporcionado.
  *         content:
