@@ -245,7 +245,7 @@ export async function up(queryInterface, Sequelize) {
             'Y yo la dejo que me marque el camino'
             ,
           photo_video: "songs_images/laVereda.png",
-        url_mp3: 'songs/La vereda de la puerta de atras extremoduro.mp3',
+          url_mp3: 'songs/La vereda de la puerta de atras extremoduro.mp3',
           type: "sencillo",
           genre: 'Rock'
       },
@@ -343,7 +343,7 @@ export async function up(queryInterface, Sequelize) {
             'Eh-eh, mi diabla, mi ángel, mi loquita\n' +
             'Mi diabla, mi ángel, mi loquita, eh-eh',
           photo_video: "songs_images/baileInolvidable.png",
-        url_mp3: 'songs/Bad Bunny - BAILE INoLVIDABLE.mp3',
+          url_mp3: 'songs/Bad Bunny - BAILE INoLVIDABLE.mp3',
           type: "album",
           genre: 'Reggaeton'
       },
