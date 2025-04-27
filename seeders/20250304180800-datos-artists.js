@@ -185,6 +185,11 @@ export async function up(queryInterface, Sequelize) {
       name: "Raul Clyde",
       bio: "Artista urbano español conocido por sus reggaetones, rompiendo la escena musical con temas como 'Tuenti-Remix'.",
       photo: "artists_images/raulClyde.jpeg"
+    },
+    {
+      name: "Feid",
+      bio: "Cantante colombiano de reguetón y pop urbano, conocido por su estilo romántico y colaboraciones con artistas internacionales.",
+      photo: "artists_images/feid.jpg"
     }
 
 

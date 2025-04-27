@@ -72,7 +72,24 @@ export default {
             { song_id: 66, artist_id: 36 }, //RAUL CLYDE - DIESEL
             { song_id: 67, artist_id: 36 }, //RAUL CLYDE - TUENTI REMIX
             { song_id: 68, artist_id: 36 }, //RAUL CLYDE - AMOR DE POBREE
-            { song_id: 69, artist_id: 36 } //RAUL CLYDE - COSTABLANCA
+            { song_id: 69, artist_id: 36 }, //RAUL CLYDE - COSTABLANCA
+            { song_id: 70, artist_id: 37 }, //FEID - FERXXO 30
+            { song_id: 71, artist_id: 37 }, //FEID - VOL2
+            { song_id: 72, artist_id: 37 }, //FEID - VENTE CONMIGO
+            { song_id: 73, artist_id: 37 }, //FEID - NIÑA BONITA
+            { song_id: 74, artist_id: 37 }, //FEID - GYP
+            { song_id: 75, artist_id: 37 }, //FEID - FERXXO 151
+            { song_id: 76, artist_id: 37 }, //FEID - BUBALU
+            { song_id: 77, artist_id: 37 }, //FEID - RITMO DE MEDALLO
+            { song_id: 78, artist_id: 37 }, //FEID - FERXXO EDITION
+            { song_id: 79, artist_id: 37 }, //FEID - NX TX SIENTAS SOLX
+            { song_id: 80, artist_id: 37 }, //FEID - LUCES DE TECNO
+            { song_id: 81, artist_id: 37 }, //FEID - EY CHORY
+            { song_id: 82, artist_id: 37 }, //FEID - VELOCIDAD CRUCERO
+            { song_id: 83, artist_id: 37 }, //FEID - ROMANTICO DE LUNES
+            { song_id: 84, artist_id: 37 }, //FEID - el unico tema del ferxxo
+            { song_id: 85, artist_id: 37 }, //FEID - PRIVILEGIOS
+            { song_id: 86, artist_id: 37 } //FEID - EN LA DE ELLA
 
         ], {});
     },
