@@ -6,7 +6,7 @@ export default (sequelize, DataTypes) => {
         lyrics: DataTypes.TEXT,
         photo_video: DataTypes.STRING,
         url_mp3: { type: DataTypes.STRING },
-        type: DataTypes.STRING,
+        type: { type: DataTypes.STRING, defaultValue: "sencillo" },
         genre: { type: DataTypes.STRING }
     }, { tableName: "song", timestamps: false });
 

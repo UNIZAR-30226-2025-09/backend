@@ -46,7 +46,34 @@ export default {
             { song_id: 40, artist_id: 16 }, //KASEO
             { song_id: 41, artist_id: 16 }, //KASEO
             { song_id: 42, artist_id: 14 }, //CAMARON
-            { song_id: 43, artist_id: 17 } //PLANB
+            { song_id: 43, artist_id: 17 }, //PLANB
+            { song_id: 45, artist_id: 35 }, //CMARI - INTRO
+            { song_id: 46, artist_id: 35 }, //CMARI - 2AM
+            { song_id: 47, artist_id: 35 }, //CMARI - IBAN
+            { song_id: 48, artist_id: 35 }, //CMARI - BYR
+            { song_id: 49, artist_id: 35 }, //CMARI - RICHTER
+            { song_id: 50, artist_id: 35 }, //CMARI - SEMPAPA
+            { song_id: 51, artist_id: 35 }, //CMARI - TAN LINES
+            { song_id: 52, artist_id: 35 }, //CMARI - LA ROPA
+            { song_id: 53, artist_id: 35 }, //CMARI - QTALHOY
+            { song_id: 54, artist_id: 35 }, //CMARI - CONTACTO
+            { song_id: 55, artist_id: 35 }, //CMARI - MIL VECES
+            { song_id: 56, artist_id: 35 }, //CMARI - MRF
+            { song_id: 57, artist_id: 35 }, //CMARI - DSPB
+            { song_id: 58, artist_id: 35 }, //CMARI - MPC
+            { song_id: 59, artist_id: 35 }, //CMARI - JUGADOR
+            { song_id: 60, artist_id: 35 }, //CMARI - NDF
+            { song_id: 61, artist_id: 35 }, //CMARI - BABALA
+            { song_id: 62, artist_id: 35 }, //CMARI - 90%
+            { song_id: 63, artist_id: 35 }, //CMARI - DIME QUE NO
+            { song_id: 64, artist_id: 35 }, //CMARI - +- DURO
+            { song_id: 65, artist_id: 35 }, //CMARI & RAUL CLYDE - SOBRENATURAL
+            { song_id: 65, artist_id: 36 }, //CMARI & RAUL CLYDE - SOBRENATURAL
+            { song_id: 66, artist_id: 36 }, //RAUL CLYDE - DIESEL
+            { song_id: 67, artist_id: 36 }, //RAUL CLYDE - TUENTI REMIX
+            { song_id: 68, artist_id: 36 }, //RAUL CLYDE - AMOR DE POBREE
+            { song_id: 69, artist_id: 36 } //RAUL CLYDE - COSTABLANCA
+
         ], {});
     },
 

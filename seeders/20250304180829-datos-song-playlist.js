@@ -82,6 +82,29 @@ export async function up(queryInterface, Sequelize) {
     //Prueba album extremo duro
     { song_id: 18, playlist_id: 10, date: new Date("2025-03-25") },
 
+    //Album Sempre cor
+    { song_id: 45, playlist_id: 12, date: new Date("2025-04-25") },
+    { song_id: 46, playlist_id: 12, date: new Date("2025-04-25") },
+    { song_id: 47, playlist_id: 12, date: new Date("2025-04-25") },
+    { song_id: 48, playlist_id: 12, date: new Date("2025-04-25") },
+    { song_id: 49, playlist_id: 12, date: new Date("2025-04-25") },
+    { song_id: 50, playlist_id: 12, date: new Date("2025-04-25") },
+    { song_id: 51, playlist_id: 12, date: new Date("2025-04-25") },
+    { song_id: 52, playlist_id: 12, date: new Date("2025-04-25") },
+    { song_id: 53, playlist_id: 12, date: new Date("2025-04-25") },
+    { song_id: 54, playlist_id: 12, date: new Date("2025-04-25") },
+    { song_id: 55, playlist_id: 12, date: new Date("2025-04-25") },
+    { song_id: 56, playlist_id: 12, date: new Date("2025-04-25") },
+    { song_id: 57, playlist_id: 12, date: new Date("2025-04-25") },
+    { song_id: 58, playlist_id: 12, date: new Date("2025-04-25") },
+
+    //Album Sempre cor deluxe
+    { song_id: 59, playlist_id: 11, date: new Date("2025-04-25") },
+    { song_id: 60, playlist_id: 11, date: new Date("2025-04-25") },
+    { song_id: 61, playlist_id: 11, date: new Date("2025-04-25") },
+    { song_id: 62, playlist_id: 11, date: new Date("2025-04-25") },
+    { song_id: 63, playlist_id: 11, date: new Date("2025-04-25") },
+    { song_id: 64, playlist_id: 11, date: new Date("2025-04-25") }
 
   ], {});
 }
