@@ -175,6 +175,16 @@ export async function up(queryInterface, Sequelize) {
       name: "Yapi",
       bio: "Artista emergente del género urbano español, destacando por su estilo desenfadado y sonidos actuales.",
       photo: "artists_images/yapi.png"
+    },
+    {
+      name: "C Marí",
+      bio: "Joven talento del urbano español, emergiendo desde Valencia como una promesa convertida en realidad.",
+      photo: "artists_images/cMari.jpg"
+    },
+    {
+      name: "Raul Clyde",
+      bio: "Artista urbano español conocido por sus reggaetones, rompiendo la escena musical con temas como 'Tuenti-Remix'.",
+      photo: "artists_images/raulClyde.jpeg"
     }
 
 
