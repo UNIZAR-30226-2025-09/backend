@@ -104,7 +104,25 @@ export async function up(queryInterface, Sequelize) {
     { song_id: 61, playlist_id: 11, date: new Date("2025-04-25") },
     { song_id: 62, playlist_id: 11, date: new Date("2025-04-25") },
     { song_id: 63, playlist_id: 11, date: new Date("2025-04-25") },
-    { song_id: 64, playlist_id: 11, date: new Date("2025-04-25") }
+    { song_id: 64, playlist_id: 11, date: new Date("2025-04-25") },
+
+    //Album Mor no lo temas a la oscuridad
+    { song_id: 70, playlist_id: 13, date: new Date("2025-04-25") },
+    { song_id: 71, playlist_id: 13, date: new Date("2025-04-25") },
+    { song_id: 72, playlist_id: 13, date: new Date("2025-04-25") },
+    { song_id: 73, playlist_id: 13, date: new Date("2025-04-25") },
+    { song_id: 74, playlist_id: 13, date: new Date("2025-04-25") },
+    { song_id: 75, playlist_id: 13, date: new Date("2025-04-25") },
+    { song_id: 76, playlist_id: 13, date: new Date("2025-04-25") },
+    { song_id: 77, playlist_id: 13, date: new Date("2025-04-25") },
+    { song_id: 78, playlist_id: 13, date: new Date("2025-04-25") },
+    { song_id: 79, playlist_id: 13, date: new Date("2025-04-25") },
+    { song_id: 80, playlist_id: 13, date: new Date("2025-04-25") },
+    { song_id: 81, playlist_id: 13, date: new Date("2025-04-25") },
+    { song_id: 82, playlist_id: 13, date: new Date("2025-04-25") },
+    { song_id: 83, playlist_id: 13, date: new Date("2025-04-25") },
+    { song_id: 84, playlist_id: 13, date: new Date("2025-04-25") },
+    { song_id: 85, playlist_id: 13, date: new Date("2025-04-25") }
 
   ], {});
 }

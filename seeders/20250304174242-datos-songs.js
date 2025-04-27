@@ -4851,6 +4851,944 @@ export async function up(queryInterface, Sequelize) {
         url_mp3: 'songs/Raul Clyde - COSTABLANCA (Video) Prod.Came Beats [UKT9Uctd3Qs].mp3',
         type: "sencillo",
         genre: 'Reggaeton'
+      },
+      {
+        name: 'FERXXO 30',
+        duration: 173,
+        lyrics:
+        'Sigo esperándote\n' +
+        'Así me trabe, estoy pensándote\n' +
+        'Marica, no sé a quién estoy mintiéndole\n' +
+        'Que tú no estés está afectándome\n' +
+        'Estas— (Eh, eh) se pasan tirándome, yeah\n' +
+        'Y yo pichándoles\n' +
+        'Los pana me dicen que yo ya no estoy bien\n' +
+        'Tu recuerdo sigue persiguiéndome\n' +
+
+        'Todas las noches que voy a la disco a perrear\n' +
+        'Yo te pienso y ni sé, mami, tú dónde estás\n' +
+        'Borracho te texteé, no vas a contestar\n' +
+        'No me olvido de ti ni de tu forma e chingar\n' +
+
+        'Tengo chavo, baby, pero no te tengo\n' +
+        'Siempre te pienso cuando lo prendo\n' +
+        'Me paso en alta, me paso jodiendo\n' +
+        'Por dentro llorando y por fuera riendo (Oh)\n' +
+        'Como una sombra llevo tiempo, ma, detrá de ti\n' +
+        'Navegando, pero sin tus labio carmesí\n' +
+        'Tratando de encontrarte, baby, me perdí\n' +
+        'Baby, tus amiga a mí me tienen bien ofendío\n' +
+        'Te tienen el cora podrío\n' +
+        'Tirándome a mí que pa un trío\n' +
+        'Siempre te pienso, baby, siempre te escribo\n' +
+        'Con la esperanza de que no te han partido, baby\n' +
+        'Una vez, déjame verte una vez\n' +
+        'Contigo quiero perrear, contigo quiero beber, yeah\n' +
+
+        'Diablo, bebé, si te encuentro se me va a notar porque no soy buen actor\n' +
+        'Contigo es mejor hacer el amor\n' +
+        'Me vale puta mierda, bebé\n' +
+
+        'Yo sigo esperándote\n' +
+        'Así me trabe, estoy pensándote\n' +
+        'Marica, no sé a quién estoy mintiéndole\n' +
+        'Que tú no estés está afectándome\n' +
+        'Estas— (Eh, eh) se pasan tirándome (Yeah)\n' +
+        'Y yo pichándoles\n' +
+        'Los pana me dicen que yo ya no estoy bien\n' +
+        'Tu recuerdo sigue persiguiéndome\n' +
+
+        'Todas las noches que voy a la disco a perrear\n' +
+        'Yo te pienso y ni sé, mami, tú dónde estás\n' +
+        'Borracho te texteé, no vas a contestar\n' +
+        'No me olvido de ti ni de tu forma e chingar',
+        photo_video: 'songs_images/mornoletemas.jpeg',
+        url_mp3: 'songs/FERXXO 30 [3L8ZzwqJHFw].mp3',
+        type: "album",
+        genre: 'Reggaeton'
+      },
+      {
+        name: 'VOL 2',
+        duration: 70,
+        lyrics:
+        'Desde el cuarto se ve Hollywood, esto es una movie\n' +
+        'To el combo con el cuello frío, pero con hoodie\n' +
+        'Estos cabrone nos ven y se hacen el dubi\n' +
+        'Estoy firmando los cuadernos y firmando par de boobies, yeah\n' +
+        'Del avión pal show, un jacket bien cabrón, me veo como la cone\n' +
+        'Desde la ciudad del sol, me echó la bendición, se dio como lo soñé\n' +
+        'Yo siempre he querido cantar, yo nunca he querido ser malеante\n' +
+        'No somos de frontear, pеro la música nos tiene viviendo como gángster\n' +
+        'Despertamos en una mansión con el mismo corillo de antes\n' +
+        'Apretamo y sintieron la presión',
+        photo_video: 'songs_images/mornoletemas.jpeg',
+        url_mp3: 'songs/VOL 2 [oVyM--F-9Fg].mp3',
+        type: "album",
+        genre: 'Reggaeton'
+      },
+      {
+        name: 'VENTE CONMIGO',
+        duration: 185,
+        lyrics:
+        'Muchos perros hoy detrás de ti\n' +
+        'Pero a ninguno le hiciste así\n' +
+        '¿Qué toma la baby, pa servir?\n' +
+        'Aquí tengo por si quieres derretir\n' +
+
+        'Tú tiene brillo\n' +
+        'Ponte mi jacket por si hoy te da frío\n' +
+        'Esta noche quédate conmigo, yeah, yeah\n' +
+        'Se toca toa cuando yo la miro, eh, uy\n' +
+        'Vente, vente, vente conmigo, yeah, yeah\n' +
+        'No es casualidad, fue el destino\n' +
+        'Pa chingar tengo preservativo\n' +
+        'No va a haber testigos si te viene conmigo, eh, ey, uy, ey\n' +
+
+        'Tú no te queda quieta, te voy a dar segueta\n' +
+        'El ritmo suena wavy, tú te toca las teta\n' +
+        'Pa besar esos labio me pongo la careta\n' +
+        'Ella se da un shot y sola se pone coqueta\n' +
+        'Bien pegao, bien pegao, se me parcha al lao\n' +
+        'Se mueve sola y yo le digo "wow", yeah\n' +
+        'Bien pegao, bien pegao, tamo bien pegao\n' +
+        'Bien llenito ese DM y ninguno te ha dao\n' +
+
+        'Muchos perros hoy detrás de ti\n' +
+        'Pero a ninguno le hiciste así\n' +
+        '¿Qué toma la baby, pa servir?\n' +
+        'Aquí tengo por si quieres derretir\n' +
+
+        'Vente conmigo, yeah, yeah\n' +
+        'No es casualidad, fue el destino\n' +
+        'Pa chingar tengo preservativo\n' +
+        'No va a haber testigos si te viene conmigo, uy\n' +
+        'Vente, vente, vente conmigo, yeah, yeah\n' +
+        'No es casualidad, fue el destino\n' +
+        'Pa chingar tengo preservativo\n' +
+        'No va a haber testigos si te viene conmigo, eh, ey, uy, ey\n' +
+
+        'Vente conmigo\n' +
+        'Fue el destino\n' +
+        'Tú te toca las teta\n' +
+        'Ella se da un shot y sola se pone coqueta\n' +
+        'Ey',
+        photo_video: 'songs_images/mornoletemas.jpeg',
+        url_mp3: 'songs/VENTE CONMIGO [a22iQfcvm5Q].mp3',
+        type: "album",
+        genre: 'Reggaeton'
+      },
+      {
+        name: 'Niña Bonita',
+        duration: 187,
+        lyrics:
+        'Alguien como yo no iba a enamorarse, yeah\n' +
+        'Yo que ni miro al celu hago si no tirarte, yeah\n' +
+
+        'Niña bonita\n' +
+        '¿Qué va a hacer? Nos vemo ahorita\n' +
+        'Llegaste rota y yo te cuidé\n' +
+        'Hago de todo por esa nalguita\n' +
+
+        'Baby girl, si yo te quiero y tú me quieres, por ti daría la vida\n' +
+        'Toma mi mano solo una noche, ya no te sientas solita\n' +
+        'Baby girl, si yo te quiero, por ti daría la vida\n' +
+        'Toma mi mano solo una noche, ya no te sientas solita\n' +
+
+        'Yo te he caído varias veces, pero tú no estás\n' +
+        'Yo sé que tienes dos amigas pa Sean Paul y Sky\n' +
+        'Lo que siento por ti me sube por las vértеbras\n' +
+        'Me pone calientе, ma, ese huevo quiere sal, yeah\n' +
+        'Dios te dio muchos done\n' +
+        'Y con ese cuerpecito tú me das bendicione\n' +
+        'Te traigo un bikini, una hookah y unos blunte\n' +
+        'Pa irnos pa Cartagena pa escuchar mis cancione\n' +
+        'Pa ver si nos coge el atardecer de las cuatro\n' +
+        'Unos chorritos en la playa y te pongo en cuatro\n' +
+        'Nos damo unas cervecitas pal guayabo\n' +
+        'Y nos vamo pa la piscinita en Guaynabo, oh-oh-oh\n' +
+
+        'Si yo te quiero y tú me quieres, por ti daría la vida\n' +
+        'Toma mi mano solo una noche, ya no te sientas solita\n' +
+        'Baby girl, si yo te quiero, por ti daría la vida\n' +
+        'Toma mi mano solo una noche, ya no te sientas solita\n' +
+
+        'The first time I saw your face\n' +
+        'Deep inna mi heart, girl, yuh take a big place, and\n' +
+        'The way how yuh wine your waist\n' +
+        'Mesmerizing, you mi waan chase, girl\n' +
+        'You take over my headspace\n' +
+        'Longest nights and the longest days, girl\n' +
+        'I wanna know wah di pree\n' +
+        'I wanna know what you feel about me, baby\n' +
+        'I wanna know, wanna see\n' +
+        'Sexy body bou yah, bring it on me, baby\n' +
+        'I wanna make you believe\n' +
+        'Love you more than how mi love burnin trees\n' +
+        'And I wanna make memories\n' +
+        'With you, baby girl, mi seh please dont tease\n' +
+        'I get up inna your blood capillaries\n' +
+        'And make families, thats the way I see it, girl\n' +
+
+        'Si yo te quiero y tú me quieres, por ti daría la vida\n' +
+        'Toma mi mano solo una noche, ya no te sientas solita\n' +
+        'Baby girl, si yo te quiero, por ti daría la vida\n' +
+        'Toma mi mano solo una noche, ya no te sientas solita',
+        photo_video: 'songs_images/mornoletemas.jpeg',
+        url_mp3: 'songs/Niña Bonita [wu79FvlX1rA].mp3',
+        type: "album",
+        genre: 'Reggaeton'
+      },
+      {
+        name: 'GANGSTERS Y PISTOLAS',
+        duration: 170,
+        lyrics:
+        '¿Sí, eso es lo que le preocupa a Ferney, mi niño rico?\n' +
+        'Es que esa no es tu gente, pelada, entienda\n' +
+        'No es tu gente\n' +
+        '¿No? ¿Entonces cuál es mi gente, parce?\n' +
+        'Wuh, jajaja, yo supe que ibas a volver\n' +
+
+        'Desde niña ella creció viendo gángsters y pistolas\n' +
+        'Pero optó por el perreo y cuando perrea prefiere hacerlo sola, yеah\n' +
+        'Ella del case salió, pero nadiе le saca lo del case\n' +
+        'Está peleada con el amor y yo quiero que hoy hagan las paces\n' +
+
+        'Bebé, suéltate, que mucho ya esperé\n' +
+        'Estaba preguntando por ti hace un mes\n' +
+        '¿Cómo estás? ¿Qué hay de ti? ¿Nos volvemos a ver?\n' +
+        'Esta noche va a pasar to lo que pasó esa vez\n' +
+        'Bebé, suéltate, puede que mañana no esté\n' +
+        'Es-Es-Estaba preguntando por ti hace un mes (Jajaja)\n' +
+
+        'De nuevo tamo de frente (Jajaja)\n' +
+        'Mami, la vibra no miente\n' +
+        'Mi bandidita no se deja, tiene la sangre caliente\n' +
+        'Bríndame tus beso eternamente (Mami)\n' +
+        'Que yo toy puesto pa ti hasta que me llegue la muerte\n' +
+        'La nena salió e caserío también, conoce la jodedera\n' +
+        'Y se la sabe muy bien\n' +
+        'Más dura que tú no existe\n' +
+        'Y si existe, dime quién\n' +
+        'Le gusta el motoreo, loca con el pistoleo\n' +
+        'La tengo adicta a mis canciones de bellaqueo, oh-oh\n' +
+        'Por siempre serás mi bebé, se me eriza la piel cuando te veo\n' +
+        'Solo tú y yo (Baby) conocemos los secretos de maldad\n' +
+        'Solo tú y yo siempre sabremos la verdad\n' +
+        'Que no se muera nunca este amor\n' +
+        'A tiempo completo estoy para darte calor (Dime, FERXXO)\n' +
+        'Suéltate, que mucho ya esperé\n' +
+        'Estaba preguntando por ti hace un mes\n' +
+        '¿Cómo estás? ¿Qué hay de ti? ¿Nos volvemos a ver?\n' +
+        'Esta noche va a pasar to lo que pasó esa vez\n' +
+        'Bebé, suéltate, puede que mañana no esté\n' +
+        'Estaba preguntando por ti hace un mes\n' +
+
+        'Real G4 Life, baby\n' +
+        'Bum, baby\n' +
+        'FERXXO\n' +
+        'Con el Ñengoso\n' +
+        '(Yeah)',
+        photo_video: 'songs_images/mornoletemas.jpeg',
+        url_mp3: 'songs/GANGSTERS Y PISTOLAS [Q2hQwOMyyJ0].mp3',
+        type: "album",
+        genre: 'Reggaeton'
+      },
+      {
+        name: 'FERXXO 151',
+        duration: 195,
+        lyrics:
+        'Uh, uh, uh, uh, uh-uh-uh\n' +
+        'Uh, uh, uh, uh, uh-uh-uh\n' +
+
+        'Quemando un crespo\n' +
+        'Quemando el sol, mirándote, qué chimba esto\n' +
+        'Poniéndote el oil tan por todo el cuerpo\n' +
+        'Hace calor, pero no quiero que se me acabe esto, eh\n' +
+        'Tú de otra city\n' +
+        'Ese totico rosado flow Hello Kitty\n' +
+        'Chingar me quitó el guayabo de esa fiesta anoche en Santorini\n' +
+        'Se broncea a topless\n' +
+        'Solo quiere que se le marque la tanga del bikini, yeah\n' +
+
+        'Volvamos a hacerlo aunque no hayamos dormido\n' +
+        'Mе porto bien, pero bien malo contigo\n' +
+        'Tú mе dices lo rico que la estás pasando y me motivo\n' +
+
+        '¿Mañana pa dónde quieres ir?\n' +
+        'En el Goyard tengo el efectivo\n' +
+        'Pa gastármelo todo en ti\n' +
+        'Amanece otra vez conmigo\n' +
+        '¿Mañana pa dónde quieres ir?\n' +
+        'En el Goyard tengo el efectivo\n' +
+        'Pa gastármelo todo en ti\n' +
+        'Y que queden mordíos esos malparidos\n' +
+
+        'Ellas son flop y tú ere un bop\n' +
+        'Te quiero dar como te da el sol\n' +
+        'Te quité los hoops porque te estorban cuando te doy en four\n' +
+        'El bikini aguamarina\n' +
+        'Culonsita, ella es latina\n' +
+        'Supreme en el 2010 le hacen fila, yeah, yeah\n' +
+        'De tequilita un shot\n' +
+        'De los noventa como las Shock\n' +
+        'El mal la persigue como a Randy Glock\n' +
+        'Abrió la Goyard y se quedó en shock\n' +
+
+        'Bebé, yeah\n' +
+        'Tú me dices lo rico que la estás pasando y me motivo\n' +
+
+        '¿Mañana pa dónde quieres ir?\n' +
+        'En el Goyard tengo el efectivo\n' +
+        'Pa gastármelo todo en ti\n' +
+        'Amanece otra vez conmigo\n' +
+        '¿Mañana pa dónde quieres ir?\n' +
+        'En el Goyard tengo el efectivo\n' +
+        'Pa gastármelo todo en ti\n' +
+        'Y que queden mordíos esos malparidos\n' +
+        'Hoy vamos a hacerlo aunque no hayamos dormido',
+        photo_video: 'songs_images/mornoletemas.jpeg',
+        url_mp3: 'songs/FERXXO 151 [hSxXA6qYJTE].mp3',
+        type: "album",
+        genre: 'Reggaeton'
+      },
+      {
+        name: 'BUBALU',
+        duration: 228,
+        lyrics:
+        'Ya no quiero estar sin ti\n' +
+        'Farrear no es lo mismo si no estás aquí\n' +
+        'No me di cuenta y te perdí\n' +
+        'Tú te estaba alejando y yo nunca lo vi\n' +
+
+        'Dulcecita flow Trululu, cremita de coconut\n' +
+        'Un masajito pa que después me suelte ese Bubbaloo\n' +
+        'La cama hace "tu-tu-tu", pa mí que me hizo vudú (Yeah)\n' +
+        'De toa las mujere que hay en el mundo, la más chimba eres tú\n' +
+
+        'Me hace falta tú, tú, tú, tú, tú (Yeah-yeah)\n' +
+        'A tu foto le hago zoom, zoom, zoom, zoom, zoom (Yeah)\n' +
+        'Qué rico ese Bubbaloo, -loo, -loo, -loo, -loo\n' +
+        'El coro dice "ru, ru, ru, ru, ru"\n' +
+
+        'Dulcecita flow Trululu (Uh-uh), cremita de coconut (Ah-ah)\n' +
+        'Un masajito pa que después me suelte ese Bubbaloo (Ah-ah)\n' +
+        'La cama hace "tu-tu-tu", pa mí que me hizo vudú (Ah-ah)\n' +
+        'De toa las mujere que hay en el mundo, la más chimba eres tú (Yeah)\n' +
+
+        'Ese culito en el jetski en Montego Bay\n' +
+        'De champán toda la mojé\n' +
+        'Se quitó el kini y se le ve to por el agua cristalina\n' +
+        'Y yo con par de tragos encima\n' +
+        'Tocándote underwater, en la otra mano un caipirinha\n' +
+        'Pidió vape pa volar, le roté\n' +
+        'Y enseguida se prendió y qué rico pasé\n' +
+        'Cuando te vi en Benidorm en el mar, se enganchó las Oakley\n' +
+        'Nos parchamo en el hotel, la probé y es\n' +
+
+        'Dulcecita flow Trululu, cremita de coconut\n' +
+        'Un masajito pa que después me suelte ese Bubbaloo\n' +
+        'La cama hace "tu-tu-tu", pa mí que me hizo vudú (-bbaloo, -bba)\n' +
+        'De toa las mujere que hay en el mundo, la más chimba eres tú (Ooh)\n' +
+
+        'Omoge na one of one (Uh-uh)\n' +
+        'Wetin you put for your back (Omo)\n' +
+        'Any girl like you Omoge (No one)\n' +
+        'When you no dey by my side\n' +
+        'I dey miss you die baby, oh\n' +
+        'Na your matter I dey carry for my head alone\n' +
+        'I dey miss you, my baby, Oromao\n' +
+        'Theres something about her, ah\n' +
+        'Baby girl, you confirm\n' +
+        'If e no be her then me no want am\n' +
+        'Me thank Jah for the day wey me and her jam\n' +
+        'Theres something about that day wey we start all the kissing (Yeah)\n' +
+        'Sexing (Yeah-yeah), cuddling (Yeah)\n' +
+        'Recording this got me yearning\n' +
+        'If you got another man Ill be celosa\n' +
+        'Me just want you make you come Ku Lo Sa\n' +
+
+        'Dulcecita flow Trululu, cremita de coconut\n' +
+        'Un masajito pa que después me suelte ese Bubbaloo (-bbaloo, -bba)\n' +
+        'La cama hace "tu-tu-tu" (Uh-uh), pa mí que me hizo vudú (Ah-ah)\n' +
+        'De toa las mujere que hay en el mundo, la más chimba eres tú\n' +
+
+        'Me hace falta tú, tú, tú, tú, tú (Yeah-yeah)\n' +
+        'A tu foto le hago zoom, zoom, zoom, zoom, zoom (Yeah)\n' +
+        'Qué rico ese Bubbaloo, -loo, -loo, -loo, -loo\n' +
+        'Contigo el cielo era azul, -zul, -zul, -zul\n' +
+
+        'Dulcecita flow Trululu, cremita de coconut\n' +
+        'Un masajito pa que después me suelte ese Bubbaloo',
+        photo_video: 'songs_images/mornoletemas.jpeg',
+        url_mp3: 'songs/BUBALU [eB5LpNp_WHY].mp3',
+        type: "album",
+        genre: 'Reggaeton'
+      },
+      {
+        name: 'RITMO DE MEDALLO',
+        duration: 118,
+        lyrics:
+        'Tú me dice el Hennessy que te gusta\n' +
+        'Si te gusta el champán o la hookah\n' +
+        'Por la forma en que perrea, tú las educa\n' +
+        'Se llena de gasolina en la Duca, vrrum, yeah\n' +
+
+        'Fiesta ella quiere\n' +
+        'Maleante, prender la verde\n' +
+        'Tiene plata, tiene billete\n' +
+        'Los partie ella no se pierde\n' +
+        'Fiesta ella quiere\n' +
+        'Maleante, prender la verde\n' +
+        'Tiene plata, tiene billete\n' +
+        'Los partie ella no se pierde\n' +
+
+        'Si sale de fiesta, no postea\n' +
+        'Se arrodilló y yo que pensé que era atea\n' +
+        'A sus besties ella nunca chotea\n' +
+        'Ey, mor, venga, pues, báileme bien chimba aquí, pues yo veo\n' +
+        '(Pu, pu, pu)\n' +
+
+        'Si tienes amigas, baby, tráelas\n' +
+        'Que bellaqueen y que fumen mientras bailan\n' +
+        'Encendido desde que vi esas nalgas\n' +
+        'Quieren sexo pa que la noche valga (Awoo)\n' +
+        'Yo la conocí en un show\n' +
+        'Después le escribió y me copió\n' +
+        'Esa gata tiene un flow\n' +
+        'La más chimba, la más agogo\n' +
+        'El cuerpo al día, esa baby es atleta\n' +
+        'Tiene lo suyo, apartamento y camioneta\n' +
+        'Fin de semana en una locación secreta\n' +
+        'Y yo le llego wheeleando en la YZ (Brrum)\n' +
+
+        'Fiesta ella quiere\n' +
+        'Maleante, prender la verde\n' +
+        'Tiene plata, tiene billete\n' +
+        'Los partie ella no se pierde\n' +
+        'Fiesta ella quiere\n' +
+        'Maleante, prender la verde\n' +
+        'Tiene plata, tiene billete\n' +
+        'Los partie ella no se pierde',
+        photo_video: 'songs_images/mornoletemas.jpeg',
+        url_mp3: 'songs/RITMO DE MEDALLO [-0cawjO_45c].mp3',
+        type: "album",
+        genre: 'Reggaeton'
+      },
+      {
+        name: 'FERXXO EDITION',
+        duration: 161,
+        lyrics:
+        'Ya sé que tu relación se jodió, sé que estar sola puede ser extraño\n' +
+        'Yo fui el que tanto te insistió, yo te decía que sí, tú decías que no\n' +
+        'Aquí estamos los do, no perdimos na de tiempo\n' +
+        'No sé si es la nota o esas nalgota que me tienen envuelto\n' +
+
+        'Baby, es que la pasamo cabrón\n' +
+        'Con la hookah, el pasto y el ron\n' +
+        'Prométeme que si me extraña, bellaqueamo por nota de voz\n' +
+        'Contigo la paso tan cabrón\n' +
+        'Siemprе estuve atrás de vos\n' +
+        'Qué chimba quе después de tanto la vuelta al fin se nos dio\n' +
+
+        '¿Quién dijo que no? Si esto nadie lo forzó\n' +
+        'Qué chimba que después de tanto la vuelta se nos dio (Yeah)\n' +
+        'Te tiré los código\n' +
+        'Verte en panti para mí era ilógico\n' +
+        'Esa noche en el cuarto yo te lo di to\n' +
+        'Chingamo hasta que llegó el periódico, yeah\n' +
+        'Pa la mierda to esos booty call\n' +
+        'No fumaste, pero le diste a los químico\n' +
+        'Que sobraron de esas vacacione en México\n' +
+        'To los tema de su playlist me las dedicó\n' +
+        'La foto que nos sacamo, baby, después tú me la textea\n' +
+        'Me manda un voice con tu acento pa que me baje esta bellaquera\n' +
+        'El celu, porfa, no lo vaya a prestar, pa que el video no lo vean\n' +
+        'Que esa movie quede entre los dos\n' +
+
+        'Baby, es que la pasamos cabrón\n' +
+        'Con la hookah, el pasto y el ron\n' +
+        'Prométeme que si me extraña bellaqueamo por nota de voz\n' +
+        'Contigo la paso tan cabrón\n' +
+        'Siempre estuve atrás de vos\n' +
+        'Qué chimba que después de tanto la vuelta al fin se nos dio\n' +
+
+        '¿Quién dijo que no? Si esto nadie lo forzó\n' +
+        'Qué chimba que después de tanto la vuelta se nos dio',
+        photo_video: 'songs_images/mornoletemas.jpeg',
+        url_mp3: 'songs/FERXXO EDITION [0_y-oU1Tr9o].mp3',
+        type: "album",
+        genre: 'Reggaeton'
+      },
+      {
+        name: 'NX TX SIENTAS SOLX',
+        duration: 121,
+        lyrics:
+        'Realmente lo que había en tu piel se borró\n' +
+        'Te bajaste, pero en el Mercho se quedó tu olor\n' +
+
+        'Ya no te sientas sola\n' +
+        'Ya no te sientas sola\n' +
+        'En la disco no se llora\n' +
+        'Whats wrong? Bebé, reacciona\n' +
+
+        'No lo tienes que decir, yo lo estoy viendo en ti, se siente\n' +
+        'Estoy perreando contigo, bailando contigo, ¿lo sientes?\n' +
+        'Sígueme bailándome así a mí qué putas que se encabronen\n' +
+        'Ya no estés triste, mamacita, y no llores\n' +
+
+        'No hay condiciones\n' +
+        'Fuck toa esas relaciones, ey\n' +
+        'Tú tiene el outfit, tú te ve cangri\n' +
+        'Tú te ve bitchy, shorty\n' +
+        'Toa estas gatitas son uno clone\n' +
+        'Tú te ves cara sin cadena o Rolex\n' +
+        'Mañana salimo de un bote en Collins\n' +
+        'Quiere fumar, préndale uno bluntes\n' +
+        'Ya no te sientas sola\n' +
+        'Ya no te sientas sola\n' +
+        'En la disco no se llora\n' +
+        'Whats wrong? Bebé, reacciona\n' +
+
+        'No lo tienes que decir, yo lo estoy viendo en ti, se siente\n' +
+        'Estoy perreando contigo, bailando contigo, ¿lo sientes?\n' +
+        'Sígueme bailándome así a mí qué putas que se encabronen\n' +
+        'Ya no estés triste, mamacita, y no llores\n' +
+
+        'No lo tienes que decir, yo lo estoy viendo en ti, se siente\n' +
+        'Estoy perreando contigo, bailando contigo, ¿lo sientes?\n' +
+        'Sígueme bailándome así a mí qué putas que se encabronen\n' +
+        'Ya no estés triste, mamacita, y no llores',
+        photo_video: 'songs_images/mornoletemas.jpeg',
+        url_mp3: 'songs/NX TX SIENTAS SOLX [otClQscZgZI].mp3',
+        type: "album",
+        genre: 'Reggaeton'
+      },
+      {
+        name: 'LUCES DE TECNO',
+        duration: 164,
+        lyrics:
+        'Te encontré entre las luce\n' +
+        'Yo siempre te quise\n' +
+        'Hicimos el amor, me dejaste tragao\n' +
+        'Y luego te fuiste (Y luego te fuiste)\n' +
+
+        'Pa mí que fue la pastilla que esa noche tomé\n' +
+        'Quizá no estaba ahí, tal vez yo te imaginé, yeah\n' +
+        'Llegué al mismo lugar de la disco, a ver si te vuelvo a ver\n' +
+
+        'Si ayer lo hicimo bajo luna llena\n' +
+        'Pero parece que no me conoce\n' +
+        'To mis sеntido, mami, hoy te celan\n' +
+        'Porque cuando еstoy borracho por mi mente recorre\n' +
+        'Toa la noche, toda las loquera\n' +
+        'Cuando te diga que no hay quien las borre\n' +
+        'Y repetirlo, mami, yo quisiera\n' +
+        'Yo sé que tú no va a olvidar mi nombre\n' +
+
+        'El día en que te fuiste\n' +
+        'Fue cuando más me heriste\n' +
+        'Hicimos el amor, me dejaste tragao\n' +
+        'Y luego te fuiste\n' +
+        'Te encontré entre las luce\n' +
+        'Yo siempre te quise\n' +
+        'Estaba en lo más hondo\n' +
+        'Tus ojo verde los veía grise\n' +
+        'Pa mí que fue la pastilla que esa noche tomé\n' +
+        'Quizá no estaba ahí, tal vez yo te imaginé, yeah\n' +
+        'Llegué al mismo lugar de la disco, a ver si te vuelvo a ver\n' +
+
+        'Si ayer lo hicimo bajo luna llena\n' +
+        'Pero parece que no me conoce\n' +
+        'To mis sentido, mami, hoy te celan\n' +
+        'Porque cuando estoy borracho por mi mente recorre\n' +
+        'Toa la noche, toda las loquera\n' +
+        'Cuando te diga que no hay quien las borre\n' +
+        'Y repetirlo, mami, yo quisiera\n' +
+        'Yo sé que tú no va a olvidar mi nombre',
+        photo_video: 'songs_images/mornoletemas.jpeg',
+        url_mp3: 'songs/LUCES DE TECNO [cog5Sa6acWM].mp3',
+        type: "album",
+        genre: 'Reggaeton'
+      },
+      {
+        name: 'EY CHORY',
+        duration: 178,
+        lyrics:
+        'Ey, shorty, yo sé que te sobran las opciones\n' +
+        'Y estás cansada de escuchar a estos huevones\n' +
+        'Te dan regalos, así tú los ignores\n' +
+        'En casa tienes una colección de Rolex\n' +
+        'Ey, shorty, no quiero que te presiones\n' +
+        'Yo sé que no está puesta pa las relaciones (Wow)\n' +
+        'Mami, acabo de enrolar unos bluntes\n' +
+        'Dime si te soya tomarte unos rones\n' +
+
+        'Voy en el Mercho y de una la monto\n' +
+        'A veces se pone traje y a veces corto\n' +
+        'Qué piquete cuando prende el Phillie\n' +
+        'Yo le digo: "Mamacita, me saqué la loto"\n' +
+        'Me fui pa Dior y le saqué una cartera y le puse su nombre pa que to la vieran\n' +
+        'Estoy juqueao porque puedo llevármela pal cielo y también a tomar coctel en el Lleras\n' +
+        'Ese culito en bikini paseando por Santorini\n' +
+        'En el hotel o en la playa, yo se lo pongo sin beanie\n' +
+        'A veces cuando ella toma dice que está mezclando los feelings\n' +
+        'Que le hable bonito y yo le digo "chilling"\n' +
+
+        'Ey, shorty, yo sé que te sobran las opciones (Ey)\n' +
+        'Y estás cansada de escuchar a estos huevones\n' +
+        'Te dan regalos, así tú los ignores\n' +
+        'En casa tienes una colección de Rolex\n' +
+        'Ey, shorty, no quiero que te presiones\n' +
+        'Yo sé que no está puesta pa las relaciones (Wow)\n' +
+        'Mami, acabo de enrolar unos bluntes\n' +
+        'Dime si te soya tomarte unos rones\n' +
+
+        'Métele bellaco, ponme a bailar\n' +
+        'Métele bellaco, ponme a bailar\n' +
+        'Ay, papi, dame\n' +
+        'Perreo, perreo, perreo, perreo, perreo\n' +
+        'Ey, shorty, no quiero que te presiones\n' +
+        'Yo sé que no está puesta pa las relaciones (Wow)\n' +
+        'Mami, acabo de enrolar unos bluntes',
+        photo_video: 'songs_images/mornoletemas.jpeg',
+        url_mp3: 'songs/EY CHORY [sAQsbsUKPDw].mp3',
+        type: "album",
+        genre: 'Reggaeton'
+      },
+      {
+        name: 'VELOCIDAD CRUCERO',
+        duration: 135,
+        lyrics:
+        'Baby, ponte\n' +
+        'Una combi bien chimba en lo que\n' +
+        'Salgo de hacer algo en el bloque\n' +
+        'Quiero pasar contigo esta noche\n' +
+        'Mami, tranquila, no te pongas to, solamente la camisa, yeah\n' +
+        'Quiero ver cómo se ven esas pantalla en mi cojinería\n' +
+
+        'Shorty, ¿qué hay pa hacer, ma?, yeah\n' +
+        '¿Qué hay pa meterle al sistema?\n' +
+        'Yo sé que el día no ha salido bien\n' +
+        'Pero vo a hacer que se te olvide, mi reina\n' +
+        'Te gusta el whiskey\n' +
+        'Llevo hielo y papel pa la hierba\n' +
+        'Yo sé que el día no ha salido bien\n' +
+        'Pero vo a hacer que se te olvide, mi reina\n' +
+
+        'Ya voy subiendo por la loma, deja que te coma\n' +
+        'Tú ve bajando en lo que el nene se asoma\n' +
+        'Tú conoce la amenaza con los rine en croma\n' +
+        'Mi baby se ve fina, nunca se ve putona\n' +
+        'Pero tiene una diabla interior que la saca el alcohol\n' +
+        'Pa chingarla mejor, de Bleecker es su olor\n' +
+        'La baby fuma, pero fuma a lo rasta\n' +
+        'Si no lo arma ella, lo arma una e sus gata\n' +
+
+        'En el matre hoy voy a darte\n' +
+        'Yo te juro que a pesar de to, tú no va a olvidarme\n' +
+
+        'Shorty, ¿qué hay pa hacer, ma?, yeah\n' +
+        '¿Qué hay pa meterle al sistema?\n' +
+        'Yo sé que el día no ha salido bien\n' +
+        'Pero vo a hacer que se te olvide, mi reina\n' +
+        'Te gusta el whiskey\n' +
+        'Llevo hielo y papel pa la hierba\n' +
+        'Yo sé que el día no ha salido bien\n' +
+        'Pero vo a hacer que se te olvide, mi reina',
+        photo_video: 'songs_images/mornoletemas.jpeg',
+        url_mp3: 'songs/VELOCIDAD CRUCERO [ANCtadulUwA].mp3',
+        type: "album",
+        genre: 'Reggaeton'
+      },
+      {
+        name: 'ROMÁNTICOS DE LUNES',
+        duration: 242,
+        lyrics:
+        'Acabo de dejarte en casa, yeah\n' +
+        'Los panas me dicen que me quede en el case\n' +
+        'No hay nada seguro porque pa morir se nace\n' +
+        'Otra noche, otro problema, otro billete\n' +
+        'Pero pendiente a ti, bebé, pase lo que pase\n' +
+        'He sido un hijueputa pero ojalá se me dé contigo\n' +
+        'Baby, no sé si me case\n' +
+
+        'Mami, me tiro flow DY\n' +
+        'De la vuelta quiero retirarme\n' +
+        'Toy cansado de rutear\n' +
+        'Quiero llegar a casa, bebé, pa desayunarte\n' +
+        'Qué caja que iba a ser un solo weekend, bebé, y ya llevamo die, yeah\n' +
+
+        'La pasamos chimba pero lo más chimba e esto es el sexo, ey\n' +
+        'Mami, si tú tienes frío, dale, yo te presto la Moncler, yeah\n' +
+        'Después de echarnos tres la baby me activa otra vez con un espresso\n' +
+        'Shorty, ese culo no lo presto, si tú eres mía perso, yeah\n' +
+
+        'Estábamo underwater pero ayer subió una foto y la frontié, yeah\n' +
+        'Nueva fumando y le compré un lightersito de Cartier, ey\n' +
+        'Me hace falta hoy porque se lo metí muy rico ayer y antier, bae\n' +
+        'Hoy es viernes\n' +
+        'Vi tu story por Coral Gables\n' +
+        'Toda de negro como Vader\n' +
+
+        'Mami, yo quiero verte\n' +
+        'Qué ganas de tenerte\n' +
+        'Toda encendida con ganas de beber, yeah\n' +
+        'Toda prendida con ganas de joder\n' +
+        'Mami, yo quiero verte\n' +
+        'Qué ganas de tenerte\n' +
+        'Toda encendida con ganas de beber, yeah\n' +
+        'Toda prendida con ganas de joder (Wow)\n' +
+
+        'Voy llegando por la esquina por esa por donde estás\n' +
+        'Desde aquí te puedo ver con la doble C\n' +
+        'Solo sale cuando tu escuches el V12\n' +
+        'El sol te está pegando en los VVS\n' +
+        'Tus amigas saben la que hay\n' +
+        'Tú ya les contaste que en la cama hacemo el logo de las Jordan Fly\n' +
+        'Que no vaya a ser, mami, que se te filtren los video\n' +
+        'Que se van viral y te reacciona Ibai\n' +
+
+        'Mami, me tiro flow DY\n' +
+        'De la vuelta quiero retirarme\n' +
+        'Toy cansado de rutear\n' +
+        'Quiero llegar a casa, bebé, pa desayunarte\n' +
+        'Qué caja que iba a ser un solo weekend, bebé, y ya llevamo die, yeah\n' +
+
+        'La pasamos chimba pero lo más chimba e esto es el sexo, ey\n' +
+        'Mami, si tú tienes frío, dale, yo te presto la Moncler, yeah\n' +
+        'Después de echarnos tres la baby me activa otra vez con un espresso\n' +
+        'Shorty, ese culo no lo presto, si tú eres mía perso, yeah\n' +
+
+        'Estábamo underwater pero ayer subió una foto y la frontié, yeah\n' +
+        'Nueva fumando y le compré un lightersito de Cartier, ey\n' +
+        'Me hace falta hoy porque se lo metí muy rico ayer y antier, bae\n' +
+        'Hoy es viernes\n' +
+        'Vi tu story por Coral Gables\n' +
+        'Toda de negro como Vader',
+        photo_video: 'songs_images/mornoletemas.jpeg',
+        url_mp3: 'songs/ROMÁNTICOS DE LUNES [J0JCYeD5RD8].mp3',
+        type: "album",
+        genre: 'Reggaeton'
+      },
+      {
+        name: 'el único tema del ferxxo',
+        duration: 182,
+        lyrics:
+        'Voy a extrañarte, mami, espero y te vaya bien\n' +
+        'Vete en el Ferrari, que se va de cero a cien\n' +
+        'Más rápido de lo que se fue lo que sentías tú por mí\n' +
+        'No regreses así, yo te llame y te diga que voa morir\n' +
+
+        'Si te vas, de mi cora te lleva una parte\n' +
+        'Va a doler, pero, mami, es mejor que me faltes\n' +
+        'Dónde estés, ojalá y te den lo que no pude darte\n' +
+        'Siento que se llevaron a mi gata gánster\n' +
+
+        'Mami, ya es tarde\n' +
+        'Dime si aún podemo volver\n' +
+        'Le pido a Diosito te guarde\n' +
+        'Y no me rompa el cora\n' +
+        'Por mí te doy a toda hora\n' +
+        'Baby, ¿por qué tú te demora?\n' +
+        'Por ti, baby, yo mato y muero\n' +
+        'Doy mi vida por esa cola\n' +
+        'Y ahora estás distante\n' +
+        'Me gustaría que fuera como antes\n' +
+        'Cuando estábamo en la calle\n' +
+        'Yo prendiendo un blunt y pedías que te cante\n' +
+        'Ho-hoy bajé pal party, arrebatao\n' +
+        'Pensándote y que te veo en todos laos\n' +
+        'Sin tu piel, sin tenerte al lao\n' +
+        'Ya perdí la cuenta e cuántas botellas he bajao\n' +
+
+        'Bae, te pusiste esquiva, a veces hasta agresiva\n' +
+        'Hablándote a la real, yo siempre he sido tuyo, pero tú nunca mía\n' +
+        'Por Dios, que yo no te fallé\n' +
+        'Quizás nunca viste mis detalle\n' +
+        'Yo no entendía los temas de FERXXO\n' +
+        'Y ahora tos esos temas me salen\n' +
+
+        'Si te vas, de mi cora te lleva una parte\n' +
+        'Va a doler, pero, mami, es mejor que me faltes\n' +
+        'Dónde estés, ojalá y te den lo que no pude darte\n' +
+        'Siento que se llevaron a mi gata gánster\n' +
+
+        'Si te vas no vuelvas\n' +
+        'Cuidado con el karma, puede que se te devuelva\n' +
+        'Los sentimientos se te fueron como un Tesla\n' +
+        'Ahora ten claro que ya no te voy a buscar, ma\n' +
+        'Tengo varias gatas que ocupan tu lugar\n' +
+        'Espero que te vaya bien y no vuelvas a llamar\n' +
+        'Escuchando "Ferxxo 100", nena, me voy a curar\n' +
+        'Te dicen la parte corazones\n' +
+        'Yo no quiero amore, quiero millone\n' +
+        'Llegas a la disco, triste te pones\n' +
+        'Porque tienes que escuchar toas mis canciones\n' +
+
+        'Si te vas, de mi cora te lleva una parte\n' +
+        'Va a doler, pero, mami, es mejor que me faltes\n' +
+        'Dónde estés, ojalá y te den lo que no pude darte\n' +
+        'Siento que se llevaron a mi gata gánster\n' +
+
+        '(Uh)\n' +
+        '(Uh)',
+        photo_video: 'songs_images/mornoletemas.jpeg',
+        url_mp3: 'songs/el único tema del ferxxo [11AqBvX5kVA].mp3',
+        type: "album",
+        genre: 'Reggaeton'
+      },
+      {
+        name: 'PRIVILEGIOS',
+        duration: 185,
+        lyrics:
+        'No me quite eso privilegio\n' +
+        'No te doy desde hace rato, dime si te llego, tú conoce mi intention\n' +
+        'Se supone que solo iba a ser un fin de semana y no estar sintiendo esto\n' +
+        'Mala mía si te imagino en hilito encima mío y me enciendo, yeah\n' +
+        'Pa ti lo que sea, mor, pero, porfa, no me quite eso privilegio\n' +
+        'No te doy desde hace rato, dime si te llеgo, tú conoce mi intention\n' +
+        'Se suponе que solo iba a ser un fin de semana y no estar sintiendo esto\n' +
+        'Mala mía si te imagino en hilito encima mío y me enciendo, yeah\n' +
+        'Pa ti lo que sea, mor, pero, porfa, no me quite eso privilegio\n' +
+
+        'De saber dónde está\n' +
+        'De mirar mi celu y ver to tu pack\n' +
+        'California love gánster como 2Pac\n' +
+        'Si peliamo yo te como pa que haya un comeback, yeah\n' +
+        'Somo G como Wiso\n' +
+        'La nota parriba y la ropa pal piso\n' +
+        'Dale, mami, que estamo en Bellaqueo Season\n' +
+        'Dame un break, no me deje en la prison\n' +
+
+        'Quiero volar contigo, sin drone\n' +
+        'Escalar tu edificio como King Kong\n' +
+        'Da igual el número que digas que siempre es bingo\n' +
+        'Te toca el premio de darte duro como Kimbo\n' +
+        'Y te pico sobre las cinco, ding-dong\n' +
+        'Y vamos a algún sitio, el domingo\n' +
+        'Embobao cuando te miro como viendo Los Simpsons\n' +
+        'Blandito como Bimbo, pero me vuelves Jimbo\n' +
+
+        'Tienes algo en la cara\n' +
+        'De culpable y de inocente\n' +
+        'Yo antes no creía en nada\n' +
+        'Pero me has hecho creyente\n' +
+
+        'Y le pido a Dios que me dé suerte para tenerte, potra\n' +
+        'Si no es en esta vida, la otra\n' +
+        'Y comerte la boca, quitarte la ropa\n' +
+        'A gusto por Colombia, chimba por Europa\n' +
+
+        'No me quite eso privilegio\n' +
+        'No te doy desde hace rato, dime si te llego, tú conoce mi intention\n' +
+        'Se supone que solo iba a ser un fin de semana y no estar sintiendo esto\n' +
+        'Mala mía si te imagino en hilito encima mío y me enciendo, yeah\n' +
+        'Pa ti lo que sea, mor, pero, porfa, no me quite eso privilegio\n' +
+        'No te doy desde hace rato, dime si te llego, tú conoce mi intention\n' +
+        'Se supone que solo iba a ser un fin de semana y no estar sintiendo esto\n' +
+        'Mala mía si te imagino en hilito encima mío y me enciendo, yeah\n' +
+        'Pa ti lo que sea, mor, pero, porfa, no me quite eso privilegio',
+        photo_video: 'songs_images/mornoletemas.jpeg',
+        url_mp3: 'songs/PRIVILEGIOS [ioXJFsCW1vk].mp3',
+        type: "album",
+        genre: 'Reggaeton'
+      },
+      {
+        name: 'En La De Ella',
+        duration: 230,
+        lyrics:
+        'Una noche que no puedo olvidar\n' +
+        'Y aunque tenga que escaparse\n' +
+        'Al trabajo tarde llegarle\n' +
+        'Pichar to los texto y el cel apagar\n' +
+        'Y yo la conozco\n' +
+        'Le gustan los carro, las moto\n' +
+        'La mota mezclá con lo otro\n' +
+        'Y a vece le gustan los totos\n' +
+
+        'No la mire, que ella está en la de ella\n' +
+        'Pídele otra botella\n' +
+        'Que eso e lo que quiere ella (Eso e lo que quiere ella)\n' +
+        'Eso e lo quе quiere ella (Eso е lo que quiere ella)\n' +
+        'No la mire, que ella está en la de ella\n' +
+        'Pídele otra botella\n' +
+        'Que eso e lo que quiere ella\n' +
+        'Yo sé lo que quiere ella (Eso e lo que quiere)\n' +
+
+        'Si la ve no le diga na (Wuh)\n' +
+        'No, que ella no vino a portarse bien (Bien)\n' +
+        'Trajo a su amiga y va a besársela\n' +
+        'Despué del party va pal after\n' +
+        'Sentimiento en el freezer\n' +
+        'No es regular, esa bebecita es diésel\n' +
+        'Me agarra este tubo como una stripper\n' +
+        'Y yo le abro ese garaje como si tuviera un beeper (¿Me sigue?)\n' +
+        '¿Y qué fue, qué va a hacer?\n' +
+        '¿Qué pasó? Dime a ver\n' +
+        'Pongo la cara en esa teta y parece que tiene tre (Tiene tre)\n' +
+        'Cuerpecito, se ve que tú tomas té (Tomas té)\n' +
+        'De Medallo, yo le dije: "Vea, pues"\n' +
+
+        'Tu cuerpo a mí me provoca\n' +
+        'Quiero que te quite la ropa\n' +
+        'Quiero comerte completota\n' +
+        'Las nalga las tiene grandota\n' +
+        'Tu cuerpo a mí me provoca\n' +
+        'Quiero que te quite la ropa\n' +
+        'A la competencia la tiene rota\n' +
+
+        'No la mire, que ella está en la de ella\n' +
+        'Pídele otra botella\n' +
+        'Que eso e lo que quiere ella (Eso e lo que quiere ella)\n' +
+        'Eso e lo que quiere ella (Eso e lo que quiere ella)\n' +
+        'No la mire, que ella está en la de ella\n' +
+        'Pídele otra botella\n' +
+        'Que eso e lo que quiere ella\n' +
+        'Yo sé lo que quiere ella (One time, dice; yeah)\n' +
+
+        'Dicen que el alcohol no arregla na, tú toma\n' +
+        'Que el agua tampoco arregla na\n' +
+        'Ella lo que quiere es jangueo\n' +
+        'Hasta que nos boten los feo\n' +
+        'Y hace tiempo ya\n' +
+        'Yo te tengo bum-bum, en la mira, blam-blam\n' +
+        'Tú me dice pa dónde es que van\n' +
+        'Y yo le llego, dime cuál e el plan\n' +
+        'Que no estamo pa pasarla mal (Yeah)\n' +
+        'Dale, no seas tímida, rompe\n' +
+        'Con eso que te invertiste tú mataste a la compe\n' +
+        'De money tag, así que dejen el fronte\n' +
+        'Está en la de ella, así que sopórtenla\n' +
+        'Yo te tengo bum-bum, en la mira, blam-blam\n' +
+        'Tú me dice pa dónde es que van\n' +
+        'Y yo le llego, dime cuál e el plan\n' +
+        'Que no estamo pa pasarla mal, eh\n' +
+
+        'El abdomen lo tiene duro, blindaje seis\n' +
+        'El cora lleno de cicatrice, Scarface\n' +
+        'Yo me la llevo pa lo oscuro\n' +
+        'Prendemo bareto del tamaño de un puro\n' +
+        'Su ex se quedó atrás como Napster\n' +
+        'Explota chavo en los putero flow gángster\n' +
+        'Estilo caro, el cuello forrao en diamante\n' +
+        'No sube una story si farrea con cantante, ey\n' +
+        'Rompe la calle y ve salir el sol\n' +
+        'El culo grande, pa mí que juega voleibol\n' +
+        'Es una pitcher, janguea con las tornasol\n' +
+        'Si le metes presión, ella le mete terror\n' +
+
+        'No la mire, que ella está en la de ella\n' +
+        'Pídele otra botella\n' +
+        'Que eso e lo que quiere ella\n' +
+        'Yo sé lo que quiere ella\n' +
+        'No la mire, que ella está en la de ella\n' +
+        'Pídele otra botella\n' +
+        'Que eso e lo que quiere ella\n' +
+        'Eso e lo que quiere ella',
+        photo_video: 'songs_images/enladella.jpeg',
+        url_mp3: 'songs/Jhayco, Feid, Sech - En La De Ella (Official Video) [Thkj3Ia0-4Y].mp3',
+        type: "sencillo",
+        genre: 'Reggaeton'
       }
     ], {});
 }
