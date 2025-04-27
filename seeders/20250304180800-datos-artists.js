@@ -48,7 +48,7 @@ export async function up(queryInterface, Sequelize) {
     {
       name: "Bad Gyal",
       bio: "Cantante catalana de dancehall, trap y reguetón, famosa por su estilo atrevido y éxitos como \"Fiebre\".",
-      photo: "artists_images/badGyal.png"
+      photo: "artists_images/badgyal.jpeg"
     },
     {
       name: "Extremoduro",
@@ -64,12 +64,12 @@ export async function up(queryInterface, Sequelize) {
     {
       name: "Anuel AA",
       bio: "Rapero y cantante puertorriqueño, figura clave del trap latino con letras crudas y temas como \"Secreto\".",
-      photo: "artists_images/anuelAA.png"
+      photo: "artists_images/anuelAA.jpeg"
     },
     {
       name: "C. Tangana",
       bio: "Artista madrileño versátil, mezcla rap, flamenco y música urbana, destacado por su disco \"El Madrileño\".",
-      photo: "artists_images/cTangana.png"
+      photo: "artists_images/ctangana.jpg"
     },
     {
       name: "Camaron",
@@ -104,7 +104,7 @@ export async function up(queryInterface, Sequelize) {
     {
       name: "Jarabe de Palo",
       bio: "Grupo español liderado por Pau Donés, conocido por su fusión de rock y ritmos latinos en temas como 'La Flaca'.",
-      photo: "artists_images/jarabeDePalo.png"
+      photo: "artists_images/jarabedepalo.jpeg"
     },
     {
       name: "Chayanne",
@@ -124,7 +124,7 @@ export async function up(queryInterface, Sequelize) {
     {
       name: "Dani Martín",
       bio: "Exvocalista de El Canto del Loco, solista de pop rock con letras íntimas y personales como 'Cero'.",
-      photo: "artists_images/daniMartin.png"
+      photo: "artists_images/danimartin.jpg"
     },
     {
       name: "Nena Daconte",
@@ -144,7 +144,7 @@ export async function up(queryInterface, Sequelize) {
     {
       name: "Quevedo",
       bio: "Cantante y compositor canario que revolucionó la escena urbana con temas como 'Quédate' junto a Bizarrap.",
-      photo: "artists_images/quevedo.png"
+      photo: "artists_images/quevedo.jpeg"
     },
     {
       name: "FloyyMenor",
@@ -154,7 +154,7 @@ export async function up(queryInterface, Sequelize) {
     {
       name: "Gabry Ponte",
       bio: "DJ y productor italiano de música electrónica, famoso por su trabajo con Eiffel 65 y temas como 'Dragostea Din Tei (Remix)'.",
-      photo: "artists_images/gabryPonte.png"
+      photo: "artists_images/gabryponte.jpeg"
     },
     {
       name: "JC Reyes",
@@ -174,7 +174,7 @@ export async function up(queryInterface, Sequelize) {
     {
       name: "Yapi",
       bio: "Artista emergente del género urbano español, destacando por su estilo desenfadado y sonidos actuales.",
-      photo: "artists_images/yapi.png"
+      photo: "artists_images/yapi.jpeg"
     },
     {
       name: "C Marí",
