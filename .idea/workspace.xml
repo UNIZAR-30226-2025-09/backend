@@ -6,8 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="a8044cc0-26c6-4086-8df5-3b7b3997d957" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker/soft_reset_sin_guion.sh" beforeDir="false" afterPath="$PROJECT_DIR$/docker/soft_reset_sin_guion.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controllers/user_controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/user_controller.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -120,6 +118,7 @@
       <workItem from="1743094164309" duration="12946000" />
       <workItem from="1743411500483" duration="68009000" />
       <workItem from="1744211718452" duration="26667000" />
+      <workItem from="1745667648898" duration="7488000" />
     </task>
     <servers />
   </component>
