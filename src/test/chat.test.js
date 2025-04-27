@@ -68,8 +68,8 @@ describe('Pruebas sobre /api/chat', () => {
         await db.chat.destroy({
             where: {
                 [Op.or]: [
-                    { user1_id: [userId, friendId, nonFriendId] },
-                    { user2_id: [userId, friendId, nonFriendId] }
+                    { user1_id: { [Op.in]: [userId, friendId, nonFriendId] } },
+                    { user2_id: { [Op.in]: [userId, friendId, nonFriendId] } }
                 ]
             }
         });
@@ -78,8 +78,8 @@ describe('Pruebas sobre /api/chat', () => {
         await db.friendship.destroy({
             where: {
                 [Op.or]: [
-                    { user1_id: [userId, friendId, nonFriendId] },
-                    { user2_id: [userId, friendId, nonFriendId] }
+                    { user1_id: { [Op.in]: [userId, friendId, nonFriendId] } },
+                    { user2_id: { [Op.in]: [userId, friendId, nonFriendId] } }
                 ]
             }
         });
@@ -90,90 +90,277 @@ describe('Pruebas sobre /api/chat', () => {
         await db.user.destroy({ where: { id: nonFriendId } });
     });
 
-    // Test envío de mensaje exitoso
-    it('Debería enviar un mensaje correctamente a un amigo', async () => {
-        const response = await request(BASE_URL)
-            .post('/api/chat/send')
-            .set('Authorization', `Bearer ${sharedToken}`)
-            .send({
-                user2_id: friendId,
-                message: 'Hola amigo, este es un mensaje de prueba'
-            });
+    describe('POST /api/chat/send', () => {
+        it('Debería enviar un mensaje correctamente a un amigo', async () => {
+            const response = await request(BASE_URL)
+                .post('/api/chat/send')
+                .set('Authorization', `Bearer ${sharedToken}`)
+                .send({
+                    user2_id: friendId,
+                    message: 'Hola amigo, este es un mensaje de prueba'
+                });
 
-        expect(response.status).toBe(201);
-        expect(response.body.message).toBe('Mensaje enviado correctamente');
-        expect(response.body.data.txt_message).toBe('Hola amigo, este es un mensaje de prueba');
-        expect(response.body.data.user1_id).toBe(userId);
-        expect(response.body.data.user2_id).toBe(friendId);
+            expect(response.status).toBe(201);
+            expect(response.body.message).toBe('Mensaje enviado correctamente');
+            expect(response.body.data.txt_message).toBe('Hola amigo, este es un mensaje de prueba');
+            expect(response.body.data.user1_id).toBe(userId);
+            expect(response.body.data.user2_id).toBe(friendId);
+        });
+
+        it('Debería rechazar el envío si no se proporciona token', async () => {
+            const response = await request(BASE_URL)
+                .post('/api/chat/send')
+                .send({
+                    user2_id: friendId,
+                    message: 'Este mensaje no debería enviarse'
+                });
+
+            expect(response.status).toBe(401);
+            expect(response.body.error).toBe('Token no proporcionado');
+        });
+
+        it('Debería rechazar el envío si el token es inválido', async () => {
+            const invalidToken = 'tokeninvalido123456';
+
+            const response = await request(BASE_URL)
+                .post('/api/chat/send')
+                .set('Authorization', `Bearer ${invalidToken}`)
+                .send({
+                    user2_id: friendId,
+                    message: 'Este mensaje no debería enviarse'
+                });
+
+            expect(response.status).toBe(500);
+            expect(response.body.error).toBe('Error al enviar mensaje');
+        });
+
+        it('Debería rechazar el envío a un usuario que no es amigo', async () => {
+            const response = await request(BASE_URL)
+                .post('/api/chat/send')
+                .set('Authorization', `Bearer ${sharedToken}`)
+                .send({
+                    user2_id: nonFriendId,
+                    message: 'Este mensaje no debería enviarse'
+                });
+
+            expect(response.status).toBe(403);
+            expect(response.body.error).toBe('No puedes enviar mensajes a este usuario porque no son amigos');
+        });
+
+        it('Debería rechazar el envío si no se proporciona ID del destinatario', async () => {
+            const response = await request(BASE_URL)
+                .post('/api/chat/send')
+                .set('Authorization', `Bearer ${sharedToken}`)
+                .send({
+                    message: 'Este mensaje no debería enviarse'
+                });
+
+            expect(response.status).toBe(400);
+            expect(response.body.error).toBe('Se requiere ID de destinatario y mensaje');
+        });
+
+        it('Debería rechazar el envío si no se proporciona mensaje', async () => {
+            const response = await request(BASE_URL)
+                .post('/api/chat/send')
+                .set('Authorization', `Bearer ${sharedToken}`)
+                .send({
+                    user2_id: friendId
+                });
+
+            expect(response.status).toBe(400);
+            expect(response.body.error).toBe('Se requiere ID de destinatario y mensaje');
+        });
     });
 
-    // Test envío sin token
-    it('Debería rechazar el envío si no se proporciona token', async () => {
-        const response = await request(BASE_URL)
-            .post('/api/chat/send')
-            .send({
-                user2_id: friendId,
-                message: 'Este mensaje no debería enviarse'
+    describe('GET /api/chat/conversation/:friendId', () => {
+        beforeEach(async () => {
+            // Enviar un mensaje para asegurar que hay algo que recuperar
+            await request(BASE_URL)
+                .post('/api/chat/send')
+                .set('Authorization', `Bearer ${sharedToken}`)
+                .send({
+                    user2_id: friendId,
+                    message: 'Mensaje de prueba para conversación'
+                });
+        });
+
+        it('Debería obtener la conversación con un amigo correctamente', async () => {
+            const response = await request(BASE_URL)
+                .get(`/api/chat/conversation/${friendId}`)
+                .set('Authorization', `Bearer ${sharedToken}`);
+
+            expect(response.status).toBe(200);
+            expect(Array.isArray(response.body.messages)).toBe(true);
+            expect(response.body.count).toBeGreaterThan(0);
+            // Verificar que al menos contiene el mensaje que acabamos de enviar
+            expect(response.body.messages.some(msg =>
+                msg.txt_message === 'Mensaje de prueba para conversación'
+            )).toBe(true);
+        });
+
+        it('Debería rechazar la obtención de conversación si no hay token', async () => {
+            const response = await request(BASE_URL)
+                .get(`/api/chat/conversation/${friendId}`);
+
+            expect(response.status).toBe(401);
+            expect(response.body.error).toBe('Token no proporcionado');
+        });
+
+        it('Debería rechazar la obtención de conversación si el token es inválido', async () => {
+            const invalidToken = 'tokeninvalido123456';
+
+            const response = await request(BASE_URL)
+                .get(`/api/chat/conversation/${friendId}`)
+                .set('Authorization', `Bearer ${invalidToken}`);
+
+            expect(response.status).toBe(500);
+            expect(response.body.error).toBe('Error al obtener conversación');
+        });
+
+        it('Debería rechazar la obtención de conversación con un usuario que no es amigo', async () => {
+            const response = await request(BASE_URL)
+                .get(`/api/chat/conversation/${nonFriendId}`)
+                .set('Authorization', `Bearer ${sharedToken}`);
+
+            expect(response.status).toBe(403);
+            expect(response.body.error).toBe('No puedes ver mensajes con este usuario porque no son amigos');
+        });
+
+        it('Debería marcar los mensajes como leídos al obtener la conversación', async () => {
+            // Enviar mensaje desde el amigo al usuario
+            const friendToken = generateToken({id: friendId});
+
+            await request(BASE_URL)
+                .post('/api/chat/send')
+                .set('Authorization', `Bearer ${friendToken}`)
+                .send({
+                    user2_id: userId,
+                    message: 'Mensaje no leído de prueba'
+                });
+
+            // Verificar que el mensaje está como no leído
+            let messages = await db.chat.findAll({
+                where: {
+                    user1_id: friendId,
+                    user2_id: userId,
+                    read: false
+                }
             });
 
-        expect(response.status).toBe(401);
-        expect(response.body.error).toBe('Token no proporcionado');
+            expect(messages.length).toBeGreaterThan(0);
+
+            // Obtener la conversación
+            await request(BASE_URL)
+                .get(`/api/chat/conversation/${friendId}`)
+                .set('Authorization', `Bearer ${sharedToken}`);
+
+            // Verificar que ahora están marcados como leídos
+            messages = await db.chat.findAll({
+                where: {
+                    user1_id: friendId,
+                    user2_id: userId,
+                    read: false
+                }
+            });
+
+            expect(messages.length).toBe(0);
+        });
     });
 
-    // Test envío con token inválido
-    it('Debería rechazar el envío si el token es inválido', async () => {
-        const invalidToken = 'tokeninvalido123456';
+    describe('GET /api/chat/conversations', () => {
+        beforeEach(async () => {
+            // Enviar un mensaje para asegurar que hay conversación
+            await request(BASE_URL)
+                .post('/api/chat/send')
+                .set('Authorization', `Bearer ${sharedToken}`)
+                .send({
+                    user2_id: friendId,
+                    message: 'Mensaje para listado de conversaciones'
+                });
+        });
 
-        const response = await request(BASE_URL)
-            .post('/api/chat/send')
-            .set('Authorization', `Bearer ${invalidToken}`)
-            .send({
-                user2_id: friendId,
-                message: 'Este mensaje no debería enviarse'
-            });
+        it('Debería obtener todas las conversaciones del usuario correctamente', async () => {
+            const response = await request(BASE_URL)
+                .get('/api/chat/conversations')
+                .set('Authorization', `Bearer ${sharedToken}`);
 
-        // Pilla el catch de 500
-        expect(response.status).toBe(500);
-        expect(response.body.error).toBe('Error al enviar mensaje');
-    });
+            expect(response.status).toBe(200);
+            expect(Array.isArray(response.body.conversations)).toBe(true);
+            expect(response.body.count).toBeGreaterThan(0);
+            expect(response.body.conversations[0].friend.id).toBe(friendId);
+            expect(response.body.conversations[0].lastMessage).not.toBeNull();
+        });
 
-    // Test envío a un usuario que no es amigo
-    it('Debería rechazar el envío a un usuario que no es amigo', async () => {
-        const response = await request(BASE_URL)
-            .post('/api/chat/send')
-            .set('Authorization', `Bearer ${sharedToken}`)
-            .send({
-                user2_id: nonFriendId,
-                message: 'Este mensaje no debería enviarse'
-            });
+        it('Debería rechazar la obtención de conversaciones si no hay token', async () => {
+            const response = await request(BASE_URL)
+                .get('/api/chat/conversations');
 
-        expect(response.status).toBe(403);
-        expect(response.body.error).toBe('No puedes enviar mensajes a este usuario porque no son amigos');
-    });
+            expect(response.status).toBe(401);
+            expect(response.body.error).toBe('Token no proporcionado');
+        });
 
-    // Test envío sin ID del destinatario
-    it('Debería rechazar el envío si no se proporciona ID del destinatario', async () => {
-        const response = await request(BASE_URL)
-            .post('/api/chat/send')
-            .set('Authorization', `Bearer ${sharedToken}`)
-            .send({
-                message: 'Este mensaje no debería enviarse'
-            });
+        it('Debería rechazar la obtención de conversaciones si el token es inválido', async () => {
+            const invalidToken = 'tokeninvalido123456';
 
-        expect(response.status).toBe(400);
-        expect(response.body.error).toBe('Se requiere ID de destinatario y mensaje');
-    });
+            const response = await request(BASE_URL)
+                .get('/api/chat/conversations')
+                .set('Authorization', `Bearer ${invalidToken}`);
 
-    // Test envío sin mensaje
-    it('Debería rechazar el envío si no se proporciona mensaje', async () => {
-        const response = await request(BASE_URL)
-            .post('/api/chat/send')
-            .set('Authorization', `Bearer ${sharedToken}`)
-            .send({
-                user2_id: friendId
-            });
+            expect(response.status).toBe(500);
+            expect(response.body.error).toBe('Error al obtener conversaciones');
+        });
 
-        expect(response.status).toBe(400);
-        expect(response.body.error).toBe('Se requiere ID de destinatario y mensaje');
+        it('Debería mostrar el conteo correcto de mensajes no leídos', async () => {
+            // Enviar mensaje desde el amigo al usuario
+            const friendToken = generateToken({id: friendId});
+
+            await request(BASE_URL)
+                .post('/api/chat/send')
+                .set('Authorization', `Bearer ${friendToken}`)
+                .send({
+                    user2_id: userId,
+                    message: 'Mensaje no leído para verificar conteo'
+                });
+
+            const response = await request(BASE_URL)
+                .get('/api/chat/conversations')
+                .set('Authorization', `Bearer ${sharedToken}`);
+
+            expect(response.status).toBe(200);
+            const friendConversation = response.body.conversations.find(
+                conv => conv.friend.id === friendId
+            );
+            expect(friendConversation).toBeDefined();
+            expect(friendConversation.unreadCount).toBeGreaterThan(0);
+        });
+
+        it('Debería ordenar las conversaciones por fecha del último mensaje', async () => {
+            // Esperar un momento para asegurar diferencia de tiempo
+            await delay(100);
+
+            // Enviar un mensaje más reciente
+            await request(BASE_URL)
+                .post('/api/chat/send')
+                .set('Authorization', `Bearer ${sharedToken}`)
+                .send({
+                    user2_id: friendId,
+                    message: 'Mensaje más reciente para verificar orden'
+                });
+
+            const response = await request(BASE_URL)
+                .get('/api/chat/conversations')
+                .set('Authorization', `Bearer ${sharedToken}`);
+
+            expect(response.status).toBe(200);
+
+            // Si hay más de una conversación, verificar el orden
+            if (response.body.count > 1) {
+                const dates = response.body.conversations.map(
+                    conv => new Date(conv.lastMessage.sent_at).getTime()
+                );
+                // Verificar que estén en orden descendente
+                expect(dates[0]).toBeGreaterThanOrEqual(dates[1]);
+            }
+        });
     });
 });
