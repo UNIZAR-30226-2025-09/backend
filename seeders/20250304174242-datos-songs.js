@@ -4401,7 +4401,7 @@ export async function up(queryInterface, Sequelize) {
         'Es "crash", no e— skrrt\n' +
         'Esto, esto no lo pongas, ¿eh?',
         photo_video: 'songs_images/sempreCorDeluxe.jpeg',
-        url_mp3: 'songs/C Marí - 90% (Lyric Video) ｜ Sempre Cor Deluxe [Uwx3W6jQqzM].mp3',
+        url_mp3: 'songs/C Marí - 90 (Lyric Video) ｜ Sempre Cor Deluxe [Uwx3W6jQqzM].mp3',
         type: "album",
         genre: 'Trap'
       },
