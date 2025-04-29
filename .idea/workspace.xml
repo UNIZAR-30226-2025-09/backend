@@ -4,15 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a8044cc0-26c6-4086-8df5-3b7b3997d957" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/controllers/collaboratorsController.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/routes/collaboratorsRoutes.js" afterDir="false" />
+    <list default="true" id="a8044cc0-26c6-4086-8df5-3b7b3997d957" name="Changes" comment="Primera parte de las playlist coperativas">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/migrations/20250303174524-create-tables.js" beforeDir="false" afterPath="$PROJECT_DIR$/migrations/20250303174524-create-tables.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controllers/playlists_controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/playlists_controller.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/models/playlist.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/playlist.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/models/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/user.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/api.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/api.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controllers/collaboratorsController.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/collaboratorsController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controllers/user_controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/user_controller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/permission_have.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/permission_have.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/server.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,6 +26,7 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="MIXED" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
@@ -134,8 +133,18 @@
       <workItem from="1743094164309" duration="12946000" />
       <workItem from="1743411500483" duration="68009000" />
       <workItem from="1744211718452" duration="26667000" />
-      <workItem from="1745666572917" duration="10946000" />
+      <workItem from="1745666572917" duration="14772000" />
+      <workItem from="1745827873889" duration="7281000" />
     </task>
+    <task id="LOCAL-00001" summary="Primera parte de las playlist coperativas">
+      <option name="closed" value="true" />
+      <created>1745691408883</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1745691408883</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -156,5 +165,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Primera parte de las playlist coperativas" />
+    <option name="LAST_COMMIT_MESSAGE" value="Primera parte de las playlist coperativas" />
   </component>
 </project>

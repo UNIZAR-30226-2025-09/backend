@@ -41,6 +41,11 @@ export const inviteCollaborator = async (req, res) => {
             return res.status(400).json({ error: "Se requieren playlistId y userId" });
         }
 
+        // Verificar que no se está intentando invitar al propio dueño
+        if (parseInt(userId) === parseInt(ownerId)) {
+            return res.status(400).json({ error: "No puedes invitarte a ti mismo como colaborador" });
+        }
+
         // Verificamos si la playlist existe
         const playlist = await db.playlist.findByPk(playlistId);
         if (!playlist) {
@@ -71,22 +76,31 @@ export const inviteCollaborator = async (req, res) => {
         }
         console.log("Usuario a invitar encontrado:", user.nickname);
 
-        // Verificamos si el usuario ya es colaborador
-        const existingCollaborator = await db.permission_have.findOne({
+        // Verificamos si el usuario ya tiene CUALQUIER tipo de permiso en esta playlist
+        // Esto previene duplicados sin importar el rol que tenga (owner, collaborator, etc.)
+        const existingPermission = await db.permission_have.findOne({
             where: { playlist_id: playlistId, user_id: userId }
         });
 
-        if (existingCollaborator) {
-            console.log("El usuario ya es colaborador");
-            return res.status(400).json({ error: "El usuario ya es colaborador de esta playlist" });
+        if (existingPermission) {
+            console.log("El usuario ya tiene permisos en esta playlist:", existingPermission.type_permission);
+            return res.status(400).json({
+                error: `El usuario ya tiene permisos en esta playlist (${existingPermission.type_permission})`
+            });
         }
+
+        // Registramos el intento de invitación para fines de auditoría
+        console.log(`Invitación enviada: usuario ${ownerId} invita a ${userId} para la playlist ${playlistId}`);
+        console.log(`Fecha y hora de la invitación: ${new Date().toISOString()}`);
 
         // Añadimos al colaborador
         console.log("Añadiendo colaborador...");
         const collaborator = await db.permission_have.create({
             playlist_id: playlistId,
             user_id: userId,
-            type_permission: 'collaborator'
+            type_permission: 'collaborator',
+            created_at: new Date(),
+            updated_at: new Date()
         });
         console.log("Colaborador añadido con éxito");
 
@@ -96,13 +110,25 @@ export const inviteCollaborator = async (req, res) => {
             collaborator: {
                 playlist_id: collaborator.playlist_id,
                 user_id: collaborator.user_id,
-                type_permission: collaborator.type_permission
+                type_permission: collaborator.type_permission,
+                user: {
+                    nickname: user.nickname
+                }
             }
         });
     } catch (error) {
         // En caso de error, registramos el error en la consola y respondemos con un error 500
         console.error("Error al invitar colaborador:", error);
-        return res.status(500).json({ error: "Error interno del servidor", details: error.message });
+
+        // Verificamos si es un error de validación de token
+        if (error.name === 'JsonWebTokenError') {
+            return res.status(401).json({ error: "Token inválido o expirado" });
+        }
+
+        return res.status(500).json({
+            error: "Error interno del servidor",
+            details: process.env.NODE_ENV === 'development' ? error.message : undefined
+        });
     }
 };
 /**
@@ -150,6 +176,7 @@ export const getCollaborators = async (req, res) => {
             where: { playlist_id: playlistId },
             include: [{
                 model: db.user,
+                as: 'User',
                 attributes: ['id', 'nickname', 'user_picture']
             }]
         });
