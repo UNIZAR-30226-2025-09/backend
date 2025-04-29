@@ -4,13 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a8044cc0-26c6-4086-8df5-3b7b3997d957" name="Changes" comment="Primera parte de las playlist coperativas">
+    <list default="true" id="a8044cc0-26c6-4086-8df5-3b7b3997d957" name="Changes" comment="Arreglo playlist cooperativas">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controllers/collaboratorsController.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/collaboratorsController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controllers/user_controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/user_controller.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/models/permission_have.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/permission_have.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/server.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -134,7 +131,7 @@
       <workItem from="1743411500483" duration="68009000" />
       <workItem from="1744211718452" duration="26667000" />
       <workItem from="1745666572917" duration="14772000" />
-      <workItem from="1745827873889" duration="7281000" />
+      <workItem from="1745827873889" duration="16176000" />
     </task>
     <task id="LOCAL-00001" summary="Primera parte de las playlist coperativas">
       <option name="closed" value="true" />
@@ -144,7 +141,15 @@
       <option name="project" value="LOCAL" />
       <updated>1745691408883</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Arreglo playlist cooperativas">
+      <option name="closed" value="true" />
+      <created>1745924084023</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1745924084023</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -168,6 +173,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Primera parte de las playlist coperativas" />
-    <option name="LAST_COMMIT_MESSAGE" value="Primera parte de las playlist coperativas" />
+    <MESSAGE value="Arreglo playlist cooperativas" />
+    <option name="LAST_COMMIT_MESSAGE" value="Arreglo playlist cooperativas" />
   </component>
 </project>
