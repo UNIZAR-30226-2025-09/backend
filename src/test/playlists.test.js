@@ -75,6 +75,12 @@ describe('Pruebas sobre /api/playlists', () => {
                 id: userId
             }
         });
+
+        await db.playlist_visit.destroy({
+            where: {
+                user_id: userId
+            }
+        });
     });
 
     describe('GET /api/playlists', () => {
@@ -452,8 +458,6 @@ describe('Pruebas sobre /api/playlists', () => {
         });
 
         it('Debería devolver respuesta vacía para una canción sin playlists', async () => {
-            // Intentamos con un ID de canción que probablemente no exista en ninguna playlist
-            // (como no tenemos control total sobre la base de datos, este test podría fallar)
             const inexistentSongId = 999999;
 
             const res = await request(BASE_URL)
