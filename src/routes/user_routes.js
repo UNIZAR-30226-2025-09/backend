@@ -746,7 +746,6 @@ router.post("/updateStyle", updateUserFavoriteStyleInProfile);
  */
 router.get('/:userId', getUserById);
 
-// Añade estas nuevas rutas donde estén el resto de las rutas:
 /**
  * @swagger
  * /api/user/forgot-password:

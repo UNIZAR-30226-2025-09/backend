@@ -665,7 +665,6 @@ router.post('/:id/addSong', playlistController.addSongToPlaylist);
  */
 router.post('/:id/deleteSong', playlistController.deleteSongToPlaylist);
 
-// No testeada
 /**
  * @swagger
  * /api/playlists/{id}/{operation}/handleSong:
@@ -725,7 +724,6 @@ router.post('/:id/deleteSong', playlistController.deleteSongToPlaylist);
  */
 router.post('/:id/:operation/handleSong', playlistController.handleSongToPlaylist);
 
-// No testeada
 /**
  * @swagger
  * /api/playlists/{songId}/songPlaylists:
@@ -766,7 +764,6 @@ router.post('/:id/:operation/handleSong', playlistController.handleSongToPlaylis
  */
 router.get('/:songId/songPlaylists', playlistController.getPlaylistsBySongId);
 
-// No testeada
 /**
  * @swagger
  * /api/playlists/{playlistId}/isOwner/{userId}:

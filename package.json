@@ -8,7 +8,7 @@
     "start": "node src/server.js",
     "db:migrate": "npx sequelize-cli db:migrate",
     "db:seed": "npx sequelize-cli db:seed:all",
-    "test": "npm run test-clean && npm run init && npm run test-user && npm run test-artist && npm run test-songs && npm run test-playlist && npm run test-stripe && npm run test-song_like && npm run test-social && npm run test-player && npm run test-chat && npm run test-rating_playlist && npm run test-lastplaybackstate && npm run test-clean",
+    "test": "npm run test-user && npm run test-artist && npm run test-songs && npm run test-playlist && npm run test-stripe && npm run test-song_like && npm run test-social && npm run test-player && npm run test-chat && npm run test-rating_playlist && npm run test-lastplaybackstate",
     "test-artist": "jasmine --random=false src/test/artist.test.js",
     "test-user": "jasmine --random=false src/test/user.test.js",
     "test-songs": "jasmine --random=false src/test/songs.test.js",
