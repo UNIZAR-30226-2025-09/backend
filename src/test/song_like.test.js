@@ -66,13 +66,6 @@ describe("Rutas de song_like", () => {
         await db.user.destroy({
             where: { id: userId }
         });
-
-        // Eliminar canción creada para pruebas (si fue creada)
-        if (!song && songId) {
-            await db.song.destroy({
-                where: { id: songId }
-            });
-        }
     });
 
     // Limpiar likes después de cada prueba
