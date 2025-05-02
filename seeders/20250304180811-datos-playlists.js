@@ -115,15 +115,6 @@ export async function up(queryInterface, Sequelize) {
       typeP: "album",
       front_page: "playlist_images/mornoletemas.jpeg"
     },
-    {
-      name: "Album FEID",
-      user_id: null,
-      artist_id: 37,
-      description: "",
-      type: "public",
-      typeP: "album",
-      front_page: "playlist_images/PopConÑ.png"
-    },
      {
        name: "Album El Canto del Loco",
        user_id: null,
@@ -145,14 +136,6 @@ export async function up(queryInterface, Sequelize) {
        name: "Album Fito",
        user_id: null,
        artist_id: 11,
-       description: "",
-       type: "public",
-       typeP: "album",
-       front_page: "playlist_images/mornoletemas.jpeg"
-     },{
-       name: "Album C Marí",
-       user_id: null,
-       artist_id: 18,
        description: "",
        type: "public",
        typeP: "album",
