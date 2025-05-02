@@ -4,8 +4,9 @@ import jwt from "jsonwebtoken";
 import path from 'path';
 import { Op, Sequelize } from "sequelize"; // Asegúrate de importar Sequelize
 import { fileURLToPath } from 'url';
-import { appendFile, open } from 'fs/promises';
+import { appendFile, open, readFile } from 'fs/promises';
 import nodemailer from 'nodemailer'; // Importamos nodemailer para el envío de correos electrónicos
+import fs from 'fs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -800,5 +801,121 @@ export const resetPassword = async (req, res) => {
     } catch (error) {
         console.error("Error al restablecer contraseña:", error);
         return res.status(500).json({ error: "Error al restablecer la contraseña" });
+    }
+};
+
+/**
+ * Maneja los mensajes enviados desde el formulario de contacto
+ * Envía un correo electrónico con la información del mensaje
+ */
+export const sendContactMessage = async (req, res) => {
+    try {
+        const { name, email, subject, message } = req.body;
+        
+        // Validar campos obligatorios
+        if (!name || !email || !subject || !message) {
+            return res.status(400).json({ error: "Todos los campos son obligatorios" });
+        }
+
+        let logoBase64;
+        try {
+            // Ruta absoluta en tu máquina de desarrollo (no Docker)
+            const logoPath = path.join(__dirname, '..', '..', 'public', 'vibra.png');
+            logoBase64 = fs.readFileSync(logoPath, { encoding: 'base64' });
+        } catch (err) {
+            console.error('Error al leer la imagen:', err);
+            logoBase64 = ''; // Continuar sin imagen
+        }
+        
+        // Validación básica del formato de email
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            return res.status(400).json({ error: "El formato del correo electrónico no es válido" });
+        }
+
+        // Configurar transportador de nodemailer (igual que en forgotPassword)
+        const transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+              user: 'vibraassistance@gmail.com',
+              pass: 'jsws nqpi cwtg yeds'
+            }
+        });
+
+        // Configurar el correo electrónico que se enviará
+        const mailOptions = {
+            from: 'vibraassistance@gmail.com',
+            to: 'vibraassistance@gmail.com', // Correo donde recibirás los mensajes de contacto
+            subject: `Contacto Vibra: ${subject}`,
+            html: `
+              <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e0e0e0; border-radius: 8px;">
+                ${logoBase64 ? `<img src="cid:vibralogo" alt="Vibra Logo" style="display: block; margin: 0 auto 20px; max-width: 150px;">` : ''}
+                <h2 style="color: #4f46e5; text-align: center;">Nuevo mensaje de contacto</h2>
+                <div style="background-color: #f9fafb; padding: 15px; border-radius: 5px; margin: 20px 0;">
+                  <p><strong>Nombre:</strong> ${name}</p>
+                  <p><strong>Email:</strong> ${email}</p>
+                  <p><strong>Asunto:</strong> ${subject}</p>
+                  <h3 style="border-top: 1px solid #e0e0e0; padding-top: 15px;">Mensaje:</h3>
+                  <p style="line-height: 1.6;">${message.replace(/\n/g, '<br>')}</p>
+                </div>
+                <p style="color: #6b7280; font-size: 0.9em; text-align: center;">Este mensaje fue enviado desde el formulario de contacto en Vibra.</p>
+              </div>
+            `,
+
+            attachments: logoBase64 ? [{
+                filename: 'vibra.png',
+                content: logoBase64,
+                encoding: 'base64',
+                cid: 'vibralogo' // El mismo CID usado en el src de la imagen
+            }] : [],
+
+            // Configurar reply-to para que al responder, se envíe al email del remitente
+            replyTo: email
+        };
+
+        // Enviar el correo
+        await transporter.sendMail(mailOptions);
+        
+        // También enviamos un correo de confirmación al usuario
+        const confirmationMailOptions = {
+            from: 'vibraassistance@gmail.com',
+            to: email,
+            subject: 'Hemos recibido tu mensaje - Vibra',
+            html: `
+              <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e0e0e0; border-radius: 8px;">
+                ${logoBase64 ? `<img src="cid:vibralogo" alt="Vibra Logo" style="display: block; margin: 0 auto 20px; max-width: 150px;">` : ''}
+                <h2 style="color: #4f46e5; text-align: center;">¡Gracias por contactarnos!</h2>
+                <p style="line-height: 1.6;">Hola ${name},</p>
+                <p style="line-height: 1.6;">Hemos recibido tu mensaje y te responderemos lo antes posible.</p>
+                <p style="line-height: 1.6;">Detalles de tu mensaje:</p>
+                <div style="background-color: #f9fafb; padding: 15px; border-radius: 5px; margin: 20px 0;">
+                  <p><strong>Asunto:</strong> ${subject}</p>
+                  <p><strong>Mensaje:</strong> ${message.substring(0, 100)}${message.length > 100 ? '...' : ''}</p>
+                </div>
+                <p style="line-height: 1.6;">Si tienes alguna consulta adicional, no dudes en contactarnos nuevamente.</p>
+                <p style="line-height: 1.6;">Saludos,<br>El equipo de Vibra</p>
+                <p style="color: #6b7280; font-size: 0.9em; text-align: center; margin-top: 30px; border-top: 1px solid #e0e0e0; padding-top: 15px;">Este es un correo automático, por favor no responda a este mensaje.</p>
+              </div>
+            `,
+            attachments: logoBase64 ? [{
+                filename: 'vibra.png',
+                content: logoBase64,
+                encoding: 'base64',
+                cid: 'vibralogo' // El mismo CID usado en el src de la imagen
+            }] : []
+
+        };
+        
+        await transporter.sendMail(confirmationMailOptions);
+        
+        console.log("Mensaje de contacto recibido de:", email);
+        
+        return res.status(200).json({ 
+            message: "¡Gracias por contactarnos! Tu mensaje ha sido enviado correctamente."
+        });
+        
+    } catch (error) {
+        console.error("Error al enviar mensaje de contacto:", error);
+        return res.status(500).json({ error: "Error al procesar el mensaje de contacto" });
     }
 };
