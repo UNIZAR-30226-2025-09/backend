@@ -96,6 +96,33 @@ export async function up(queryInterface, Sequelize) {
       type: "public",
       typeP: "album",
       front_page: "playlist_images/PopConÑ.png"
+    },
+    {
+      name: "Sempre Cor Deluxe",
+      user_id: null,
+      artist_id: 35,
+      description: "Sempre Cor Deluxe",
+      type: "public",
+      typeP: "album",
+      front_page: "playlist_images/sempreCorDeluxe.jpeg"
+    },
+    {
+      name: "Sempre Cor",
+      user_id: null,
+      artist_id: 35,
+      description: "Sempre Cor",
+      type: "public",
+      typeP: "album",
+      front_page: "playlist_images/sempreCor.jpeg"
+    },
+    {
+      name: "MOR, No Le Temas a La Oscuridad",
+      user_id: null,
+      artist_id: 37,
+      description: "",
+      type: "public",
+      typeP: "album",
+      front_page: "playlist_images/mornoletemas.jpeg"
     }
   ], {});
 }

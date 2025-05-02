@@ -245,7 +245,7 @@ export async function up(queryInterface, Sequelize) {
             'Y yo la dejo que me marque el camino'
             ,
           photo_video: "songs_images/laVereda.png",
-        url_mp3: 'songs/La vereda de la puerta de atras extremoduro.mp3',
+          url_mp3: 'songs/La vereda de la puerta de atras extremoduro.mp3',
           type: "sencillo",
           genre: 'Rock'
       },
@@ -343,7 +343,7 @@ export async function up(queryInterface, Sequelize) {
             'Eh-eh, mi diabla, mi ángel, mi loquita\n' +
             'Mi diabla, mi ángel, mi loquita, eh-eh',
           photo_video: "songs_images/baileInolvidable.png",
-        url_mp3: 'songs/Bad Bunny - BAILE INoLVIDABLE.mp3',
+          url_mp3: 'songs/Bad Bunny - BAILE INoLVIDABLE.mp3',
           type: "album",
           genre: 'Reggaeton'
       },
@@ -3317,6 +3317,2478 @@ export async function up(queryInterface, Sequelize) {
           photo_video: 'default.jpg',
           url_mp3: 'songs/anuncio1.mp3',
           type: 'anuncio'
+      },
+      {
+        name: 'Intro',
+        duration: 230,
+        lyrics:
+        '(Sempre Cor, Sempre Cor)\n' +
+        '(Sempre Cor, Sempre Cor)\n' +
+        '(Sempre Cor, Sempre Cor)\n' +
+        'Yeah\n' +
+        'Empiezo el día sin desayuno\n' +
+        'Cuando madrugo y cae la noche, siento que viví dos días en uno\n' +
+        '¿Por qué no lo hago más a menudo?\n' +
+        'Son las cuatro y van seis horas que está el cuarto mudo (Ah-ah)\n' +
+        'Tan oscuro (Ah-ah)\n' +
+        'Yo me muestro tan oscuro (Ah-ah)\n' +
+        'Los que están saben que tengo corazón\n' +
+        'Que no estoy cortado, lo traigo\n' +
+
+        'Tengo que\n' +
+        'Shorty, tengo que (Si no es con corazón, no, no, no)\n' +
+        'Poner el corazón, si no no lo hago\n' +
+        'Para hacerlo por hacer yo no lo hago\n' +
+        'Tengo que (Tengo, tengo)\n' +
+        'Shorty, tengo que\n' +
+        'Poner el corazón, si no no lo hago (Yeah)\n' +
+
+        'Tos tus referentes\n' +
+        'Los de ahora, los de adolescente\n' +
+        'Tos me dieron su mano y todos apretaron fuerte\n' +
+        'No hablo de la music, evidente\n' +
+        'Amor y respeto, idiomas que los Gs entienden\n' +
+        'Y esos dos vienen conmigo siempre\n' +
+        'Y esos dos hoy me han traído hasta aquí (Hasta aquí)\n' +
+        'Yeah, yeah, yeah\n' +
+        'En el Bernabéu cenando con mis bros\n' +
+        'Pásame ese canapé, hoy eres Toni Kroos\n' +
+        'Cifras de infarto, noches cortas, líneas largas\n' +
+        'Yo no té piqué el mechero, fue Begoña Vargas (Ja)\n' +
+        'Qué bonito rememorarlo en el taxi\n' +
+        'Y mi hermano ciego, casi pota el backseat\n' +
+        'Parece una tontería, pero no lo es\n' +
+        'Historias que siguen vivas cuando tú no estés\n' +
+
+        '(Tengo que)\n' +
+        'Shorty, tengo que (Te-te-tengo que)\n' +
+        'Poner el corazón, si no no lo hago\n' +
+        'Para hacerlo por hacer yo no lo hago\n' +
+        'Tengo que\n' +
+        'Shorty, tengo que\n' +
+        'Poner el corazón, si no no lo hago\n' +
+
+        'Abrazos y contacto aquí solo en Navidad\n' +
+        'Está en mi personalidad, yeah\n' +
+        'Hasta los 15 nunca de verdad\n' +
+        'El primero vino de ella y cambió mi mentalidad\n' +
+        'Como la de ozono, cada vez me abro más\n' +
+        'Trato de no hacerlo solo, por eso hablo más\n' +
+        'En la music, con la baby por mi paz\n' +
+        'Pero muchos de los que más quiero nunca lo han oído de mi voz\n' +
+        'Y esa mierda no me gusta\n' +
+        'Las cartas a mano y las flores en vida\n' +
+        'Súper reservado, pero ya es un paso al menos que lo escriba\n' +
+        'Que conozca el mundo, que busque lo mío me anima a que me la viva\n' +
+        'Pero el hogar no se olvida, yeah\n' +
+        'Odio el dinero, pero quiero un chaletón\n' +
+        '2K en el chaquetón, que me cubra del frío del cadenón\n' +
+        'Odiadores siempre se ven tan solos\n' +
+        'Mientras tanto yo lleno de fans bolos\n' +
+        'No deseo el mal, no les deseo el paredón\n' +
+        'Quiero mirar adentro, sacar mi mejor versión\n' +
+        'Aprendí a vivir mi vida, no la de otros\n' +
+        'Que venzan sus traumas, que maten sus monstruos\n' +
+
+        'Yeah (Tengo que)\n' +
+        'Sempre Cor es no hacer nunca las cosas por hacer\n' +
+        'Sempre Cor es hacerlo por los que te odian, pero hacerlo más fuerte por los que te quieren (DamnPablo)\n' +
+        'Da igual que sea reggaetón, que sea un corrido, que sea una bachata\n' +
+        'Que sea... la rapeada del siglo, pero\n' +
+        'Es importante que cuentes cosas y que transmitas cosas\n' +
+        'Sempre Cor es esto',
+        photo_video: 'songs_images/sempreCor.jpeg',
+        url_mp3: 'songs/CMari-Intro-Visualizer.mp3',
+        type: "album",
+        genre: 'Rap'
+      },
+      {
+        name: '2AM',
+        duration: 169,
+        lyrics:
+        'Tengo sueño todo el día menos a las 2 a. m\n' +
+        'El móvil en la mesilla, la musa no avisa y viene\n' +
+        'Esto no se me podría haber ocurrío a las 10\n' +
+        'Hasta pa dormir yo tengo que ir al revés\n' +
+        'Y claro que e mala mía los puñales de mi espalda\n' +
+        'Soy de los que confía, pero si fallas la guarda\n' +
+        'Te saco de mi vida, te saco de mi casa\n' +
+        'Bebé, yo no soy serio, solo te escondo la salsa\n' +
+
+        'Mi vida fácil, sin baches, mamá planchando parches\n' +
+        'Aquí no eres bienvenido, mejor que te marches\n' +
+        'Tú y yo, baby, el Real en noche de martes, yeah\n' +
+        'Hacemos buenas las segundas partes, yeah\n' +
+        'No, no, ya no tengo FOMO\n' +
+        'Estoy en el hotel, puta, estoy haciendo nono\n' +
+        'Wow, todos son tan bobos\n' +
+        'Te sacan lo que quieren y luego cambian el cromo\n' +
+
+        'Yeah\n' +
+        'Na de rookies, eh, na de roo-roo—\n' +
+        'Yeah\n' +
+        'Tengo sueño todo el día menos a las 2 a. m\n' +
+        'El móvil en la mesilla, la musa no avisa y viene\n' +
+        'Esto no se me podría haber ocurrío a las 10\n' +
+        'Hasta pa dormir yo tengo que ir al revé\n' +
+
+        'Yo he ganao más que he perdío\n' +
+        'De la ruleta gurús, no me fío, no\n' +
+        'Del azar para hacer flush, pa hacer chito\n' +
+        'Si eres vago no tienes puesto en el team\n' +
+        'Pa abajo solo hay un puesto y tiene mi nombre escrito\n' +
+        'Tenía un Meet hoy a las 9, pero me he quedao dormío\n' +
+        'Es un mito lo del jefe hermano, aquí yo soy el CEO\n' +
+        'Pe-pero asumo el error y pido perdón\n' +
+        'Tú no asumes na, cabrón, siempre con el "yo no he sío\n' +
+
+        'Yo sin alarma estoy trabajando\n' +
+        'Todo legal, aquí el dinero es blanco\n' +
+        'Con 23, como Jordan, como Lady toy coronando\n' +
+        'Yeah, ya no me estanco\n' +
+        'Yeah, ya solo avanzo\n' +
+        '2024 lo hicimo, 2025 gestando\n' +
+        'A-AMEX got the nitro',
+        photo_video: 'songs_images/sempreCor.jpeg',
+        url_mp3: 'songs/C Marí -  2AM [BE54Hl_YQvo].mp3',
+        type: "album",
+        genre: 'Rap'
+      },
+      {
+        name: 'IBAN',
+        duration: 189,
+        lyrics:
+        'Toy bendito\n' +
+        'DamnPablo\n' +
+        'Toy bendito\n' +
+        'Yeah\n' +
+
+        'Toy bendito como el agua, tú blandito como el pan\n' +
+        'Ya sabía que eras malo, pero hermano, no que tan\n' +
+        'Con el Javi y el Iván, 3.000 más para mí van\n' +
+        'Yo solo copio y pego cuando te mando el IBAN\n' +
+        'Oh, baby, amo esta vida, me sonríe\n' +
+        'Son lazy, por eso nunca na les va bien\n' +
+        'Fe en mí, siempre tuve, pero dudé\n' +
+        'Ya ningún cabrón me la destruye\n' +
+
+        'De peque me prometí no ser uno más\n' +
+        'De peque me prometí no sеr uno más\n' +
+        'De peque mе prometí no ser uno más\n' +
+        'De peque me prometí no ser uno más\n' +
+
+        'Showrooms, eventos, siempre estáis atentos (Yeah, yeah)\n' +
+        'Pero pa currar os veo más lentos (Ja)\n' +
+        'El tick azul se ve pocho por 1200 (Super pocho)\n' +
+        'Podrás mentir, pero nadie se cree tus cuentos\n' +
+        'Son 2000 en una hora, sé que no es normal\n' +
+        'No rimo con "cora", zorra, eso es normal\n' +
+        'No amo presumir, bebé, que no es portá\n' +
+        'Pero esta vida es pa contar\n' +
+        'Tengo amigos que no saben por qué camino tirar\n' +
+        'Clases, curro, grado, sueldo, estudiar o buscar pan\n' +
+        'Y yo recuerdo que antes de graduarme hacía 2K al mes\n' +
+        'Es verdad, es que no puedo olvidarme\n' +
+
+        'Toy bendito como el agua, tú blandito como el pan\n' +
+        'Ya sabía que eras malo, pero hermano, no que tan\n' +
+        'Con el Javi y el Iván, 3.000 más para mí van\n' +
+        'Yo solo copio y pego cuando te mando el IBAN\n' +
+        'Oh, baby, amo esta vida, me sonríe\n' +
+        'Son lazy, por eso nunca na les va bien\n' +
+        'Fe en mí, siempre tuve, pero dudé\n' +
+        'Ya ningún cabrón me la destruye\n' +
+
+        'Ya ningún cabrón me destruye esta puta fe en mí\n' +
+        'Y si quiero, hay curro, pero no toco la Fenwick\n' +
+        'Si vas a matarme, entiérrame, que soy el fénix\n' +
+        'Ese lip combo en mi polla, gloss de Dior y un poco e Benetint\n' +
+        'Bitch, I got mixed personalities, a veces me siento Melly\n' +
+        'Le follen a Gran Vía, encuéntrame entre Vina y Meli\n' +
+        'Mi vida es la pinga, yo no puedo ser más hetero\n' +
+        'Tú estás en la esquina y yo posteao en la kelly\n' +
+        'Jugándome un Fortnite como un retrasado mental\n' +
+        'Con el Javi, con el Garri, también con el Sergio Gramos\n' +
+        'Luego subo y grabo un palo en el zulo de madera\n' +
+        'Donde creamos cultura, pero ahora de otra manera\n' +
+
+        'DamnPablo\n' +
+        'En este beat he entendido los "DamnPablo" (DamnPablo)\n' +
+        'Yeah\n' +
+        'Toy bendito',
+        photo_video: 'songs_images/sempreCor.jpeg',
+        url_mp3: 'songs/C Marí-IBAN[IZdqFGXWkHc].mp3',
+        type: "album",
+        genre: 'Rap'
+      },
+      {
+        name: 'Bachata y Reggaeton',
+        duration: 124,
+        lyrics:
+        'Se mueve tan bien sea rápido o lento\n' +
+        'Yo no iba a venir, pero por ti hasta vengo solo\n' +
+        'Hasta vengo solo\n' +
+        'Díganle al DJ que ponga una de Chencho\n' +
+        'Que cada vez que la veo bailando me vuelvo loco\n' +
+        'Yo me vuelvo loco\n' +
+
+        'Bachata y reggaetón\n' +
+        'Si le ponen dembow, más se suelta\n' +
+        'En la disco es la boss, es la experta (Uh-oh)\n' +
+        'Dicen muchas cosas de ti\n' +
+        'Y eso que la mitad no las cuenta\n' +
+        'Si le ponen dembow, más se suelta\n' +
+        'En la disco es la boss, es la experta (Uh-oh)\n' +
+        'Dicen muchas cosas de ti\n' +
+        'Y eso que la mitad no las suelta\n' +
+
+        'Solo somos uno, pero pide que la parta (Prra)\n' +
+        'Va al gym (Va al gym), solo come pavo y palta (No)\n' +
+        'Soldados como en Esparta\n' +
+        'Me lo como todo, qué tienes fuera de carta\n' +
+        'Y siente el calor, yo quiero de tu interior\n' +
+        'Literal, no en plan amor (No)\n' +
+        'Me volvió loco cuando me dijo al oído que\n' +
+        'Quiere comprobar si es verdad lo que dicen de los flacos (Ja)\n' +
+        'Pregunté por ella y me dieron par de datos\n' +
+        'Tuvo, pero está sin gato\n' +
+        'Cada vez que sales, desacato\n' +
+        'Quiere comprobar si es verdad lo que dicen de los flacos\n' +
+        'Pregunté por ella y me dieron par de datos\n' +
+        'Tuvo, pero está sin gato\n' +
+        'Cada vez que sale\n' +
+
+        'Bachata y reggaetón\n' +
+        'Si le ponen dembow, más se suelta\n' +
+        'En la disco es la boss, es la experta\n' +
+        'Dicen muchas cosas de ti\n' +
+        'Yo sé que la mitad no las cuenta\n' +
+        'Bachata y reggaetón\n' +
+        'Si le ponen dembow, más se suelta\n' +
+        'En la disco es la boss, es la experta\n' +
+        'Dicen muchas cosas de ti\n' +
+        'Yo sé que la mitad no las cuenta',
+        photo_video: 'songs_images/sempreCor.jpeg',
+        url_mp3: 'songs/C Marí - Bachata y Reggaeton (Visualizer) ｜ Sempre Cor [f5cFEwzgpcw].mp3',
+        type: "album",
+        genre: 'Reggaeton'
+      },
+      {
+        name: 'Richter',
+        duration: 176,
+        lyrics:
+        'AMEX got the nitro\n' +
+        'Cada vez está más seca y la cara se te empapó\n' +
+        'En tus labios un temblor, 6.7 escala Richter\n' +
+        'Si el amor es complicado no has vivido el desamor\n' +
+        'Me paso el día en la cama, pero me cuesta dormirme\n' +
+
+        'Otra noche, otra copa\n' +
+        'Otro coche, y otra boca\n' +
+        'Pero ninguna me da lo que sí me dabas tú\n' +
+        'Beba, ya lo dijo el Fuka: "Esto no se trata de cu—"\n' +
+
+        'Cuando te sueño me gusta pensar que tú también\n' +
+        'Estás soñándome\n' +
+        'Cuando te pienso me gusta soñar que tú también\n' +
+        'Estás pensándomе\n' +
+        'Y si no lo haces, miénteme; yo lo haría, créеme\n' +
+        'Anoche llamé a tu puerta y me abría otro hombre\n' +
+        'Verte y no tocarte es como chocar con la pared\n' +
+        'Como rezar a un Dios que no responde\n' +
+
+        'Otra noche, otra copa\n' +
+        'Otro coche, y otra boca\n' +
+        'Pero ninguna me da lo que sí me dabas tú\n' +
+        'Beba, ya lo dijo el Fuka: "Esto no se trata de cu—"\n' +
+        'El jean es skinny, yo estoy regular\n' +
+        'Me hago el harakiri, tengo que regular\n' +
+        'Las noches se hacen días, yo soy un vampiro\n' +
+        'Eso te mordía en la yugular\n' +
+        'Co-como la de Eladio, me gusta natural\n' +
+        'Tengo sofá nuevo y lo quiero inaugurar\n' +
+        'Te di mi corazón, el del uno y anular\n' +
+        'Y yo sé que va a volver, pero cuánto va a durar\n' +
+
+        'Días, semanas, meses o años\n' +
+        'A más vuelta le doy, más me hace daño\n' +
+        'El gin en el WC, bebí y no tuve sed\n' +
+        'Y estoy con la cabeza en la pared del baño\n' +
+
+        'Otra noche, otra copa\n' +
+        'Otro coche, y otra boca\n' +
+        'Pero ninguna me da lo que sí me dabas tú\n' +
+        'Beba, ya lo dijo el Fuka: "Esto no se trata de cu—',
+        photo_video: 'songs_images/sempreCor.jpeg',
+        url_mp3: 'songs/C Marí - Richter (Visualizer) ｜ Sempre Cor [6fXM97m34Bc].mp3',
+        type: "album",
+        genre: 'Pop'
+      },
+      {
+        name: 'Sempapa',
+        duration: 211,
+        lyrics:
+        'El Mercurio sube, ya se van las nubes\n' +
+        'Ellas también saben que esto es hogar del sol\n' +
+        'Hoy no te preocupe, vamo donde cubre\n' +
+        'Ahí verás que se hunden toa las penas y el dolor\n' +
+
+        'Me haces sentir bien como en casa\n' +
+        'Te embabas, se empapa\n' +
+        'Se embala, mirada de bengala\n' +
+        'Me mira de frente, se me encara\n' +
+        'Se siente caliente, siente lava\n' +
+        'Bien como en casa\n' +
+        'Te embabas, se empapa\n' +
+        'Se embala, mirada de bengala\n' +
+        'Me mira de frente y se me encara\n' +
+        'Bien caliente, se siente—, hmm\n' +
+
+        'Yo salgo de casa, en dos minutos veo el mar y me mojo (Hm-hm)\n' +
+        'Y te echo la crema solar (Hm-hm)\n' +
+        'Yo no quiero crema, me gusta mirarme con el rojo (Hm-hm)\n' +
+        'Y sé que te gusta cuando te cojo\n' +
+        'Si te cojo no te suelto, y si te suelto te rescato (Uh-uh, ah)\n' +
+        'Mano arriba como si fuera un atraco\n' +
+        'Tú lo das to, la pistola saco (Uh)\n' +
+        'Pero en este tema yo no quería hablar de sex, uh-uh\n' +
+        'Pe-pero ese bikini te tapa tan poco, que\n' +
+        '(Yo te toco, yo te toco, yo te toco) Uh-uh\n' +
+        'Quiero ser la arena, se pega por toa tu piel, uh-uh\n' +
+        'Voy con los amigos, tráete a tus amigas también, uh-uh, uh-uh\n' +
+
+        'El Mercurio sube, ya se van las nube (Ya se van, que no vuelvan)\n' +
+        'Ellas también saben que esto es hogar del sol\n' +
+        'Hoy no te preocupe (No-no), vamo donde cubre (Glu-glu, glu-glu)\n' +
+        'Ahí verás que se hunden toa las penas y el dolor\n' +
+
+        'Me haces sentir bien como en casa\n' +
+        'Te embabas, se empapa\n' +
+        'Se embala, mirada de bengala\n' +
+        'Me mira de frente y se me encara\n' +
+        'Bien caliente, se siente lava\n' +
+        'Bien como en casa\n' +
+        'Te embabas, se empapa\n' +
+        'Se embala, mirada de bengala\n' +
+        'Me mira de frente y se me encara\n' +
+        'Bien caliente, se siente lava\n' +
+
+        'Tu tens el don, el caràcter, la tècnica\n' +
+        'Ni tarriben, no hi ha cap rèplica\n' +
+        'Ella és la nena, la sexy, ella sap com va\n' +
+        'Quan sent que ja sha acabat el juego, repetim (Hm)\n' +
+        'Jo li pregunto si té dispo\n' +
+        'Les nenes despisto, repetim (Hm)\n' +
+        'Baby, jo et camelo, jo et camelo, jah\n' +
+        'Tescric lletres i melos (Lle-lletres i me-melos)\n' +
+
+        '¿Dónde estarás, dónde estaré?\n' +
+        '¿Dónde estarás, dó-dón-dónde estaré? (Hm)\n' +
+        '¿Dónde estarás, dónde estaré? (Hm)\n' +
+        '¿Dónde estarás? Aún no lo sé\n' +
+        'Solo—\n' +
+
+        'A ver, a ver, a ver\n' +
+        'E-el tema es larguete, pero\n' +
+        'Pero yo le metía una última, eh\n' +
+
+        'Me haces sentir bien como en casa\n' +
+        'Te embabas, se empapa\n' +
+        'Se embala, mirada de bengala\n' +
+        'Me mira de frente y se me encara\n' +
+        'Se siente caliente, siente lava\n' +
+        'Bien como en casa\n' +
+        'Te embabas, se empapa\n' +
+        'Se embala, mirada de bengala\n' +
+        'Me mira de frente y se me encara\n' +
+        'Bien caliente, se siente lava',
+        photo_video: 'songs_images/sempreCor.jpeg',
+        url_mp3: 'songs/C Marí - Sempapa ft. Mushkaa (Visualizer) ｜ Sempre Cor [yC8zw8OKWIs].mp3',
+        type: "album",
+        genre: 'Reggaeton'
+      },
+      {
+        name: 'Tan Lines',
+        duration: 166,
+        lyrics:
+        'We dont think about you\n' +
+        'Bout-bout-bout—, about you\n' +
+        'We-we dont think a—, we dont think a— (Bout you)\n' +
+        'BLNCO, oh-oh\n' +
+        'Yeah-yeah-yeah-yeah\n' +
+        'Ay-ay-ay-ah\n' +
+        'BLNCO\n' +
+
+        'Y sexy tu tan line\n' +
+        'El sol te pegó, fue bien que te dio, pero yo te voy a dar más\n' +
+        'Mis dedos, bebé, rozan toda tu piel y me pongo bien loco (Bien loco)\n' +
+        'Y si empiezo a besarte, no intentes frenarme, no sé ir poco a poco\n' +
+        'Escuchando Plan B te lo choco\n' +
+        'Y sexy tu tan line (Wuh)\n' +
+        'El sol te pegó, fue bien que te dio, pero yo te voy a dar más\n' +
+        'Mis dedos, bebé, rozan toda tu piel y me pongo bien loco (Bien loco)\n' +
+        'Y si empiezo a besarte, no intentes frenarme, no sé ir poco a poco\n' +
+        'Escuchando Plan B te lo choco\n' +
+
+        'Via arrancarte el pantalón\n' +
+        'No me importa que sea nuevo de tienda\n' +
+        'Ese e tu problema, no espere que lo atienda\n' +
+        'Te pones picante y toa la noche me piensa\n' +
+        'Hasta que llega el alba\n' +
+        'Bebé, dame cinco y en tres me tiene en tu puerta\n' +
+        'El primero e mío y luego hacemos cuenta\n' +
+        'El empate empieza cuando bajo mi lengua\n' +
+        'Por toa tu línea alba\n' +
+        'Me sabe a sal cuando sale del mar\n' +
+        'Y es como que sale el mal de mí\n' +
+        'Cuando yo estoy dentro e ti\n' +
+        'Tú tan chiquitita, tan bonita, bebé\n' +
+        'Mente maldita, bebecita, no me deje\n' +
+        'Me encanta cómo se vende\n' +
+
+        'Y sexy tu tan line\n' +
+        'El sol te pegó, fue bien que te dio, pero yo te voy a dar más\n' +
+        'Mis dedos, bebé, rozan toda tu piel y me pongo bien loco\n' +
+        'Y si empiezo a besarte, no intentes frenarme, no sé ir poco a poco\n' +
+        'Escuchando Plan B te lo choco\n' +
+
+        'Yeah-yeah\n' +
+        'We dont think about you\n' +
+        'No, no, oh\n' +
+        'We-we dont think a—, we dont think a—\n' +
+        'We dont think about you',
+        photo_video: 'songs_images/sempreCor.jpeg',
+        url_mp3: 'songs/C Marí, Blnco - Tan Lines [zapXOcVDfaM].mp3',
+        type: "album",
+        genre: 'Rap'
+      },
+      {
+        name: 'La Ropa',
+        duration: 146,
+        lyrics:
+        'Ya hace un mes de esa vez\n' +
+        'Y sigue en mi armario el olor que dejaste\n' +
+        'A las 10 puede ser\n' +
+        'Hay cosas que siento que tengo que darte\n' +
+        'Era de mi padre esa chaqueta vaquera\n' +
+        'Se quedó en tu casa la Sierra/Crosses marrón\n' +
+        'El carro está encendido, ¿por qué te quedas ahí fuera?\n' +
+        'Dale, ma, no temas, solo una conversación\n' +
+
+        'Una blusa, pantalón, la camisa, cinturón\n' +
+        'Una goma para el pelo, una falda corta en cuеro\n' +
+        'Y en cuero nos quedamo lo do\n' +
+        'Y la ropa quе te tenía que dar no te la di (Oh-oh-oh-oh)\n' +
+        'Y la que llevabas acabó en el suelo (En el suelo)\n' +
+        'No quería que esto hoy se diera así (Oh, yo no quería)\n' +
+        'No somos malos, solo nos gusta lo bueno\n' +
+
+        'Un, dos, tres, bailando\n' +
+        'Un, dos, bailando\n' +
+        '(Solo nos gusta lo bueno; no nos gusta lo—)\n' +
+        'Un, dos, tres, bailando\n' +
+        'Un, dos, bailando\n' +
+
+        'Empañando la ventana, no se nos ve desde fuera\n' +
+        'Lo malo llega mañana, bebé, hoy duerme a mi vera\n' +
+        'La ropa está apartada, me he perdido en la novela\n' +
+        'Pero si necesito abrigo, que sea tu piel la tela\n' +
+        'Que sea tu piel la tela y no me hables de cautela\n' +
+        'Que el amor es visceral y si es real puede que duela\n' +
+        'Es una montaña rusa, un día suela al otro vuela\n' +
+        'No es bonito si se esfuma en la llama de una vela\n' +
+
+        'Esto ha sido todo, 2024\n' +
+        'C Marí y BLNCO se juntaron de nuevo\n' +
+        '"Tu Forma de Amar" va a quedar corta al lado de esto\n' +
+        'Viene el álbum (Oye)\n' +
+        'Bailando, bailando (Viene el álbum; oye)\n' +
+        'Bailando, bailando, yeah',
+        photo_video: 'songs_images/sempreCor.jpeg',
+        url_mp3: 'songs/C Marí - La Ropa [Jr6hlkhR9Ps].mp3',
+        type: "album",
+        genre: 'Flamenco'
+      },
+      {
+        name: 'Qtalhoy',
+        duration: 132,
+        lyrics:
+        '¿Va bien?\n' +
+        '¿Qué tal el día, cariño?, ¿te va bien?\n' +
+        'Y tú rápido ya me hablas de alguien\n' +
+        'Odias el mundo, te sientes un alien\n' +
+        'Tranqui\n' +
+        'Luego en casa yo te lo hago más fácil\n' +
+        'Y te arropo por si hoy estás frágil\n' +
+        'Bebé, te noto frágil\n' +
+
+        'Cuéntame qué tal hoy\n' +
+        '¿A quién viste en el metro?\n' +
+        'Todos esos detalles, me encanta escucharlo\n' +
+        'Es parte de lo nuestro\n' +
+        'Y no pienses que no (No pienses que)\n' +
+        'Que no leo tus textos (Sí los leo)\n' +
+        'Que no escucho tus mensajes de voz\n' +
+        'Lo hago a gusto y atento\n' +
+
+        'Tú me das los detalles más innecesarios\n' +
+        'Lo que ves en la calle, lo que ves en el barrio\n' +
+        'Para ti soy tu diario\n' +
+        'Y eso es tan bonito, mi amor\n' +
+        'Tú me tienes aprendiendo de series que no veré\n' +
+        'Pero te gusta hablarme de ellas\n' +
+        'Y a mí me gusta escucharte en ellas (Yeah)\n' +
+        'Sexo en Nueva York ya me la sé\n' +
+        'Jon Snow ya me la sé\n' +
+        'Tú eres agua en el desierto, yo me despierto con sed\n' +
+        'Te quiero beber; te quiero, bebé\n' +
+
+        'Cuéntame qué tal hoy\n' +
+        '¿A quién viste en el metro?\n' +
+        'Todos esos detalles, me encanta escucharlo\n' +
+        'Es parte de lo nuestro\n' +
+        'Y no pienses que no (No pienses que)\n' +
+        'Que no leo tus textos (Sí los leo)\n' +
+        'Que no escucho tus mensajes de voz\n' +
+        'Lo hago a gusto y atento',
+        photo_video: 'songs_images/sempreCor.jpeg',
+        url_mp3: 'songs/C Marí - Qtalhoy [OqwDAf1tOIg].mp3',
+        type: "album",
+        genre: 'Reggaeton'
+      },
+      {
+        name: 'Contacto',
+        duration: 175,
+        lyrics:
+        'Con lo guapa que tú eres y el cuerpo que traes\n' +
+        'Yo creo que hiciste un pacto con Dios\n' +
+        'Con lo mala que tú eres y lo bien que te va\n' +
+        'Yo creo que con el Diablo son dos\n' +
+
+        'Ella no lo mueve, pero tiene contacto\n' +
+        'Hace que se muevan las parede del cuarto\n' +
+        'Hace que me quede como cuadro sin marco\n' +
+        'Una peli, Tim Burton\n' +
+        'Ella no me quiere, pero viene y la parto\n' +
+        'No soy egoísta, pero no te comparto\n' +
+        'Hace que me quede como cuadro sin marco\n' +
+        'Una peli, Tim Burton, yeah\n' +
+
+        'Bebé, tú usas hacks, yo te subo al max\n' +
+        'Estos son De Gea, les fallan los faxs, yeah\n' +
+        'No hay verdad ni en su cancione ni en su vida (Ni en su vida)\n' +
+        'Yo estaba en su peak, yo estaba en su vida\n' +
+        'Su ma no dio a luz, ella fue esculpida\n' +
+        'Y ya te la pongo, está escupida\n' +
+        'No querías perder al amor de tu vida\n' +
+
+        'Con lo guapa que tú ere y el cuerpo que traes\n' +
+        'Yo creo que hiciste un pacto (Oh-oh) con Dios\n' +
+
+        'Ella no lo mueve, pero tiene contacto\n' +
+        'Hace que se muevan las parede del cuarto\n' +
+        'Hace que me quede como cuadro sin marco\n' +
+        'Una peli, Tim Burton\n' +
+        'Ella no me quiere, pero viene y la parto\n' +
+        'Hace que me quede como cuadro sin marco\n' +
+        'Como el mar sin barco\n' +
+        'Una peli, Tim Burton (Eh)\n' +
+
+        'Su cuerpo (Su cuerpo) desprende (Desprende)\n' +
+        'Toy muerto (Muerto), yeah, no entiendes (No entiendes)\n' +
+        'Y no le cabía en la falda (Fal-fal—) y se le salían la nalga (Nal-nal—)\n' +
+        'Y se me movía la espalda (-pal-pal—), cuando se ponía de espaldas\n' +
+        'Ella lo mueve como traficante, yeah\n' +
+        'Ella me pone detrás y delante, eh\n' +
+        'Ella es la prueba, yo un participante, yeah\n' +
+        'Ella es la prota, yo soy figurante\n' +
+
+        'Ella no lo mueve, pero tiene contacto\n' +
+        'Hace que se muevan las parede del cuarto\n' +
+        'Hace que me quede como cuadro sin marco\n' +
+        'Una peli, Tim Burton\n' +
+        'Ella no me quiere, pero viene y la parto\n' +
+        'No soy egoísta, pero no te comparto\n' +
+        'Hace que me quede como cuadro sin marco\n' +
+        'Una peli, Tim Burton\n' +
+
+        'Con lo guapa que tú eres y el cuerpo que traes\n' +
+        'Yo creo que hiciste un pacto con Dios',
+        photo_video: 'songs_images/sempreCor.jpeg',
+        url_mp3: 'songs/C Marí - Contacto ft. John Pollõn (Visualizer) ｜ Sempre Cor [50zbMwQ8Rd4].mp3',
+        type: "album",
+        genre: 'Reggaeton'
+      },
+      {
+        name: 'Mil Veces',
+        duration: 160,
+        lyrics:
+        'A figure waits round the corner\n' +
+        'I dont know who Ill find\n' +
+        'I hear a voice growing stronger inside\n' +
+        'AMEX got the nitro\n' +
+
+        'Lunes, pero quiere cenar fuera, está claro\n' +
+        'Vamos sushi, lo que tú prefieras, está claro\n' +
+        'Veremos la peli que tú quieras\n' +
+        'Tocaré tu pelo hasta que duermas\n' +
+        'Yo ya ni siquiera le doy vueltas\n' +
+        'Porque para qué, si lo tienes claro\n' +
+        'Yo lo hago encantado\n' +
+
+        'Hablo con amigos y les pasa igual\n' +
+        '¿Nos ganáis o nos dejamos?\n' +
+        'De cien veces, tú tienes la razón mil veces\n' +
+        'Mil veces en total, en total\n' +
+
+        'Tú, tienes la razón mil\n' +
+        'Tienes la razón mil\n' +
+        'Tú, tienes la razón mil\n' +
+        'Tienes la razón mil\n' +
+        'Sí, bebé, tú eres la más graciosa de los dos (Que sí, que sí, que sí)\n' +
+        'Sí, bebé, tú eres la más lista de los dos\n' +
+        'Mil fotos que te hago y no te gustan ni dos\n' +
+        'Me giro después del adiós\n' +
+
+        'Lunes, pero quiere cenar fuera, está claro\n' +
+        'Vamos sushi, lo que tú prefieras, está claro\n' +
+        'Veremos la peli que tú quieras\n' +
+        'Tocaré tu pelo hasta que duermas\n' +
+        'Yo ya ni siquiera le doy vueltas\n' +
+        'Porque para qué, si lo tienes claro\n' +
+
+        'Tú, tienes la razón mil\n' +
+        'Tienes la razón mil\n' +
+        'Tú, tienes la razón mil\n' +
+        'Tienes la razón mil\n' +
+
+        'A figure waits round the corner',
+        photo_video: 'songs_images/sempreCor.jpeg',
+        url_mp3: 'songs/C Marí - Mil Veces (Visualizer) ｜ Sempre Cor [aE8CgrhgV5w].mp3',
+        type: "album",
+        genre: 'Reggaeton'
+      },
+      {
+        name: 'Martiño Rivas Freestyle',
+        duration: 178,
+        lyrics:
+        'El motor es alemán y la van espera abajo (Wuh)\n' +
+        'La vida que sueñas es mi trabajo\n' +
+        'Ganador desde el día en que mamá me trajo (Oh-oh)\n' +
+        'Martiño Rivas está dentro de la van (Uh-uh-uh-uh)\n' +
+        'Y sigo siendo yo el más sexy de la van\n' +
+        'Disfruto del camino, yo no quiero atajos\n' +
+        'Si lo haces con amor, más fácil que llegan los fajos\n' +
+        'Si lo haces por los fajos nunca llegarán, nunca llegarán\n' +
+
+        'Y si tú te vas, a veces me siento un alien\n' +
+        'Solitario, máximo un brodie como Adrien\n' +
+        'Nunca llegará, tos peleando por ser alguien\n' +
+        'Y yo buscando no ser nadie\n' +
+        'Y si—, si preguntan siempre digo que me va bien\n' +
+        'Hasta cuando en ocasiones no fue tan bien\n' +
+        'Nunca llegará, no fue tan bien\n' +
+
+        'Long sleeve hasta en verano\n' +
+        'El flow es pesado y los cargos suave\n' +
+        'Tu novio es pesado y aún no lo sabe\n' +
+        '"Suave" de H Roto, ya cayeron diez\n' +
+        'Pero a mi yo de hace diez le sigo siendo fiel\n' +
+        'Y eso pa mí es clave\n' +
+        'Ellos son esclavo, yo me siento el dueño\n' +
+        'Lo que digo, lo que pienso y lo que hago (Ah)\n' +
+        'Mi único enemigo es mi yo vago (Solo)\n' +
+        'Cuando me castiga, me repito que yo valgo (Ah)\n' +
+        'Aquí te pasaste, BLNCO, loco\n' +
+        'Me dejaste blanco, loco\n' +
+        'Yo no soy de amianto (No)\n' +
+        'Money over dresscode entrando a la sucursal\n' +
+        'Chanclas y gorra pa atrás, pero me halagan igual (Yeah)\n' +
+        'Tú me hacías un x3 en los mensuales\n' +
+        '¿Cómo coño yo un x2 en festivales?\n' +
+        'No llenas eso ni con familiares (Va)\n' +
+        'Ni tienes amigos, ni tienes fanes\n' +
+
+        'Yo juego para la gente que gusta el fútbol\n' +
+        'Para la gente que sabe mucho de fútbol\n' +
+
+        'Y si tú te vas, a veces me siento un alien\n' +
+        'De aquí, nunca llegará, tos peleando por ser alguien\n' +
+        'Duele hasta morir, duele el amor\n' +
+        'Las cosas siguen, pero tú te vas\n' +
+        'Dale vueltas, tú verás\n' +
+        'Me grababa los temas en los intros y en el tiempo\n' +
+        'Que rappers que molaban dejaban detrás\n' +
+        'Dale vueltas, tú verás',
+        photo_video: 'songs_images/sempreCor.jpeg',
+        url_mp3: 'songs/C Marí - Martiño Rivas Freestyle (Visualizer) ｜ Sempre Cor [rkEIBzEfFKE].mp3',
+        type: "album",
+        genre: 'Rap'
+      },
+      {
+        name: 'DSPB',
+        duration: 200,
+        lyrics:
+        'Dime si podré buscarte\n' +
+        'DamnPablo\n' +
+        'Dime si podré buscarte\n' +
+
+        'Los pulgares en círculos, no sé ni qué escribir\n' +
+        'Tan real el vínculo, no se pue describir\n' +
+        'Yo no te amenazo, pero si tú te vas\n' +
+        'Contigo se van mis ganas de vivir\n' +
+
+        'Por qué\n' +
+        'Tan bonita por qué\n' +
+        'Más bonita si llora\n' +
+        'Más bonita si llora\n' +
+        'Please, di por qué\n' +
+        'Tan bonita, por qué\n' +
+        'Más bonita si llora\n' +
+        'Más bonita si llora\n' +
+
+        'Cuando discutimos siempre se pone a llover\n' +
+        'Es algo divino es como si Dios nos viera\n' +
+        'Baby, te lo juro, esto es un amor de novela\n' +
+        'Pero de novela en la que el prota acaba muerto\n' +
+        'Sí, claro que estoy despierto\n' +
+        'Siento angustia mientras llega el texto\n' +
+        'Taquicárdico perdido, pensando en qué te contesto\n' +
+
+        'Los pulgares en círculos, no sé ni qué escribir\n' +
+        'Tan real el vínculo, no se pue describir\n' +
+        'Yo no te amenazo, pero si tú te vas\n' +
+        'Contigo se van mis ganas de vivir\n' +
+        'Los pulgares en círculos, no sé ni qué escribir\n' +
+        'Tan real el vínculo, no se pue describir\n' +
+        'Yo no te amenazo, pero si tú te vas\n' +
+        'Contigo se van mis ganas de vivir\n' +
+
+        'Dicen los expertos que ahora lo mejor pa los dos es contacto cero\n' +
+        'Pero a ti te da más miedo olvidarme que no poder hacerlo (Yeah)\n' +
+        'Esto es lo más real que he escrito\n' +
+        'Lo más real que vivimos tú y yo\n' +
+
+        'Bebé, por qué\n' +
+        'Tan bonita por qué\n' +
+        'Más bonita si llora\n' +
+        'Más bonita si llora\n' +
+        'Please, di por qué\n' +
+        'Tan bonita, por qué\n' +
+        'Más bonita si llora\n' +
+        'Más bonita si llora\n' +
+
+        'Esto es real como pegarse un tiro\n' +
+        'Tú eres una flor de cristal cuando estás dormida\n' +
+        'Tan frágil, pero brillar nunca se te olvida\n' +
+        'Yo te quería cuidar en toda mis vidas\n' +
+        'Aún en el chapa blanca te escribo sentado\n' +
+        'Lo empecé a matar cuando di por sentado tu amor\n' +
+        'Los regalos, los detalles, la flor\n' +
+        'Se murió, no la he regado\n' +
+        'Y pensé que eran bobadas de Instagram, pero es real\n' +
+        'Te juro que lo vi en mis carnes\n' +
+        'Y ahora siento que he hecho todo mal como A&R Warner\n' +
+        'Darte, claro que quiero darte\n' +
+        'Pero ahora es lo de menos, quiero ir a los restaurantes\n' +
+        'La última al dormir y la primera al despertarte\n' +
+        'Dime si podré buscarte\n' +
+
+        'Dime si podré buscarte\n' +
+        'Dime si podré buscarte',
+        photo_video: 'songs_images/sempreCor.jpeg',
+        url_mp3: 'songs/C Marí - DSPB (Visualizer) ｜ Sempre Cor [aJF6d_0pKrA].mp3',
+        type: "album",
+        genre: 'Trap'
+      },
+      {
+        name: 'Mi Primera Cana',
+        duration: 180,
+        lyrics:
+        'Ho-ho-hoy me miré en el espejo y mi primera cana\n' +
+        'La yaya imagina a su hermana, mamá\n' +
+        'Y a mí me pasará el día de mañana\n' +
+        'Y qué miedo me da\n' +
+        'Y qué pocas ganas que tengo de hacerme mayor\n' +
+        'Quería ser adulto y hoy todo es peor\n' +
+        'Volver a cuando nada del mundo preocupaba\n' +
+        'Cuando éramos niños todo era color\n' +
+
+        'Cementerios y hospitales cuanto más lejos mejor\n' +
+        'Al menos me consuela que nos trate igual a todos\n' +
+        'Las enfermedades no entienden de plata y oro\n' +
+        'Pienso que algún día olvidaré tu voz y lloro\n' +
+        'Vidas nuevas llegan, pero otras se van\n' +
+        'Pronto eres padre pero nieto no más\n' +
+        'Toco madera que todo sea eso\n' +
+        'Y que no se altere el orden vital\n' +
+        'Hace 16 que celebramos sus 16\n' +
+        'Y papás también cambiaron del 4 al 6\n' +
+        'Y yo que veo lo bueno, siempre veo lo bueno\n' +
+        'Pero no hay na bueno, mi amor\n' +
+
+        'Hoy me miré en el espejo y mi primera cana\n' +
+        'La yaya imagina a su hermana, mamá\n' +
+        'Y a mí me pasará el día de mañana\n' +
+        'Y qué miedo me da\n' +
+        'Y qué pocas ganas que tengo de hacerme mayor\n' +
+        'Quería ser adulto y hoy todo es peor\n' +
+        'Volver a cuando nada del mundo preocupaba\n' +
+        'Cuando éramos niños todo era color\n' +
+
+        'Tictac, tictac\n' +
+        'Tic-tic, tictac, tictac\n' +
+        'Tiqui-tiqui, tictac, tictac\n' +
+        'Tic-tic, tictac, tictac\n' +
+        'Tictac, tictac\n' +
+        'Tiqui-tiqui, tictac, tictac\n' +
+        'Tictac, tictac\n' +
+        'Tiqui-tiqui, tictac\n' +
+
+        'Cementerios y hospitales cuanto más lejos mejor\n' +
+        'Al menos me consuela que nos trate igual a todos\n' +
+        'Las enfermedades no entienden de plata y oro\n' +
+        'Pienso que algún día olvidaré tu voz y lloro\n' +
+        'Yah, yah, yah\n' +
+        'Yah, yah, yah',
+        photo_video: 'songs_images/sempreCor.jpeg',
+        url_mp3: 'songs/C Marí - Mi Primera Cana (Visualizer) ｜ Sempre Cor [folbfmkaidY].mp3',
+        type: "album",
+        genre: 'Other'
+      },
+      {
+        name: 'Jugador',
+        duration: 177,
+        lyrics:
+        'I got a van, baby, I got a van\n' +
+        'I got a van, baby-baby, I got a van, oh-oh\n' +
+        '(I got a van, baby, I got a van)\n' +
+        'Oh-oh\n' +
+        '(I got a van, baby, I got a van)\n' +
+
+        'Mami, soy un jugador (Yeah)\n' +
+        'Sabe, soy un jugador (Tú lo sabes, soy un player)\n' +
+        'Cash y sexo en mis canciones (Yeah; más money, más dinero, má sex)\n' +
+        'Caminé con mis accione (Más money, más dinero, má sex)\n' +
+        'Mami, soy un jugador (Tú lo sabe, soy un player)\n' +
+        'Sabes que soy jugador (Tú lo sabes, soy tu player)\n' +
+        'Cash y sexo en mis canciones, yo\n' +
+        'Caminé con mis accione (Yo)\n' +
+
+        'Me mudé a la capital pa aumentar mi capital (Yo)\n' +
+        'Nunca viví tal, por eso no me las tiro de miseria y de metal\n' +
+        'Soy real, y vi que ser constante es vital\n' +
+        'Esta la escribí a 120 en la autovía\n' +
+        'Y ahora lejos de Valеncia pienso: "Mierda, lHorta és vida"\n' +
+        'Que lеvante la mano quien no se contradiga\n' +
+        'Que le corten la mano que está diciendo mentiras\n' +
+        'O no pensando suficiente, baby, subí de nivel (Wow)\n' +
+        'Joven rey me hizo mi mente, subí torres, no Miguel\n' +
+        'Están buscando la portada y son Capel (Jajaja)\n' +
+        'Al final la music manda, como en peli de Chazelle\n' +
+        'Ella siempre habla sola\n' +
+        '10 kilos, dos weeks con dos feats y sin payola\n' +
+        'Ella siempre habla sola, yeah-eh, eh\n' +
+
+        'Y aún no saqué mis ala (I got a van, baby, I got a van)\n' +
+        'Aún no gasté mis bala (I got a van, baby, I got a van)\n' +
+        'Aún no le di a mil mala\n' +
+        'Pero lo voy a hacer\n' +
+
+        'Porque soy un jugador (Yeah)\n' +
+        'Mami, soy un jugador (Tú lo sabe, soy un player)\n' +
+        'Cash y sexo en mis canciones (Yeah; más money, más dinero, má sex)\n' +
+        'Caminé con mis accione (Más money, más dinero, má sex)\n' +
+        'Mami, soy un jugador (Tú lo sabe, soy un player)\n' +
+        'Sabes que soy jugador (Tú lo sabe, soy el más player)\n' +
+        'Cash y sexo en mis cancione (Uh)\n' +
+        'Caminé con mis acciones, yeah (Uh)\n' +
+
+        'No son mariposas lo que hay en tu barriga, mi amor\n' +
+        'Solo estás arriba, mi amor\n' +
+        'De mi vida, eligiendo entre Vilna y Riga\n' +
+        'Prometimos no olvidarnos con Erasmus ni con gira\n' +
+        'Ponte los audios que te prometí una vida\n' +
+        'Allí estáis a -6 y yo sé que mi voz te abriga\n' +
+        'A los 30 vuelvo y te hago una barriga\n' +
+        'Nos va a salir preciosa, ya lo probamos con IA\n' +
+        'Y soñé que te comía, pero no podía olerte\n' +
+        'Y fue una sensación fría, como la vida y la muerte\n' +
+        'Sabes que aunque no te escriba, siempre vives en mi mente\n' +
+        'Si te enamoró mi chulería, que no te duela ahora que soy un player',
+        photo_video: 'songs_images/sempreCorDeluxe.jpeg',
+        url_mp3: 'songs/C Marí - Jugador (Lyric Video) ｜ Sempre Cor Deluxe [6Ls7p_MV_x8].mp3',
+        type: "album",
+        genre: 'Trap'
+      },
+      {
+        name: 'Ninja Defuse Freestyle',
+        duration: 135,
+        lyrics:
+        'Poca ilusión\n' +
+        'Me hacía a mí el Lambo y la mansión\n' +
+        'Pero algo cambió\n' +
+        'Y a mí que nunca me llenó pa comprobarlo haré un millón\n' +
+
+        'Lo escribía en el bus, no sabía qué era un booth (Desactivada)\n' +
+        'Bien callao como un ninja defuse (Oh-ah), I cant never lose\n' +
+        'Si no naces pa brillar, qué más da que te den luz (Oh-ah)\n' +
+        'Woh-oh, yo miro por mis "mis", tú por tus "tus" (Oh-oh)\n' +
+        'Se disfrazan fácil, flow tutús (Oh-oh)\n' +
+        'No disparan ni en los ad-libs con "tu-tus" (Oh-oh-oh; tu-tu-tu-tu-tu)\n' +
+        '30 palos y están en to los camerinos (Tu-tu-tu-tu-tu-tu)\n' +
+        'Y sus amigos todos tienen 10 años menos (Uh-uh)\n' +
+        'Red flag, bro, a niveles extremos (Ah)\n' +
+        'Aquí no, así nunca lo hacemos\n' +
+        'Callao (Shh), aquí lo hacemos callao (Now every other day, Ill be watching you, oh-ah)\n' +
+        'Pero espеra, que los que tienеn 40 son peor aún\n' +
+        'Gastan sus 140 teclas en hablar de uno\n' +
+        'No sé quién son y to el día dan la lata\n' +
+        'No sé tu nombre, tengo que hacer la de Zlatan\n' +
+        'Brr, lo mejor cuando solos se retratan\n' +
+        'No te odiaban, solo querían atención\n' +
+        'Zorra, yo lo aguanto, eso pa mí no es presión\n' +
+        'No llenaba la nevera y de pares la habitación\n' +
+        '¿Pe-Pe-Pero este niño cuántas tenis tiene? (Oh)\n' +
+        'Y yo que heredaba hasta los calcetines (Yo-oh)\n' +
+        'El mayor hoy trinca del nene\n' +
+        'Y yo puse en sus pies AirForce y TN\n' +
+        '¿Pero este niño cuánta ropa tiene? (Oh)\n' +
+        'Otro día nuevo, otro paquete viene\n' +
+        'Necesito amigos con 43 (Yeah)\n' +
+        'Necesito amigos que no usen la M\n' +
+        'Sara en las antípodas, al final se atrevió\n' +
+        'Me alegré por ella, pero más pena me dio\n' +
+        'Vales tanto, no lo dudes\n' +
+        'Un halcón pa sus defectos y ciega pa sus virtudes\n' +
+        'Recuerdo en un colchón en el suelo\n' +
+        'Durmiendo en Guzmán el Bueno\n' +
+        'Hoy en un resort, mami, ya crucé el océano\n' +
+        'Lo mejor de todo es que no pagué ni el vuelo\n' +
+
+        'Bien, camaradas, listos para la siguiente ronda\n' +
+        'Oh-oh, oh-oh\n' +
+        'Woh-oh-oh-oh-oh-oh',
+        photo_video: 'songs_images/sempreCorDeluxe.jpeg',
+        url_mp3: 'songs/C Marí - Ninja Defuse Freestyle (Lyric Video) ｜ Sempre Cor Deluxe [L3a279doYW4].mp3',
+        type: "album",
+        genre: 'Rap'
+      }
+      ,
+      {
+        name: 'Babalà',
+        duration: 189,
+        lyrics:
+        'Release me\n' +
+        'Release my body\n' +
+        'I know its wrong\n' +
+        'So why am I with you now?\n' +
+        'AMEX got the nitro\n' +
+
+        'Como un Rollie\n' +
+        'Cuando más lindo estoy es encima de una muñeca\n' +
+        'Pero, shorty\n' +
+        'No estoy en amor ni en odio que los dos me dan jaqueca\n' +
+        'Así que no, no, no\n' +
+        'No sacaré tiempo para tu evento de mierda\n' +
+        'Así que no, no, no\n' +
+        'Escuché tu último disco y no conecta\n' +
+
+        'Dale, bebé, no me digas que llegas, ya noto cómo se aprieta\n' +
+        'Como un buen rapper, cuida la línea, ese culito es de atleta\n' +
+        'Era un tiburón, pero se fue sin aleta\n' +
+        'Soy un vacilón, quieren mi cara y mis letra\n' +
+        'Ahora mi socio en la empresa es una tarjeta\n' +
+        'Los sueños a tiempo sin claqueta\n' +
+        'Ma, si me mudé a Madrid fue para cumplir mi meta\n' +
+        'No para estar pensando en quién quiere que se lo meta\n' +
+
+        'Como un Rollie\n' +
+        'Cuando más lindo estoy es encima de una muñeca\n' +
+        'Pero, shorty\n' +
+        'No estoy en amor ni en odio que los dos me dan jaqueca\n' +
+        'Así que no, no, no\n' +
+        'No sacaré tiempo para tu evento de mierda\n' +
+        'Así que no, no, no\n' +
+        'Escuché tu último disco y no conecta\n' +
+
+        'I love you, pero más me amo a mí\n' +
+        'I told you, yo ya te lo advertí\n' +
+        'La follo, pero me voy de allí sin un beso\n' +
+
+        'Tenía pájaros en la cabeza, baby, y hoy son águila\n' +
+        'Rompí dos gemelas, me sentía yo Osama bin La\n' +
+        'Y ahora lleno el show (Yeah), ya sea en León o en Ávila\n' +
+        'Nadie me dirá: "Tienes que espabilar"\n' +
+        'Las expe—, las expectativas están altas, pienso: "Mátala"\n' +
+        'Tienes par de demos a mitad, acábalas\n' +
+        'Ahora els titos en La Caixa y no en el matalàs\n' +
+        'Una leyenda en Valencia como Babalà\n' +
+        'Y dale si está seca, dale más baba y muñeca\n' +
+        'Cuando estamos en el sexo no tienes que respetarme\n' +
+        'Pero fuera de la pieza no quieras retarme\n' +
+
+        'Los que tienen la influencia nunca hablaron de mis ritmo\n' +
+        'Me parecía muy raro estar hablando de mí mismo\n' +
+        'Estas líneas dan billetes y no estamos en el bingo\n' +
+        'Una estrella es mi apellido, hoy puedes llamarme Ringo',
+        photo_video: 'songs_images/sempreCorDeluxe.jpeg',
+        url_mp3: 'songs/C Marí - Babalà [Xx0Tu0SXKJk].mp3',
+        type: "album",
+        genre: 'Trap'
+      },
+      {
+        name: '90%',
+        duration: 215,
+        lyrics:
+        'Teníamos hambre y pa ahorrarnos 10 pavos, no pillaba el AVE, yo pillaba el Ouigo\n' +
+        'Ahora con dos propiedades, no sé dónde llegan las prendas que pido\n' +
+        'El cartero me conoce, pero ya está confundido\n' +
+        'No sabe si duermo en el dúplex del centro o en aquel chalet alejado del ruido\n' +
+        'Esto es mentira, pero me he dao dos para hacerlo verdad\n' +
+        'Voy a hacer un kilo con los 25, se rio mamá (No llorará)\n' +
+        'Cuando el menor de sus hijos pague la hipoteca\n' +
+        'No sabe que son 10K por verme cantar en la discoteca\n' +
+        'Esto es mentira también, pero solo a la mitad\n' +
+        'Son 5.000 por un showcase, le pedí 12 a ese festival\n' +
+        'Si me hago seis festis, cabrón, multiplica\n' +
+        '¿Qué te duele más? ¿Que haga más flush o que C Marí sea el crush de tu chica?\n' +
+
+        'Que yo sea crush de tu chica te duele\n' +
+        'A mí los dedos de contar papeles\n' +
+        'Mucho antes de la music\n' +
+        'Pa robar a tu baby no necesito FL (Oh-oh)\n' +
+        'Ritmo fuerte, okey, la cervical me duele (Oh-oh)\n' +
+        'Este mes dormí en tres casas, diez hoteles (Oh-oh, oh-oh)\n' +
+        'Y no importa dónde duerma\n' +
+        'Lo único que no puedo dormirme es en los laureles (Yeah, yeah, yeah; yeah)\n' +
+        'Mil pavos en Marni y Lanvin, y obviamente me veo súper bacano\n' +
+        'Diez pavos del Vinted los jeans, y no te sorprende, estoy súper bacano\n' +
+        'Tengo quimi con tu físico, bebé, voy súper Cabano (Lets go)\n' +
+        'Tu boy es de bolsillo tímido, se le ve súper tacaño\n' +
+        'Escribiendo esta canción, durmiendo con el Tuti al lado\n' +
+        'Si ve la luz algún día, será porque lo he logrado\n' +
+        'Y si no la ve, bebé, pues ya vivirá en mi phone (Oh)\n' +
+        'Como tú en mi galería (Oh-oh), baby, yo aún no te he borrado\n' +
+
+        'Y no es cierto, baby, no es cierto (No, no, no)\n' +
+        'Que me quieran chingar todas las que vienen al concierto\n' +
+        'Baby, no es cierto, baby, no es cierto (No, no, no)\n' +
+        'No, yo no diría que todas, solo el 90% (Oh-oh)\n' +
+        'Y si te digo que lo siento te estaría mintiendo\n' +
+        'Baby, cómo te lo explico, ayuda al movimiento\n' +
+        'Te gusté chulo y ahora dices que me estoy subiendo\n' +
+        '(Sabía que lo haría bien y aun así la sorprendo; oh-oh)\n' +
+
+        'Que yo sea crush de tu chica te duele (Oh, oh-oh; te duele)\n' +
+        'A mí los dedos de contar papele (Oh-oh; contar papele)\n' +
+        'Mucho antes de la music (Oh, oh)\n' +
+        'Pa robar a tu baby no necesito FL (Oh-oh, oh)\n' +
+        'Ritmo fuerte, okey, la cervical me duele (Oh-oh)\n' +
+        'Este mes dormí en tres casas, diez hoteles (Oh-oh)\n' +
+        'Y no importa dónde duerma\n' +
+        'Lo único que no puedo dormirme es en los laureles\n' +
+
+        'Es "crash", no es "crush"\n' +
+        'Sempre Cor fue por amor, pero el Deluxe es más por flush\n' +
+        'Es "crash", no es "crush"\n' +
+        'Es "crash", no es "crush"\n' +
+        'Sempre Cor fue por amor, pero el Deluxe es más por flush, yo\n' +
+        'Voy a decir "crush", bro, es que "crush" tiene más swag que "crash"\n' +
+        '100%\n' +
+        'Yeah, yeah, yeah\n' +
+        'Es "crash", no e— grr\n' +
+        'Es "crash", no e— skrrt\n' +
+        'Esto, esto no lo pongas, ¿eh?',
+        photo_video: 'songs_images/sempreCorDeluxe.jpeg',
+        url_mp3: 'songs/C Marí - 90 (Lyric Video) ｜ Sempre Cor Deluxe [Uwx3W6jQqzM].mp3',
+        type: "album",
+        genre: 'Trap'
+      },
+      {
+        name: 'Dime que No',
+        duration: 147,
+        lyrics:
+        'No hay nada peor que separarte de alguien a quien quieres todavía\n' +
+        'Qué historia tan triste\n' +
+        'El amor es la cosa más triste del mundo cuando se acaba\n' +
+        '¿Por qué ahora estás más guapo que nunca?\n' +
+        'Te dejaste el pelo que me encanta a mí\n' +
+        'Soy hielo, baby, o haré que te confundas\n' +
+        'Yo ya no sé qué hacer\n' +
+
+        'Si te escribo y son más de las 3, porfa, dime que no\n' +
+        'Aunque yo insista, no me dejes\n' +
+        'De verdad te lo digo que el placеr se multiplica en dolor\n' +
+        'Mi mentе no, mi cuerpo quiere\n' +
+
+        'Y obviamente, estoy hablando ahora desde tu perspectiva\n' +
+        'Yo no querría oír un "no" de ti en mi vida\n' +
+        'Que no te diga esas cosas que se activa\n' +
+        'Una energía aquí dentro que no sé controlar\n' +
+        'Y otra vez quiero escribirte, hacer maldades\n' +
+        'Disfrazar encuentros de casualidades\n' +
+        'Pasar por el bar al que vas con tus padres\n' +
+        'Bebé, te prometo que\n' +
+        'Yo sigo creyendo en el amor como en una religión\n' +
+        'Pero en una relación perdí la fe\n' +
+        'Porque si no pudimos tú y yo, que lo pusimos to\n' +
+        'Ya nadie va a poder\n' +
+        'Si te escribo y son más de las 3, porfa, dime que no (I miss you)\n' +
+        'Aunque yo insista, no me dejes\n' +
+        'De verdad te lo digo que el placer se multiplica en dolor\n' +
+        'Mi mente no, mi cuerpo quiere',
+        photo_video: 'songs_images/sempreCorDeluxe.jpeg',
+        url_mp3: 'songs/C Marí - Dime que No (Lyric Video) ｜ Sempre Cor Deluxe [qbe5JlQ3Mys].mp3',
+        type: "album",
+        genre: 'Reggaeton'
+      },
+      {
+        name: '- + Duro',
+        duration: 226,
+        lyrics:
+        'Jay Cas\n' +
+        'Bebé, tú no me olvides\n' +
+        'No, no, no, no, no, no, no, no\n' +
+        'No dejo a ni Dios que opine\n' +
+        'Yeah, yeah, yeah, yeah, yeah, yeah, yeah\n' +
+
+        'Ojalá que, ojalá que, ojalá que no me olvides\n' +
+        'Y ojalá que, y ojalá que, y ojalá que no me olvides\n' +
+        'Y ojalá que, y ojalá que, y ojalá que no me olvides\n' +
+        'Yeah\n' +
+
+        'Y yo cada día estoy más duro\n' +
+        'Y eso para ti sé que es más duro\n' +
+        'Te felicitaban por mi álbum\n' +
+        'Tú entre lágrimas: "No estamos juntos"\n' +
+        'Que ahora me verás en todas partes\n' +
+        'Me duele más a mí, te lo juro\n' +
+        'Pero tú eres parte, baby, tú eres parte\n' +
+
+        'Pero ya te expliqué que no es lo mismo estar cuando quieres estar\n' +
+        'Que por miedo a no estarlo, yo\n' +
+        'No nos gusta a los dos, está claro el dolor afrontarlo\n' +
+        'Y no es molestar, no lo quiero escuchar otra vez de tu boca\n' +
+        'Cuando me estés hablando\n' +
+        'Ser un rockstar, baby, sé que no te está ayudando\n' +
+        'Pero tú ya sabes cómo soy y voy a matar todo\n' +
+        'Vas a tener que verme en las portadas con oro\n' +
+        'Pero sé que tú te alegrarás, siempre encuentras el modo (Tú lo sabes encontrar)\n' +
+        'Pero ahora, baby\n' +
+
+        'Y yo cada día estoy más duro\n' +
+        'Y eso para ti sé que es más duro\n' +
+        'Te felicitaban por mi álbum\n' +
+        'Tú entre lágrimas: "No estamos juntos"\n' +
+        'Que ahora me verás en todas partes\n' +
+        'Me duele más a mí, te lo juro\n' +
+        'Pero tú eres parte, baby, tú eres parte\n' +
+
+        'Bato-bato un huevo\n' +
+        'Y bato un nuevo récord, okey (Okey, okey)\n' +
+        'Entro al juego (Yeah)\n' +
+        'Y salgo siendo del juego el rey (Rey, rey)\n' +
+        'Tú me quisiste (Ah)\n' +
+        'Tú me compraste, tú aceptaste mi ley\n' +
+        'Bebé, okey\n' +
+        'Cuando lograba algo tú no me felicitabas\n' +
+        '¿Qué me importa que el mundo lo haga? Si mi mundo eres tú\n' +
+        'Y tú: Carlos, juntos ya vivimos tanto, ya no me sorprende nada\n' +
+        'Pero a mí si algo me encanta, lo digo y no me ahorro un "te amo"\n' +
+        'Dime cuándo te llamo\n' +
+        'Que yo te eché de menos y siempre texteé "te extraño"\n' +
+        'Y hoy somos dos extraños, y fuimos todo antaño (Oh-oh)\n' +
+        'Y yo loco sigo viendo el corazón que dibujaste con tus dedos en la mampara del baño (Yeah, yeah)\n' +
+        'Ojalá que, ojalá que, ojalá que no me olvides\n' +
+        'Y ojalá que, y ojalá que, y ojalá que no me olvides\n' +
+        'Y ojalá que, y ojalá que, y ojalá que no me olvides\n' +
+        'Yeah\n' +
+
+        'Y yo cada día estoy más duro\n' +
+        'Y eso para ti sé que es más duro\n' +
+        'Te felicitaban por mi álbum\n' +
+        'Tú entre lágrimas: "No estamos juntos"\n' +
+        'Y ahora me verás en todas partes\n' +
+        'Me duele más a mí, te lo juro\n' +
+        'Pero tú eres parte, baby, tú eres parte',
+        photo_video: 'songs_images/sempreCorDeluxe.jpeg',
+        url_mp3: 'songs/C Marí - + Duro (Lyric Video) ｜ Sempre Cor Deluxe [ZzGD3iMPhL8].mp3',
+        type: "album",
+        genre: 'Pop'
+      },
+      {
+        name: 'Sobrenatural',
+        duration: 156,
+        lyrics:
+        'Netflix decía que si aún estábamos viéndolo\n' +
+        'Y hasta lo créditos seguíamos haciéndolo\n' +
+        'Yo no quiero chingar con otra, mami, entiéndelo (Uh-uh-uh)\n' +
+        'Te traje un porro pa que fumes, mami, enciéndelo\n' +
+        'To lo que imaginé contigo estoy cumpliéndolo, eh\n' +
+        'Ese tatuaje quiero vértelo\n' +
+
+        'Yo quiero hacerte cosas que nadie te ha hecho\n' +
+        'Pa ellos es raro pero pa ti es normal, bebé\n' +
+        'Me subes al techo\n' +
+        'Cuando lo hacemos es algo sobrenatural, bebé\n' +
+        'Yo te busco hasta donde tú no еstás\n' +
+        'Ya no voy a la disco si no vas\n' +
+        'Yo no sé qué es la droga que me das\n' +
+        'Quе no puedo parar de pensar-te\n' +
+
+        'Cuando toco otra piel me quito rápido como si diera calambre, yeh, yeh\n' +
+        'Y tú estás igual de rica que antes pero ahora te tengo más hambre, yeh\n' +
+        'Ma, los platos prohibidos saben mejor\n' +
+        'Y cuando lo has perdido le das valor\n' +
+        'Y es un tópico, pero mágico\n' +
+        'Como tú y yo haciéndolo en el probador (Mmm)\n' +
+        'Quiero pasarte a buscar, vamos a tomar un helado\n' +
+        'Sabes que si vienes, el tanga acaba pa un lado\n' +
+        'Baby, tú me tienes herido de gravedad\n' +
+        'Juro que ese culo desafía la gravedad\n' +
+        'Yo quiero hacerte cosas que nadie te ha hecho\n' +
+        'Pa ellos es raro pero pa ti es normal, bebé\n' +
+        'Me subes al techo\n' +
+        'Cuando lo hacemos es algo sobrenatural, bebé\n' +
+        'Yo te busco hasta donde tú no estás\n' +
+        'Ya no voy a la disco si no vas\n' +
+        'Yo no sé qué es la droga que me das\n' +
+        'Que no puedo parar de pensar\n' +
+
+        'Pa que yo te olvide, dame una razón\n' +
+        'Yo estoy envuelto como un papel de un blunt\n' +
+        'Yo te descubrí como a Karim en Lyon\n' +
+        'Ese culo es de primera división\n' +
+        'Yo te hice todo lo que no supo hacer él\n' +
+        'Tengo unas retro que combinan con tu piel\n' +
+        'Fundidos como el oro de la Casa de Papel\n' +
+        'En la cama del hotel\n' +
+        'Tú brillas más que todas las cubanas de Anuel\n' +
+        'Pusimos una peli y no llegamos al título\n' +
+        'Y hasta los créditos no paramos de chingar\n' +
+        'Cuando me veo con otra me siento ridículo\n' +
+
+        'Yo quiero hacerte cosas que nadie te ha hecho\n' +
+        'Pa ellos es raro pero pa ti es normal, bebé\n' +
+        'Me subes al techo\n' +
+        'Cuando lo hacemos es algo sobrenatural, bebé\n' +
+        'Yo te busco hasta donde tú no estás\n' +
+        'Ya no voy a la disco si no vas\n' +
+        'Yo no sé qué es la droga que me das\n' +
+        'Que no puedo parar de pensar',
+        photo_video: 'songs_images/sobrenatural.jpg',
+        url_mp3: 'songs/Raul Clyde, C Marí - Sobrenatural (Visual) [antq9VmyNUo].mp3',
+        type: "sencillo",
+        genre: 'Reggaeton'
+      },
+      {
+        name: 'DIESEL',
+        duration: 176,
+        lyrics:
+        'To el día entrenando y ese culo siempre está creciendo (Sí)\n' +
+        'Yo ya sé la rutina que estás haciendo\n' +
+        'Yo sé cómo lo define, ya no le caben los jeanes\n' +
+        'Tú en el gym y yo esperando que termine\n' +
+
+        'Pa que empiece\n' +
+        'Se quitó del novio y yo le quité los Diesel\n' +
+        'Ese toto está esperando, ma, que yo lo bese, y lo bеso\n' +
+        'Mía desde que еstaba en la ESO, y eso\n' +
+        'Esperando que termine pa que empiece\n' +
+        'Se quitó del novio y yo le quité los Diesel\n' +
+        'Ese toto está esperando, ma, que yo lo bese, y lo beso\n' +
+
+        'Nunca para de crecer\n' +
+        'Ya es tarde, va a anochecer\n' +
+        'Pero ahí dentro siempre de día\n' +
+        'No es Marte de Galería\n' +
+        'Pero si quiere nos perreamo en la disco\n' +
+        'Te quito el gistro, deja a tos en visto\n' +
+        'Pero a mí me habló pa que se lo metiera\n' +
+        'No, no está con cualquiera\n' +
+        'Le gustan los de la nueva\n' +
+        'Sí, los de la nueva era\n' +
+        'Por eso quiere con el Saiko y con el Clyde\n' +
+        'Te seguí, me diste un like\n' +
+        'Vi tu story en el espejo del gimnasio escuchando Jowell y Randy\n' +
+        'Eso está dulce como candy\n' +
+        'La "b" no es por la de Cardi\n' +
+        'Y ese panty no era de Versace, no sé si me cachi\n' +
+
+        'Pa que empiece\n' +
+        'Se quitó del novio y yo le quité los Diesel\n' +
+        'Ese toto está esperando, ma, que yo lo bese, y lo beso\n' +
+        'Mía desde que estaba en la ESO, y eso\n' +
+        'Esperando que termine pa que empiece\n' +
+        'Se quitó del novio y yo le quité los Diesel\n' +
+        'Ese toto está esperando, ma, que yo lo bese, y lo beso\n' +
+        'Mía desde que estaba en la ESO, y eso\n' +
+
+        'Pa que empiece\n' +
+        'Se quitó del novio y yo le quité los Diesel\n' +
+        'Ese toto está esperando, ma, que yo lo bese, y lo beso\n' +
+        'Mía desde que estaba en la ESO, y eso\n' +
+        'Esperando a que termine\n' +
+        'Eh-eh-eh-eh-eh',
+        photo_video: 'songs_images/diesel.jpeg',
+        url_mp3: 'songs/Raul Clyde - DIESEL (Video) [xrlsxHMDMP0].mp3',
+        type: "sencillo",
+        genre: 'Reggaeton'
+      },
+      {
+        name: 'Tuenti Remix',
+        duration: 184,
+        lyrics:
+        '(Yo sé que tú nunca fuiste mía, pero vuelve, eh, eh, eh)\n' +
+        '(Tú eres un problema de los que no se resuelven)\n' +
+        'Tú encima mía y la luna encima tuya (Encima tuya)\n' +
+        'Tus amigas siempre van a hablar mal, no deje que influya\n' +
+        'Lo que digan de mí\n' +
+        'Porque a vece tú te enfada y no deja que fluya\n' +
+        'Y te encierra en ti\n' +
+        'Si tú escucha lo que dicen eso es solo culpa tuya\n' +
+        '(Eso еs solo culpa tuya)\n' +
+
+        'Yo sé que tú nunca fuiste mía pero vuеlve, eh\n' +
+        'Aunque hablen de mí\n' +
+        'Tú eres un problema de los que no se resuelven, eh\n' +
+        'Yo te resolví\n' +
+        'Yo dándote todo pero no me lo devuelves\n' +
+        'Si te hablan mierda de mí es pa que me recuerdes\n' +
+        'Si no te hablo e que no quiero que pares\n' +
+        'Si me ves en el suelo no me dispares, oh\n' +
+
+        'Yo sé que tú nunca fuiste mía pero casi, tú tan frágil\n' +
+        'Y yo yendo a verte a casa e tu mai en taxi\n' +
+        'Tú ere un recuerdo rico como el Dalsy\n' +
+        'Si me dejas solo, me da miedo como en TranZit\n' +
+        'Tu novio e un cipollo, no entiende de rollo\n' +
+        'Va de tiguerón, pero ni a gato llega\n' +
+        'Tú ere demasiao linda pa estar con cualquiera\n' +
+        'Las demá te miran mal, pero eso e normal\n' +
+
+        'Porque ella tiene como veinti, bolso de Valenti\n' +
+        'Ella fuma hierba desde que tenía Tuenti\n' +
+        'Se hizo el Twitter solo pa promocionar el Only\n' +
+        'Siempre que le pongo reggaetón se pone horny, yeh\n' +
+
+        'Yo sé que tú nunca fuiste mía pero vuelve, eh\n' +
+        'Aunque hablen de mí\n' +
+        'Tú ere un problema de los que no se resuelven, eh\n' +
+        'Yo te resolví\n' +
+        'Yo dándote todo pero no me lo devuelve\n' +
+        'Si te hablan mierda de mí, es pa que me recuerde\n' +
+        'Si no te hablo e que no quiero que pare\n' +
+        'Si me ve en el suelo no me dispare\n' +
+
+        'Ella se fue con el verano y el sol\n' +
+        'Dejó la uni, ahora trabaja en el mall\n' +
+        'Hablaban de nosotro como TINI y De Paul\n' +
+        'Pero pichábamo como en el béisbol\n' +
+        'Y la saqué del estadio, flow "Kemba" de Eladio\n' +
+        'Te he buscado en la calle, te he buscao en otro labio\n' +
+        'Con él un semanal, conmigo era uno diario\n' +
+        'Siempre salían con algo y siempre algún comentario, ey\n' +
+
+        'Tiene como veinti, bolso de Valenti\n' +
+        'Ella fuma hierba desde que tenía Tuenti\n' +
+        'Se hizo el Twitter solo pa promocionar el Only\n' +
+        'Siempre que le pongo reggaetón se pone horny\n' +
+
+        'Yo sé que tú nunca fuiste mía pero vuelve, eh\n' +
+        'Aunque hablen de mí\n' +
+        'Tú eres un problema de los que no se resuelven, eh\n' +
+        'Yo te resolví\n' +
+        'Yo dándote todo pero no me lo devuelves\n' +
+        'Si te hablan mierda de mí es pa que me recuerdes\n' +
+        'Si no te hablo e que no quiero que pares\n' +
+        'Si me ves en el suelo no me dispares\n' +
+        '(Yeh-eh-eh-eh-eh)\n' +
+
+        'El Clyde con el Saiko\n' +
+        '(Dímelo, Suave, ey, ey)\n' +
+        '(Dímelo, Sunday)',
+        photo_video: 'songs_images/tuentiremix.jpg',
+        url_mp3: 'songs/Raul Clyde, Saiko - Tuenti Remix (Video) [yxZq841nc6U].mp3',
+        type: "sencillo",
+        genre: 'Reggaeton'
+      },
+      {
+        name: 'amor de pobreE',
+        duration: 226,
+        lyrics:
+        'Esta noche vamo a rumbear\n' +
+        'Y aunque no tenga pa gastar\n' +
+        'No me importa lo material\n' +
+        'Yo quiero estar contigo\n' +
+
+        'Yo quiero estar contigo, yo quiero estar contigo\n' +
+        'Aunque no te pueda invitar, yo quiero estar contigo\n' +
+        'Aunque no tenga pa gastar, yo quiero estar contigo\n' +
+        'No sé pa ti, pero pa mí no es malo\n' +
+        'Aunque no tenga pa comprarte regalo\n' +
+        'Si pudiera te compraba el anillo más caro\n' +
+        'Y un bolso Prada, sé que pa ellos es raro, oh-oh-oh-oh\n' +
+        'Pero pa ti es normal (Pa ti es normal)\n' +
+        'A mí me gustas tú, eh, no lo material\n' +
+        'Pero si un día me pego, sabe que lo voy a gastar\n' +
+        'En ti todo, y aunque todo cambie\n' +
+        'Contigo nunca voy a cambiar\n' +
+
+        '(Esta noche vamo a rumbear)\n' +
+        'Yo quiero estar contigo\n' +
+        '(Y aunque no tenga pa gastar)\n' +
+        'Yo quiero estar contigo\n' +
+        '(No me importa lo material)\n' +
+        'Yo quiero estar contigo\n' +
+        'Yo quiero estar contigo (-bear), yo quiero estar contigo\n' +
+        'Yo quiero estar contigo\n' +
+        'Aunque no te pueda invitar, yo quiero estar contigo\n' +
+        'Aunque no tenga pa gastar, yo quiero estar contigo\n' +
+        'Yo quiero estar contigo, yo quiero estar contigo\n' +
+
+        'O logras ser feliz con poco y liviano de equipaje\n' +
+        'Porque la felicidad está dentro tuyo\n' +
+        'O no logras nada (Yeah)\n' +
+
+        'Yo quiero estar contigo, solo con usted\n' +
+        'Si tú está, no me hace falta nadie\n' +
+        'Lo nuestro es amor, amor de pobre, yeah\n' +
+        'Pa que nos lo pasemo bien no hace falta dinero\n' +
+        'Solo tú y yo, yo soy tuyo\n' +
+        'Tú me llevas al cielo, eh\n' +
+        'Peleamos y volvemos porque\n' +
+
+        'Estamo destinado a estar junto\n' +
+        'Qué bien que te queda ese conjunto\n' +
+        'Encima e tu piel yo a vece me pregunto, eh\n' +
+        'Si esto será pa siempre\n' +
+        'Yo quiero que sepa que si un día esto se acaba\n' +
+        'Y te va, yo siempre voy a estar\n' +
+        'Aún nos queda fuego, pero si un día se apaga\n' +
+        'Te juro que no voy a olvidar que\n' +
+
+        'Yo quiero estar contigo, aunque no te pueda invitar\n' +
+        'Yo quiero estar contigo, aunque no tenga pa gastar\n' +
+        'Yo quiero estar contigo, aunque no te pueda costear\n' +
+        'Yo quiero estar contigo, yo quiero estar contigo\n' +
+        'Yo quiero estar contigo\n' +
+        'Aunque no te pueda invitar, yo quiero estar contigo\n' +
+        'Aunque no tenga pa gastar, yo quiero estar contigo\n' +
+        'No sé pa ti, pero pa mí no es malo, oh-oh-oh-oh-oh\n' +
+        'Oh-oh-oh-oh-oh-oh-oh-oh-oh-oh-oh-oh-oh-oh',
+        photo_video: 'songs_images/amorpobre.png',
+        url_mp3: 'songs/Raul Clyde - amor de pobreE (Visualizer) [WU6rUAYxgUc].mp3',
+        type: "sencillo",
+        genre: 'Reggaeton'
+      },
+      {
+        name: 'Costablanca',
+        duration: 154,
+        lyrics:
+        'Eh-eh-eh-eh\n' +
+        'Eh-eh-eh-eh\n' +
+        'Eh-eh-eh-eh\n' +
+        'Yo a ti siempre te quiero ve-e-er\n' +
+        'Si tienes ganas de verme, dilo\n' +
+        'Ayer nos vimos también pero se\n' +
+        'Nos quedaron ganas por el camino\n' +
+        'Si quieres vamos a buscarlas\n' +
+        'O si quieres dejamos que ellas vengan solas\n' +
+        'Tú te me disparas como pistola (Hola)\n' +
+        'Dime por qué me ignora\n' +
+
+        'Tú a mí me gustas con to, con to lo que te pone\n' +
+        'Vestio con tenis o chándal con unos tacones\n' +
+        'Antes de que tú me abandones\n' +
+        'Probamos de to, toas las posiciones\n' +
+        'Me gustaron toas, bebé\n' +
+        'Yo sé que te fallé\n' +
+        'Pero quizás puedas perdonarme\n' +
+        'Quizás puedas olvidarte e todo\n' +
+
+        'Hasta que se acabe el verano\n' +
+        'Hasta que se apaguen los rayos de sol\n' +
+        'No te vayas, bebé, quédate, por favor\n' +
+        'Y volvemos donde lo dejamo\n' +
+        'Tú y yo, a ese verano, bebé\n' +
+        'Tú te fuiste pero nunca más te olvidas\n' +
+        'Aún tengo arena dentro de las 11\n' +
+        'Que llevaba el día de cuando, eh\n' +
+
+        'De cuando te lo metí\n' +
+        'Tú no eres Kim ni yo soy Kanye\n' +
+        'Ahora todo el mundo me habla de ti\n' +
+        'Y aunque te vista toa del Shein, y\n' +
+        'Ellas de Gucci, tú eres más cara\n' +
+        'Tú vales más, eh\n' +
+        'Más mala que las demás\n' +
+        'Quédate mi mano de Fátima\n' +
+        'Pero dame mi alma\n' +
+
+        'Bebé, no te olvides cuando te toqué\n' +
+        'Cuando la gorra me la quité\n' +
+        'En Costa Blanca yo y usted\n' +
+        'Bebé, no te olvides cuando te toqué\n' +
+        'Cuando la gorra me la quité\n' +
+        'En Costa Blanca yo y usted\n' +
+
+        'Hasta que se acabe el verano\n' +
+        'Hasta que se apaguen los rayos de sol\n' +
+        'No te vayas, bebé, quédate, por favor\n' +
+        'Y volvemos donde lo dejamo\n' +
+        'Tú y yo, a ese verano, bebé\n' +
+        'Tú te fuiste pero nunca más te olvidas\n' +
+        'Aún tengo arena dentro de las 11\n' +
+        'Que llevaba el día de cuando, eh\n' +
+
+        'Hasta que se acabe el verano\n' +
+        'Hasta que se apaguen los rayos de sol\n' +
+        'No te vayas, bebé, quédate, por favor\n' +
+        'Y volvemos donde lo dejamo',
+        photo_video: 'songs_images/costablanca.jpeg',
+        url_mp3: 'songs/Raul Clyde - COSTABLANCA (Video) Prod.Came Beats [UKT9Uctd3Qs].mp3',
+        type: "sencillo",
+        genre: 'Reggaeton'
+      },
+      {
+        name: 'FERXXO 30',
+        duration: 173,
+        lyrics:
+        'Sigo esperándote\n' +
+        'Así me trabe, estoy pensándote\n' +
+        'Marica, no sé a quién estoy mintiéndole\n' +
+        'Que tú no estés está afectándome\n' +
+        'Estas— (Eh, eh) se pasan tirándome, yeah\n' +
+        'Y yo pichándoles\n' +
+        'Los pana me dicen que yo ya no estoy bien\n' +
+        'Tu recuerdo sigue persiguiéndome\n' +
+
+        'Todas las noches que voy a la disco a perrear\n' +
+        'Yo te pienso y ni sé, mami, tú dónde estás\n' +
+        'Borracho te texteé, no vas a contestar\n' +
+        'No me olvido de ti ni de tu forma e chingar\n' +
+
+        'Tengo chavo, baby, pero no te tengo\n' +
+        'Siempre te pienso cuando lo prendo\n' +
+        'Me paso en alta, me paso jodiendo\n' +
+        'Por dentro llorando y por fuera riendo (Oh)\n' +
+        'Como una sombra llevo tiempo, ma, detrá de ti\n' +
+        'Navegando, pero sin tus labio carmesí\n' +
+        'Tratando de encontrarte, baby, me perdí\n' +
+        'Baby, tus amiga a mí me tienen bien ofendío\n' +
+        'Te tienen el cora podrío\n' +
+        'Tirándome a mí que pa un trío\n' +
+        'Siempre te pienso, baby, siempre te escribo\n' +
+        'Con la esperanza de que no te han partido, baby\n' +
+        'Una vez, déjame verte una vez\n' +
+        'Contigo quiero perrear, contigo quiero beber, yeah\n' +
+
+        'Diablo, bebé, si te encuentro se me va a notar porque no soy buen actor\n' +
+        'Contigo es mejor hacer el amor\n' +
+        'Me vale puta mierda, bebé\n' +
+
+        'Yo sigo esperándote\n' +
+        'Así me trabe, estoy pensándote\n' +
+        'Marica, no sé a quién estoy mintiéndole\n' +
+        'Que tú no estés está afectándome\n' +
+        'Estas— (Eh, eh) se pasan tirándome (Yeah)\n' +
+        'Y yo pichándoles\n' +
+        'Los pana me dicen que yo ya no estoy bien\n' +
+        'Tu recuerdo sigue persiguiéndome\n' +
+
+        'Todas las noches que voy a la disco a perrear\n' +
+        'Yo te pienso y ni sé, mami, tú dónde estás\n' +
+        'Borracho te texteé, no vas a contestar\n' +
+        'No me olvido de ti ni de tu forma e chingar',
+        photo_video: 'songs_images/mornoletemas.jpeg',
+        url_mp3: 'songs/FERXXO 30 [3L8ZzwqJHFw].mp3',
+        type: "album",
+        genre: 'Reggaeton'
+      },
+      {
+        name: 'VOL 2',
+        duration: 70,
+        lyrics:
+        'Desde el cuarto se ve Hollywood, esto es una movie\n' +
+        'To el combo con el cuello frío, pero con hoodie\n' +
+        'Estos cabrone nos ven y se hacen el dubi\n' +
+        'Estoy firmando los cuadernos y firmando par de boobies, yeah\n' +
+        'Del avión pal show, un jacket bien cabrón, me veo como la cone\n' +
+        'Desde la ciudad del sol, me echó la bendición, se dio como lo soñé\n' +
+        'Yo siempre he querido cantar, yo nunca he querido ser malеante\n' +
+        'No somos de frontear, pеro la música nos tiene viviendo como gángster\n' +
+        'Despertamos en una mansión con el mismo corillo de antes\n' +
+        'Apretamo y sintieron la presión',
+        photo_video: 'songs_images/mornoletemas.jpeg',
+        url_mp3: 'songs/VOL 2 [oVyM--F-9Fg].mp3',
+        type: "album",
+        genre: 'Reggaeton'
+      },
+      {
+        name: 'VENTE CONMIGO',
+        duration: 185,
+        lyrics:
+        'Muchos perros hoy detrás de ti\n' +
+        'Pero a ninguno le hiciste así\n' +
+        '¿Qué toma la baby, pa servir?\n' +
+        'Aquí tengo por si quieres derretir\n' +
+
+        'Tú tiene brillo\n' +
+        'Ponte mi jacket por si hoy te da frío\n' +
+        'Esta noche quédate conmigo, yeah, yeah\n' +
+        'Se toca toa cuando yo la miro, eh, uy\n' +
+        'Vente, vente, vente conmigo, yeah, yeah\n' +
+        'No es casualidad, fue el destino\n' +
+        'Pa chingar tengo preservativo\n' +
+        'No va a haber testigos si te viene conmigo, eh, ey, uy, ey\n' +
+
+        'Tú no te queda quieta, te voy a dar segueta\n' +
+        'El ritmo suena wavy, tú te toca las teta\n' +
+        'Pa besar esos labio me pongo la careta\n' +
+        'Ella se da un shot y sola se pone coqueta\n' +
+        'Bien pegao, bien pegao, se me parcha al lao\n' +
+        'Se mueve sola y yo le digo "wow", yeah\n' +
+        'Bien pegao, bien pegao, tamo bien pegao\n' +
+        'Bien llenito ese DM y ninguno te ha dao\n' +
+
+        'Muchos perros hoy detrás de ti\n' +
+        'Pero a ninguno le hiciste así\n' +
+        '¿Qué toma la baby, pa servir?\n' +
+        'Aquí tengo por si quieres derretir\n' +
+
+        'Vente conmigo, yeah, yeah\n' +
+        'No es casualidad, fue el destino\n' +
+        'Pa chingar tengo preservativo\n' +
+        'No va a haber testigos si te viene conmigo, uy\n' +
+        'Vente, vente, vente conmigo, yeah, yeah\n' +
+        'No es casualidad, fue el destino\n' +
+        'Pa chingar tengo preservativo\n' +
+        'No va a haber testigos si te viene conmigo, eh, ey, uy, ey\n' +
+
+        'Vente conmigo\n' +
+        'Fue el destino\n' +
+        'Tú te toca las teta\n' +
+        'Ella se da un shot y sola se pone coqueta\n' +
+        'Ey',
+        photo_video: 'songs_images/mornoletemas.jpeg',
+        url_mp3: 'songs/VENTE CONMIGO [a22iQfcvm5Q].mp3',
+        type: "album",
+        genre: 'Reggaeton'
+      },
+      {
+        name: 'Niña Bonita',
+        duration: 187,
+        lyrics:
+        'Alguien como yo no iba a enamorarse, yeah\n' +
+        'Yo que ni miro al celu hago si no tirarte, yeah\n' +
+
+        'Niña bonita\n' +
+        '¿Qué va a hacer? Nos vemo ahorita\n' +
+        'Llegaste rota y yo te cuidé\n' +
+        'Hago de todo por esa nalguita\n' +
+
+        'Baby girl, si yo te quiero y tú me quieres, por ti daría la vida\n' +
+        'Toma mi mano solo una noche, ya no te sientas solita\n' +
+        'Baby girl, si yo te quiero, por ti daría la vida\n' +
+        'Toma mi mano solo una noche, ya no te sientas solita\n' +
+
+        'Yo te he caído varias veces, pero tú no estás\n' +
+        'Yo sé que tienes dos amigas pa Sean Paul y Sky\n' +
+        'Lo que siento por ti me sube por las vértеbras\n' +
+        'Me pone calientе, ma, ese huevo quiere sal, yeah\n' +
+        'Dios te dio muchos done\n' +
+        'Y con ese cuerpecito tú me das bendicione\n' +
+        'Te traigo un bikini, una hookah y unos blunte\n' +
+        'Pa irnos pa Cartagena pa escuchar mis cancione\n' +
+        'Pa ver si nos coge el atardecer de las cuatro\n' +
+        'Unos chorritos en la playa y te pongo en cuatro\n' +
+        'Nos damo unas cervecitas pal guayabo\n' +
+        'Y nos vamo pa la piscinita en Guaynabo, oh-oh-oh\n' +
+
+        'Si yo te quiero y tú me quieres, por ti daría la vida\n' +
+        'Toma mi mano solo una noche, ya no te sientas solita\n' +
+        'Baby girl, si yo te quiero, por ti daría la vida\n' +
+        'Toma mi mano solo una noche, ya no te sientas solita\n' +
+
+        'The first time I saw your face\n' +
+        'Deep inna mi heart, girl, yuh take a big place, and\n' +
+        'The way how yuh wine your waist\n' +
+        'Mesmerizing, you mi waan chase, girl\n' +
+        'You take over my headspace\n' +
+        'Longest nights and the longest days, girl\n' +
+        'I wanna know wah di pree\n' +
+        'I wanna know what you feel about me, baby\n' +
+        'I wanna know, wanna see\n' +
+        'Sexy body bou yah, bring it on me, baby\n' +
+        'I wanna make you believe\n' +
+        'Love you more than how mi love burnin trees\n' +
+        'And I wanna make memories\n' +
+        'With you, baby girl, mi seh please dont tease\n' +
+        'I get up inna your blood capillaries\n' +
+        'And make families, thats the way I see it, girl\n' +
+
+        'Si yo te quiero y tú me quieres, por ti daría la vida\n' +
+        'Toma mi mano solo una noche, ya no te sientas solita\n' +
+        'Baby girl, si yo te quiero, por ti daría la vida\n' +
+        'Toma mi mano solo una noche, ya no te sientas solita',
+        photo_video: 'songs_images/mornoletemas.jpeg',
+        url_mp3: 'songs/Niña Bonita [wu79FvlX1rA].mp3',
+        type: "album",
+        genre: 'Reggaeton'
+      },
+      {
+        name: 'GANGSTERS Y PISTOLAS',
+        duration: 170,
+        lyrics:
+        '¿Sí, eso es lo que le preocupa a Ferney, mi niño rico?\n' +
+        'Es que esa no es tu gente, pelada, entienda\n' +
+        'No es tu gente\n' +
+        '¿No? ¿Entonces cuál es mi gente, parce?\n' +
+        'Wuh, jajaja, yo supe que ibas a volver\n' +
+
+        'Desde niña ella creció viendo gángsters y pistolas\n' +
+        'Pero optó por el perreo y cuando perrea prefiere hacerlo sola, yеah\n' +
+        'Ella del case salió, pero nadiе le saca lo del case\n' +
+        'Está peleada con el amor y yo quiero que hoy hagan las paces\n' +
+
+        'Bebé, suéltate, que mucho ya esperé\n' +
+        'Estaba preguntando por ti hace un mes\n' +
+        '¿Cómo estás? ¿Qué hay de ti? ¿Nos volvemos a ver?\n' +
+        'Esta noche va a pasar to lo que pasó esa vez\n' +
+        'Bebé, suéltate, puede que mañana no esté\n' +
+        'Es-Es-Estaba preguntando por ti hace un mes (Jajaja)\n' +
+
+        'De nuevo tamo de frente (Jajaja)\n' +
+        'Mami, la vibra no miente\n' +
+        'Mi bandidita no se deja, tiene la sangre caliente\n' +
+        'Bríndame tus beso eternamente (Mami)\n' +
+        'Que yo toy puesto pa ti hasta que me llegue la muerte\n' +
+        'La nena salió e caserío también, conoce la jodedera\n' +
+        'Y se la sabe muy bien\n' +
+        'Más dura que tú no existe\n' +
+        'Y si existe, dime quién\n' +
+        'Le gusta el motoreo, loca con el pistoleo\n' +
+        'La tengo adicta a mis canciones de bellaqueo, oh-oh\n' +
+        'Por siempre serás mi bebé, se me eriza la piel cuando te veo\n' +
+        'Solo tú y yo (Baby) conocemos los secretos de maldad\n' +
+        'Solo tú y yo siempre sabremos la verdad\n' +
+        'Que no se muera nunca este amor\n' +
+        'A tiempo completo estoy para darte calor (Dime, FERXXO)\n' +
+        'Suéltate, que mucho ya esperé\n' +
+        'Estaba preguntando por ti hace un mes\n' +
+        '¿Cómo estás? ¿Qué hay de ti? ¿Nos volvemos a ver?\n' +
+        'Esta noche va a pasar to lo que pasó esa vez\n' +
+        'Bebé, suéltate, puede que mañana no esté\n' +
+        'Estaba preguntando por ti hace un mes\n' +
+
+        'Real G4 Life, baby\n' +
+        'Bum, baby\n' +
+        'FERXXO\n' +
+        'Con el Ñengoso\n' +
+        '(Yeah)',
+        photo_video: 'songs_images/mornoletemas.jpeg',
+        url_mp3: 'songs/GANGSTERS Y PISTOLAS [Q2hQwOMyyJ0].mp3',
+        type: "album",
+        genre: 'Reggaeton'
+      },
+      {
+        name: 'FERXXO 151',
+        duration: 195,
+        lyrics:
+        'Uh, uh, uh, uh, uh-uh-uh\n' +
+        'Uh, uh, uh, uh, uh-uh-uh\n' +
+
+        'Quemando un crespo\n' +
+        'Quemando el sol, mirándote, qué chimba esto\n' +
+        'Poniéndote el oil tan por todo el cuerpo\n' +
+        'Hace calor, pero no quiero que se me acabe esto, eh\n' +
+        'Tú de otra city\n' +
+        'Ese totico rosado flow Hello Kitty\n' +
+        'Chingar me quitó el guayabo de esa fiesta anoche en Santorini\n' +
+        'Se broncea a topless\n' +
+        'Solo quiere que se le marque la tanga del bikini, yeah\n' +
+
+        'Volvamos a hacerlo aunque no hayamos dormido\n' +
+        'Mе porto bien, pero bien malo contigo\n' +
+        'Tú mе dices lo rico que la estás pasando y me motivo\n' +
+
+        '¿Mañana pa dónde quieres ir?\n' +
+        'En el Goyard tengo el efectivo\n' +
+        'Pa gastármelo todo en ti\n' +
+        'Amanece otra vez conmigo\n' +
+        '¿Mañana pa dónde quieres ir?\n' +
+        'En el Goyard tengo el efectivo\n' +
+        'Pa gastármelo todo en ti\n' +
+        'Y que queden mordíos esos malparidos\n' +
+
+        'Ellas son flop y tú ere un bop\n' +
+        'Te quiero dar como te da el sol\n' +
+        'Te quité los hoops porque te estorban cuando te doy en four\n' +
+        'El bikini aguamarina\n' +
+        'Culonsita, ella es latina\n' +
+        'Supreme en el 2010 le hacen fila, yeah, yeah\n' +
+        'De tequilita un shot\n' +
+        'De los noventa como las Shock\n' +
+        'El mal la persigue como a Randy Glock\n' +
+        'Abrió la Goyard y se quedó en shock\n' +
+
+        'Bebé, yeah\n' +
+        'Tú me dices lo rico que la estás pasando y me motivo\n' +
+
+        '¿Mañana pa dónde quieres ir?\n' +
+        'En el Goyard tengo el efectivo\n' +
+        'Pa gastármelo todo en ti\n' +
+        'Amanece otra vez conmigo\n' +
+        '¿Mañana pa dónde quieres ir?\n' +
+        'En el Goyard tengo el efectivo\n' +
+        'Pa gastármelo todo en ti\n' +
+        'Y que queden mordíos esos malparidos\n' +
+        'Hoy vamos a hacerlo aunque no hayamos dormido',
+        photo_video: 'songs_images/mornoletemas.jpeg',
+        url_mp3: 'songs/FERXXO 151 [hSxXA6qYJTE].mp3',
+        type: "album",
+        genre: 'Reggaeton'
+      },
+      {
+        name: 'BUBALU',
+        duration: 228,
+        lyrics:
+        'Ya no quiero estar sin ti\n' +
+        'Farrear no es lo mismo si no estás aquí\n' +
+        'No me di cuenta y te perdí\n' +
+        'Tú te estaba alejando y yo nunca lo vi\n' +
+
+        'Dulcecita flow Trululu, cremita de coconut\n' +
+        'Un masajito pa que después me suelte ese Bubbaloo\n' +
+        'La cama hace "tu-tu-tu", pa mí que me hizo vudú (Yeah)\n' +
+        'De toa las mujere que hay en el mundo, la más chimba eres tú\n' +
+
+        'Me hace falta tú, tú, tú, tú, tú (Yeah-yeah)\n' +
+        'A tu foto le hago zoom, zoom, zoom, zoom, zoom (Yeah)\n' +
+        'Qué rico ese Bubbaloo, -loo, -loo, -loo, -loo\n' +
+        'El coro dice "ru, ru, ru, ru, ru"\n' +
+
+        'Dulcecita flow Trululu (Uh-uh), cremita de coconut (Ah-ah)\n' +
+        'Un masajito pa que después me suelte ese Bubbaloo (Ah-ah)\n' +
+        'La cama hace "tu-tu-tu", pa mí que me hizo vudú (Ah-ah)\n' +
+        'De toa las mujere que hay en el mundo, la más chimba eres tú (Yeah)\n' +
+
+        'Ese culito en el jetski en Montego Bay\n' +
+        'De champán toda la mojé\n' +
+        'Se quitó el kini y se le ve to por el agua cristalina\n' +
+        'Y yo con par de tragos encima\n' +
+        'Tocándote underwater, en la otra mano un caipirinha\n' +
+        'Pidió vape pa volar, le roté\n' +
+        'Y enseguida se prendió y qué rico pasé\n' +
+        'Cuando te vi en Benidorm en el mar, se enganchó las Oakley\n' +
+        'Nos parchamo en el hotel, la probé y es\n' +
+
+        'Dulcecita flow Trululu, cremita de coconut\n' +
+        'Un masajito pa que después me suelte ese Bubbaloo\n' +
+        'La cama hace "tu-tu-tu", pa mí que me hizo vudú (-bbaloo, -bba)\n' +
+        'De toa las mujere que hay en el mundo, la más chimba eres tú (Ooh)\n' +
+
+        'Omoge na one of one (Uh-uh)\n' +
+        'Wetin you put for your back (Omo)\n' +
+        'Any girl like you Omoge (No one)\n' +
+        'When you no dey by my side\n' +
+        'I dey miss you die baby, oh\n' +
+        'Na your matter I dey carry for my head alone\n' +
+        'I dey miss you, my baby, Oromao\n' +
+        'Theres something about her, ah\n' +
+        'Baby girl, you confirm\n' +
+        'If e no be her then me no want am\n' +
+        'Me thank Jah for the day wey me and her jam\n' +
+        'Theres something about that day wey we start all the kissing (Yeah)\n' +
+        'Sexing (Yeah-yeah), cuddling (Yeah)\n' +
+        'Recording this got me yearning\n' +
+        'If you got another man Ill be celosa\n' +
+        'Me just want you make you come Ku Lo Sa\n' +
+
+        'Dulcecita flow Trululu, cremita de coconut\n' +
+        'Un masajito pa que después me suelte ese Bubbaloo (-bbaloo, -bba)\n' +
+        'La cama hace "tu-tu-tu" (Uh-uh), pa mí que me hizo vudú (Ah-ah)\n' +
+        'De toa las mujere que hay en el mundo, la más chimba eres tú\n' +
+
+        'Me hace falta tú, tú, tú, tú, tú (Yeah-yeah)\n' +
+        'A tu foto le hago zoom, zoom, zoom, zoom, zoom (Yeah)\n' +
+        'Qué rico ese Bubbaloo, -loo, -loo, -loo, -loo\n' +
+        'Contigo el cielo era azul, -zul, -zul, -zul\n' +
+
+        'Dulcecita flow Trululu, cremita de coconut\n' +
+        'Un masajito pa que después me suelte ese Bubbaloo',
+        photo_video: 'songs_images/mornoletemas.jpeg',
+        url_mp3: 'songs/BUBALU [eB5LpNp_WHY].mp3',
+        type: "album",
+        genre: 'Reggaeton'
+      },
+      {
+        name: 'RITMO DE MEDALLO',
+        duration: 118,
+        lyrics:
+        'Tú me dice el Hennessy que te gusta\n' +
+        'Si te gusta el champán o la hookah\n' +
+        'Por la forma en que perrea, tú las educa\n' +
+        'Se llena de gasolina en la Duca, vrrum, yeah\n' +
+
+        'Fiesta ella quiere\n' +
+        'Maleante, prender la verde\n' +
+        'Tiene plata, tiene billete\n' +
+        'Los partie ella no se pierde\n' +
+        'Fiesta ella quiere\n' +
+        'Maleante, prender la verde\n' +
+        'Tiene plata, tiene billete\n' +
+        'Los partie ella no se pierde\n' +
+
+        'Si sale de fiesta, no postea\n' +
+        'Se arrodilló y yo que pensé que era atea\n' +
+        'A sus besties ella nunca chotea\n' +
+        'Ey, mor, venga, pues, báileme bien chimba aquí, pues yo veo\n' +
+        '(Pu, pu, pu)\n' +
+
+        'Si tienes amigas, baby, tráelas\n' +
+        'Que bellaqueen y que fumen mientras bailan\n' +
+        'Encendido desde que vi esas nalgas\n' +
+        'Quieren sexo pa que la noche valga (Awoo)\n' +
+        'Yo la conocí en un show\n' +
+        'Después le escribió y me copió\n' +
+        'Esa gata tiene un flow\n' +
+        'La más chimba, la más agogo\n' +
+        'El cuerpo al día, esa baby es atleta\n' +
+        'Tiene lo suyo, apartamento y camioneta\n' +
+        'Fin de semana en una locación secreta\n' +
+        'Y yo le llego wheeleando en la YZ (Brrum)\n' +
+
+        'Fiesta ella quiere\n' +
+        'Maleante, prender la verde\n' +
+        'Tiene plata, tiene billete\n' +
+        'Los partie ella no se pierde\n' +
+        'Fiesta ella quiere\n' +
+        'Maleante, prender la verde\n' +
+        'Tiene plata, tiene billete\n' +
+        'Los partie ella no se pierde',
+        photo_video: 'songs_images/mornoletemas.jpeg',
+        url_mp3: 'songs/RITMO DE MEDALLO [-0cawjO_45c].mp3',
+        type: "album",
+        genre: 'Reggaeton'
+      },
+      {
+        name: 'FERXXO EDITION',
+        duration: 161,
+        lyrics:
+        'Ya sé que tu relación se jodió, sé que estar sola puede ser extraño\n' +
+        'Yo fui el que tanto te insistió, yo te decía que sí, tú decías que no\n' +
+        'Aquí estamos los do, no perdimos na de tiempo\n' +
+        'No sé si es la nota o esas nalgota que me tienen envuelto\n' +
+
+        'Baby, es que la pasamo cabrón\n' +
+        'Con la hookah, el pasto y el ron\n' +
+        'Prométeme que si me extraña, bellaqueamo por nota de voz\n' +
+        'Contigo la paso tan cabrón\n' +
+        'Siemprе estuve atrás de vos\n' +
+        'Qué chimba quе después de tanto la vuelta al fin se nos dio\n' +
+
+        '¿Quién dijo que no? Si esto nadie lo forzó\n' +
+        'Qué chimba que después de tanto la vuelta se nos dio (Yeah)\n' +
+        'Te tiré los código\n' +
+        'Verte en panti para mí era ilógico\n' +
+        'Esa noche en el cuarto yo te lo di to\n' +
+        'Chingamo hasta que llegó el periódico, yeah\n' +
+        'Pa la mierda to esos booty call\n' +
+        'No fumaste, pero le diste a los químico\n' +
+        'Que sobraron de esas vacacione en México\n' +
+        'To los tema de su playlist me las dedicó\n' +
+        'La foto que nos sacamo, baby, después tú me la textea\n' +
+        'Me manda un voice con tu acento pa que me baje esta bellaquera\n' +
+        'El celu, porfa, no lo vaya a prestar, pa que el video no lo vean\n' +
+        'Que esa movie quede entre los dos\n' +
+
+        'Baby, es que la pasamos cabrón\n' +
+        'Con la hookah, el pasto y el ron\n' +
+        'Prométeme que si me extraña bellaqueamo por nota de voz\n' +
+        'Contigo la paso tan cabrón\n' +
+        'Siempre estuve atrás de vos\n' +
+        'Qué chimba que después de tanto la vuelta al fin se nos dio\n' +
+
+        '¿Quién dijo que no? Si esto nadie lo forzó\n' +
+        'Qué chimba que después de tanto la vuelta se nos dio',
+        photo_video: 'songs_images/mornoletemas.jpeg',
+        url_mp3: 'songs/FERXXO EDITION [0_y-oU1Tr9o].mp3',
+        type: "album",
+        genre: 'Reggaeton'
+      },
+      {
+        name: 'NX TX SIENTAS SOLX',
+        duration: 121,
+        lyrics:
+        'Realmente lo que había en tu piel se borró\n' +
+        'Te bajaste, pero en el Mercho se quedó tu olor\n' +
+
+        'Ya no te sientas sola\n' +
+        'Ya no te sientas sola\n' +
+        'En la disco no se llora\n' +
+        'Whats wrong? Bebé, reacciona\n' +
+
+        'No lo tienes que decir, yo lo estoy viendo en ti, se siente\n' +
+        'Estoy perreando contigo, bailando contigo, ¿lo sientes?\n' +
+        'Sígueme bailándome así a mí qué putas que se encabronen\n' +
+        'Ya no estés triste, mamacita, y no llores\n' +
+
+        'No hay condiciones\n' +
+        'Fuck toa esas relaciones, ey\n' +
+        'Tú tiene el outfit, tú te ve cangri\n' +
+        'Tú te ve bitchy, shorty\n' +
+        'Toa estas gatitas son uno clone\n' +
+        'Tú te ves cara sin cadena o Rolex\n' +
+        'Mañana salimo de un bote en Collins\n' +
+        'Quiere fumar, préndale uno bluntes\n' +
+        'Ya no te sientas sola\n' +
+        'Ya no te sientas sola\n' +
+        'En la disco no se llora\n' +
+        'Whats wrong? Bebé, reacciona\n' +
+
+        'No lo tienes que decir, yo lo estoy viendo en ti, se siente\n' +
+        'Estoy perreando contigo, bailando contigo, ¿lo sientes?\n' +
+        'Sígueme bailándome así a mí qué putas que se encabronen\n' +
+        'Ya no estés triste, mamacita, y no llores\n' +
+
+        'No lo tienes que decir, yo lo estoy viendo en ti, se siente\n' +
+        'Estoy perreando contigo, bailando contigo, ¿lo sientes?\n' +
+        'Sígueme bailándome así a mí qué putas que se encabronen\n' +
+        'Ya no estés triste, mamacita, y no llores',
+        photo_video: 'songs_images/mornoletemas.jpeg',
+        url_mp3: 'songs/NX TX SIENTAS SOLX [otClQscZgZI].mp3',
+        type: "album",
+        genre: 'Reggaeton'
+      },
+      {
+        name: 'LUCES DE TECNO',
+        duration: 164,
+        lyrics:
+        'Te encontré entre las luce\n' +
+        'Yo siempre te quise\n' +
+        'Hicimos el amor, me dejaste tragao\n' +
+        'Y luego te fuiste (Y luego te fuiste)\n' +
+
+        'Pa mí que fue la pastilla que esa noche tomé\n' +
+        'Quizá no estaba ahí, tal vez yo te imaginé, yeah\n' +
+        'Llegué al mismo lugar de la disco, a ver si te vuelvo a ver\n' +
+
+        'Si ayer lo hicimo bajo luna llena\n' +
+        'Pero parece que no me conoce\n' +
+        'To mis sеntido, mami, hoy te celan\n' +
+        'Porque cuando еstoy borracho por mi mente recorre\n' +
+        'Toa la noche, toda las loquera\n' +
+        'Cuando te diga que no hay quien las borre\n' +
+        'Y repetirlo, mami, yo quisiera\n' +
+        'Yo sé que tú no va a olvidar mi nombre\n' +
+
+        'El día en que te fuiste\n' +
+        'Fue cuando más me heriste\n' +
+        'Hicimos el amor, me dejaste tragao\n' +
+        'Y luego te fuiste\n' +
+        'Te encontré entre las luce\n' +
+        'Yo siempre te quise\n' +
+        'Estaba en lo más hondo\n' +
+        'Tus ojo verde los veía grise\n' +
+        'Pa mí que fue la pastilla que esa noche tomé\n' +
+        'Quizá no estaba ahí, tal vez yo te imaginé, yeah\n' +
+        'Llegué al mismo lugar de la disco, a ver si te vuelvo a ver\n' +
+
+        'Si ayer lo hicimo bajo luna llena\n' +
+        'Pero parece que no me conoce\n' +
+        'To mis sentido, mami, hoy te celan\n' +
+        'Porque cuando estoy borracho por mi mente recorre\n' +
+        'Toa la noche, toda las loquera\n' +
+        'Cuando te diga que no hay quien las borre\n' +
+        'Y repetirlo, mami, yo quisiera\n' +
+        'Yo sé que tú no va a olvidar mi nombre',
+        photo_video: 'songs_images/mornoletemas.jpeg',
+        url_mp3: 'songs/LUCES DE TECNO [cog5Sa6acWM].mp3',
+        type: "album",
+        genre: 'Reggaeton'
+      },
+      {
+        name: 'EY CHORY',
+        duration: 178,
+        lyrics:
+        'Ey, shorty, yo sé que te sobran las opciones\n' +
+        'Y estás cansada de escuchar a estos huevones\n' +
+        'Te dan regalos, así tú los ignores\n' +
+        'En casa tienes una colección de Rolex\n' +
+        'Ey, shorty, no quiero que te presiones\n' +
+        'Yo sé que no está puesta pa las relaciones (Wow)\n' +
+        'Mami, acabo de enrolar unos bluntes\n' +
+        'Dime si te soya tomarte unos rones\n' +
+
+        'Voy en el Mercho y de una la monto\n' +
+        'A veces se pone traje y a veces corto\n' +
+        'Qué piquete cuando prende el Phillie\n' +
+        'Yo le digo: "Mamacita, me saqué la loto"\n' +
+        'Me fui pa Dior y le saqué una cartera y le puse su nombre pa que to la vieran\n' +
+        'Estoy juqueao porque puedo llevármela pal cielo y también a tomar coctel en el Lleras\n' +
+        'Ese culito en bikini paseando por Santorini\n' +
+        'En el hotel o en la playa, yo se lo pongo sin beanie\n' +
+        'A veces cuando ella toma dice que está mezclando los feelings\n' +
+        'Que le hable bonito y yo le digo "chilling"\n' +
+
+        'Ey, shorty, yo sé que te sobran las opciones (Ey)\n' +
+        'Y estás cansada de escuchar a estos huevones\n' +
+        'Te dan regalos, así tú los ignores\n' +
+        'En casa tienes una colección de Rolex\n' +
+        'Ey, shorty, no quiero que te presiones\n' +
+        'Yo sé que no está puesta pa las relaciones (Wow)\n' +
+        'Mami, acabo de enrolar unos bluntes\n' +
+        'Dime si te soya tomarte unos rones\n' +
+
+        'Métele bellaco, ponme a bailar\n' +
+        'Métele bellaco, ponme a bailar\n' +
+        'Ay, papi, dame\n' +
+        'Perreo, perreo, perreo, perreo, perreo\n' +
+        'Ey, shorty, no quiero que te presiones\n' +
+        'Yo sé que no está puesta pa las relaciones (Wow)\n' +
+        'Mami, acabo de enrolar unos bluntes',
+        photo_video: 'songs_images/mornoletemas.jpeg',
+        url_mp3: 'songs/EY CHORY [sAQsbsUKPDw].mp3',
+        type: "album",
+        genre: 'Reggaeton'
+      },
+      {
+        name: 'VELOCIDAD CRUCERO',
+        duration: 135,
+        lyrics:
+        'Baby, ponte\n' +
+        'Una combi bien chimba en lo que\n' +
+        'Salgo de hacer algo en el bloque\n' +
+        'Quiero pasar contigo esta noche\n' +
+        'Mami, tranquila, no te pongas to, solamente la camisa, yeah\n' +
+        'Quiero ver cómo se ven esas pantalla en mi cojinería\n' +
+
+        'Shorty, ¿qué hay pa hacer, ma?, yeah\n' +
+        '¿Qué hay pa meterle al sistema?\n' +
+        'Yo sé que el día no ha salido bien\n' +
+        'Pero vo a hacer que se te olvide, mi reina\n' +
+        'Te gusta el whiskey\n' +
+        'Llevo hielo y papel pa la hierba\n' +
+        'Yo sé que el día no ha salido bien\n' +
+        'Pero vo a hacer que se te olvide, mi reina\n' +
+
+        'Ya voy subiendo por la loma, deja que te coma\n' +
+        'Tú ve bajando en lo que el nene se asoma\n' +
+        'Tú conoce la amenaza con los rine en croma\n' +
+        'Mi baby se ve fina, nunca se ve putona\n' +
+        'Pero tiene una diabla interior que la saca el alcohol\n' +
+        'Pa chingarla mejor, de Bleecker es su olor\n' +
+        'La baby fuma, pero fuma a lo rasta\n' +
+        'Si no lo arma ella, lo arma una e sus gata\n' +
+
+        'En el matre hoy voy a darte\n' +
+        'Yo te juro que a pesar de to, tú no va a olvidarme\n' +
+
+        'Shorty, ¿qué hay pa hacer, ma?, yeah\n' +
+        '¿Qué hay pa meterle al sistema?\n' +
+        'Yo sé que el día no ha salido bien\n' +
+        'Pero vo a hacer que se te olvide, mi reina\n' +
+        'Te gusta el whiskey\n' +
+        'Llevo hielo y papel pa la hierba\n' +
+        'Yo sé que el día no ha salido bien\n' +
+        'Pero vo a hacer que se te olvide, mi reina',
+        photo_video: 'songs_images/mornoletemas.jpeg',
+        url_mp3: 'songs/VELOCIDAD CRUCERO [ANCtadulUwA].mp3',
+        type: "album",
+        genre: 'Reggaeton'
+      },
+      {
+        name: 'ROMÁNTICOS DE LUNES',
+        duration: 242,
+        lyrics:
+        'Acabo de dejarte en casa, yeah\n' +
+        'Los panas me dicen que me quede en el case\n' +
+        'No hay nada seguro porque pa morir se nace\n' +
+        'Otra noche, otro problema, otro billete\n' +
+        'Pero pendiente a ti, bebé, pase lo que pase\n' +
+        'He sido un hijueputa pero ojalá se me dé contigo\n' +
+        'Baby, no sé si me case\n' +
+
+        'Mami, me tiro flow DY\n' +
+        'De la vuelta quiero retirarme\n' +
+        'Toy cansado de rutear\n' +
+        'Quiero llegar a casa, bebé, pa desayunarte\n' +
+        'Qué caja que iba a ser un solo weekend, bebé, y ya llevamo die, yeah\n' +
+
+        'La pasamos chimba pero lo más chimba e esto es el sexo, ey\n' +
+        'Mami, si tú tienes frío, dale, yo te presto la Moncler, yeah\n' +
+        'Después de echarnos tres la baby me activa otra vez con un espresso\n' +
+        'Shorty, ese culo no lo presto, si tú eres mía perso, yeah\n' +
+
+        'Estábamo underwater pero ayer subió una foto y la frontié, yeah\n' +
+        'Nueva fumando y le compré un lightersito de Cartier, ey\n' +
+        'Me hace falta hoy porque se lo metí muy rico ayer y antier, bae\n' +
+        'Hoy es viernes\n' +
+        'Vi tu story por Coral Gables\n' +
+        'Toda de negro como Vader\n' +
+
+        'Mami, yo quiero verte\n' +
+        'Qué ganas de tenerte\n' +
+        'Toda encendida con ganas de beber, yeah\n' +
+        'Toda prendida con ganas de joder\n' +
+        'Mami, yo quiero verte\n' +
+        'Qué ganas de tenerte\n' +
+        'Toda encendida con ganas de beber, yeah\n' +
+        'Toda prendida con ganas de joder (Wow)\n' +
+
+        'Voy llegando por la esquina por esa por donde estás\n' +
+        'Desde aquí te puedo ver con la doble C\n' +
+        'Solo sale cuando tu escuches el V12\n' +
+        'El sol te está pegando en los VVS\n' +
+        'Tus amigas saben la que hay\n' +
+        'Tú ya les contaste que en la cama hacemo el logo de las Jordan Fly\n' +
+        'Que no vaya a ser, mami, que se te filtren los video\n' +
+        'Que se van viral y te reacciona Ibai\n' +
+
+        'Mami, me tiro flow DY\n' +
+        'De la vuelta quiero retirarme\n' +
+        'Toy cansado de rutear\n' +
+        'Quiero llegar a casa, bebé, pa desayunarte\n' +
+        'Qué caja que iba a ser un solo weekend, bebé, y ya llevamo die, yeah\n' +
+
+        'La pasamos chimba pero lo más chimba e esto es el sexo, ey\n' +
+        'Mami, si tú tienes frío, dale, yo te presto la Moncler, yeah\n' +
+        'Después de echarnos tres la baby me activa otra vez con un espresso\n' +
+        'Shorty, ese culo no lo presto, si tú eres mía perso, yeah\n' +
+
+        'Estábamo underwater pero ayer subió una foto y la frontié, yeah\n' +
+        'Nueva fumando y le compré un lightersito de Cartier, ey\n' +
+        'Me hace falta hoy porque se lo metí muy rico ayer y antier, bae\n' +
+        'Hoy es viernes\n' +
+        'Vi tu story por Coral Gables\n' +
+        'Toda de negro como Vader',
+        photo_video: 'songs_images/mornoletemas.jpeg',
+        url_mp3: 'songs/ROMÁNTICOS DE LUNES [J0JCYeD5RD8].mp3',
+        type: "album",
+        genre: 'Reggaeton'
+      },
+      {
+        name: 'el único tema del ferxxo',
+        duration: 182,
+        lyrics:
+        'Voy a extrañarte, mami, espero y te vaya bien\n' +
+        'Vete en el Ferrari, que se va de cero a cien\n' +
+        'Más rápido de lo que se fue lo que sentías tú por mí\n' +
+        'No regreses así, yo te llame y te diga que voa morir\n' +
+
+        'Si te vas, de mi cora te lleva una parte\n' +
+        'Va a doler, pero, mami, es mejor que me faltes\n' +
+        'Dónde estés, ojalá y te den lo que no pude darte\n' +
+        'Siento que se llevaron a mi gata gánster\n' +
+
+        'Mami, ya es tarde\n' +
+        'Dime si aún podemo volver\n' +
+        'Le pido a Diosito te guarde\n' +
+        'Y no me rompa el cora\n' +
+        'Por mí te doy a toda hora\n' +
+        'Baby, ¿por qué tú te demora?\n' +
+        'Por ti, baby, yo mato y muero\n' +
+        'Doy mi vida por esa cola\n' +
+        'Y ahora estás distante\n' +
+        'Me gustaría que fuera como antes\n' +
+        'Cuando estábamo en la calle\n' +
+        'Yo prendiendo un blunt y pedías que te cante\n' +
+        'Ho-hoy bajé pal party, arrebatao\n' +
+        'Pensándote y que te veo en todos laos\n' +
+        'Sin tu piel, sin tenerte al lao\n' +
+        'Ya perdí la cuenta e cuántas botellas he bajao\n' +
+
+        'Bae, te pusiste esquiva, a veces hasta agresiva\n' +
+        'Hablándote a la real, yo siempre he sido tuyo, pero tú nunca mía\n' +
+        'Por Dios, que yo no te fallé\n' +
+        'Quizás nunca viste mis detalle\n' +
+        'Yo no entendía los temas de FERXXO\n' +
+        'Y ahora tos esos temas me salen\n' +
+
+        'Si te vas, de mi cora te lleva una parte\n' +
+        'Va a doler, pero, mami, es mejor que me faltes\n' +
+        'Dónde estés, ojalá y te den lo que no pude darte\n' +
+        'Siento que se llevaron a mi gata gánster\n' +
+
+        'Si te vas no vuelvas\n' +
+        'Cuidado con el karma, puede que se te devuelva\n' +
+        'Los sentimientos se te fueron como un Tesla\n' +
+        'Ahora ten claro que ya no te voy a buscar, ma\n' +
+        'Tengo varias gatas que ocupan tu lugar\n' +
+        'Espero que te vaya bien y no vuelvas a llamar\n' +
+        'Escuchando "Ferxxo 100", nena, me voy a curar\n' +
+        'Te dicen la parte corazones\n' +
+        'Yo no quiero amore, quiero millone\n' +
+        'Llegas a la disco, triste te pones\n' +
+        'Porque tienes que escuchar toas mis canciones\n' +
+
+        'Si te vas, de mi cora te lleva una parte\n' +
+        'Va a doler, pero, mami, es mejor que me faltes\n' +
+        'Dónde estés, ojalá y te den lo que no pude darte\n' +
+        'Siento que se llevaron a mi gata gánster\n' +
+
+        '(Uh)\n' +
+        '(Uh)',
+        photo_video: 'songs_images/mornoletemas.jpeg',
+        url_mp3: 'songs/el único tema del ferxxo [11AqBvX5kVA].mp3',
+        type: "album",
+        genre: 'Reggaeton'
+      },
+      {
+        name: 'PRIVILEGIOS',
+        duration: 185,
+        lyrics:
+        'No me quite eso privilegio\n' +
+        'No te doy desde hace rato, dime si te llego, tú conoce mi intention\n' +
+        'Se supone que solo iba a ser un fin de semana y no estar sintiendo esto\n' +
+        'Mala mía si te imagino en hilito encima mío y me enciendo, yeah\n' +
+        'Pa ti lo que sea, mor, pero, porfa, no me quite eso privilegio\n' +
+        'No te doy desde hace rato, dime si te llеgo, tú conoce mi intention\n' +
+        'Se suponе que solo iba a ser un fin de semana y no estar sintiendo esto\n' +
+        'Mala mía si te imagino en hilito encima mío y me enciendo, yeah\n' +
+        'Pa ti lo que sea, mor, pero, porfa, no me quite eso privilegio\n' +
+
+        'De saber dónde está\n' +
+        'De mirar mi celu y ver to tu pack\n' +
+        'California love gánster como 2Pac\n' +
+        'Si peliamo yo te como pa que haya un comeback, yeah\n' +
+        'Somo G como Wiso\n' +
+        'La nota parriba y la ropa pal piso\n' +
+        'Dale, mami, que estamo en Bellaqueo Season\n' +
+        'Dame un break, no me deje en la prison\n' +
+
+        'Quiero volar contigo, sin drone\n' +
+        'Escalar tu edificio como King Kong\n' +
+        'Da igual el número que digas que siempre es bingo\n' +
+        'Te toca el premio de darte duro como Kimbo\n' +
+        'Y te pico sobre las cinco, ding-dong\n' +
+        'Y vamos a algún sitio, el domingo\n' +
+        'Embobao cuando te miro como viendo Los Simpsons\n' +
+        'Blandito como Bimbo, pero me vuelves Jimbo\n' +
+
+        'Tienes algo en la cara\n' +
+        'De culpable y de inocente\n' +
+        'Yo antes no creía en nada\n' +
+        'Pero me has hecho creyente\n' +
+
+        'Y le pido a Dios que me dé suerte para tenerte, potra\n' +
+        'Si no es en esta vida, la otra\n' +
+        'Y comerte la boca, quitarte la ropa\n' +
+        'A gusto por Colombia, chimba por Europa\n' +
+
+        'No me quite eso privilegio\n' +
+        'No te doy desde hace rato, dime si te llego, tú conoce mi intention\n' +
+        'Se supone que solo iba a ser un fin de semana y no estar sintiendo esto\n' +
+        'Mala mía si te imagino en hilito encima mío y me enciendo, yeah\n' +
+        'Pa ti lo que sea, mor, pero, porfa, no me quite eso privilegio\n' +
+        'No te doy desde hace rato, dime si te llego, tú conoce mi intention\n' +
+        'Se supone que solo iba a ser un fin de semana y no estar sintiendo esto\n' +
+        'Mala mía si te imagino en hilito encima mío y me enciendo, yeah\n' +
+        'Pa ti lo que sea, mor, pero, porfa, no me quite eso privilegio',
+        photo_video: 'songs_images/mornoletemas.jpeg',
+        url_mp3: 'songs/PRIVILEGIOS [ioXJFsCW1vk].mp3',
+        type: "album",
+        genre: 'Reggaeton'
+      },
+      {
+        name: 'En La De Ella',
+        duration: 230,
+        lyrics:
+        'Una noche que no puedo olvidar\n' +
+        'Y aunque tenga que escaparse\n' +
+        'Al trabajo tarde llegarle\n' +
+        'Pichar to los texto y el cel apagar\n' +
+        'Y yo la conozco\n' +
+        'Le gustan los carro, las moto\n' +
+        'La mota mezclá con lo otro\n' +
+        'Y a vece le gustan los totos\n' +
+
+        'No la mire, que ella está en la de ella\n' +
+        'Pídele otra botella\n' +
+        'Que eso e lo que quiere ella (Eso e lo que quiere ella)\n' +
+        'Eso e lo quе quiere ella (Eso е lo que quiere ella)\n' +
+        'No la mire, que ella está en la de ella\n' +
+        'Pídele otra botella\n' +
+        'Que eso e lo que quiere ella\n' +
+        'Yo sé lo que quiere ella (Eso e lo que quiere)\n' +
+
+        'Si la ve no le diga na (Wuh)\n' +
+        'No, que ella no vino a portarse bien (Bien)\n' +
+        'Trajo a su amiga y va a besársela\n' +
+        'Despué del party va pal after\n' +
+        'Sentimiento en el freezer\n' +
+        'No es regular, esa bebecita es diésel\n' +
+        'Me agarra este tubo como una stripper\n' +
+        'Y yo le abro ese garaje como si tuviera un beeper (¿Me sigue?)\n' +
+        '¿Y qué fue, qué va a hacer?\n' +
+        '¿Qué pasó? Dime a ver\n' +
+        'Pongo la cara en esa teta y parece que tiene tre (Tiene tre)\n' +
+        'Cuerpecito, se ve que tú tomas té (Tomas té)\n' +
+        'De Medallo, yo le dije: "Vea, pues"\n' +
+
+        'Tu cuerpo a mí me provoca\n' +
+        'Quiero que te quite la ropa\n' +
+        'Quiero comerte completota\n' +
+        'Las nalga las tiene grandota\n' +
+        'Tu cuerpo a mí me provoca\n' +
+        'Quiero que te quite la ropa\n' +
+        'A la competencia la tiene rota\n' +
+
+        'No la mire, que ella está en la de ella\n' +
+        'Pídele otra botella\n' +
+        'Que eso e lo que quiere ella (Eso e lo que quiere ella)\n' +
+        'Eso e lo que quiere ella (Eso e lo que quiere ella)\n' +
+        'No la mire, que ella está en la de ella\n' +
+        'Pídele otra botella\n' +
+        'Que eso e lo que quiere ella\n' +
+        'Yo sé lo que quiere ella (One time, dice; yeah)\n' +
+
+        'Dicen que el alcohol no arregla na, tú toma\n' +
+        'Que el agua tampoco arregla na\n' +
+        'Ella lo que quiere es jangueo\n' +
+        'Hasta que nos boten los feo\n' +
+        'Y hace tiempo ya\n' +
+        'Yo te tengo bum-bum, en la mira, blam-blam\n' +
+        'Tú me dice pa dónde es que van\n' +
+        'Y yo le llego, dime cuál e el plan\n' +
+        'Que no estamo pa pasarla mal (Yeah)\n' +
+        'Dale, no seas tímida, rompe\n' +
+        'Con eso que te invertiste tú mataste a la compe\n' +
+        'De money tag, así que dejen el fronte\n' +
+        'Está en la de ella, así que sopórtenla\n' +
+        'Yo te tengo bum-bum, en la mira, blam-blam\n' +
+        'Tú me dice pa dónde es que van\n' +
+        'Y yo le llego, dime cuál e el plan\n' +
+        'Que no estamo pa pasarla mal, eh\n' +
+
+        'El abdomen lo tiene duro, blindaje seis\n' +
+        'El cora lleno de cicatrice, Scarface\n' +
+        'Yo me la llevo pa lo oscuro\n' +
+        'Prendemo bareto del tamaño de un puro\n' +
+        'Su ex se quedó atrás como Napster\n' +
+        'Explota chavo en los putero flow gángster\n' +
+        'Estilo caro, el cuello forrao en diamante\n' +
+        'No sube una story si farrea con cantante, ey\n' +
+        'Rompe la calle y ve salir el sol\n' +
+        'El culo grande, pa mí que juega voleibol\n' +
+        'Es una pitcher, janguea con las tornasol\n' +
+        'Si le metes presión, ella le mete terror\n' +
+
+        'No la mire, que ella está en la de ella\n' +
+        'Pídele otra botella\n' +
+        'Que eso e lo que quiere ella\n' +
+        'Yo sé lo que quiere ella\n' +
+        'No la mire, que ella está en la de ella\n' +
+        'Pídele otra botella\n' +
+        'Que eso e lo que quiere ella\n' +
+        'Eso e lo que quiere ella',
+        photo_video: 'songs_images/enladella.jpeg',
+        url_mp3: 'songs/Jhayco, Feid, Sech - En La De Ella (Official Video) [Thkj3Ia0-4Y].mp3',
+        type: "sencillo",
+        genre: 'Reggaeton'
       }
     ], {});
 }

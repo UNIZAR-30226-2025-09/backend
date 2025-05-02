@@ -1,6 +1,13 @@
 import db from "#src/models/index";
 import playlist_like from "#models/playlist_like";
 import {Op} from "sequelize";
+import path from 'path';
+import {fileURLToPath} from "url";
+import { open, mkdir, access } from 'fs/promises';
+import { constants } from 'fs';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 /**
  * Obtiene todas las playlists.
@@ -310,8 +317,52 @@ export const updatePlaylist = async (req, res) => {
         const pl = await db.playlist.findOne({ where: { id: playlistId } });
         if (!pl) return res.status(404).json({ message: "Playlist no encontrada" });
 
-        await pl.update({ name, description, type, front_page });
+        let updateData = { name, description, type };
+
+        // Si el front_page es una imagen en base64, procesarla
+        if (front_page && front_page.startsWith('data:image/')) {
+            console.log("Hay imagen nueva en base64 para la playlist");
+
+            const matches = front_page.match(/^data:image\/(png|jpeg|jpg);base64,/);
+            if (!matches) {
+                throw new Error("Formato de imagen inválido para portada");
+            }
+
+            const imageType = matches[1];
+            const base64Data = front_page.replace(/^data:image\/(png|jpeg|jpg);base64,/, '');
+            const buffer = Buffer.from(base64Data, 'base64');
+
+            const playlistFolder = path.join(__dirname, '..', '..', 'public', 'playlist');
+
+            // 1. Asegurarse que la carpeta playlist/ existe
+            try {
+                await access(playlistFolder, constants.F_OK);
+                console.log("La carpeta 'playlist/' ya existe");
+            } catch (error) {
+                console.log("La carpeta 'playlist/' no existe, creándola...");
+                await mkdir(playlistFolder, { recursive: true });
+            }
+
+            const imageFileName = `playlist/playlist_${playlistId}.${imageType}`;
+            const uploadPath = path.join(__dirname, '..', '..', 'public', imageFileName);
+
+            // 2. Guardar la imagen
+            try {
+                const fileHandle = await open(uploadPath, 'w');
+                await fileHandle.writeFile(buffer);
+                await fileHandle.close();
+                console.log(`Imagen portada de playlist guardada en ${uploadPath}`);
+            } catch (error) {
+                console.error('Error al guardar la imagen de portada:', error);
+            }
+
+            updateData.front_page = imageFileName; // <-- Actualizas la imagen también
+        }
+        
+        await pl.update(updateData);
+
         res.json(pl);
+
     } catch (error) {
         console.error("Error al actualizar la playlist:", error);
         res.status(500).json({ error: error.message });

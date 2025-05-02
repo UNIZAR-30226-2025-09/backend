@@ -379,7 +379,7 @@ describe('Pruebas sobre /api/user', () => {
             expect(res.status).toBe(200);
 
             // Verificar que solo se devuelven los campos específicos
-            const allowedFields = ['id', 'nickname', 'mail', 'style_fav', 'is_premium', 'user_picture'];
+            const allowedFields = ['id', 'nickname', 'mail', 'style_fav', 'is_premium', 'user_picture', 'daily_skips'];
             const responseFields = Object.keys(res.body);
 
             // Verificar que todos los campos devueltos están en la lista permitida
@@ -1123,6 +1123,209 @@ describe('Pruebas sobre /api/user', () => {
                 expect(playlist.name).toBeDefined();
                 expect(playlist.front_page).toBeDefined();
             }
+        });
+    });
+
+    describe('POST /api/user/forgot-password', () => {
+        it('debería enviar un correo de recuperación cuando el mail existe', async () => {
+            const data = {
+                mail: sharedUser.mail
+            };
+
+            const res = await request(BASE_URL)
+                .post('/api/user/forgot-password')
+                .send(data);
+
+            expect(res.status).toBe(200);
+            expect(res.body.message).toBeDefined();
+            expect(res.body.message).toContain('enviado');
+        });
+
+        it('debería fallar cuando el mail no existe', async () => {
+            const data = {
+                mail: 'noexiste@test.com'
+            };
+
+            const res = await request(BASE_URL)
+                .post('/api/user/forgot-password')
+                .send(data);
+
+            expect(res.status).toBe(404);
+            expect(res.body.error).toBe('No existe una cuenta con este correo electrónico');
+        });
+
+        it('debería fallar cuando no se proporciona un mail', async () => {
+            const res = await request(BASE_URL)
+                .post('/api/user/forgot-password')
+                .send({});
+
+            expect(res.status).toBe(400);
+            expect(res.body.error).toBeDefined();
+        });
+    });
+
+    describe('POST /api/user/reset-password', () => {
+        let resetToken;
+
+        beforeEach(async () => {
+            // Generar un token
+            resetToken = jwt.sign(
+                { id: sharedUser.id, mail: sharedUser.mail },
+                SECRET_KEY,
+                { expiresIn: '15m' }
+            );
+
+            // Almacenar el token en el usuario para pasar la verificación
+            await sharedUser.update({
+                reset_token: resetToken,
+                reset_token_expires: new Date(Date.now() + 900000) // 15 minutos
+            });
+        });
+
+        afterEach(async () => {
+            // Limpiar el token después de cada prueba
+            await sharedUser.update({
+                reset_token: null,
+                reset_token_expires: null
+            });
+        });
+
+        it('debería restablecer la contraseña con un token válido', async () => {
+            const data = {
+                token: resetToken,
+                newPassword: 'nuevaContraseña123'
+            };
+
+            const res = await request(BASE_URL)
+                .post('/api/user/reset-password')
+                .send(data);
+
+            expect(res.status).toBe(200);
+            expect(res.body.message).toBe('Contraseña restablecida con éxito');
+
+            // Verificar que la contraseña fue actualizada
+            const user = await db.user.findByPk(sharedUser.id);
+            const validNewPassword = await bcrypt.compare(data.newPassword, user.password);
+            expect(validNewPassword).toBe(true);
+
+            // Restaurar contraseña original
+            user.password = sharedHashedPassword;
+            await user.save();
+        });
+
+        it('debería fallar con un token inválido', async () => {
+            const data = {
+                token: 'token_invalido',
+                newPassword: 'nuevaContraseña123'
+            };
+
+            const res = await request(BASE_URL)
+                .post('/api/user/reset-password')
+                .send(data);
+
+            expect(res.status).toBe(401);
+            expect(res.body.error).toBe('Token inválido o expirado');
+        });
+
+        it('debería fallar cuando falta la nueva contraseña', async () => {
+            const data = {
+                token: resetToken
+            };
+
+            const res = await request(BASE_URL)
+                .post('/api/user/reset-password')
+                .send(data);
+
+            expect(res.status).toBe(400);
+            expect(res.body.error).toBe('Debe proporcionar el token y la nueva contraseña');
+        });
+
+        it('debería fallar con un token expirado', async () => {
+            // Crear un token expirado
+            const expiredToken = jwt.sign(
+                { id: sharedUser.id, mail: sharedUser.mail },
+                SECRET_KEY,
+                { expiresIn: '-1h' } // Ya expirado
+            );
+
+            // Almacenar el token expirado
+            await sharedUser.update({
+                reset_token: expiredToken,
+                reset_token_expires: new Date(Date.now() - 3600000)
+            });
+
+            const data = {
+                token: expiredToken,
+                newPassword: 'nuevaContraseña123'
+            };
+
+            const res = await request(BASE_URL)
+                .post('/api/user/reset-password')
+                .send(data);
+
+            expect(res.status).toBe(401);
+            expect(res.body.error).toBe('Token inválido o expirado');
+        });
+    });
+
+    describe('POST /api/user/use-daily-skip/:userId', () => {
+        beforeEach(async () => {
+            // Asegurarse de que el usuario tenga skips disponibles
+            await sharedUser.update({ daily_skips: 3 });
+        });
+
+        afterEach(async () => {
+            // Restaurar el valor original
+            await sharedUser.update({ daily_skips: 6 });
+        });
+
+        it('debería usar un skip correctamente cuando el usuario tiene disponibles', async () => {
+            const res = await request(BASE_URL)
+                .post(`/api/user/use-daily-skip/${sharedUser.id}`)
+                .set('Authorization', `Bearer ${sharedToken}`);
+
+            expect(res.status).toBe(200);
+            expect(res.body.success).toBe(true);
+            expect(res.body.message).toContain('Skip utilizado');
+            expect(res.body.remainingSkips).toBe(2);
+
+            // Verificar en la base de datos
+            const updatedUser = await db.user.findByPk(sharedUser.id);
+            expect(updatedUser.daily_skips).toBe(2);
+        });
+
+        it('debería fallar cuando el usuario no tiene skips disponibles', async () => {
+            // Poner skips a 0
+            await sharedUser.update({ daily_skips: 0 });
+
+            const res = await request(BASE_URL)
+                .post(`/api/user/use-daily-skip/${sharedUser.id}`)
+                .set('Authorization', `Bearer ${sharedToken}`);
+
+            expect(res.status).toBe(400);
+            expect(res.body.success).toBe(false);
+            expect(res.body.error).toBe('No tienes skips disponibles');
+        });
+
+        it('debería fallar cuando el usuario no existe', async () => {
+            const idInexistente = 99999;
+
+            const res = await request(BASE_URL)
+                .post(`/api/user/use-daily-skip/${idInexistente}`)
+                .set('Authorization', `Bearer ${sharedToken}`);
+
+            expect(res.status).toBe(404);
+            expect(res.body.success).toBe(false);
+            expect(res.body.error).toBe('Usuario no encontrado');
+        });
+
+        it('debería requerir autenticación para usar un skip', async () => {
+
+            const res = await request(BASE_URL)
+                .post(`/api/user/use-daily-skip/${sharedUser.id}`);
+
+            expect(res.status).toBe(200);
+            expect(res.body.success).toBe(true);
         });
     });
 });

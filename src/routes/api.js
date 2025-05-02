@@ -7,7 +7,7 @@ import stripeRoute from "#routes/stripe_routes"; // Importa las rutas de stripe 
 import artistRoute from "#routes/artist_routes"; // Importa las rutas de artistas
 import songLikeRoutes from "#routes/song_like_routes"; // Importa las rutas de song like
 import socialRoutes from "#routes/social_routes"; // Importa las rutas de song likeç
-import lastPlaybackState from  "#routes/lastPlaybackState_routes";
+import lastPlaybackState from "#routes/lastplaybackstate_routes";
 import ratingRoutes from "#routes/playlist_feedback_routes"; // Importa las rutas de rating
 import chatROutes from "#routes/chat_routes"; // Importa las rutas de chat
 import collaboratorsRoutes from "#routes/collaboratorsRoutes";
