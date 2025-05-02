@@ -17,7 +17,8 @@ export default {
       user_picture: { type: Sequelize.STRING, allowNull: true },
       created_at: { type: Sequelize.DATE, defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"), allowNull: false },
       reset_token: { type: Sequelize.STRING, allowNull: true },
-      reset_token_expires: { type: Sequelize.DATE, allowNull: true }
+      reset_token_expires: { type: Sequelize.DATE, allowNull: true },
+      daily_skips: { type: Sequelize.INTEGER, defaultValue: 5, allowNull: false}
     });
 
     // Tabla ARTIST
@@ -52,6 +53,28 @@ export default {
       type: { type: Sequelize.STRING },
       typeP: { type: Sequelize.STRING },
       front_page: { type: Sequelize.STRING }
+    });
+
+    // Tabla PLAYLIST_VISIT
+    await queryInterface.createTable("playlist_visit", {
+      id: { type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false },
+      user_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: { model: "users", key: "id" },
+        onDelete: "CASCADE"
+      },
+      playlist_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: { model: "playlist", key: "id" },
+        onDelete: "CASCADE"
+      },
+      visited_at: {
+        type: Sequelize.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP")
+      }
     });
 
     // Tabla intermedia SONG-ARTIST (M:N)
@@ -191,6 +214,7 @@ export default {
     await queryInterface.dropTable("song_like");
     await queryInterface.dropTable("song_playlist");
     await queryInterface.dropTable("song_artist");
+    await queryInterface.dropTable("playlist_visit");
 
     await queryInterface.dropTable("playlist");
     await queryInterface.dropTable("song");

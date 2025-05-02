@@ -51,7 +51,8 @@ export const registerUser = async (req, res) => {
             password: hashedPassword, // Guardamos la contraseña hasheada
             mail,
             style_fav,
-            is_premium
+            is_premium,
+            daily_skips: 5, // Valor por defecto
         });
 
         res.status(201).json({ message: "Usuario registrado con éxito", user: newUser });
@@ -143,7 +144,7 @@ export const getUserProfile = async (req, res) => {
 
         const decoded = jwt.verify(token, SECRET_KEY);
         const user = await db.user.findByPk(decoded.id, {
-            attributes: ["id", "nickname", "mail", "style_fav", "is_premium", "user_picture"] // No devolver la contraseña
+            attributes: ["id", "nickname", "mail", "style_fav", "is_premium", "user_picture", "daily_skips"] // No devolver la contraseña
         });
 
         if (!user) {
@@ -363,12 +364,31 @@ export const getUserById = async (req, res) => {
             style_fav: user.style_fav,
             is_premium: user.is_premium,
             user_picture: user.user_picture,
+            dailySkips: user.daily_skips,
         });
     } catch (error) {
         console.error("Error al verificar usuario:", error);
         return res.status(500).json({ error: "Error interno en el servidor" });
     }
 };
+
+/**
+ * Actualiza la información de perfil de un usuario, incluyendo nickname e imagen de perfil.
+ *
+ * @async
+ * @function updateUser
+ * @param {Object} req - Objeto de solicitud Express
+ * @param {Object} req.params - Parámetros de la ruta
+ * @param {string} req.params.id - ID del usuario a actualizar
+ * @param {Object} req.body - Cuerpo de la solicitud
+ * @param {string} [req.body.nickname] - Nuevo nickname del usuario (opcional)
+ * @param {string} [req.body.profileImage] - Imagen de perfil en base64 (opcional)
+ * @param {Object} res - Objeto de respuesta Express
+ * @returns {Promise<Object>} Respuesta JSON con el resultado de la operación
+ * @throws {404} Si el usuario no existe
+ * @throws {409} Si el nickname ya está en uso
+ * @throws {500} Error interno del servidor
+ */
 
 export const updateUser = async (req, res) => {
     try {
@@ -917,5 +937,51 @@ export const sendContactMessage = async (req, res) => {
     } catch (error) {
         console.error("Error al enviar mensaje de contacto:", error);
         return res.status(500).json({ error: "Error al procesar el mensaje de contacto" });
+    }
+};
+
+/**
+ * Resta un skip diario al usuario (si tiene skips disponibles)
+ *
+ * Ruta: POST /use-daily-skip/:userId
+ */
+export const useDailySkip = async (req, res) => {
+    const { userId } = req.params;
+
+    try {
+        // Buscar al usuario
+        const user = await db.user.findByPk(userId);
+
+        if (!user) {
+            return res.status(404).json({ success: false, error: "Usuario no encontrado" });
+        }
+
+        // Verificar si tiene skips disponibles
+        if (user.daily_skips <= 0) {
+            return res.status(400).json({
+                success: false,
+                error: "No tienes skips disponibles",
+                remainingSkips: 0
+            });
+        }
+
+        // Restar un skip (sin permitir valores negativos)
+        const newSkips = Math.max(user.daily_skips - 1, 0);
+
+        // Actualizar en la base de datos
+        await user.update({ daily_skips: newSkips });
+
+        return res.json({
+            success: true,
+            message: "Skip utilizado correctamente",
+            remainingSkips: newSkips
+        });
+
+    } catch (error) {
+        console.error("Error al usar skip diario:", error);
+        return res.status(500).json({
+            success: false,
+            error: "Error interno al procesar el skip"
+        });
     }
 };

@@ -9,6 +9,7 @@ export default (sequelize, DataTypes) => {
         user_picture: { type: DataTypes.STRING, allowNull: true },
         reset_token: { type: DataTypes.STRING, allowNull: true },
         reset_token_expires: { type: DataTypes.DATE, allowNull: true },
+        daily_skips: { type: DataTypes.INTEGER, defaultValue: 5, allowNull: false}
     }, {
         tableName: "users",
         timestamps: false
@@ -19,7 +20,11 @@ export default (sequelize, DataTypes) => {
         user.belongsToMany(models.song, { through: "song_like", foreignKey: "user_id" });
         user.belongsToMany(models.playlist, { through: "playlist_like", foreignKey: "user_id" });
         user.belongsToMany(models.playlist, { through: "playlist_feedback", foreignKey: "user_id" });
-        user.belongsToMany(models.playlist, { through: "permission_have", foreignKey: "user_id" });
+        user.belongsToMany(models.playlist, {
+            through: "permission_have",
+            foreignKey: "user_id",
+            as: "collaborations" // Alias para las playlists colaborativas
+        });
         // Usuario como solicitante (user1)
         user.belongsToMany(models.user, {
             through: "friendship",
@@ -49,7 +54,7 @@ export default (sequelize, DataTypes) => {
         });
                 
         user.hasOne(models.lastPlaybackState, { foreignKey: 'userId', as: 'lastPlayback' });
-
+        user.hasMany(models.playlist_visit, { foreignKey: "user_id" });
     };
 
     return user;

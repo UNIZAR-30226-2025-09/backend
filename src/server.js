@@ -5,6 +5,7 @@ import apiRoute from "#routes/api";
 import { sequelize } from "#models/index";
 import path from "path";
 import * as bodyParser from "express";
+import cron from "node-cron";
 
 const app = express();
 
@@ -35,6 +36,24 @@ subdirectories.forEach((dir) => {
 
 // Definir rutas generales de API
 app.use("/api", apiRoute);
+
+// Función para restablecer los daily_skips
+const resetDailySkips = async () => {
+  try {
+    // Utilizamos una consulta SQL directa a través de sequelize
+    await sequelize.query('UPDATE users SET daily_skips = 5');
+    console.log('Daily skips reset successful at:', new Date().toISOString());
+  } catch (error) {
+    console.error('Error resetting daily skips:', error);
+  }
+};
+
+// Configurar cron job para reiniciar daily_skips todos los días a las 00:00 hora española
+cron.schedule('00 00 * * *', resetDailySkips, {
+  scheduled: true,
+  timezone: "Europe/Madrid" // Zona horaria de España
+});
+console.log('Daily reset cron job scheduled for 00:00 Spanish time');
 
 const PORT = 5001;
 const IP = await getIp("local"); // "public o local dependiendo de lo que se necesite"
