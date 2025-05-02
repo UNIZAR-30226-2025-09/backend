@@ -79,8 +79,92 @@ export async function up(queryInterface, Sequelize) {
     { song_id: 34, playlist_id: 9, date: new Date("2025-03-27") },
     { song_id:  1, playlist_id: 9, date: new Date("2025-03-27") },
 
-    //Prueba album extremo duro
-    { song_id: 18, playlist_id: 10, date: new Date("2025-03-25") },
+    
+
+    //Album Sempre cor
+    { song_id: 45, playlist_id: 12, date: new Date("2025-04-25") },
+    { song_id: 46, playlist_id: 12, date: new Date("2025-04-25") },
+    { song_id: 47, playlist_id: 12, date: new Date("2025-04-25") },
+    { song_id: 48, playlist_id: 12, date: new Date("2025-04-25") },
+    { song_id: 49, playlist_id: 12, date: new Date("2025-04-25") },
+    { song_id: 50, playlist_id: 12, date: new Date("2025-04-25") },
+    { song_id: 51, playlist_id: 12, date: new Date("2025-04-25") },
+    { song_id: 52, playlist_id: 12, date: new Date("2025-04-25") },
+    { song_id: 53, playlist_id: 12, date: new Date("2025-04-25") },
+    { song_id: 54, playlist_id: 12, date: new Date("2025-04-25") },
+    { song_id: 55, playlist_id: 12, date: new Date("2025-04-25") },
+    { song_id: 56, playlist_id: 12, date: new Date("2025-04-25") },
+    { song_id: 57, playlist_id: 12, date: new Date("2025-04-25") },
+    { song_id: 58, playlist_id: 12, date: new Date("2025-04-25") },
+
+    //Album Sempre cor deluxe
+    { song_id: 59, playlist_id: 11, date: new Date("2025-04-25") },
+    { song_id: 60, playlist_id: 11, date: new Date("2025-04-25") },
+    { song_id: 61, playlist_id: 11, date: new Date("2025-04-25") },
+    { song_id: 62, playlist_id: 11, date: new Date("2025-04-25") },
+    { song_id: 63, playlist_id: 11, date: new Date("2025-04-25") },
+    { song_id: 64, playlist_id: 11, date: new Date("2025-04-25") },
+
+    //Album Mor no lo temas a la oscuridad
+    { song_id: 70, playlist_id: 13, date: new Date("2025-04-25") },
+    { song_id: 71, playlist_id: 13, date: new Date("2025-04-25") },
+    { song_id: 72, playlist_id: 13, date: new Date("2025-04-25") },
+    { song_id: 73, playlist_id: 13, date: new Date("2025-04-25") },
+    { song_id: 74, playlist_id: 13, date: new Date("2025-04-25") },
+    { song_id: 75, playlist_id: 13, date: new Date("2025-04-25") },
+    { song_id: 76, playlist_id: 13, date: new Date("2025-04-25") },
+    { song_id: 77, playlist_id: 13, date: new Date("2025-04-25") },
+    { song_id: 78, playlist_id: 13, date: new Date("2025-04-25") },
+    { song_id: 79, playlist_id: 13, date: new Date("2025-04-25") },
+    { song_id: 80, playlist_id: 13, date: new Date("2025-04-25") },
+    { song_id: 81, playlist_id: 13, date: new Date("2025-04-25") },
+    { song_id: 82, playlist_id: 13, date: new Date("2025-04-25") },
+    { song_id: 83, playlist_id: 13, date: new Date("2025-04-25") },
+    { song_id: 84, playlist_id: 13, date: new Date("2025-04-25") },
+    { song_id: 85, playlist_id: 13, date: new Date("2025-04-25") },
+
+    // Album El Canto del Loco (playlist_id: 14)
+    { song_id: 7, playlist_id: 14, date: new Date("2025-05-02") },
+    { song_id: 8, playlist_id: 14, date: new Date("2025-05-02") },
+    { song_id: 9, playlist_id: 14, date: new Date("2025-05-02") },
+    
+    // Album Melendi (playlist_id: 15)
+    { song_id: 13, playlist_id: 15, date: new Date("2025-05-02") },
+    { song_id: 14, playlist_id: 15, date: new Date("2025-05-02") },
+    { song_id: 15, playlist_id: 15, date: new Date("2025-05-02") },
+    
+    // Album Fito (playlist_id: 16)
+    { song_id: 11, playlist_id: 16, date: new Date("2025-05-02") },
+    { song_id: 12, playlist_id: 16, date: new Date("2025-05-02") },
+    { song_id: 19, playlist_id: 16, date: new Date("2025-05-02") },
+    
+    // Album C Marí (playlist_id: 17) - Suponiendo que el artist_id correcto es 35, no 18
+    { song_id: 45, playlist_id: 17, date: new Date("2025-05-02") },
+    { song_id: 46, playlist_id: 17, date: new Date("2025-05-02") },
+    { song_id: 47, playlist_id: 17, date: new Date("2025-05-02") },
+    { song_id: 48, playlist_id: 17, date: new Date("2025-05-02") },
+    { song_id: 49, playlist_id: 17, date: new Date("2025-05-02") },
+    { song_id: 50, playlist_id: 17, date: new Date("2025-05-02") },
+    { song_id: 51, playlist_id: 17, date: new Date("2025-05-02") },
+    { song_id: 52, playlist_id: 17, date: new Date("2025-05-02") },
+    { song_id: 53, playlist_id: 17, date: new Date("2025-05-02") },
+    { song_id: 54, playlist_id: 17, date: new Date("2025-05-02") },
+    { song_id: 55, playlist_id: 17, date: new Date("2025-05-02") },
+    { song_id: 56, playlist_id: 17, date: new Date("2025-05-02") },
+    { song_id: 57, playlist_id: 17, date: new Date("2025-05-02") },
+    { song_id: 58, playlist_id: 17, date: new Date("2025-05-02") },
+    
+    // Album Anuel (playlist_id: 18)
+    { song_id: 30, playlist_id: 18, date: new Date("2025-05-02") },
+    { song_id: 31, playlist_id: 18, date: new Date("2025-05-02") },
+    { song_id: 32, playlist_id: 18, date: new Date("2025-05-02") },
+    
+    // Album CTangana (playlist_id: 19)
+    { song_id: 34, playlist_id: 19, date: new Date("2025-05-02") },
+    { song_id: 35, playlist_id: 19, date: new Date("2025-05-02") },
+    
+    // FEID song que faltaba (song_id: 86) para album FEID
+    { song_id: 86, playlist_id: 13, date: new Date("2025-05-02") }
 
     //Album Sempre cor
     { song_id: 45, playlist_id: 12, date: new Date("2025-04-25") },
