@@ -89,14 +89,91 @@ export async function up(queryInterface, Sequelize) {
       front_page: "playlist_images/bachataFlamenco.png"
     },
     {
-      name: "Album extremoduro",
+      name: "Sempre Cor Deluxe",
       user_id: null,
-      artist_id: 10,
+      artist_id: 35,
+      description: "Sempre Cor Deluxe",
+      type: "public",
+      typeP: "album",
+      front_page: "playlist_images/sempreCorDeluxe.jpeg"
+    },
+    {
+      name: "Sempre Cor",
+      user_id: null,
+      artist_id: 35,
+      description: "Sempre Cor",
+      type: "public",
+      typeP: "album",
+      front_page: "playlist_images/sempreCor.jpeg"
+    },
+    {
+      name: "MOR, No Le Temas a La Oscuridad",
+      user_id: null,
+      artist_id: 37,
+      description: "",
+      type: "public",
+      typeP: "album",
+      front_page: "playlist_images/mornoletemas.jpeg"
+    },
+    {
+      name: "Album FEID",
+      user_id: null,
+      artist_id: 37,
       description: "",
       type: "public",
       typeP: "album",
       front_page: "playlist_images/PopConÑ.png"
-    }
+    },
+    {
+      name: "Album El Canto del Loco",
+      user_id: null,
+      artist_id: 18,
+      description: "",
+      type: "public",
+      typeP: "album",
+      front_page: "playlist_images/mornoletemas.jpeg"
+    },
+    {
+      name: "Album Melendi",
+      user_id: null,
+      artist_id: 23,
+      description: "",
+      type: "public",
+      typeP: "album",
+      front_page: "playlist_images/mornoletemas.jpeg"
+    },{
+      name: "Album Fito",
+      user_id: null,
+      artist_id: 11,
+      description: "",
+      type: "public",
+      typeP: "album",
+      front_page: "playlist_images/mornoletemas.jpeg"
+    },{
+      name: "Album C Marí",
+      user_id: null,
+      artist_id: 18,
+      description: "",
+      type: "public",
+      typeP: "album",
+      front_page: "playlist_images/mornoletemas.jpeg"
+    },{
+      name: "Album Anuel",
+      user_id: null,
+      artist_id: 12,
+      description: "",
+      type: "public",
+      typeP: "album",
+      front_page: "playlist_images/mornoletemas.jpeg"
+    },{
+      name: "Album CTangana",
+      user_id: null,
+      artist_id: 13,
+      description: "",
+      type: "public",
+      typeP: "album",
+      front_page: "playlist_images/mornoletemas.jpeg"
+    },
   ], {});
 }
 

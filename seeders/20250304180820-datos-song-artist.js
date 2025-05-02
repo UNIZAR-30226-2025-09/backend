@@ -8,11 +8,11 @@ export default {
             { song_id: 5, artist_id: 20 }, //JARABE
             { song_id: 6, artist_id: 21 }, //CHAYANNE
             { song_id: 7, artist_id: 18 }, //CANTO LOCO
-            { song_id: 7, artist_id: 24 }, //CANTO LOCO
+            { song_id: 7, artist_id: 24 }, //DANI MARTIN
             { song_id: 8, artist_id: 18 }, //CANTO LOCO
-            { song_id: 8, artist_id: 24 }, //CANTO LOCO
+            { song_id: 8, artist_id: 24 }, //DANI MARTIN
             { song_id: 9, artist_id: 18 }, //CANTO LOCO
-            { song_id: 9, artist_id: 24 }, //CANTO LOCO
+            { song_id: 9, artist_id: 24 }, //DANI MARTIN
             { song_id: 10, artist_id: 22 }, //ESTOPA
             { song_id: 11, artist_id: 11 }, //FITO
             { song_id: 12, artist_id: 11 }, //FITO
