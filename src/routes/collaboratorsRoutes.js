@@ -15,6 +15,9 @@ router.post('/reject', collaboratorsController.rejectCollaboration);
 // Ruta para eliminar a un colaborador
 router.delete('/remove', collaboratorsController.removeCollaborator);
 
+// Ruta para obtener las invitaciones pendientes
+router.get('/:playlistId/pending-invitations', collaboratorsController.getPendingInvitations);
+
 // Ruta para obtener las playlists colaborativas de un usuario
 router.get('/playlists-for-user/:userId', collaboratorsController.getCollaborativePlaylists);
 

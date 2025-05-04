@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 import db from "#src/models/index";
-import { Op } from 'sequelize';
+import { Op, Sequelize } from "sequelize";
 
 /**
  * Invitar a un colaborador a una playlist mediante un mensaje de chat
@@ -69,6 +69,156 @@ export const inviteCollaborator = async (req, res) => {
     }
 };
 
+/**
+ * Obtener invitaciones pendientes para una playlist específica
+ */
+
+
+// Then update your getPendingInvitations function with the correct include statement:
+// Tus asociaciones ya están correctamente definidas:
+//
+// Chat.associate = (models) => {
+//     Chat.belongsTo(models.user, {
+//       foreignKey: 'user1_id',
+//       as: 'sender',
+//       targetKey: 'id',
+//       constraints: false
+//     });
+//
+//     Chat.belongsTo(models.user, {
+//       foreignKey: 'user2_id',
+//       as: 'receiver',
+//       targetKey: 'id',
+//       constraints: false
+//     });
+// };
+//
+// Solo asegúrate de que también tienes las asociaciones recíprocas en el modelo User:
+
+// Then update your getPendingInvitations function with the correct include statement:
+export const getPendingInvitations = async (req, res) => {
+    try {
+        console.log("🔍 Iniciando getPendingInvitations");
+
+        const token = req.headers.authorization?.split(' ')[1];
+        console.log("Token presente:", !!token);
+
+        if (!token) return res.status(401).json({ error: "Token no proporcionado" });
+
+        try {
+            const decoded = jwt.verify(token, process.env.JWT_SECRET || 'aB1cD2eF3GhIjK4LmN5OpQr6StUvWxY7Z');
+            console.log("✅ Token decodificado correctamente, ID de usuario:", decoded.id);
+
+            if (!decoded) return res.status(401).json({ error: "Token inválido" });
+
+            const ownerId = decoded.id;
+            const playlistId = Number(req.params.playlistId);
+            console.log("Buscando invitaciones para playlist:", playlistId, "del propietario:", ownerId);
+
+            if (!playlistId) {
+                return res.status(400).json({ error: "Se requiere playlistId" });
+            }
+
+            // Verificar propiedad de la playlist
+            console.log("Verificando propiedad de la playlist");
+            const playlist = await db.playlist.findByPk(playlistId);
+            console.log("Playlist encontrada:", !!playlist, playlist ? `propietario: ${playlist.user_id}` : "no encontrada");
+
+            if (!playlist) return res.status(404).json({ error: "Playlist no encontrada" });
+
+            if (playlist.user_id !== ownerId) {
+                console.log("⛔ Permiso denegado: el usuario no es propietario de la playlist");
+                return res.status(403).json({ error: "No tienes permisos para ver invitaciones de esta playlist" });
+            }
+
+            // Buscar invitaciones pendientes
+            console.log("Consulta para buscar invitaciones:", {
+                user1_id: ownerId,
+                "shared_content.type": "collaboration_request",
+                "shared_content.playlist_id": playlistId
+            });
+
+            // Verificar si la tabla chat tiene la estructura esperada
+            console.log("Estructura de tabla chat:", Object.keys(db.chat.rawAttributes).join(", "));
+
+            const pendingInvitations = await db.chat.findAll({
+                where: {
+                    user1_id: ownerId,
+                    // Usar la sintaxis correcta para consultar campos JSONB en PostgreSQL
+                    [Sequelize.Op.and]: [
+                        Sequelize.literal(`shared_content->>'type' = 'collaboration_request'`),
+                        Sequelize.literal(`(shared_content->>'playlist_id')::integer = ${playlistId}`)
+                    ]
+                },
+                attributes: [
+                    'id',
+                    'user1_id',
+                    'user2_id',
+                    'txt_message',
+                    'sent_at',
+                    'shared_content'
+                ],
+                include: [
+                    {
+                        model: db.user,
+                        as: 'receiver', // Cambiado a 'receiver' para coincidir con la asociación definida
+                        attributes: ['id', 'nickname', 'user_picture'],
+                    },
+                ],
+            });
+
+            console.log("Invitaciones pendientes encontradas:", pendingInvitations.length);
+            if (pendingInvitations.length > 0) {
+                console.log("Primera invitación:",
+                    `ID: ${pendingInvitations[0].id}, ` +
+                    `shared_content: ${JSON.stringify(pendingInvitations[0].shared_content)}`);
+            }
+
+            // Transformar datos para el frontend con manejo seguro de propiedades
+            console.log("Transformando datos de invitaciones");
+            const formattedInvitations = pendingInvitations.map(invitation => {
+                try {
+                    return {
+                        id: invitation.id,
+                        userId: invitation.user2_id,
+                        nickname: invitation.receiver?.nickname || 'Usuario desconocido',
+                        userPicture: invitation.receiver?.user_picture || null,
+                        message: invitation.txt_message || '',
+                        sentAt: invitation.sent_at || new Date(),
+                        playlistId: invitation.shared_content?.playlist_id || playlistId,
+                        playlistName: invitation.shared_content?.playlist_name || 'Playlist sin nombre'
+                    };
+                } catch (mapError) {
+                    console.error("Error al transformar invitación:", mapError, "invitación:", invitation);
+                    // Devolver objeto con valores predeterminados
+                    return {
+                        id: invitation.id || 0,
+                        userId: invitation.user2_id || 0,
+                        nickname: 'Error al cargar usuario',
+                        userPicture: null,
+                        message: '',
+                        sentAt: new Date(),
+                        playlistId: playlistId,
+                        playlistName: 'Error al cargar nombre'
+                    };
+                }
+            });
+
+            console.log("✅ Invitaciones formateadas:", formattedInvitations.length);
+            return res.status(200).json({ pendingInvitations: formattedInvitations });
+
+        } catch (jwtError) {
+            console.error("❌ Error en verificación de JWT:", jwtError);
+            return res.status(401).json({ error: "Token inválido" });
+        }
+    } catch (error) {
+        console.error("❌ Error al obtener invitaciones pendientes:", error);
+        console.error("Tipo de error:", error.name);
+        console.error("Mensaje:", error.message);
+        console.error("Stack:", error.stack);
+        return res.status(500).json({ error: "Error interno del servidor" });
+    }
+};
 /**
  * Aceptar una invitación a colaborar en una playlist
  */
@@ -216,7 +366,7 @@ export const getCollaborators = async (req, res) => {
             ],
         });
 
-        return res.status(200).json(collaborators);
+        return res.status(200).json({ collaborators });
     } catch (error) {
         console.error("Error al obtener colaboradores:", error);
         return res.status(500).json({ error: "Error interno del servidor" });
@@ -243,8 +393,12 @@ export const getCollaborativePlaylists = async (req, res) => {
 
         const playlistIds = collaboratorPermissions.map((perm) => perm.playlist_id);
 
+        // Modificación: excluir playlists donde el usuario es propietario
         const playlists = await db.playlist.findAll({
-            where: { id: { [Op.in]: playlistIds } },
+            where: {
+                id: { [Op.in]: playlistIds },
+                user_id: { [Op.ne]: userId } // Esta línea es la clave: excluir playlists propias
+            },
         });
 
         return res.status(200).json(playlists);
