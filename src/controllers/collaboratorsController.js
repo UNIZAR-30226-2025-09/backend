@@ -1,3 +1,4 @@
+
 import jwt from 'jsonwebtoken';
 import db from "#src/models/index";
 import { Op, Sequelize } from "sequelize";
@@ -63,6 +64,7 @@ export const inviteCollaborator = async (req, res) => {
         });
 
         return res.status(201).json({ message: "Invitación enviada con éxito" });
+
     } catch (error) {
         console.error("Error al invitar colaborador:", error);
         return res.status(500).json({ error: "Error interno del servidor" });
@@ -70,6 +72,7 @@ export const inviteCollaborator = async (req, res) => {
 };
 
 /**
+
  * Obtener invitaciones pendientes para una playlist específica
  */
 
@@ -305,6 +308,7 @@ export const rejectCollaboration = async (req, res) => {
 };
 
 /**
+
  * Eliminar a un colaborador de una playlist
  */
 export const removeCollaborator = async (req, res) => {
@@ -316,11 +320,13 @@ export const removeCollaborator = async (req, res) => {
         if (!decoded) return res.status(401).json({ error: "Token inválido" });
 
         const ownerId = decoded.id;
+
         const { playlistId, userId } = req.body;
 
         if (!playlistId || !userId) {
             return res.status(400).json({ error: "Se requieren playlistId y userId" });
         }
+
 
         const playlist = await db.playlist.findByPk(playlistId);
         if (!playlist) return res.status(404).json({ error: "Playlist no encontrada" });
@@ -330,7 +336,9 @@ export const removeCollaborator = async (req, res) => {
         }
 
         const deleted = await db.permission_have.destroy({
+
             where: { playlist_id: playlistId, user_id: userId },
+
         });
 
         if (!deleted) {
@@ -350,6 +358,7 @@ export const removeCollaborator = async (req, res) => {
 export const getCollaborators = async (req, res) => {
     try {
         const playlistId = Number(req.params.playlistId);
+
 
         if (!playlistId) {
             return res.status(400).json({ error: "Se requiere playlistId" });
@@ -385,11 +394,13 @@ export const getCollaborativePlaylists = async (req, res) => {
 
         const collaboratorPermissions = await db.permission_have.findAll({
             where: { user_id: userId },
+
         });
 
         if (!collaboratorPermissions || collaboratorPermissions.length === 0) {
             return res.status(200).json([]);
         }
+
 
         const playlistIds = collaboratorPermissions.map((perm) => perm.playlist_id);
 

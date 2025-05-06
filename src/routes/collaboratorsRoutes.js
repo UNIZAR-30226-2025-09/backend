@@ -6,6 +6,7 @@ const router = express.Router();
 // Ruta para invitar a un colaborador
 router.post('/invite', collaboratorsController.inviteCollaborator);
 
+
 // Ruta para aceptar una invitación
 router.post('/accept', collaboratorsController.acceptCollaboration);
 
