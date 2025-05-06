@@ -130,7 +130,8 @@ export default {
       user2_id: { type: Sequelize.INTEGER, references: { model: "users", key: "id" }, onDelete: "CASCADE" },
       txt_message: { type: Sequelize.TEXT },
       sent_at: { type: Sequelize.DATE, defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"), allowNull: false },
-      read: { type: Sequelize.BOOLEAN, defaultValue: false }
+      read: { type: Sequelize.BOOLEAN, defaultValue: false },
+      shared_content: { type: Sequelize.JSON, allowNull: true}
     });
 
     // Crear la tabla para almacenar la lista de reproduccion de cada usuario (M:N entre USER y SONG)
@@ -213,6 +214,7 @@ export default {
     await queryInterface.dropTable("song_like");
     await queryInterface.dropTable("song_playlist");
     await queryInterface.dropTable("song_artist");
+    await queryInterface.dropTable("playlist_visit");
 
     await queryInterface.dropTable("playlist");
     await queryInterface.dropTable("song");
