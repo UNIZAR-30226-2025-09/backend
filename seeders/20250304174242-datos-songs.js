@@ -344,7 +344,7 @@ export async function up(queryInterface, Sequelize) {
             'Mi diabla, mi ángel, mi loquita, eh-eh',
           photo_video: "songs_images/baileInolvidable.png",
           url_mp3: 'songs/Bad Bunny - BAILE INoLVIDABLE.mp3',
-          type: "album",
+          type: "sencillo",
           genre: 'Reggaeton'
       },
       {
@@ -414,7 +414,7 @@ export async function up(queryInterface, Sequelize) {
             'Aunque solo uno fuera',
         photo_video: "songs_images/laFlaca.png",
         url_mp3: 'songs/Jarabe De Palo - La Flaca (Videoclip Oficial).mp3',
-          type: "album",
+          type: "sencillo",
           genre: 'Pop'
       },
       {
@@ -533,9 +533,9 @@ export async function up(queryInterface, Sequelize) {
             'Que los que ya te quieren no miran eso\n' +
             'Sólo quieren ver ese guiño de ojos\n' +
             'Sin complejos',
-        photo_video: "songs_images/besos.png",
+        photo_video: "songs_images/radioLoco.jpeg",
         url_mp3: 'songs/El Canto del Loco - Besos [mzSI1oUXYxs].mp3',
-          type: "sencillo",
+          type: "album",
           genre: 'Pop'
       },
       {
@@ -612,9 +612,9 @@ export async function up(queryInterface, Sequelize) {
             'Fue un tiempo para no olvidar\n' +
             'La zona mala quiere ahora descansar\n' +
             'Que campanilla te cuide, y te guarde',
-        photo_video: "songs_images/peterPan.png",
+        photo_video: "songs_images/radioLoco.jpeg",
         url_mp3: 'songs/El Canto del Loco - Peter Pan [rCxLx_3T5GE].mp3',
-          type: "sencillo",
+          type: "album",
           genre: 'Pop'
       },
       {
@@ -665,9 +665,9 @@ export async function up(queryInterface, Sequelize) {
             'Me da pena tanta tontería\n' +
             'Quiero un poquito de normalidad\n' +
             'Pero a ver, mírame, y dime tronco, no veo ni un sitio y no puedo aparcar',
-        photo_video: "songs_images/zapatillas.png",
+        photo_video: "songs_images/radioLoco.jpeg",
         url_mp3: 'songs/El Canto del Loco - Zapatillas (Videoclip) [nHxam-MQg-o].mp3',
-          type: "sencillo",
+          type: "album",
           genre: 'Rock'
       },
       {
@@ -787,7 +787,7 @@ export async function up(queryInterface, Sequelize) {
             'Porque no son de este mundo',
         photo_video: "songs_images/estopa.png",
         url_mp3: 'songs/Estopa - Como Camaron (Videoclip) [JmP89cIGJZM].mp3',
-          type: "album",
+          type: "sencillo",
           genre: 'Pop'
       },
       {
@@ -981,7 +981,7 @@ export async function up(queryInterface, Sequelize) {
             'Corre, tu Ken te está esperando',
         photo_video: "songs_images/barbieDeExtrarradio.png",
         url_mp3: 'songs/Melendi - Barbie de extrarradio (Videoclip Oficial) [f41rIgQF-Mw].mp3',
-          type: "album",
+          type: "sencillo",
           genre: 'Pop'
       },
       {
@@ -1058,7 +1058,7 @@ export async function up(queryInterface, Sequelize) {
             'No llore\'',
         photo_video: "songs_images/caminandoPorLaVida.png",
         url_mp3: 'songs/Melendi - Caminando Por La Vida (Videoclip Oficial) [eznXJEjvHbk].mp3',
-          type: "album",
+          type: "sencillo",
           genre: 'Pop'
       },
       {
@@ -1136,7 +1136,7 @@ export async function up(queryInterface, Sequelize) {
             'De este circo que un día montamos\n' +
             '\n' +
             'Pero que no quepa duda',
-        photo_video: "songs_images/unViolinistaEnTuTejado.png",
+        photo_video: "songs_images/unalumnoMas.jpeg",
         url_mp3: 'songs/Melendi - Un Violinista En Tu Tejado [eJbIMODHIdw].mp3',
           type: "album",
           genre: 'Pop'
@@ -1185,7 +1185,7 @@ export async function up(queryInterface, Sequelize) {
             'Quiero irme con él',
         photo_video: "songs_images/enQueEstrellaEstara.png",
         url_mp3: 'songs/Nena Daconte - En Que Estrella Estara [qZ1H-e8Z-LY].mp3',
-          type: "album",
+          type: "sencillo",
           genre: 'Pop'
       },
       {
@@ -1328,7 +1328,7 @@ export async function up(queryInterface, Sequelize) {
             'Me dice que estoy descolorío',
             photo_video: "songs_images/soPayaso.png",
             url_mp3: 'songs/Extremoduro - So Payaso (Video) [1D3tSv9LQlE].mp3',
-            type: "album",
+            type: "sencillo",
             genre: 'Rock'
       },
       {
@@ -1429,7 +1429,7 @@ export async function up(queryInterface, Sequelize) {
             'Pa´ que vuelvas otra vez.',
         photo_video: "songs_images/buscandoBasura.png",
         url_mp3: 'songs/La Fuga - Buscando en la basura (video clip) [SE4SmL_SWU8].mp3',
-          type: "album",
+          type: "sencillo",
           genre: 'Rock'
       },
       {
@@ -2094,8 +2094,9 @@ export async function up(queryInterface, Sequelize) {
               'Uah\n' +
               'Uah\n' +
               'O-Ovy On The Drums',
-          photo_video: 'songs_images/manual.png',
+          photo_video: 'songs_images/rhlm.jpeg',
           url_mp3: 'songs/Anuel AA - El Manual (Audio Oficial) [70RraHwxgU4].mp3',
+          type: "album",
           genre: 'Trap'
       },
       {
@@ -2185,8 +2186,9 @@ export async function up(queryInterface, Sequelize) {
               'Mera, dime, Frabian\n' +
               'Mera, dime, Gaby Music\n' +
               'Mera, dime, Chris Jeday',
-          photo_video: 'songs_images/hipocrita.png',
+          photo_video: 'songs_images/rhlm.jpeg',
           url_mp3: 'songs/Anuel AA - Hipócrita feat. Zion (Audio) [J8gcGyYxDbo].mp3',
+          type: "album",
           genre: 'Trap'
       },
       {
@@ -2414,8 +2416,9 @@ export async function up(queryInterface, Sequelize) {
               'Darell\n' +
               'Brrr, Free Anuel\n' +
               'Real hasta la muerte hijueputa',
-          photo_video: 'songs_images/47.png',
+          photo_video: 'songs_images/rhlm.jpeg',
           url_mp3: 'songs/Anuel x Nengo Flow, Los G4 - 47 (Remix) ft. Bad Bunny, Darell,  Farruko, Sinfónico, Casper [Audio] [yIpxrDfX6ek].mp3',
+          type: "album",
           genre: 'Trap'
       },
       {
@@ -2530,6 +2533,7 @@ export async function up(queryInterface, Sequelize) {
               'A callarle la boca al que no me cree',
           photo_video: 'songs_images/meAcostumbre.png',
           url_mp3: 'songs/Arcángel, Bad Bunny - Me Acostumbré (Video Oficial) [xKKeqlBQ3Js].mp3',
+          type: "sencillo",
           genre: 'Trap'
       },
       {
@@ -2578,8 +2582,9 @@ export async function up(queryInterface, Sequelize) {
               'Muriendo de envidia (anda)\n' +
               'Muriendo de envidia (ellos no)\n' +
               'Muriendo de envidia',
-          photo_video: 'songs_images/muriendoEnvidia.png',
+          photo_video: 'songs_images/elMadrileno.jpeg',
           url_mp3: 'songs/C. Tangana, Eliades Ochoa - Muriendo De Envidia [HfkjnAv_uRE].mp3',
+          type: "album",
           genre: 'Flamenco'
       },
       {
@@ -2635,8 +2640,9 @@ export async function up(queryInterface, Sequelize) {
               '(Venga ya, ¡venga ya, Tangana!)\n' +
               '(¡Toma que toma!)\n' +
               '(Dale, dale los que saben, dale)',
-          photo_video: 'songs_images/dejasteQuerer.png',
+          photo_video: 'songs_images/elMadrileno.jpeg',
           url_mp3: 'songs/C. Tangana, Niño de Elche, La Hungara - Tú Me Dejaste De Querer [ltmO9XQVdSg].mp3',
+          type: "album",
           genre: 'Flamenco'
       },
       {
@@ -2699,6 +2705,7 @@ export async function up(queryInterface, Sequelize) {
               'NaNa!',
           photo_video: 'songs_images/comoAgua.png',
           url_mp3: 'songs/Como el agua - Camarón [bKoWfso2_EY].mp3',
+          type: "sencillo",
           genre: 'Flamenco'
       },
       {
@@ -2772,6 +2779,7 @@ export async function up(queryInterface, Sequelize) {
               'Fernando Costa 2017 se ha colao\' en tu casa',
           photo_video: 'songs_images/malamanera.png',
           url_mp3: 'songs/FERNANDOCOSTA - MALAMANERA (PROD. GABRIEL ESCOBAR) ｜ VIDEOCLIP [JVUrmC8_6sA].mp3',
+          type: "sencillo",
           genre: 'Rap'
       },
       {
@@ -2838,6 +2846,7 @@ export async function up(queryInterface, Sequelize) {
               'One for the show y two for the money',
           photo_video: 'songs_images/narcolepsia.png',
           url_mp3: 'songs/FERNANDOCOSTA - NARCOLEPSIA (PROD. CHICHOBEATS) [OSAMpZ5A4xQ].mp3',
+          type: "sencillo",
           genre: 'Rap'
       },
       {
@@ -2919,6 +2928,7 @@ export async function up(queryInterface, Sequelize) {
               'Así que cállate la boca que te he pilla\'o',
           photo_video: 'songs_images/oye.png',
           url_mp3: 'songs/FERNANDOCOSTA FT DOLLAR SELMOUNI - OYE (Videoclip Oficial) [P0z55sXBW7w].mp3',
+          type: "sencillo",
           genre: 'Rap'
       },
       {
@@ -3047,8 +3057,9 @@ export async function up(queryInterface, Sequelize) {
               'McKlopedia, con el señor Javat, Kase.O\n' +
               'Es sublime la escena del crimen, gimen del dolor\n' +
               'Máximo respeto a este conglomerado, por favor',
-          photo_video: 'songs_images/pavosReales.png',
+          photo_video: 'songs_images/elCirculo.jpeg',
           url_mp3: 'songs/KASE.O - 08. PAVOS REALES con HERMANO L, SHABU ONE SHANT y MCKLOPEDIA Prod. CRUDO MEANS RAW & KASE.O [AdBfUTsMhMI].mp3',
+          type: "album",
           genre: 'Rap'
       },
       {
@@ -3147,8 +3158,9 @@ export async function up(queryInterface, Sequelize) {
               'No lo sé, pero, creo que por un accidente se me ha roto el hilo\n' +
               'Y ya no puedo volver, me quedo aquí para siempre\n' +
               'Cuando acaba un siempre',
-          photo_video: 'songs_images/repartiendoArte.png',
+          photo_video: 'songs_images/elCirculo.jpeg',
           url_mp3: 'songs/KASE.O - REPARTIENDO ARTE (Videoclip Oficial) [1vbZMpRTT5M].mp3',
+          type: "album",
           genre: 'Rap'
       },
       {
@@ -3211,6 +3223,7 @@ export async function up(queryInterface, Sequelize) {
               'En el corazón del sueño',
           photo_video: 'songs_images/leyendaTiempo.png',
           url_mp3: 'songs/LA LEYENDA DEL TIEMPO - CAMARON DE LA ISLA [MrUWtOtfwDw].mp3',
+          type: "sencillo",
           genre: 'Flamenco'
       },
       {
@@ -3308,6 +3321,7 @@ export async function up(queryInterface, Sequelize) {
               'En el Love and Sex (Love and Sex)',
           photo_video: 'songs_images/vecinita.png',
           url_mp3: 'songs/Plan B - Mi Vecinita [SB8-YY2DyHI].mp3',
+          type: "sencillo",
           genre: 'Reggaeton'
       },
       {
@@ -5789,6 +5803,258 @@ export async function up(queryInterface, Sequelize) {
         url_mp3: 'songs/Jhayco, Feid, Sech - En La De Ella (Official Video) [Thkj3Ia0-4Y].mp3',
         type: "sencillo",
         genre: 'Reggaeton'
+      },
+      {
+        name: 'Un Millon de Cicatrices',
+        duration: 245,
+        lyrics: "",
+        photo_video: "songs_images/radioLoco.jpeg",
+        url_mp3: 'songs/El Canto del Loco - Un Millon de Cicatrices (Video Colifata) [wLXZ3bz4Kng].mp3',
+        type: "album",
+        genre: 'Pop'
+      },
+      {
+        name: 'Una Foto En Blanco Y Negro',
+        duration: 211,
+        lyrics: "",
+        photo_video: "songs_images/radioLoco.jpeg",
+        url_mp3: 'songs/El Canto del Loco - Una Foto En Blanco Y Negro (Video Colifata) [wpaQbXAi_Ws].mp3',
+        type: "album",
+        genre: 'Rock'
+      },
+      {
+        name: 'Contigo',
+        duration: 218,
+        lyrics: "",
+        photo_video: "songs_images/radioLoco.jpeg",
+        url_mp3: 'songs/El Canto del Loco - Contigo (Video Colifata) ft. Natalia Lafourcade [YtfkLlphD6U].mp3',
+        type: "album",
+        genre: 'Pop'
+      },
+      {
+        name: 'La promesa',
+        duration: 233,
+        lyrics: "",
+        photo_video: "songs_images/unalumnoMas.jpeg",
+        url_mp3: 'songs/Melendi - La promesa (Audio oficial) [bGBKvlGVqUU].mp3',
+        type: "album",
+        genre: 'Pop'
+      },
+      {
+        name: 'Tocado y hundido',
+        duration: 243,
+        lyrics: "",
+        photo_video: "songs_images/unalumnoMas.jpeg",
+        url_mp3: 'songs/Melendi - Tocado y hundido (Lyric video) [fCFG8dttBm0].mp3',
+        type: "album",
+        genre: 'Pop'
+      },
+      {
+        name: 'Posdata',
+        duration: 276,
+        lyrics: "",
+        photo_video: "songs_images/unalumnoMas.jpeg",
+        url_mp3: 'songs/Melendi-  Posdata (Audio oficial) [-pitqeSUPX4].mp3',
+        type: "album",
+        genre: 'Pop'
+      },
+      {
+        name: 'Por la boca vive el pez',
+        duration: 269,
+        lyrics: "",
+        photo_video: "songs_images/meEquivocariaOtraVez.png",
+        url_mp3: 'songs/Fito & Fitipaldis - Por la boca vive el pez (Videoclip oficial) [iUXs4Nt3Y7Y].mp3',
+        type: "album",
+        genre: 'Rock'
+      },
+      {
+        name: 'Acabo de llegar',
+        duration: 375,
+        lyrics: "",
+        photo_video: "songs_images/meEquivocariaOtraVez.png",
+        url_mp3: 'songs/Fito & Fitipaldis - Acabo de llegar (videoclip oficial) [WVvxcwp3v8Y].mp3',
+        type: "album",
+        genre: 'Pop'
+      },
+      {
+        name: 'Ella Quiere Beber',
+        duration: 187,
+        lyrics: "",
+        photo_video: 'songs_images/rhlm.jpeg',
+        url_mp3: 'songs/Anuel AA - Ella Quiere Beber (Audio) [FF3kpPMGA2Y].mp3',
+        type: "album",
+        genre: 'Trap'
+      },
+      {
+        name: 'Bandolera',
+        duration: 190,
+        lyrics: "",
+        photo_video: 'songs_images/rhlm.jpeg',
+        url_mp3: 'songs/Anuel AA - Bandolera [HjjtM3EV0Jk].mp3',
+        type: "album",
+        genre: 'Trap'
+      },
+      {
+        name: 'Brindemos',
+        duration: 216,
+        lyrics: "",
+        photo_video: 'songs_images/rhlm.jpeg',
+        url_mp3: 'songs/Anuel AA - Brindemos feat. Ozuna (Audio) [NHTbrrf6W8c].mp3',
+        type: "album",
+        genre: 'Trap'
+      },
+      {
+        name: 'Amanece',
+        duration: 190,
+        lyrics: "",
+        photo_video: 'songs_images/amanece.jpg',
+        url_mp3: 'songs/Anuel AA & Haze - Amanece [Official Video] [xp6706wVdCI].mp3',
+        type: "sencillo",
+        genre: 'Reggaeton'
+      },
+      {
+        name: 'Demasiadas Mujeres',
+        duration: 153,
+        lyrics: "",
+        photo_video: 'songs_images/elMadrileno.jpeg',
+        url_mp3: 'songs/Demasiadas Mujeres [EO1Q7SAThNQ].mp3',
+        type: "album",
+        genre: 'Flamenco'
+      },
+      {
+        name: 'Ingobernable',
+        duration: 187,
+        lyrics: "",
+        photo_video: 'songs_images/elMadrileno.jpeg',
+        url_mp3: 'songs/Ingobernable [x7GlFqnL5xo].mp3',
+        type: "album",
+        genre: 'Flamenco'
+      },
+      {
+        name: 'Un Veneno-G-Mix',
+        duration: 193,
+        lyrics: "",
+        photo_video: 'songs_images/elMadrileno.jpeg',
+        url_mp3: 'songs/Un Veneno (G-Mix) [ol07nv1p6Kk].mp3',
+        type: "album",
+        genre: 'Flamenco'
+      },
+      {
+        name: 'Ateo',
+        duration: 240,
+        lyrics: "",
+        photo_video: 'songs_images/ateo.jpg',
+        url_mp3: 'songs/C. Tangana, Nathy Peluso – Ateo [al7RWCSZrMc].mp3',
+        type: "sencillo",
+        genre: 'Flamenco'
+      },
+      {
+        name: 'Pura Droga Sin Cortar',
+        duration: 374,
+        lyrics: "",
+        photo_video: 'songs_images/vivirPC.jpeg',
+        url_mp3: 'songs/03. Pura Droga Sin Cortar [Violadores del Verso - Vivir Para Contarlo] [A3Eo1WSsOPU].mp3',
+        type: "album",
+        genre: 'Rap'
+      },
+      {
+        name: 'Cantando',
+        duration: 332,
+        lyrics: "",
+        photo_video: 'songs_images/vivirPC.jpeg',
+        url_mp3: 'songs/09. Cantando [Violadores del Verso - Vivir Para Contarlo] [4yWSY3o0Z4w].mp3',
+        type: "album",
+        genre: 'Rap'
+      },
+      {
+        name: 'Vivir Para Contarlo',
+        duration: 359,
+        lyrics: "",
+        photo_video: 'songs_images/vivirPC.jpeg',
+        url_mp3: 'songs/11. Vivir Para Contarlo [Violadores del Verso - Vivir Para Contarlo] [OntnFTrdmss].mp3',
+        type: "album",
+        genre: 'Rap'
+      },
+      {
+        name: 'YEMEN',
+        duration: 263,
+        lyrics: "",
+        photo_video: 'songs_images/elCirculo.jpeg',
+        url_mp3: 'songs/KASE.O - 03. YEMEN Prod  por EL ARKEOLOGO [aEzkqscl7q4].mp3',
+        type: "album",
+        genre: 'Rap'
+      },
+      {
+        name: 'GUAPO TARDE',
+        duration: 297,
+        lyrics: "",
+        photo_video: 'songs_images/elCirculo.jpeg',
+        url_mp3: 'songs/KASE.O - 05. GUAPO TARDE Prod  DIEGO LINO alias TEÓRICO [RPtZZYyHNUU].mp3',
+        type: "album",
+        genre: 'Rap'
+      },
+      {
+        name: 'GRAN VÍA',
+        duration: 213,
+        lyrics: "",
+        photo_video: 'songs_images/mrMoondial.png',
+        url_mp3: 'songs/GRAN VÍA - Quevedo ft. Aitana (Official Video) [WsmJ2P3fCkw].mp3',
+        type: "sencillo",
+        genre: 'Reggaeton'
+      },
+      {
+        name: 'Here Comes The Sun',
+        duration: 191,
+        lyrics: "",
+        photo_video: 'songs_images/herecome.jpg',
+        url_mp3: 'songs/The Beatles - Here Comes The Sun (2019 Mix) [KQetemT1sWc].mp3',
+        type: "sencillo",
+        genre: 'Pop'
+      },
+      {
+        name: 'Hymn For The Weekend',
+        duration: 260,
+        lyrics: "",
+        photo_video: 'songs_images/hymnWeek.jpeg',
+        url_mp3: 'songs/Coldplay - Hymn For The Weekend (Official Video) [YykjpeuMNEk].mp3',
+        type: "sencillo",
+        genre: 'Pop'
+      },
+      {
+        name: 'Despacito',
+        duration: 281,
+        lyrics: "",
+        photo_video: 'songs_images/despacito.jpeg',
+        url_mp3: 'songs/Luis Fonsi - Despacito ft. Daddy Yankee [kJQP7kiw5Fk].mp3',
+        type: "sencillo",
+        genre: 'Pop'
+      },
+      {
+        name: 'Without Me',
+        duration: 297,
+        lyrics: "",
+        photo_video: 'songs_images/without.jpeg',
+        url_mp3: 'songs/Eminem - Without Me (Official Music Video) [YVkUvmDQ3HY].mp3',
+        type: "sencillo",
+        genre: 'Rap'
+      },
+      {
+        name: 'Bohemian Rhapsody',
+        duration: 359,
+        lyrics: "",
+        photo_video: 'songs_images/bohemian.jpeg',
+        url_mp3: 'songs/Queen – Bohemian Rhapsody (Official Video Remastered) [fJ9rUzIMcZQ].mp3',
+        type: "sencillo",
+        genre: 'Rock'
+      },
+      {
+        name: 'Waka Waka (This Time for Africa)',
+        duration: 210,
+        lyrics: "",
+        photo_video: 'songs_images/mundial.jpg',
+        url_mp3: 'songs/Shakira - Waka Waka (This Time for Africa) (The Official 2010 FIFA World Cup™ Song) [pRpeEdMmmQ0].mp3',
+        type: "sencillo",
+        genre: 'Pop'
       }
     ], {});
 }

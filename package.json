@@ -34,6 +34,7 @@
     "jasmine": "^5.6.0",
     "jsonwebtoken": "^9.0.2",
     "multer": "^1.4.5-lts.2",
+    "node-cron": "^3.0.2",
     "nodemailer": "^6.10.0",
     "pg": "^8.10.0",
     "pg-hstore": "^2.3.4",
@@ -43,8 +44,7 @@
     "stripe": "^17.7.0",
     "supertest": "^7.1.0",
     "swagger-jsdoc": "^6.2.8",
-    "widdershins": "^4.0.1",
-    "node-cron": "^3.0.2"
+    "widdershins": "^4.0.1"
   },
   "author": "Grupo Sally-Floyd",
   "license": "MIT",
@@ -61,6 +61,7 @@
     "node": "22.14.0"
   },
   "devDependencies": {
-    "@types/jsonwebtoken": "^9.0.9"
+    "@types/jsonwebtoken": "^9.0.9",
+    "nyc": "^17.1.0"
   }
 }

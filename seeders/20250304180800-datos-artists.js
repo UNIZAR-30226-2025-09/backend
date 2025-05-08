@@ -190,6 +190,11 @@ export async function up(queryInterface, Sequelize) {
       name: "Feid",
       bio: "Cantante colombiano de reguetón y pop urbano, conocido por su estilo romántico y colaboraciones con artistas internacionales.",
       photo: "artists_images/feid.jpg"
+    },
+    {
+      name: "Violadores del Verso",
+      bio: "Violadores del Verso es un grupo de hip hop español originario de Zaragoza, España, formado por Kase.O, Lírico, SHO-HAI y R de Rumba.",
+      photo: "artists_images/violadores.jpg"
     }
 
 
