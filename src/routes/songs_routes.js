@@ -1,6 +1,6 @@
 import express from "express";
 
-import {getAllAdds, getAllSongs, getSongById} from "#src/controllers/songs_controller";
+import {getAllAdds, getAllSongs, getSongById,getSongArtists} from "#controllers/songs_controller";
 
 const router = express.Router();
 
@@ -107,5 +107,48 @@ router.get("/adds", getAllAdds); // Sin testear ni documentar
  *         description: Error interno del servidor
  */
 router.get("/:id", getSongById);
+
+
+/**
+ * @swagger
+ * /api/songs/{songId}/artists:
+ *   get:
+ *     tags:
+ *       - Songs
+ *     description: Get all artists for a specific song
+ *     parameters:
+ *       - in: path
+ *         name: songId
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: ID of the song
+ *     responses:
+ *       200:
+ *         description: List of artists for the song
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 artists:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       id:
+ *                         type: integer
+ *                       name:
+ *                         type: string
+ *                       photo:
+ *                         type: string
+ *                       bio:
+ *                         type: string
+ *       404:
+ *         description: Song not found or no artists found
+ *       500:
+ *         description: Server error
+ */
+router.get('/:songId/artists', getSongArtists);
 
 export default router;
