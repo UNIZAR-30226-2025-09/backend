@@ -116,46 +116,70 @@ export async function up(queryInterface, Sequelize) {
       front_page: "playlist_images/mornoletemas.jpeg"
     },
      {
-       name: "Album El Canto del Loco",
+       name: "Radio la Colifata Presenta",
        user_id: null,
        artist_id: 18,
-       description: "",
+       description: "Simplemente el Canto del Loco",
        type: "public",
        typeP: "album",
-       front_page: "playlist_images/mornoletemas.jpeg"
+       front_page: "playlist_images/radioLoco.jpeg"
      },
      {
-       name: "Album Melendi",
+       name: "Un alumno más",
        user_id: null,
        artist_id: 23,
        description: "",
        type: "public",
        typeP: "album",
-       front_page: "playlist_images/mornoletemas.jpeg"
+       front_page: "playlist_images/unalumnoMas.jpeg"
      },{
-       name: "Album Fito",
+       name: "Lo mas lejos a tu lado",
        user_id: null,
        artist_id: 11,
        description: "",
        type: "public",
        typeP: "album",
-       front_page: "playlist_images/mornoletemas.jpeg"
+       front_page: "playlist_images/laCasaPorElTejado.png"
      },{
-       name: "Album Anuel",
+       name: "Real Hasta La Muerte",
        user_id: null,
        artist_id: 12,
        description: "",
        type: "public",
        typeP: "album",
-       front_page: "playlist_images/mornoletemas.jpeg"
+       front_page: "playlist_images/rhlm.jpeg"
      },{
-       name: "Album CTangana",
+       name: "El Madrileño",
        user_id: null,
        artist_id: 13,
        description: "",
        type: "public",
        typeP: "album",
-       front_page: "playlist_images/mornoletemas.jpeg"
+       front_page: "playlist_images/elMadrileno.jpeg"
+     },{
+        name: "Por la boca vive el pez",
+        user_id: null,
+        artist_id: 11,
+        description: "",
+        type: "public",
+        typeP: "album",
+        front_page: "playlist_images/meEquivocariaOtraVez.png"
+     },{
+        name: "Vivir para contarlo",
+        user_id: null,
+        artist_id: 38,
+        description: "",
+        type: "public",
+        typeP: "album",
+        front_page: "playlist_images/vivirPC.jpeg"
+     },{
+        name: "El Círculo",
+        user_id: null,
+        artist_id: 16,
+        description: "",
+        type: "public",
+        typeP: "album",
+        front_page: "playlist_images/elCirculo.jpeg"
      }
   ], {});
 }
