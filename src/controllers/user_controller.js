@@ -582,12 +582,21 @@ async function updateUserFavoriteStyle(userId) {
 
 /**
  * Obtiene las playlists recomendadas donde el estilo favorito del usuario es el género predominante
+ * Incluye tanto playlists normales como álbumes
  */
 async function getRecommendedPlaylists(favoriteStyle, currentUserId) {
     // Obtener las playlists de tipo 'Vibra'
     const vibraPlaylists = await db.playlist.findAll({
         where: {
             typeP: 'Vibra'
+        },
+        attributes: ['id', 'name', 'front_page']
+    });
+    
+    // Obtener álbumes (playlists con typeP = 'album')
+    const albums = await db.playlist.findAll({
+        where: {
+            typeP: 'album'
         },
         attributes: ['id', 'name', 'front_page']
     });
@@ -604,8 +613,8 @@ async function getRecommendedPlaylists(favoriteStyle, currentUserId) {
         attributes: ['id', 'name', 'front_page']
     });
 
-    // Combinar ambos conjuntos de playlists
-    const playlists = [...vibraPlaylists, ...userPublicPlaylists];
+    // Combinar todos los conjuntos: playlists Vibra, álbumes y playlists de usuarios
+    const playlists = [...vibraPlaylists, ...albums, ...userPublicPlaylists];
 
     // Filtrar playlists donde el género predominante coincide con el estilo favorito
     const recommendedPlaylists = [];
