@@ -1,5 +1,4 @@
 import db from "#src/models/index";
-
 /**
  * Obtiene todas las canciones disponibles en la base de datos.
  */
@@ -54,5 +53,28 @@ export const getSongById = async (req, res) => {
     } catch (error) {
         console.error("Error al obtener la canción:", error);
         res.status(500).json({ message: "Error al obtener la canción", error: error.message });
+    }
+};
+
+export const getSongArtists = async (req, res) => {
+    try {
+        const songId = parseInt(req.params.songId);
+
+        // Find all artists for this song using the junction table
+        const artists = await db.artist.findAll({
+            include: [
+                {
+                    model: db.song,
+                    as: 'songs',
+                    where: { id: songId },
+                    through: { attributes: [] } // Exclude the junction table attributes
+                }
+            ]
+        });
+
+        return res.status(200).json({ artists });
+    } catch (error) {
+        console.error('Error fetching artists for song:', error);
+        return res.status(500).json({ error: 'Internal server error' });
     }
 };

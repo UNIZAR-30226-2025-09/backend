@@ -1,7 +1,7 @@
 import express from "express";
 import playlistRoutes from "#routes/playlists_routes"; // Importa las rutas de playlists
 import playerRoutes from "#routes/player_routes"; // Importa las rutas del reproductor
-import songsRoute from "#routes/songs_routes"; // Importa las rutas de canciones
+import songsRoutes from "#routes/songs_routes"; // Importa las rutas de canciones
 import userRoute from "#routes/user_routes"; // Importa las rutas de gestión de usuarios
 import stripeRoute from "#routes/stripe_routes"; // Importa las rutas de stripe (Api de pagos)
 import artistRoute from "#routes/artist_routes"; // Importa las rutas de artistas
@@ -29,7 +29,7 @@ router.use("/player", playerRoutes);
  * Rutas relacionadas con las canciones
  * Se montan bajo el prefijo `/api/songs`
  */
-router.use("/songs", songsRoute);
+router.use("/songs", songsRoutes);
 
 /**
  * Rutas relacionadas con los usuarios
