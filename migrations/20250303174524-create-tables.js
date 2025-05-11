@@ -18,7 +18,8 @@ export default {
       created_at: { type: Sequelize.DATE, defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"), allowNull: false },
       reset_token: { type: Sequelize.STRING, allowNull: true },
       reset_token_expires: { type: Sequelize.DATE, allowNull: true },
-      daily_skips: { type: Sequelize.INTEGER, defaultValue: 5, allowNull: false}
+      daily_skips: { type: Sequelize.INTEGER, defaultValue: 5, allowNull: false},
+      is_connected: { type: Sequelize.BOOLEAN, defaultValue: false }
     });
 
     // Tabla ARTIST
