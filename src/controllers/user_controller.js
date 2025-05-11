@@ -85,7 +85,17 @@ export const loginUser = async (req, res) => {
         return res.status(401).json({ error: "Contraseña incorrecta" });
     }
 
+    // Verificar si el usuario ya está conectado
+    if (foundUser.is_connected) {
+        return res.status(403).json({
+            error: "Esta cuenta ya está siendo utilizada en otro dispositivo"
+        });
+    }
+
     try {
+        // Marcar al usuario como conectado
+        await foundUser.update({ is_connected: true });
+
         // Generar el token
         const token = jwt.sign(
             { id: foundUser.id, mail: foundUser.mail },
@@ -127,8 +137,29 @@ export const loginUser = async (req, res) => {
  * - Simplemente devuelve una respuesta de éxito.
  * - El frontend debe eliminar el token localmente para "cerrar sesión".
  */
-export const logoutUser = (req, res) => {
-    return res.status(200).json({ message: "Sesión cerrada correctamente" });
+export const logoutUser = async (req, res) => {
+    try {
+        // Obtener el ID del usuario del token
+        const token = req.headers.authorization?.split(" ")[1];
+        if (!token) {
+            return res.status(200).json({ message: "Sesión cerrada correctamente" });
+        }
+
+        const decoded = jwt.verify(token, SECRET_KEY);
+        if (decoded && decoded.id) {
+            // Actualizar el estado de conexión
+            await db.user.update(
+                { is_connected: false },
+                { where: { id: decoded.id } }
+            );
+        }
+
+        return res.status(200).json({ message: "Sesión cerrada correctamente" });
+    } catch (error) {
+        console.error("Error al cerrar sesión:", error);
+        // Aún así devolvemos éxito para el cliente
+        return res.status(200).json({ message: "Sesión cerrada correctamente" });
+    }
 };
 
 /**
