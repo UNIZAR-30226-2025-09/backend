@@ -13,7 +13,7 @@ export async function up(queryInterface, Sequelize) {
     {
       name: "Queen",
       bio: "Banda de rock británica liderada por Freddie Mercury, famosa por canciones como 'Bohemian Rhapsody' y 'We Will Rock You'.",
-      photo: "artists_images/queen.png"
+      photo: "artists_images/queen.jpeg"
     },
     {
       name: "Coldplay",
@@ -119,17 +119,17 @@ export async function up(queryInterface, Sequelize) {
     {
       name: "Melendi",
       bio: "Cantautor asturiano con evolución del pop rock al pop melódico, famoso por temas como 'Caminando por la vida'.",
-      photo: "artists_images/melendi.png"
+      photo: "artists_images/melendi.jpeg"
     },
     {
       name: "Dani Martín",
       bio: "Exvocalista de El Canto del Loco, solista de pop rock con letras íntimas y personales como 'Cero'.",
-      photo: "artists_images/danimartin.jpg"
+      photo: "artists_images/danimartin.jpeg"
     },
     {
       name: "Nena Daconte",
       bio: "Proyecto musical español de pop con letras melancólicas y melodías pegadizas como 'Tenía tanto que darte'.",
-      photo: "artists_images/nenaDaconte.png"
+      photo: "artists_images/nena.jpg"
     },
     {
       name: "La Fuga",
@@ -139,7 +139,7 @@ export async function up(queryInterface, Sequelize) {
     {
       name: "Leiva",
       bio: "Cantautor madrileño y exmiembro de Pereza, reconocido por su estilo rock-pop elegante y lírico.",
-      photo: "artists_images/leiva.png"
+      photo: "artists_images/leiva.jpg"
     },
     {
       name: "Quevedo",
