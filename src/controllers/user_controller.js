@@ -764,7 +764,7 @@ export const forgotPassword = async (req, res) => {
         await user.save();
         
         // URL para restablecer la contraseña (frontend)
-        const resetUrl = `http://localhost:5173/reset-password?token=${resetToken}`;
+        const resetUrl = `http://164.90.160.181//reset-password?token=${resetToken}`;
 
         // Configurar transportador de nodemailer
         const transporter = nodemailer.createTransport({
