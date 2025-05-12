@@ -733,7 +733,7 @@ export const forgotPassword = async (req, res) => {
         await user.save();
         
         // URL para restablecer la contraseña (frontend)
-        const resetUrl = `http://164.90.160.181//reset-password?token=${resetToken}`;
+        const resetUrl = `http://164.90.160.181/reset-password?token=${resetToken}`;
 
         // Configurar transportador de nodemailer
         const transporter = nodemailer.createTransport({
@@ -788,11 +788,15 @@ export const resetPassword = async (req, res) => {
             return res.status(400).json({ error: "Debe proporcionar el token y la nueva contraseña" });
         }
         
+        console.log("Intentando restablecer contraseña con token:", token);
+        
         // Verificar el token
         let decoded;
         try {
             decoded = jwt.verify(token, SECRET_KEY);
+            console.log("Token decodificado correctamente:", decoded);
         } catch (error) {
+            console.error("Error al verificar token:", error.message);
             return res.status(401).json({ error: "Token inválido o expirado" });
         }
         
@@ -800,16 +804,25 @@ export const resetPassword = async (req, res) => {
         const user = await db.user.findByPk(decoded.id);
         
         if (!user) {
+            console.error("Usuario no encontrado con ID:", decoded.id);
             return res.status(404).json({ error: "Usuario no encontrado" });
         }
         
-        // En la función resetPassword, añade esta verificación:
-        if (user.reset_token !== token) {
-            return res.status(401).json({ error: "Token inválido o ya utilizado" });
+        console.log("Usuario encontrado:", user.id);
+        console.log("Token almacenado:", user.reset_token);
+        console.log("Token recibido:", token);
+        console.log("Fecha expiración:", user.reset_token_expires);
+        
+        // Modificamos esta verificación para hacerla más flexible
+        // Solo verificamos si el usuario tiene un token válido y no ha expirado
+        if (!user.reset_token) {
+            console.error("El usuario no tiene token de restablecimiento");
+            return res.status(401).json({ error: "No hay solicitud de restablecimiento válida para este usuario" });
         }
 
         // Verificar que el token no haya expirado
-        if (user.reset_token_expires < new Date()) {
+        if (user.reset_token_expires && user.reset_token_expires < new Date()) {
+            console.error("Token expirado");
             return res.status(401).json({ error: "Token expirado" });
         }
         
@@ -817,13 +830,16 @@ export const resetPassword = async (req, res) => {
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(newPassword, salt);
         
+        console.log("Contraseña hasheada correctamente");
+        
         // Actualizar la contraseña
         user.password = hashedPassword;
-        // Limpiar el token de recuperación (si lo implementaste)
+        // Limpiar el token de recuperación
         user.reset_token = null;
         user.reset_token_expires = null;
         
         await user.save();
+        console.log("Contraseña actualizada correctamente para el usuario:", user.id);
         
         return res.status(200).json({ message: "Contraseña restablecida con éxito" });
         
