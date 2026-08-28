@@ -1,9 +1,7 @@
 # Vibra Backend
 
 Backend for Vibra, a music streaming platform built around a REST API architecture.
-
 The project goes beyond basic operations and covers authentication, media management, social features, collaborative playlists, payments, persistent playback state and automated deployment.
-
 It was designed with a strong focus on backend architecture, automated testing and deployment workflows.
 
 ## Key Features
@@ -38,7 +36,6 @@ The API is responsible not only for storing music metadata, but also for maintai
 ## Collaborative Playlists
 
 Playlists include a collaboration system that allows multiple users to participate in their management.
-
 The backend handles collaborator relationships and permissions, extending playlists beyond simple collections of songs into shared resources with controlled access.
 
 ## Social Features
@@ -55,27 +52,24 @@ Implemented functionality includes:
 ## Payments and Premium Features
 
 The backend integrates Stripe to support paid features and premium accounts.
-
 Payment functionality is integrated with the application's user system, connecting external payment processing with internal account state.
 
 ## Database Design
 
 The application uses PostgreSQL with Sequelize and includes a relational data model covering users, artists, songs, playlists, friendships, chats, likes, ratings, visits, collaborators and playback state.
-
 Database evolution is managed through migrations and seeders, providing a reproducible way of creating and evolving the application's data model.
 
 ## Automated Testing
 
 The project includes an automated backend test suite covering the main application funcionalities.
-
 API behaviour is tested using Jasmine and Supertest, allowing HTTP endpoints and backend workflows to be validated automatically.
 
 ## CI/CD with GitHub Actions
 
 The repository includes a GitHub Actions based deployment pipeline.
-
 Changes merged into the main branch automatically trigger the deployment workflow.
 
+```
 Push to main
       |
       v
@@ -89,13 +83,13 @@ Docker rebuild
       |
       v
 Automated backend test workflow
+```
 
 Deployment credentials are managed through GitHub Secrets, avoiding the need to expose server access credentials directly inside the workflow.
 
 ## Containerized Deployment
 
 The application is containerized using Docker and is designed to run as part of a multi-service environment.
-
 The deployment architecture combines:
 
                     Nginx
